@@ -1,29 +1,29 @@
-# Components Overview
+# Seafile服务器组件
 
-Seafile server and client consists of several components. Understanding how they work together will save you a lot time in deploying and maintaining Seafile.
+Seafile服务器由以下组件构成
 
-## Server
+* Ccnet daemon(客户端为ccnet / 服务器端为ccnet-server)：网络服务守护进程。在我们最初的设计中，Ccnet就像一辆网络流量“公共汽车”，所有客户端和服务器之间的网络流量，以及内部组件之间的数据传输，都经由Ccnet来处理和转发。但是后来我们发现，文件传输直接由Seafile daemon组件来处理会更好。
 
-- **Seahub** (django)：the website. Seafile server package contains a light-weight Python HTTP server gunicorn that serves the website. Seahub runs as an application within gunicorn.
-- **HttpServer** (``httpserver``): handles raw file upload/download functions for Seahub. Due to Gunicorn being poor at handling large files, so we wrote this "HttpServer" in the C programming language to serve raw file upload/download.
-- **Seafile server** (``seaf-server``)：data service daemon
-- **Ccnet server** (``ccnet-server``)：networking service daemon. In our initial design, Ccnet worked like a traffic bus. All the network traffic between client, server and internal traffic between different components would go through Ccnet. After further development we found that file transfer is improved by utilizing the Seafile daemon component directly.
+* Seafile daemon：数据服务守护进程。
 
-The picture below shows how Seafile desktop client syncs files with Seafile server:
+* Seahub：网站界面，供用户管理自己在服务器上的数据和账户信息。Seafile服务器通过"gunicorn"（一个轻量级的Python HTTP服务器）来提供网站支持。Seahub作为gunicorn的一个应用程序来运行。
+
+* HttpServer: 处理Seahub端文件的上传与下载。由于gunicorn对大型文件的处理并不好，所以我们用C语言写了这个HttpServer组件，来专门处理文件的上传与下载。
+
+* Controller: ccnet和seafile守护进程监视器，必要时会重启守护进程。
+
+**桌面客户端与Seafile服务器之间的文件同步过程**:
 
 ![Seafile Sync](../images/seafile-sync-arch.png)
 
-The picture below shows how Seafile mobile client interacts with Seafile server:
+<br/>
+
+**移动客户端与Seafile服务器之间的交互过程**:
 
 ![How mobile clients connect Seafile](../images/mobile-arch.png)
 
-The picture below shows how Seafile mobile client interacts with Seafile server if the server is configured behind Nginx/Apache:
+<br/>
+
+**移动客户端与Seafile服务器（基于Nginx/Apache）之间的交互过程**:
 
 ![How seafile configured behind Nginx/Apache](../images/mobile-nginx-arch.png)
-
-## Client
-
-- **Applet** (`seafile-applet`): The GUI front-end
-- **Seafile daemon** (``seafile``): data service daemon for client
-- **Ccnet daemon** (``ccnet``): networking service daemon for client
-

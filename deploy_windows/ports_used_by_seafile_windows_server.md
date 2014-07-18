@@ -1,72 +1,75 @@
-# Ports used by Seafile Windows Server
+# 所用端口说明
 
-Seafile server has several components, so several TCP ports are used.
-## The two configuration files
+Seafile 服务器由多个组件组成，默认情况下用到 8000, 8082, 10001, 12001 四个端口号。
 
-All ports related configuration are recorded in ``ccnet.conf`` and ``seafile.conf``.
-### How to open ``ccnet.conf``
+## 配置文件
 
-- Right click the seafile server trayicon, choose __Open seafile-server folder__
-- Open the folder ``ccnet`` under ``seafile-server`` folder. The file ``ccnet.conf`` is there.
+所有端口的相关配置都记录在`ccnet.conf`文件和`seafile.conf`文件中
 
-### How to open ``seafile.conf``
+#### 如何打开 ccnet.conf 文件
 
-- Right click the seafile server trayicon, choose __Open seafile-server folder__
-- Open the folder ``seafile-data`` under ``seafile-server`` folder. The file ``seafile.conf`` is there.
+- 右击 Seafile 服务器托盘图标，选择"打开 seafile-server 文件夹"选项
+- 打开`seafile-server`目录下的`ccnet`文件夹。`ccnet.conf`文件就在此文件夹下。
 
-In the following section we list the TCP ports used by each of seafile components, as well as how to change them (For example, some port may have already been used by some other application).
+#### 如何打开 seafile.conf 文件
 
-**Note**: If you change any of the ports, you have to restart seafile server.
+- 右击 Seafile 服务器托盘图标，选择"打开 seafile-server 文件夹"选项
+- 打开`seafile-server`目录下的`seafile-data`文件夹。`seafile.conf`文件就在此文件夹下。
+
+
+在接下来的部分，我们分别列举了 Seafile 服务器各个组件用到的TCP端口以及如何改变它们（比如，一些端口很有可能已经被其他应用程序占用）。 
+
+**注意**：如果您改变了以下任何端口，请重启 Seafile 服务器。  
+
 ## ccnet
 
-ccnet is the networking service for seafile server
+`ccnet` 为 Seafile 服务器提供网络连接服务。
 
-- default: 10001
-- How to change: Edit the file ccnet.conf. Change the value of PORT under the Network section.
-
+- 默认端口： 10001
+- 如何设置端口号： 编辑`ccnet.conf`文件。设置在`Network`段下`PORT`的值：
 ```
 [Network]
 PORT = 10001
 ```
+
 ## seaf-server
 
-seaf-server provides the data service for seafile server
+`seaf-server` 为 Seafile 服务器提供数据服务。
 
-- default: 12001
-- How to change: Edit the file ``seafile.conf``. Change the value of port under the network section.
-
-
+- 默认端口: 12001
+- 如何设置端口号： 编辑`seafile.conf`文件。 设置在`network`段下`port`的值：
 ```
 [network]
 port=22001
 ```
-### seafile httpserver
 
-seafile httpserver handles raw file upload/download for Seahub
 
-- default: 8082
-- How to change: Edit the file ``seafile.conf``. Change the value of port under the httpserver section.
+## seahub
 
-```
-[httpserver]
-port=8082
-```
-### seahub
+`seahub` 是 Seafile 服务器的 Web 端。
 
-seahub is the web interface of seafile server.
+**注意**：如果您改变了 Seahub 的端口号，`ccnet.conf`文件中的`SERVICE_URL`也应该随之改变。
 
-**Note**: If you change the port of seahub, you need to change the ``SERVICE_URL`` in ``ccnet.conf``.
-
-- default: 8000
-- How to change: Edit the file ``seafile.conf``. Change the value of port under the seahub section. (This is added in Seafile Windows Server 1.7.0.1)
-
+- 默认端口： 8000
+- 如何设置端口号： 编辑`seafile.conf`文件。 设置在`seahub`段下`port`的值. (**此功能在 Seafile Windows 服务器 1.7.0.1 版本加入**)
 ```
 [seahub]
 port=8000
 ```
-- Edit the file ``ccnet.conf``, modify the value of ``SERVICE_URL`` accordingly. For example, if you have changed the port to 8001, then modify the value of ``SERVICE_URL`` accordingly:
-
+- 编辑`ccnet.conf`文件，改变`SERVICE_URL`的值。比如， 如果您将端口号重新设置为 8001 ，那么更改`SERVICE_URL`的值如下：
 ```
 [General]
-SERVICE_URL = <Your IP OR DOMAIN>:8001
+SERVICE_URL = <您的 IP 或者域名>:8001
+```
+
+## seafile httpserver
+
+`seafile httpserver` 负责为 Seahub 处理文件的上传和下载
+
+- 默认端口： 8082
+- 如何设置端口号： 编辑`seafile.conf`文件。 设置在`httpserver`段下`port`的值：
+
+```
+[httpserver]
+port=8082
 ```

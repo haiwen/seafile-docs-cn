@@ -1,64 +1,70 @@
-# Download and Setup Seafile Windows Server
+# 下载安装 Windows 版 Seafile 服务器
 
-## Download/Uncompress
-### Install Python 2.7
+### 安装 Python 2.7.4 ###
 
-- Download and install [python 2.7](https://www.python.org/ftp/python/2.7.8/python-2.7.8.msi)
-- Add the installation path of python2.7 to the system PATH environment variable. If you installed python 2.7 to ``C:\Python27`` add ``C:\Python27`` to the PATH environment variable
+- 下载并安装 [python 2.7.4](http://python.org/ftp/python/2.7.4/python-2.7.4.msi)
+- 将 python2.7 的安装路径添加到系统的环境变量中 (PATH 变量)。比如：如果您将 python 2.7.4 安装在`C:\Python27`路径下，那么就将`C:\Python27`添加到环境变量中。
 
-### Download/Uncompress Seafile Server
+### 下载并解压 Seafile 服务器 ###
+- 获取 [Seafile 服务器](http://seafile.com/download/)的最新版本。
+- 为 Seafile 服务器程序创建一个新的文件夹，比如`C:\SeafileProgram\`。请记住此文件夹的位置，我们将在以后用到它。
+- 将**seafile-server_1.7.0_win32.tar.gz**解压到`C:\SeafileProgram\`目录下。
 
-- Get the latest version of Seafile Server program
-- Create a new folder to store seafile program, such as ``C:\SeafileProgram\``. Please remember the location of the folder, we'll use it later.
-- Uncompress ``seafile-server_1.7.0_win32.tar.gz`` to ``C:\SeafileProgram\``
-
-Now you have a folder like this:
-```sh
+现在，您的目录结构应该像如下这样：
+```
 C:\SeafileProgram
          |__ seafile-server-1.7.0
 ```
-## Start/Initialization
 
-### Start Seafile Server
+## 启动与初始化 ##
 
-Go to the folder ``C:\SeafileProgram\seafile-server-1.7.0\``, and double click run.bat to start Seafile Server. You should notice a seafile icon appears in the system tray.
-Choose a disk to store Seafile Server data
+### 启动 Seafile 服务器 ###
 
-Now you'll be prompted a dialog to choose a disk to store the data of seafile server
+在`C:\SeafileProgram\seafile-server-1.7.0\`文件夹下，找到**run.bat**文件并双击，以启动 Seafile 服务器。此时，您应该注意到 Seafile 服务器的图标已经出现在您的系统托盘中。
 
-- Please choose a disk with enough free space
-- Once you clicked the OK button, Seafile would create a folder named seafile-server under the disk you choosed. That would be the data folder of Seafile Server. If you choose disk D, your data folder would be ``D:\seafile-server``
+### 选择一个磁盘作为 Seafile 服务器数据的存储位置 ###
 
-### Add an admin account
+现在，您可以在弹出的对话框中选择一个磁盘，以便存储 Seafile 服务器的数据：  
 
-Right click the tray icon of Seafile Server, choose __Add an admin__. Input your admin username and password in the prompted dialog.
+- 请确保选择的磁盘拥有足够的剩余空间
+- 点击*确认*按钮后， Seafile 将会在您选择的磁盘下为您创建一个名为`seafile-server`的文件夹。这个文件夹就是  Seafile 服务器的数据文件夹。如果您选择*D*盘，那么数据文件夹为`D:\seafile-server`
 
-If the operation is successful, the tray icon would show a bubble saying __Successully added the admin acount__
-### Configure Seafile Server
+### 添加管理员帐号 ###
 
-After initialization, there are some options need to be configured:
+右击 Seafile 服务器的系统托盘图标， 选择"**添加管理员帐号**"选项。在弹出的对话框中输入您的管理员用户名和密码。
 
-- Right click the tray icon, choose __Open seafile-server folder__. Your seafile-server data folder would be opened.
-- Edit the file ``ccnet/ccnet.conf``. Modify two lines of ``ccnet.conf``:
+如果操作成功， Seafile 服务器托盘图标处会弹出一个气泡提示您"添加 Seahub 管理员账户成功"
+
+### 配置 Seafile 服务器 ###
+
+初始化服务器之后，还需配置以下选项:
+
+- 右击 Seafile 托盘图标，选择"**打开 seafile-server 文件夹**"选项。您的 seafile-server 数据文件夹将会打开。
+- 编辑*ccnet/ccnet.conf*文件。在*ccnet.conf*文件中更改以下两行：
 ```
 NAME = XXXXX
 SERVICE_URL = XXX
 ```
-- Change the value of NAME to the name of your Seafile Server, such as NAME = my-company-seafile. This name would be displayed on your seafile clients
-- Change the value of ``SERVICE_URL`` to ``http://<your ip address>:8000``. Say the ip address of your windows server is 192.168.1.100, then change it to ``SERVICE_URL = http://192.168.1.100:8000``
 
-After the edit, right click tray icon, choose __Restart seafile__
-### Visit Seahub
+- 将**NAME**的值配置成您的 Seafile 服务器的名字，比如`NAME = my-company-seafile`。这个名字将会在您的 Seafile 客户端上显示。
+- 将**SERVICE_URL**的值配置成`http://<您的 IP 地址>:8000`。比如您的 Windows 服务器地址为 *192.168.1.100*， 那么配置成`SERVICE_URL = http://192.168.1.100:8000`
 
-Open your browser, and visit ``http://127.0.0.1:8000``. Login with the admin account. If you can login, the initialization is successful.
-Configuration done
 
-Seafile Server configuration is finished. See Seafile Client Manual for how to use the client
+编辑完成后，右击 Seafile 服务器托盘图标，选择"**重启 Seafile Server**"选项以重启 Seafile 服务器。
 
-### You may also want to read about:
+### 访问Seahub ###
 
-- [LDAP Integration](../deploy/using_ldap.md)
-- [Install Seafile Server as a Windows Service](install_seafile_server_as_a_windows_service.md)
-- [Ports used by Seafile Windows Server](ports_used_by_seafile_windows_server.md)
-- [Upgrading Seafile Windows Server](Upgrading Seafile Windows Server)
-- [Options & Customization](../deploy/server_configuration.md)
+打开您的浏览器，访问 *http://127.0.0.1:8000* 网址。用您的管理员账户登录， 如果成功登录，那么说明您的 Seafile 服务器初始化成功。
+
+## 配置完成 ##
+
+Seafile 服务器的配置到此已经完成。如果您想了解如何使用 Seafile 客户端，请参考 [Seafile 客户端手册](http://www.seafile.com/help/)  
+
+您可能还会想要了解以下信息：  
+
+- [Seafile LDAP配置](../deploy/using_ldap.md)
+- [安装 Seafile 为 Windows 服务](install_seafile_server_as_a_windows_service.md)
+- [所用端口说明](ports_used_by_seafile_windows_server.md)
+- [升级](upgrading_seafile_windows_server.md)
+- [个性化配置](../deploy/server_configuration.md)
+

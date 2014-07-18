@@ -1,30 +1,32 @@
-# Install Seafile Server as a Windows Service
+# 安装 Seafile 为 Windows 服务
 
-### Why you may want to install Seafile Server as a Windows service
+## 将 Seafile 服务器作为 Windows 服务安装的好处 ##
 
-- Seafile Server can keep on running after all users logout
-- When system boots up, Seafile Server would start running even if no user has logged in
+-  在您的所有用户注销后 Seafile 服务器能够继续保持运行  
+-  系统启动时，即使没有用户登录， Seafile 服务器也会开始运行  
 
-### Install as a service
+## 如何作为 Windows 服务安装 ##
 
-- Right click the tray icon, choose __Install as a Windows service__
-- Choose ``yes`` in the propmted dialog
+- 右击 Seafile 服务器托盘图标，选择"安装为 Windows 服务"选项
+- 在弹出的对话框中，点击*是*按钮
 
-If the operation succeeds, A dialog would be prompted saying __Successully installed seafile service__.
+如果操作成功，将会弹出一个对话框提示您"已经成功安装 Seafile 服务"。
 
-### Verify Seafile Server already running as a Windows service
+## 确认 Seafile 服务器已经开始作为 Windows 服务运行 ##
 
-- Logout the current user
-- Visit seahub from another computer. If the seahub website can still be visited, Seafile server is already running as a Windows server
+- 注销当前用户
+- 在另一台电脑上访问 Seahub 。如果 Seahub 网站仍然可以访问，那么说明 Seafile 服务器已经开始作为 Windows 服务运行  
 
-### How to start the tray icon after installing as a service
+## 安装为 Windows 服务后如何启动托盘图标##
 
-If you have installed seafile server as a service, it would run automatically in the background the next time you boot your system. However, the tray icon would not appear automatically when a user logins in.
+如果您已经将 Seafile 服务器安装为 Windows 服务，那么在您下次系统启动时， Seafile 服务将会在后台自动运行。这样，当用户登录时， Seafile 服务器托盘图标就不会自动出现。
 
-To start the tray icon, just doule click the ``run.bat`` file in the folder ``C:\SeafileProgram\seafile-server-1.7.0``
-Uninstall Seafile Server Windows service
+启动托盘图标，只需双击`C:\SeafileProgram\seafile-server-1.7.0`文件夹下的`run.bat`文件。
 
-### If you want to uninstall the Seafile Server service:
 
-- Right click the tray icon, choose "Uninstall Windows service"
-- Choose "yes" in the propmted dialog
+## <a id="wiki-uninstall-service"></a> 卸载 Seafile 服务器的 Windows 服务 ##
+
+如果您想卸载 Seafile 服务器的 Windows 服务，请执行以下两步：  
+
+- 右击托盘图标，选择"卸载 Windows 服务"选项
+- 在弹出的确认对话框中点击"是"按钮

@@ -1,41 +1,42 @@
-# Common Problems for Setting up Server
+# 安装常见问题
 
-#### Failed to upload/download file online
+#### 无法上传/下载
 
-* Check your SERVICE_URL setting in ccnet.conf and HTTP_SERVER_ROOT setting in seahub_settings.py
-* Make sure you firewall for seafile httpserver is opened.
-* Using chrome/firefox debug mode to find which link is given when click download button and what's wrong with this link
+* 检查 ccnet.conf 中`SERVICE_URL`的配置，检查 seahub_settings.py 中`HTTP_SERVER_ROOT`的配置 
+* 确认防火墙没有禁用 seafile httpserver 
+* 使用 chrome/firefox 调试模式,找到点击下载按钮时使用的链接并查看错误信息。
 
-#### When syncing a library, the client hangs at "connecting server"
+#### 下载资料库时，客户端始终显示"connecting server"
 
-First, you can check the ccnet.log in client (~/.ccnet/logs/ccnet.log for Linux, C:/users/your_name/ccnet/logs/ccnet.log for Windows) to see what's wrong.
+首先, 检查客户端的 ccnet.log 文件(Linux下 ~/.ccnet/logs/ccnet.log , Windows下 C:/users/your_name/ccnet/logs/ccnet.log ) ，查看错误信息.
 
-Possible reasons:
+可能的错误原因:
 
-* Firewall: Ensure the firewall is configured properly. See [[Firewall Settings for Seafile Server ]]
+* 忘记配置<code>SERVICE_URL</code>: 在服务器端查看<code>ccnet.conf</code>，确认<code>SERVICE_URL</code>设置正确.
+* 防火墙: 确认防火墙设置正确. 详细请见[[Seafile服务器防火墙配置]]
 
-Trouble shooting:
+问题解答:
 
-* Manually telnet to see if you can connect: <code>telnet your-server-IP-or-domain 10001</code>
+* 手动进行 telnet 连接: <code>telnet your-server-IP-or-domain 10001</code> 
 
-#### Failed to download blocks
+#### 下载文件块失败
 
-* Make sure port 12001 is open
+* 确认 12001 端口已开启
+* 确认 ccnet.conf 中`SERVICE_URL`配置正确.
 
-#### Error on Apache log: "File does not exist: /var/www/seahub.fcgi"
+#### Apache 日志文件报错: "File does not exist: /var/www/seahub.fcgi"
 
-Make sure you use "FastCGIExternalServer /var/www/seahub.fcgi -host 127.0.0.1:8000" in httpd.conf or apache2.conf, especially the "/var/www/seahub.fcgi" part.
+请确定在 httpd.conf 或者 apache2.conf 中使用了`FastCGIExternalServer /var/www/seahub.fcgi -host 127.0.0.1:8000` 尤其是`/var/www/seahub.fcgi`部分.
 
-#### Seafile with Apache / HTTPS has text only (no CSS formatting / images)
+#### Apache/HTTPS 下，Seafile 只显示文本文件(没有 CSS 样式和图片显示)
 
-The media folder (Alias location identified in /etc/apache2/sites-enabled/000-default (Ubuntu) has inappropriate permissions
+多媒体文件访问权限错误 (Alias location identified in /etc/apache2/sites-enabled/000-default (Ubuntu)
 
-Solutions:
+解决方法:
 
-1. Run installation script as non-root user
-2. Copy /media folder to var/www/ and edit the Alias location in /etc/apache2/sites-enabled/000-default
+1. 切换到非根（non-root）用户重新运行安装脚本
+2. 复制`/media`文件夹到`var/www/`下，并在`/etc/apache2/sites-enabled/000-default`中重新编辑文件路径。
 
-#### "Error when calling the metaclass bases" during Seafile initialization
+#### 初始化 Seafile 时，显示 "Error when calling the metaclass bases" 错误
 
-Seafile uses Django 1.5, which requires Python 2.6.5+. Make sure your Python version >= 2.6.5.
-# Common Problems for Setting up Server
+Seafile 使用 Django 1.5, 所需 Python 版本为 2.6.5+ 。

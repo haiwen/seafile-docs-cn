@@ -1,20 +1,20 @@
-# Config Seahub with Nginx
+# Nginx 下配置 Seahub
 
-## Prepare
+## 准备工作
 
-Install <code>python-flup</code> library. On Ubuntu:
-
+Ubuntu 下安装<code>python-flup</code>库:
+ 
 ```
 sudo apt-get install python-flup
 ```
 
-## Deploy Seahub/HttpServer with Nginx
+## Nginx 环境下部署 Seahub/HttpServer 
 
-Seahub is the web interface of Seafile server. HttpServer is used to handle raw file uploading/downloading through browsers. By default, it listens on port 8082 for HTTP request.
+Seahub 是 Seafile 服务器的网站界面. HttpServer 用来处理浏览器端文件的上传与下载. 默认情况下, 它在 8082 端口上监听 HTTP 请求. 
 
-Here we deploy Seahub using [FastCGI](http://en.wikipedia.org/wiki/FastCGI), and deploy HttpServer with reverse proxy. We assume you are running Seahub using domain '''www.myseafile.com'''.
+这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 HttpServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com". 
 
-This is a sample Nginx config file.
+这是一个 Nginx 配置文件的例子.
 
 <pre>
 server {
@@ -51,57 +51,46 @@ server {
 }
 </pre>
 
-Nginx settings "client_max_body_size" is by default 1M. Uploading a file bigger than this limit will give you an error message HTTP error code 413 ("Request Entity Too Large").
+对于 Windows 服务器, access_log, error_log and "location /media" 的路径需要被设置成 Windows 的文件路径格式, 如:
+<pre>
+    location / {
+        ...
+        access_log      E:/log/nginx/seahub.access.log;
+        error_log       E:/log/nginx/seahub.error.log;
+    }
+    location /media {
+        root E:/seafile-server-1.7.1/seahub;
+    }
+</pre>
 
-You should use 0 to disable this feature or write the same value than for the parameter max_upload_size in section [httpserver] of /seafile/seafile-data/seafile.conf
+Nginx 默认设置 "client_max_body_size" 为 1M。如果上传文件大于这个值的话，会报错，相关 HTTP 状态码为 423 ("Request Entity Too Large").
 
-## Modify ccnet.conf and seahub_setting.py
+你可以将值设为 <code>0</code> 以禁用此功能，或者在 /seafile/seafile-data/seafile.conf 的 `httpserver` 字段中重新设定 max_upload_size 的值。 
 
-### Modify ccnet.conf
+## 修改 ccnet.conf 和 seahub_setting.py
 
-You need to modify the value of <code>SERVICE_URL</code> in <code>/data/haiwen/ccnet/ccnet.conf</code>
-to let Seafile know the domain you choose.
+### 修改 ccnet.conf
+
+你需要在<code>/data/haiwen/ccnet/ccnet.conf</code>的<code>SERVICE_URL</code>字段中自定义域名。
 
 <pre>
 SERVICE_URL = http://www.myseafile.com
 </pre>
 
-Note: If you later change the domain assigned to seahub, you also need to change the value of  <code>SERVICE_URL</code>.
+注意:如果你改变了 Seahub的域名,也需要同步更改<code>SERVICE_URL</code>.
 
-### Modify seahub_settings.py
+### 修改 seahub_settings.py
 
-You need to add a line in <code>seahub_settings.py</code> to set the value of `HTTP_SERVER_ROOT`
+请在<code>seahub_settings.py</code>新增一行，设定`HTTP_SERVER_ROOT`的值
 
 ```python
 HTTP_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 ```
 
-## Start Seafile and Seahub
+## 启动 Seafile 和 Seahub
 
 <pre>
 ./seafile.sh start
 ./seahub.sh start-fastcgi
 </pre>
 
-## Notes when Upgrading Seafile Server
-
-When [[upgrading seafile server]], besides the normal steps you should take, there is one extra step to do: '''Update the path of the static files in your nginx/apache configuration'''. For example, assume your are upgrading seafile server 1.3.0 to 1.4.0, then:
-
-<pre>
-    location /media {
-        root /home/user/haiwen/seafile-server-1.4.0/seahub;
-    }
-</pre>
-
-**Tip:**
-You can create a symbolic link <code>seafile-server-latest</code>, and make it point to your current seafile server folder (Since seafile server 2.1.0, the <code>setup-seafile.sh</code> script will do this for your). Then, each time you run a upgrade script, it would update the <code>seafile-server-latest</code> symbolic link to keep it always point to the latest version seafile server folder.
-
-In this case, you can write:
-
-<pre>
-    location /media {
-        root /home/user/haiwen/seafile-server-latest/seahub;
-    }
-</pre>
-
-This way, you no longer need to update the nginx config file each time you upgrade your seafile server.

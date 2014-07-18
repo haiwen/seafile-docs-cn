@@ -1,28 +1,28 @@
-# Configure Seafile to use LDAP
-The current code of seahub assumes that user name to be email address, so it's not possible to log in with UNIX user names or Windows Domain user names now. The support may be added later.
+# Seafile LDAP配置
 
-Seafile will find a user both from database and LDAP. LDAP will be tried first. Note that the Seafile admin  account created during setup is always stored in sqlite/mysql database.
+在目前的 Seahub，只支持 email 格式的用户名登陆，所以，使用 UNIX 和 Windows Domain 用户名并不能登录到 Seahub，后续版本中会对此进行改进.
 
-## Connect to LDAP/AD from Linux
+Seafile 会通过数据库和 LDAP 来搜寻用户. 默认首先搜寻 LDAP. （请注意，在安装时设置的 Seafile 管理员账户，会始终保存在 SQLite/MySQL 数据库中。）
 
-To use LDAP to authenticate user, please add the following lines to ccnet.conf
+## LINUX 下连接LDAP/AD
+
+请在`ccnet.conf`下增加以下语句，以使用 LDAP 进行用户认证。
 
     [LDAP]
-    # LDAP URL for the host, ldap://, ldaps:// and ldapi:// are supported
-    # To use TLS, you should configure the LDAP server to listen on LDAPS
-    # port and specify ldaps:// here.
+    # 主机的 LDAP URL, 支持ldap://, ldaps:// and ldapi:// 
+    # 为了使用 TLS, 请对 LDAP 服务器进行配置使其能够监听 LDAPS
+    # 端口， 并在这里指明 ldaps:// 地址.
     HOST = ldap://ldap.example.com
-    # base DN from where all the users can be reached.
+    # 设置所有用户均可方位 base DN
     BASE = ou=users,dc=example,dc=com
-    # LDAP admin user DN to bind to. If not set, will use anonymous login.
+    # 管理员用户 DN 绑定 LDAP. 如未设定，使用默认设置.
     USER_DN = cn=seafileadmin,dc=example,dc=com
-    # Password for the admin user DN
+    # 管理员用户的 DN 密码
     PASSWORD = secret
-    # The attribute to be used as user login id.
-    # By default it's the 'mail' attribute.
+    # 用户登陆ID, 默认使用邮件格式.
     LOGIN_ATTR = mail
 
-Example config for LDAP:
+LDAP 配置示例:
 
     [LDAP]
     HOST = ldap://192.168.1.123/
@@ -31,7 +31,7 @@ Example config for LDAP:
     PASSWORD = secret
     LOGIN_ATTR = mail
 
-Example config for Active Directory:
+活动目录(Active Directory)配置示例:
 
     [LDAP]
     HOST = ldap://192.168.1.123/
@@ -40,7 +40,7 @@ Example config for Active Directory:
     PASSWORD = secret
     LOGIN_ATTR = mail
 
-If you're using Active Directory but don't have email address for the users, you can use the following config:
+如果你使用活动目录(Active Directory)但并没有向用户提供 Email 地址，可进行如下配置::
 
     [LDAP]
     HOST = ldap://192.168.1.123/
@@ -49,30 +49,29 @@ If you're using Active Directory but don't have email address for the users, you
     PASSWORD = secret
     LOGIN_ATTR = userPrincipalName
 
-The `userPrincipalName` is an user attribute provided by AD. It's usually of the form `username@domain-name`, where `username` is Windows user login name. The the user can log in to seahub with `username@domain-name`, such as `poweruser@example.com`. Note that such login name is not actually an email address. So sending emails from seahub won't work with this setting.
+`userPrincipalName`是 AD 提供的用户名， 通常隶属于`username@domain-name`, 而这里的`username`是指 Windows 用户登录名. 用户可以通过`username@domain-name`登录到 Seahub, 比如`poweruser@example.com`. 注意这样的用户登陆名并不是实际的 email 地址，Seahub 在这种设置下，邮件发送功能会失效.
 
-## Connect to LDAP/AD from Windows server
+## 通过 Windows 服务器连接到 LDAP/AD
 
-The config syntax on Windows is slightly different from Linux. **You should not add ldap:// prefix to the HOST field.**
+Windows 下的配置语法与 Linux 下的有些不同. **你不需要增加`ldap:// prefix to the HOST field`.**
 
-To use LDAP to authenticate user, please add the following lines to ccnet.conf
+请在`ccnet.conf`下增加以下语句，以使用 LDAP 进行用户认证。
 
     [LDAP]
-    # You can optionally specify the port of LDAP/AD server in the HOST field
+    # 在 HOST 域指定 LDAP/AD 服务器端口
     HOST = ldap.example.com[:port]
-    # Default 'false'. Set to true if you want Seafile to communicate with the LDAP server via SSL connection.
+    # 默认为 'false'. 如果希望 Seafile 可通过 SSL 连接到 LDAP 服务器，请设置为 true.
     USE_SSL = true | false
-    # base DN from where all the users can be reached.
+    # 设置所有用户均可方位 base DN
     BASE = ou=users,dc=example,dc=com
-    # LDAP admin user DN to bind to. If not set, will use anonymous login.
+    # 管理员用户 DN 绑定 LDAP. 如未设定，使用默认设置.
     USER_DN = cn=seafileadmin,dc=example,dc=com
-    # Password for the admin user DN
+    # 管理员用户的 DN 密码
     PASSWORD = secret
-    # The attribute to be used as user login id.
-    # By default it's the 'mail' attribute.
+    # 用户登陆ID, 默认使用邮件格式.
     LOGIN_ATTR = mail
 
-Example config for LDAP:
+LDAP 配置示例:
 
     [LDAP]
     HOST = 192.168.1.123
@@ -81,7 +80,7 @@ Example config for LDAP:
     PASSWORD = secret
     LOGIN_ATTR = mail
 
-Example config for Active Directory:
+活动目录(Active Directory)配置示例:
 
     [LDAP]
     HOST = 192.168.1.123
@@ -90,7 +89,7 @@ Example config for Active Directory:
     PASSWORD = secret
     LOGIN_ATTR = mail
 
-If you're using Active Directory but don't have email address for the users, you can use the following config:
+如果你使用活动目录(Active Directory)但并没有向用户提供 email 地址，可进行如下配置::
 
     [LDAP]
     HOST = 192.168.1.123
@@ -99,35 +98,35 @@ If you're using Active Directory but don't have email address for the users, you
     PASSWORD = secret
     LOGIN_ATTR = userPrincipalName
 
-The `userPrincipalName` is an user attribute provided by AD. It's usually of the form `username@domain-name`, where `username` is Windows user login name. The the user can log in to seahub with `username@domain-name`, such as `poweruser@example.com`. Note that such login name is not actually an email address. So sending emails notifications from Seahub won't work with this setting.
+`userPrincipalName`是 AD 提供的用户名， 通常隶属于`username@domain-name`, 而这里的`username`是指 Windows 用户登录名. 用户可以通过`username@domain-name`登录到 Seahub, 比如`poweruser@example.com`. 注意这样的用户登陆名并不是实际的 email 地址，Seahub 在这种设置下，邮件发送功能会失效.
 
-## Multiple base DN/Additional search filter
+## 多重基准标识名(Multiple base DN)/可选搜索过滤器(Additional search filter)
 
-Multiple base DN is useful when your company has more than one OUs to use Seafile. You can specify a list of base DN in the "BASE" config. The DNs are separated by ";", e.g. `cn=developers,dc=example,dc=com;cn=marketing,dc=example,dc=com`
+当你的公司在使用 Seafile 并且有多于一个 OUs 的时候，多重基准标识名多重基准标识名(Multiple base DN)会很有用处.你可以在"BASE"配置中指定一个基准标识名（base DN）的列表，标识名由";"分开, 比如： `cn=developers,dc=example,dc=com;cn=marketing,dc=example,dc=com`
 
-Search filter is very useful when you have a large organization but only a portion of people want to use Seafile. The filter can be given by setting "FILTER" config. For example, add the following line to LDAP config:
+当你的公司组织庞大,但是只有一小部分人使用 Seafile 的时候，搜索过滤器（Search filter）会很有用处. 过滤器可以通过修改"FILTER"配置来实现，例如，在 LDAP 配置中增加以下语句:
 
 ```
 FILTER = memberOf=CN=group,CN=developers,DC=example,DC=com
 ```
 
-Note that the cases in the above example is significant. The `memberOf` attribute is only available in Active Directory.
+请注意上面的示例只是象征性的简介. `memberOf`只有在活动目录(Active Directory)中才适用.
 
-Here is another example:
+这里是另一个示例:
 
 ```
 FILTER = &(!(UserAccountControl:1.2.840.113556.1.4.803:=2))
 ```
 
-## Known Issues
+## 常见问题及解决方案
 
-### ldaps (LDAP over SSL) doesn't work on Ubuntu/Debian
+### Ubuntu/Debian 下 ldaps(LDAP over SSL)不能正常运行 
 
-Please see https://github.com/haiwen/seafile/issues/274
+请参考[这里](https://github.com/haiwen/seafile/issues/274)
 
-This is because the pre-compiled package is built on CentOS. The libldap we distribute is from CentOS so it search for config files on /etc/openldap/ldap.conf. But Ubuntu/Debian uses /etc/ldap/ldap.conf. So the path to the CA files can't be found on the client.
+这是因为预编译安装包是在 CentOS 下完成编译与发布的，所以 libldap 会在`/etc/openldap/ldap.conf`查找配置文件. 而Ubuntu/Debian 使用的是`/etc/ldap/ldap.conf`这个配置文件. 所以在客户端中找不到 CA 文件的路径。
 
-The work around is
+解决方法如下
 
 ```
 mkdir /etc/openldap && ln -s /etc/ldap/ldap.conf /etc/openldap/

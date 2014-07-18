@@ -1,88 +1,81 @@
-# Enabling Https with Apache
+# Apache 下启用 Https
 
-## Generate SSL digital certificate with OpenSSL
+通过 OpenSSL 生成 SSL 数字认证
+------------------------------
 
-Here we use self-signed SSL digital certificate for free. If you use a paid ssl certificate from some authority, just skip the this step.
+免费 Self-Signed SSL 数字认证用户请看. 如果你是 SSL
+付费认证用户可跳过此步.
 
-<pre>
     openssl genrsa -out privkey.pem 2048
     openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095
-</pre>
 
-## Enable https on Seahub
+在 Seahub 端启用 https
+----------------------
 
-Assume you have configured Apache as [Deploy Seafile with
-Apache](deploy_with_apache.md). To use https, you need to enable mod_ssl
+假设你已经按照[Apache 下配置 Seahub](deploy_with_apache.md)对 Apache 进行了相关设置.请启用 mod\_ssl
 
-<pre>
-[sudo] a2enmod ssl
-</pre>
+    [sudo] a2enmod ssl
 
-On Windows, you have to add ssl module to httpd.conf
-<pre>
-LoadModule ssl_module modules/mod_ssl.so
-</pre>
+Windows 下, 你需要在 httpd.conf 中增加 SSL 模块
 
-Then modify your Apache configuration file. Here is a sample:
+    LoadModule ssl_module modules/mod_ssl.so
 
-<pre>
-<VirtualHost *:443>
-  ServerName www.myseafile.com
-  DocumentRoot /var/www
-  Alias /media  /home/user/haiwen/seafile-server-latest/seahub/media
+接下来修改你的Apache配置文件，这是示例:
 
-  SSLEngine On
-  SSLCertificateFile /path/to/cacert.pem
-  SSLCertificateKeyFile /path/to/privkey.pem
+    <VirtualHost *:443>
+      ServerName www.myseafile.com
+      DocumentRoot /var/www
+      Alias /media  /home/user/haiwen/seafile-server-latest/seahub/media
 
-  RewriteEngine On
+      SSLEngine On 
+      SSLCertificateFile /path/to/cacert.pem
+      SSLCertificateKeyFile /path/to/privkey.pem
 
-  #
-  # seafile httpserver
-  #
-  ProxyPass /seafhttp http://127.0.0.1:8082
-  ProxyPassReverse /seafhttp http://127.0.0.1:8082
-  RewriteRule ^/seafhttp - [QSA,L]
+      RewriteEngine On
 
-  #
-  # seahub
-  #
-  RewriteRule ^/(media.*)$ /$1 [QSA,L,PT]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^(.*)$ /seahub.fcgi/$1 [QSA,L,E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-</VirtualHost>
-</pre>
+      #
+      # seafile httpserver
+      #
+      ProxyPass /seafhttp http://127.0.0.1:8082
+      ProxyPassReverse /seafhttp http://127.0.0.1:8082
+      RewriteRule ^/seafhttp - [QSA,L]
 
-## Modify settings to use https
+      #
+      # seahub
+      #
+      RewriteRule ^/(media.*)$ /$1 [QSA,L,PT]
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteRule ^(.*)$ /seahub.fcgi/$1 [QSA,L,E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    </VirtualHost>
 
-### ccnet conf
+修改相关配置以使用 https
+------------------------
 
-Since you change from http to https, you need to modify the value of "SERVICE_URL" in <code>ccnet/ccnet.conf</code>:
-<pre>
-SERVICE_URL = https://www.myseafile.com
-</pre>
+### ccnet 配置
 
-### seahub_settings.py=
+因为你想使用 https 而非 http,
+你需要修改`ccnet/ccnet.conf`中`SERVICE_URL`字段的值:
 
-<pre>
-HTTP_SERVER_ROOT = 'https://www.myseafile.com/seafhttp'
-</pre>
+    SERVICE_URL = https://www.myseafile.com
 
-## Start Seafile and Seahub
+### seahub\_settings.py 配置
 
-<pre>
-./seafile.sh start
-./seahub.sh start-fastcgi
-</pre>
+    HTTP_SERVER_ROOT = 'https://www.myseafile.com/seafhttp'
 
+启动Seafile和Seahub
+-------------------
 
-## Detailed explanation
+    ./seafile.sh start
+    ./seahub.sh start-fastcgi
 
-The picture at the end of [this document](components.md) may help you understand seafile server better
+其他说明
+--------
 
-There are two components in Seafile server, Seahub and HttpServer. HttpServer only servers for raw file uploading/downloading, it listens on 8082. Seahub, that serving all the other pages, is still listen on 8000. But under https, Seahub should listen as in fastcgi mode on 8000 (run as ./seahub.sh start-fastcgi). And as in fastcgi mode, when you visit  http://domain:8000 directly, it should return an error page.
+阅读[Seafile 组件](../overview/components.md)会帮你更好的理解 Seafile.
 
-When a user visit https://domain.com/home/my/, Apache receives this request and sends it to Seahub via fastcgi. This is controlled by the following config items:
+在 Seafile 服务器端的两个组件：Seahub 和 HttpServer. HttpServer 通过监听 8082 端口处理文件的上传与下载. Seahub 通过监听 8000 端口负责其他的WEB页面. 但是在 https 下, Seahub 应该通过 fastcgi 模式监听8000端口 (运行`./seahub.sh start-fastcgi`). 而且在 fastcgi 模式下, 如果直接访问`http://domain:8000`，会返回错误页面.
+
+当一个用户访问`https://domain.com/home/my/`时, Apache 接受到访问请求后，通过 fastcgi 将其转发至 Seahub. 可通过以下配置来实现:
 
     #
     # seahub
@@ -93,12 +86,11 @@ When a user visit https://domain.com/home/my/, Apache receives this request and 
 
 and
 
-    FastCGIExternalServer /var/www/seahub.fcgi -host 127.0.0.1:8000
+    FastCGIExternalServer /var/www/seahub.fcgi -host 127.0.0.1:8000
 
+当一个用户在 Seahub 中点击文件下载链接时， Seahub 读取`HTTP_SERVER_ROOT`的值，并将其用户重定向到`https://domain.com/seafhttp/xxxxx/`.`https://domain.com/seafhttp`是`HTTP_SERVER_ROOT`的值. 这里,`HTTP_SERVER`表示是 Seafile 中只负责文件上传与下载的的 HttpServer 组件.
 
-When a user click a file download link in Seahub, Seahub reads the value of HTTP_SERVER_ROOT and redirects the user to address `https://domain.com/seafhttp/xxxxx/`. `https://domain.com/seafhttp` is the value of HTTP_SERVER_ROOT. Here, the `HTTP_SERVER` means the HttpServer component of Seafile, which only serves for raw file downloading/uploading.
-
-When Apache receives the request at 'https://domain.com/seafhttp/xxxxx/', it proxies the request to HttpServer, which is listening at 127.0.0.1:8082. This is controlled by the following config items:
+当 Apache 在`https://domain.com/seafhttp/xxxxx/`接收到访问请求后,它把请求发送到正在监听`127.0.0.1:8082`的 HttpServer 组件,可通过以下配置来实现:
 
     ProxyPass /seafhttp http://127.0.0.1:8082
     ProxyPassReverse /seafhttp http://127.0.0.1:8082

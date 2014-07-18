@@ -1,22 +1,20 @@
-# Seafile
-## Upgrade Manual
+# 升级
 
-This page is for users who use the pre-compiled seafile server package. 
+使用已经预编译的 Seafile 服务器安装包用户请看. 
 
-- If you [build seafile server from source](Build and Deploy Seafile Server from source), please read the **Upgrading Seafile Server** section on that page, instead of this one.
+- 如果你是[build seafile server from source](../build_seafile/server.md)安装 Seafile 服务器的, 请阅读"升级 Seafile 服务器"部分。
 
-- If you have deployed seafile server with mysql, you need to manually update your database tables. See [[Deploy Seafile with MySQL]] for details.
+- 如果你部署 Seafile 服务器时使用了 MySQL, 你需要手动更新数据库表. 详细请见[部署 Seafile 服务器（使用 MySQL）](using_mysql.md).
 
-- After upgrading, you may need to clean [seahub cache](https://github.com/haiwen/seafile/wiki/Seafile-server-configuration-options#wiki-Cache) if it doesn't behave as expect.
+- 升级之后, 如果没有正常运行，请清空[ Seahub 缓存](add_memcached.md).
 
-## Major Continuous Upgrade (like from 1.2 to 1.3)
+## 主版本连续升级(比如从1.2升级到1.3)
 
-Continuous upgrade means to upgrade from one version of Seafile server to the next version.
-For example, upgrading from 1.2.0 to 1.3.0 (or upgrading from 1.2.0 to 1.3.1) is a continuous upgrade.
+连续升级，是指从 Seafile 服务器某一版本升级到下一版本.例如, 从 1.2.0 升级到 1.3.0 (或者从 1.2.0 升级到 1.3.1 ).
 
-**Note:** Minor upgrade, like upgrade from 1.3.0 to 1.3.1, is documented in a separate section below.
+**注意:** 小版本升级, 从 1.3.0 升级到 1.3.1 ,后文也有详细说明.
 
-You should have a directory layout similar to this:
+首先，下载 seafile-server_1.3.0_x86-64.tar.gz 并解压到相关 Seafile 文件目录下，文件结构如下:
 
 <pre>
 haiwen
@@ -26,67 +24,42 @@ haiwen
    -- seafile-data
 </pre>
 
-check if your system is x86 (32bit) or x86_64 (64 bit)
+现在开始升级到 1.3.0 版本.
 
-<pre>
-uname -m
-</pre>
+1. 关掉 Seafile 服务器
 
-Change to the directory where you where you put all Seafile related stuff and [http://www.seafile.com/en/download download] the latest server package.
+```
+cd haiwen/seafile-server-1.2.0
+./seahub.sh stop
+./seafile.sh stop
+```
 
-For Seafile Server 2.1.4 and later:
+2. 在 seafile-server-1.3.0 目录下运行升级脚本.
 
-<pre>
-#download for 32bit
-wget https://bitbucket.org/haiwen/seafile/downloads/seafile-server_{version}_i386.tar.gz
-#or for 64bit
-wget https://bitbucket.org/haiwen/seafile/downloads/seafile-server_{version}_x86-64.tar.gz
-</pre>
+```
+cd haiwen/seafile-server-1.3.0
+upgrade/upgrade_1.2_1.3_server.sh
+```
+3. 启动新版本服务器程序 
 
-Extract the files and move .gz-file to archive:
+```sh
+cd haiwen/seafile-server-1.3.0/
+./seafile.sh start
+./seahub.sh start
+```
 
-<pre>
-tar -xzf seafile-server_*
-mv seafile-server_* installed
-</pre>
+## 不连续升级(比如从 1.1.0 升级到 1.3.0 )
 
-Now upgrade to version 1.3.0.
+如果你想从 1.1.0 直接升级到 1.3.0 .过程如下:
 
-1. Shutdown Seafile server if it's running
+1. 从 1.1.0 升级到 1.2.0.
+2. 从 1.2.0 升级到 1.3.0.
 
-   ```sh
-   cd haiwen/seafile-server-1.2.0
-   ./seahub.sh stop
-   ./seafile.sh stop
-   ```
-2. Run the upgrade script in seafile-server-1.3.0 directory.
+按顺序运行升级脚本. (不需要下载 1.2.0 版本的安装包)
 
-   ```sh
-   cd haiwen/seafile-server-1.3.0
-   upgrade/upgrade_1.2_1.3_server.sh
-   ```
-3. Start the new server version as for any upgrade 
+## 小版本升级(比如从 1.5.0 升级到 1.5.1 )
 
-   ```sh
-   cd haiwen/seafile-server-1.3.0/
-   ./seafile.sh start
-   ./seahub.sh start
-   ```
-
-## Noncontinuous Upgrade (like from 1.1 to 1.3)
-
-You may also upgrade a few versions at once, e.g. from 1.1.0 to 1.3.0.
-The procedure is:
-
-1. upgrade from 1.1.0 to 1.2.0;
-2. upgrade from 1.2.0 to 1.3.0.
-
-Just run the upgrade scripts in sequence. (You don't need to download server package 1.2.0)
-
-## Minor upgrade (like from 1.5.0 to 1.5.1)
-Minor upgrade is like an upgrade from 1.5.0 to 1.5.1. 
-
-Here is our dir strutcutre
+这是我们的目录结构
 
 <pre>
 haiwen
@@ -96,25 +69,24 @@ haiwen
    -- seafile-data
 </pre>
 
-1. Stop the current server first as for any upgrade 
-```sh
+1. 在升级前需停止相关服务进程：
+```
 seafile-server-1.5.0/seahub.sh stop
 seafile-server-1.5.0/seafile.sh stop
 ```
-1. For this type of upgrade, you only need to update the avatar link. We provide a script for you, just run it:
-```sh
+2. 对于小版本升级，你只需要更新avatar链接. 运行以下脚本即可:
+```
 cd seafile-server-1.5.1
 upgrade/minor-upgrade.sh
 ```
-
-1. Start the new server version as for any upgrade 
-```sh
+3. 任何升级后都需要重新启动服务器进程:
+```
 cd ..
 seafile-server-1.5.1/seafile.sh start
 seafile-server-1.5.1/seahub.sh start
 ```
 
-1. If the new version works file, the old version can be removed
-```sh
+4. 如果新版本Seafile运行正常，可以删除旧版本的文件:
+```
 rm -rf seafile-server-1.5.0
 ```

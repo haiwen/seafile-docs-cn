@@ -1,33 +1,32 @@
-# Start Seafile at System Bootup
+# 开机启动 Seafile
 
-For Ubuntu
-----------
+Ubuntu 下
+---------
 
-On Ubuntu, we make use of the
-[/etc/init.d/](https://help.ubuntu.com/community/UbuntuBootupHowto)
-scripts to start seafile/seahub at system boot.
+Ubuntu
+下，我们使用了这个[/etc/init.d/](https://help.ubuntu.com/community/UbuntuBootupHowto)这个脚本来设置
+Seafile/Seahub 开机启动.
 
-### Create a script **/etc/init.d/seafile-server**
+### 创建**/etc/init.d/seafile-server**脚本
 
     sudo vim /etc/init.d/seafile-server
 
-The content of this script is: (You need to modify the value of **user**
-and **seafile\_dir** accordingly)
+脚本内容为: (同时需要修改相应的`user`和`script\_path`字段的值)
 
-    #!/bin/bash
+    #!/bin/sh
 
-    # Change the value of "user" to your linux user name
+    # 请将 user 改为你的Linux用户名
     user=haiwen
 
-    # Change the value of "seafile_dir" to your path of seafile installation
+    # 请将 script_path 改为你的 Seafile 文件安装路径
     seafile_dir=/data/haiwen
     script_path=${seafile_dir}/seafile-server-latest
     seafile_init_log=${seafile_dir}/logs/seafile.init.log
     seahub_init_log=${seafile_dir}/logs/seahub.init.log
 
-    # Change the value of fastcgi to true if fastcgi is to be used
+    # 若使用 fastcgi, 请将其设置为True
     fastcgi=false
-    # Set the port of fastcgi, default is 8000. Change it if you need different.
+    # fastcgi 端口, 默认为 8000. 
     fastcgi_port=8000
 
     case "$1" in
@@ -59,16 +58,15 @@ and **seafile\_dir** accordingly)
             ;;
     esac
 
-**Note**: If you want to start seahub in fastcgi, just change the
-**fastcgi** variable to **true**
+**注意**: 如果你想在 fastcgi 下运行 Seahub,请设置`fastcgi`变量为`true`
 
-### Add Directory for Logfiles
+### 为日志文件创建目录
 
      mkdir /path/to/seafile/dir/logs
 
-### Create a file **/etc/init/seafile-server.conf**
+### 创建**/etc/init/seafile-server.conf**文件
 
-#### If you're not using MySQL
+#### 非使用 MySQL
 
     start on (runlevel [2345])
     stop on (runlevel [016])
@@ -81,7 +79,7 @@ and **seafile\_dir** accordingly)
     /etc/init.d/seafile-server stop
     end script
 
-#### If you're using MySQL
+#### 使用 MySQL
 
     start on (started mysql
     and runlevel [2345])
@@ -95,24 +93,22 @@ and **seafile\_dir** accordingly)
     /etc/init.d/seafile-server stop
     end script
 
-### Make the seafile-sever script executable
+### 设置 seafile-sever 脚本为可执行文件
 
     sudo chmod +x /etc/init.d/seafile-server
 
-### Done
+### 完成
 
-Don't forget to update the value of **script\_path** later if you update
-your seafile server.
+在升级 Seafile 服务器后请记得更新`script\_path`的值.
 
-For other Debian based Linux
-----------------------------
+其他 Debian 系的 Linux 下
+-------------------------
 
-### Create a script **/etc/init.d/seafile-server**
+### 创建脚本**/etc/init.d/seafile-server**
 
     sudo vim /etc/init.d/seafile-server
 
-The content of this script is: (You need to modify the value of **user**
-and **script\_path** accordingly)
+脚本内容为: (同时需要修改相应的`user`和`script\_path`字段的值)
 
     #!/bin/sh
 
@@ -126,18 +122,18 @@ and **script\_path** accordingly)
     # Description:       starts Seafile Server
     ### END INIT INFO
 
-    # Change the value of "user" to your linux user name
+    # 请将 user 改为你的Linux用户名
     user=haiwen
 
-    # Change the value of "script_path" to your path of seafile installation
+    # 请将 script_path 改为你的 Seafile 文件安装路径
     seafile_dir=/data/haiwen
     script_path=${seafile_dir}/seafile-server-latest
     seafile_init_log=${seafile_dir}/logs/seafile.init.log
     seahub_init_log=${seafile_dir}/logs/seahub.init.log
 
-    # Change the value of fastcgi to true if fastcgi is to be used
+    # 若使用 fastcgi, 请将其设置为True
     fastcgi=false
-    # Set the port of fastcgi, default is 8000. Change it if you need different.
+    # fastcgi 端口, 默认为 8000. 
     fastcgi_port=8000
 
     case "$1" in
@@ -169,97 +165,82 @@ and **script\_path** accordingly)
             ;;
     esac
 
-**Note**:
+**注意**: 如果你想在 fastcgi 下运行 Seahub,请设置`fastcgi`变量为`true`
 
-1.  If you want to start seahub in fastcgi, just change the **fastcgi**
-    variable to **true**
-2.  If you deployed Seafile with MySQL, append "mysql" to the
-    Required-Start line:
-
-<!-- -->
-
-    # Required-Start: $local_fs $remote_fs $network mysql
-
-### Add Directory for Logfiles
+### 为日志文件创建目录
 
      mkdir /path/to/seafile/dir/logs
 
-### Make the seafile-sever script executable
+### 设置 seafile-sever 脚本为可执行文件
 
     sudo chmod +x /etc/init.d/seafile-server
 
-### Add seafile-server to rc.d
+### 在 rc.d 中新增 seafile-server
 
     sudo update-rc.d seafile-server defaults
 
-### Done
+### 完成
 
-Don't forget to update the value of **script\_path** later if you update
-your seafile server.
+在升级 Seafile 服务器后请记得更新`script\_path`的值.
 
-For RHEL/CentOS
----------------
+RHEL/CentOS 下
+--------------
 
-On RHEL/CentOS, the script
-[/etc/rc.local](http://www.centos.org/docs/5/html/Installation_Guide-en-US/s1-boot-init-shutdown-run-boot.html)
-is executed by the system at bootup, so we start seafile/seahub there.
+RHEL/CentOS 下,[/etc/rc.local](http://www.centos.org/docs/5/html/Installation_Guide-en-US/s1-boot-init-shutdown-run-boot.html)脚本会随系统开机自动执行,所以我们在这个脚本中设置启动Seafile/Seahub.
 
--   Locate your python executable (python 2.6 or 2.7)
+-   定位 python(python 2.6 or 2.7)
 
 <!-- -->
 
     which python2.6 # or "which python2.7"
 
--   In /etc/rc.local, add the directory of python2.6(2.7) to **PATH**,
-    and add the seafile/seahub start command
+-   在 /etc/rc.local 脚本中, 将 python2.6(2.7)路径加入到**PATH**字段中,
+    并增加 Seafile/Seahub 启动命令
 
 <!-- -->
 
     `
-    # Assume the python 2.6(2.7) executable is in "/usr/local/bin"
+    # 假设 python 2.6(2.7) 可执行文件在 /usr/local/bin 目录下
     PATH=$PATH:/usr/local/bin/
 
-    # Change the value of "user" to your linux user name
+    # 请将 user 改为你的Linux用户名
     user=haiwen
 
-    # Change the value of "script_path" to your path of seafile installation
+    # 请将 script_path 改为你的 Seafile 文件安装路径
     seafile_dir=/data/haiwen
     script_path=${seafile_dir}/seafile-server-latest
 
     sudo -u ${user} ${script_path}/seafile.sh start > /tmp/seafile.init.log 2>&1
     sudo -u ${user} ${script_path}/seahub.sh start > /tmp/seahub.init.log 2>&1
 
-**Note**: If you want to start seahub in fastcgi, just change the
-**"seahub.sh start"** in the last line above to **"seahub.sh
+**注意**: 如果你想在fastcgi下启动Seahub,只需将上文中最后一行**"seahub.sh start"**改为**"seahub.sh
 start-fastcgi"**
 
--   Done. Don't forget to update the value of **script\_path** later if
-    you update your seafile server.
+-   完成. 在升级 Seafile 服务器后请记得更新 `script\_pat` 的值.
 
-For RHEL/CentOS run as service
-------------------------------
+只使用 RHEL/CentOS 为服务程序（service）下
+------------------------------------------
 
-On RHEL/CentOS , we make use of the /etc/init.d/ scripts to start
-seafile/seahub at system boot as service.
+RHEL/CentOS 下 , 我们通过 /etc/init.d/ 脚本将 Seafile/Seahub作为服务程序随开机启动.
 
-### Create a file **/etc/sysconfig/seafile**
+### 创建**/etc/sysconfig/seafile**文件
 
-    # Change the value of "user" to your linux user name
+    # 请将 user 改为你的Linux用户名
     user=haiwen
 
-    # Change the value of "script_path" to your path of seafile installation
+    # 请将 script_path 改为你的 Seafile 文件安装路径
     seafile_dir=/home/haiwen
     script_path=${seafile_dir}/seafile-server-latest
     seafile_init_log=${seafile_dir}/logs/seafile.init.log
     seahub_init_log=${seafile_dir}/logs/seahub.init.log
 
-    # Change the value of fastcgi to true if fastcgi is to be used
+    # 若使用 fastcgi, 请将其设置为True
     fastcgi=false
 
-    # Set the port of fastcgi, default is 8000. Change it if you need different.
+    # fastcgi 端口, 默认为 8000. 
     fastcgi_port=8000
 
-### Create a script **/etc/init.d/seafile**
+### 创建**/etc/init.d/seafile**文件
 
     #!/bin/bash
     #
@@ -324,7 +305,7 @@ seafile/seahub at system boot as service.
 
     exit $RETVAL
 
-### Create a script **/etc/init.d/seahub**
+### 创建**/etc/init.d/seahub**脚本
 
     #!/bin/bash
     #
@@ -394,7 +375,7 @@ seafile/seahub at system boot as service.
 
     exit $RETVAL
 
-Next, enable services:
+接下来启动服务程序:
 
     chmod 550 /etc/init.d/seafile
     chmod 550 /etc/init.d/seahub
@@ -403,76 +384,9 @@ Next, enable services:
     chkconfig seahub on
     chkconfig seafile on
 
-and run:
+执行:
 
     service seafile start
     service seahub start
 
-For systems running systemd
----------------------------
-
-Create systemd service files, change **${seafile\_dir}** to your
-**seafile** installation location and **seafile** to user, who runs
-**seafile** (if appropriate). Then you need to reload systemd's daemons:
-**systemctl daemon-reload**.
-
-### Create systemd service file /etc/systemd/system/seafile.service
-
-    [Unit]
-    Description=Seafile
-    # add mysql.service or postgresql.service depending on your database to the line below
-    After=network.target
-
-    [Service]
-    Type=oneshot
-    ExecStart=${seafile_dir}/seafile-server-latest/seafile.sh start
-    ExecStop=${seafile_dir}/seafile-server-latest/seafile.sh stop
-    RemainAfterExit=yes
-    User=seafile
-    Group=seafile
-
-    [Install]
-    WantedBy=multi-user.target
-
-### Create systemd service file /etc/systemd/system/seahub.service
-
-    [Unit]
-    Description=Seafile hub
-    After=network.target seafile.service
-
-    [Service]
-    # change start to start-fastcgi if you want to run fastcgi
-    ExecStart=${seafile_dir}/seafile-server-latest/seahub.sh start
-    ExecStop=${seafile_dir}/seafile-server-latest/seahub.sh stop
-    User=seafile
-    Group=seafile
-    Type=oneshot
-    RemainAfterExit=yes
-
-    [Install]
-    WantedBy=multi-user.target
-
-### Create systemd service file /etc/systemd/system/seafile-client.service (optional)
-
-You need to create this service file only if you have **seafile**
-console client and you want to run it on system boot.
-
-    [Unit]
-    Description=Seafile client
-    # Uncomment the next line you are running seafile client on the same computer as server
-    # After=seafile.service
-    # Or the next one in other case
-    # After=network.target
-
-    [Service]
-    Type=oneshot
-    ExecStart=/usr/bin/seaf-cli start
-    ExecStop=/usr/bin/seaf-cli stop
-    RemainAfterExit=yes
-    User=seafile
-    Group=seafile
-
-    [Install]
-    WantedBy=multi-user.target
-
-### Done
+### 完成

@@ -1,125 +1,120 @@
-# Seahub Settings
+# Seahub 配置
 
-##  Sending Email Notifications on Seahub
+### Seahub 下发送邮件提醒
 
-A few features work better if it can send email notifications, such as notifying users about new messages.
-If you want to setup email notifications, please add the following lines to seahub_settings.py (and set your email server).
+邮件提醒会使某些功能有更好的用户体验, 比如发送邮件提醒用户新消息到达.
+请在`seahub_settings.py`中加入以下语句以安装邮件提醒功能
+(同时需要对你的邮箱进行设置).
 
-<pre>
-EMAIL_USE_TLS = False
-EMAIL_HOST = 'smtp.domain.com'        # smpt server
-EMAIL_HOST_USER = 'username@domain.com'    # username and domain
-EMAIL_HOST_PASSWORD = 'password'    # password
-EMAIL_PORT = '25'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SERVER_EMAIL = EMAIL_HOST_USER
-</pre>
+    EMAIL_USE_TLS = False
+    EMAIL_HOST = 'smtp.domain.com'        # smpt 服务器
+    EMAIL_HOST_USER = 'username@domain.com'    # 用户名和域名
+    EMAIL_HOST_PASSWORD = 'password'    # 密码
+    EMAIL_PORT = '25'
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    SERVER_EMAIL = EMAIL_HOST_USER
 
-If you are using Gmail as email server, use following lines:
+Gmail 用户请加入以下语句:
 
-<pre>
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'username@gmail.com'
-EMAIL_HOST_PASSWORD = 'password'
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SERVER_EMAIL = EMAIL_HOST_USER
-</pre>
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'username@gmail.com'
+    EMAIL_HOST_PASSWORD = 'password'
+    EMAIL_PORT = 587
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    SERVER_EMAIL = EMAIL_HOST_USER
 
-**Note**: If your Email service still can not work, you may checkout the log file <code>logs/seahub.log</code> to see what may cause the problem. For complete email notification list, please refer to [Email notification list](customize_email_notifications.md).
+**注意1**:如果邮件功能不能正常使用，请在`logs/seahub.log`日志文件中查看问题原因.
+更多信息请见 [Email notification
+list](Email notification list "wikilink").
 
-**Note2**: If you want to use the Email service without authentication leaf <code>EMAIL_HOST_USER</code> and <code>EMAIL_HOST_PASSWORD</code> **blank** (<code>''</code>). (But notice that the emails then will be sent without a <code>From:</code> address.)
+**注意2**:
+如果你想在非用户验证情况下使用邮件服务，请将`EMAIL_HOST_USER`和
+`EMAIL_HOST_PASSWORD` 置为**blank** (`''`).
+(但是注意一点，这种情况下，邮件将不会记录发件人`From:`信息.)
 
-## Memcached
+### 缓存
 
-Seahub caches items(avatars, profiles, etc) on file system by default(/tmp/seahub_cache/). You can replace with Memcached.
-After install **python-memcache**, add the following lines to **seahub_settings.py**.
+Seahub 在默认文件系统(/tmp/seahub\_cache/)中缓存文件(avatars, profiles,
+etc) . 你可以通过 Memcached 进行缓存操作
+(前提是你已经安装了`python-memcache`模块).
 
-```
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-	'LOCATION': '127.0.0.1:11211',
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        }
     }
-}
-```
 
-## Other options
+### Seahub 设置
 
-You may change seahub website's settings by adding variables in `seahub_settings.py`.
-
-<pre>
-
-# Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
-TIME_ZONE = 'UTC'
-
-# Set this to seahub website's URL. This URL is contained in email notifications.
-SITE_BASE = 'http://www.example.com/'
-
-# Set this to your website's name. This is contained in email notifications.
-SITE_NAME = 'example.com'
-
-# Set seahub website's title
-SITE_TITLE = 'Seafile'
-
-# If you don't want to run seahub website on your site's root path, set this option to your preferred path.
-# e.g. setting it to '/seahub/' would run seahub on http://example.com/seahub/.
-SITE_ROOT = '/'
-
-# Whether to use pdf.js to view pdf files online. Default is `True`,  you can turn it off.
-# NOTE: since version 1.4.
-USE_PDFJS = True
-
-# Enalbe or disalbe registration on web. Default is `False`.
-# NOTE: since version 1.4.
-ENABLE_SIGNUP = False
-
-# Activate or deactivate user when registration complete. Default is `True`.
-# If set to `False`, new users need to be activated by admin in admin panel.
-# NOTE: since version 1.8
-ACTIVATE_AFTER_REGISTRATION = False
-
-# Whether to send email when a system admin adding a new member. Default is `True`.
-# NOTE: since version 1.4.
-SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER = True
-
- # Whether to send email when a system admin resetting a user's password. Default is `True`.
-# NOTE: since version 1.4.
-SEND_EMAIL_ON_RESETTING_USER_PASSWD = True
-
-# Hide `Organization` tab.
-# If you want your private seafile behave exactly like https://cloud.seafile.com/, you can set this flag.
-CLOUD_MODE = True
-
-# Online preview maximum file size, defaults to 30M.
-FILE_PREVIEW_MAX_SIZE = 30 * 1024 * 1024
-
-# Age of cookie, in seconds (default: 2 weeks).
-SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
-
-# Whether to save the session data on every request.
-SESSION_SAVE_EVERY_REQUEST = False
-
-# Whether a user's session cookie expires when the Web browser is closed.
-SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
-# Using server side crypto by default, otherwise, let user choose crypto method.
-FORCE_SERVER_CRYPTO = True
-
-</pre>
+通过修改`seahub_settings.py`文件，可以对 Seahub 网站进行更改.
 
 
+    # 时区设置，更多请见:
+    # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+    # 部分操作系统下有效.
+    # 如果是 Windows 用户，请设置为你的系统时区.
+    TIME_ZONE = 'UTC'
 
-**Note**:
+    # Seahub 网站 URL. 邮件提醒中会包含此地址
+    SITE_BASE = 'http://www.example.com/'
 
-* You need to restart seahub so that your changes take effect.
-* If your changes don't take effect, You may need to delete 'seahub_setting.pyc'. (A cache file)
+    # 网站名称. 邮件提醒中会包含此名称.
+    SITE_NAME = 'example.com'
 
-<pre>
-./seahub.sh restart
-</pre>
+    # 网站标题
+    SITE_TITLE = 'Seafile'
+
+    # 若果不想再根路径上运行 Seahub 网站, 请更改此设置.
+    # e.g. setting it to '/seahub/' would run seahub on http://example.com/seahub/.
+    SITE_ROOT = '/'
+
+    # 是否使用 pdf.js 在线查看 pdf 文件. 默认为 `True`.
+    # NOTE: 1.4版本后可用.
+    USE_PDFJS = True
+
+    # 是否在网站页面显示注册按钮，默认为 `False`.
+    # NOTE: 1.4版本后可用.
+    ENABLE_SIGNUP = False
+
+    # 用户注册后是否立刻激活，默认为 `True`.
+    # 如设置为 `False`, 需管理员手动激活.
+    # NOTE: 1.8版本后可用
+    ACTIVATE_AFTER_REGISTRATION = False
+
+    # 管理员新增用户后是否给用户发送邮件. 默认为 `True`.
+    # NOTE: 1.4版本后可用.
+    SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER = True
+
+     # 管理员重置用户密码后是否给用户发送邮件. 默认为 `True`.
+    # NOTE: 1.4版本后可用.
+    SEND_EMAIL_ON_RESETTING_USER_PASSWD = True
+
+    # 隐藏 `Organization` 标签 .
+    # 如果你希望你的私人 Seafile 像 https://cloud.seafile.com/ 一样运行， 请设置.
+    CLOUD_MODE = True
+
+    # 在线查看文件大小限制，默认为 30M.
+    FILE_PREVIEW_MAX_SIZE = 30 * 1024 * 1024
+
+    # cookie的保存时限，(默认为 2 周).
+    SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
+
+    # 是否存储每次请求的会话数据.
+    SESSION_SAVE_EVERY_REQUEST = False   
+
+    # 浏览器关闭后，是否清空用户会话 cookie.                    
+    SESSION_EXPIRE_AT_BROWSER_CLOSE = False                 
+
+    # 使用服务器端的 crypto, 或者用户自行选择 crypto 方法.
+    FORCE_SERVER_CRYPTO = True
+
+**注意**:
+
+-   请重启 Seahub 以使更改生效.
+-   如果更改没有生效，请删除`seahub_setting.pyc`缓存文件.
+
+<!-- -->
+
+    ./seahub.sh restart

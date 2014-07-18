@@ -1,49 +1,47 @@
-# Seafile.conf settings
+# seafile.conf 配置
 
-## Storage Quota Setting (seafile.conf)
+存储空间容量设置(seafile.conf)
+------------------------------
 
-You may set a default quota (e.g. 2GB) for all users. To do this, just add the following lines to `seafile-data/seafile.conf` file
+如果你想向所有用户分配存储空间(e.g. 2GB)时 .
+你可以在`seafile-data/seafile.conf`文件中增加以下语句
 
-<pre>
-[quota]
-# default user quota in GB, integer only
-default = 2
-</pre>
+    [quota]
+    # 单位为 Gb， 请使用数字
+    default = 2
 
-This setting applies to all users. If you want to set quota for a specific user, you may log in to seahub website as administrator, then set it in "System Admin" page.
+这个设置对所有用户生效. 如果你想对某一特定用户进行容量分配,
+请以管理员身份登陆 Seahub 网站, 在**System Admin**页面中进行设置.
 
-## Default history length limit (seafile.conf)
+默认历史记录设置(seafile.conf)
+------------------------------
 
-If you don't want to keep all file revision history, you may set a default history length limit for all libraries.
+如果你不想存储所有的文件修改历史,
+可以对所有的资料库，设置一个默认的文件修改历史记录。
 
-<pre>
-[history]
-keep_days = days of history to keep
-</pre>
+    [history]
+    keep_days = days of history to keep
 
-## Seafile httpserver configuration (seafile.conf)
+Seafile httpserver 配置(seafile.conf)
+-------------------------------------
 
-The configuration of seafile httpserver is in the <code>[httpserver]</code> section of the file <code>seafile-data/seafile.conf</code>
+可通过`seafile-data/seafile.conf`的`[httpserver]`部分对 Seafile
+httpserver 进行配置
 
-<pre>
-[httpserver]
-# tcp port for httpserver
-port = 8082
-</pre>
+    [httpserver]
+    # httpserver 的 tcp 端口
+    port = 8082
 
-Change upload/download settings.
+更改上传/下载设置.
 
-<pre>
-[httpserver]
-# Set maximum upload file size to 200M.
-max_upload_size=200
+    [httpserver]
+    # 上传文件最大为200M.
+    max_upload_size=200
 
-# Set maximum download directory size to 200M.
-max_download_dir_size=200
-</pre>
+    # 最大下载目录限制为200M.
+    max_download_dir_size=200
 
-**Note**: You need to restart seafile and seahub so that your changes take effect.
-<pre>
-./seahub.sh restart
-./seafile.sh restart
-</pre>
+**注意**: 请重启 Seafile和 Seahub以使修改生效.
+
+    ./seahub.sh restart
+    ./seafile.sh restart

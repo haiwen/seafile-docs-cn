@@ -1,115 +1,107 @@
-# Enabling Https with Nginx
+# Nginx 下启用 Https
 
-Here we use self-signed SSL digital certificate for free. If you use a paid ssl certificate from some authority, just skip the first step.
+在 Seahub 端启用 https
+----------------------
 
-### Generate SSL digital certificate with OpenSSL
-```bash
+免费 Self-Signed SSL 数字认证用户请看. 如果你是 SSL 付费认证用户可跳过此步.
+
+### 通过 OpenSS L生成 SSL 数字认证
+
     openssl genrsa -out privkey.pem 2048
     openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095
-```
 
-### Enable SSL module of Nginx (optional)
-If your Nginx does not support SSL, you need to recompile it, the commands are as follows:
-```bash
+### 启用 Nginx 的 SSL 模块 (可选)
+
+如果你的 Nginx 并不支持 SSL, 请重新编译, 相关命令如下: 
+
     ./configure --with-http_stub_status_module --with-http_ssl_module
     make && make install
-```
 
-### Modify Nginx configuration file
+### 修改 Nginx 配置文件
 
-Assume you have configured nginx as
-[Deploy-Seafile-with-nginx](deploy_with_nginx.md). To use https, you need to modify your nginx configuration file.
-```nginx
+假设你已经按照[[在Nginx环境下部署Seafile]]对 nginx 进行了相关设置. 请修改 nginx 配置文件以使用 HTTPS.
+
     server {
-        listen       80;
-        server_name  www.yourdoamin.com;
-        rewrite ^ https://$http_host$request_uri? permanent;	# force redirect http to https
+      listen       80;
+      server_name  www.yourdoamin.com; 
+      rewrite ^ https://$http_host$request_uri? permanent;	#强制将http重定向到https
     }
 
     server {
-        listen 443;
-        ssl on;
-        ssl_certificate /etc/ssl/cacert.pem;	# path to your cacert.pem
-        ssl_certificate_key /etc/ssl/privkey.pem;	# path to your privkey.pem
-        server_name www.yourdoamin.com;
-        # ......
-        fastcgi_param   HTTPS               on;
-        fastcgi_param   HTTP_SCHEME         https;
+      listen 443;
+      ssl on;
+      ssl_certificate /etc/ssl/cacert.pem;	#cacert.pem 文件路径
+      ssl_certificate_key /etc/ssl/privkey.pem;	#privkey.pem 文件路径
+      server_name www.yourdoamin.com;    
+      # ......
+      fastcgi_param   HTTPS               on;
+      fastcgi_param   HTTP_SCHEME         https;
     }
-```
 
+### 配置文件示例
 
-### Sample configuration file
+这里是配置文件示例:
 
-Here is the sample configuration file:
-
-```nginx
     server {
-        listen       80;
-        server_name  www.yourdoamin.com;
-        rewrite ^ https://$http_host$request_uri? permanent;	# force redirect http to https
+      listen       80;
+      server_name  www.yourdoamin.com;
+      rewrite ^ https://$http_host$request_uri? permanent;	#强制将http重定向到https
     }
     server {
-        listen 443;
-        ssl on;
-        ssl_certificate /etc/ssl/cacert.pem;            # path to your cacert.pem
-        ssl_certificate_key /etc/ssl/privkey.pem;	# path to your privkey.pem
-        server_name www.yourdoamin.com;
-        location / {
-            fastcgi_pass    127.0.0.1:8000;
-            fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;
-            fastcgi_param   PATH_INFO           $fastcgi_script_name;
+      listen 443;
+      ssl on;
+      ssl_certificate /etc/ssl/cacert.pem;            #cacert.pem 文件路径
+      ssl_certificate_key /etc/ssl/privkey.pem;	#privkey.pem 文件路径
+      server_name www.yourdoamin.com;    
+      location / {
+          fastcgi_pass    127.0.0.1:8000;
+          fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;
+          fastcgi_param   PATH_INFO           $fastcgi_script_name;
 
-            fastcgi_param   SERVER_PROTOCOL	$server_protocol;
-            fastcgi_param   QUERY_STRING        $query_string;
-            fastcgi_param   REQUEST_METHOD      $request_method;
-            fastcgi_param   CONTENT_TYPE        $content_type;
-            fastcgi_param   CONTENT_LENGTH      $content_length;
-            fastcgi_param   SERVER_ADDR         $server_addr;
-            fastcgi_param   SERVER_PORT         $server_port;
-            fastcgi_param   SERVER_NAME         $server_name;
-            fastcgi_param   HTTPS               on;
-            fastcgi_param   HTTP_SCHEME         https;
+          fastcgi_param   SERVER_PROTOCOL	$server_protocol;
+          fastcgi_param   QUERY_STRING        $query_string;
+          fastcgi_param   REQUEST_METHOD      $request_method;
+          fastcgi_param   CONTENT_TYPE        $content_type;
+          fastcgi_param   CONTENT_LENGTH      $content_length;
+          fastcgi_param   SERVER_ADDR         $server_addr;
+          fastcgi_param   SERVER_PORT         $server_port;
+          fastcgi_param   SERVER_NAME         $server_name;
+          fastcgi_param   HTTPS               on;
+          fastcgi_param   HTTP_SCHEME         https;
 
-            access_log      /var/log/nginx/seahub.access.log;
-    	    error_log       /var/log/nginx/seahub.error.log;
-        }
-        location /seafhttp {
-            rewrite ^/seafhttp(.*)$ $1 break;
-            proxy_pass http://127.0.0.1:8082;
-            client_max_body_size 0;
-        }
-        location /media {
-            root /home/user/haiwen/seafile-server-latest/seahub;
-        }
+          access_log      /var/log/nginx/seahub.access.log;
+        error_log       /var/log/nginx/seahub.error.log;
+      }       
+      location /seafhttp {
+          rewrite ^/seafhttp(.*)$ $1 break;
+          proxy_pass http://127.0.0.1:8082;
+          client_max_body_size 0;
+      }
+      location /media {
+          root /home/user/haiwen/seafile-server-latest/seahub;
+      }
     }
-```
 
-### Reload Nginx
-```bash
-    nginx -s reload
-```
+### 重新加载 Nginx
 
-## Modify settings to use https
+    nginx -s reload
 
-### ccnet conf
+修改相关配置以使用 https
+------------------------
 
-Since you change from http to https, you need to modify the value of "SERVICE_URL" in <code>ccnet/ccnet.conf</code>:
-```bash
-SERVICE_URL = https://www.yourdomain.com
-```
+### ccnet 配置
 
-### seahub_settings.py
+因为你想使用 https 而非 http,
+你需要修改`ccnet/ccnet.conf`中**SERVICE\_URL**字段的值:
 
-At the end of the file, add a line:
+    SERVICE_URL = https://www.yourdomain.com
 
-```python
-HTTP_SERVER_ROOT = 'https://www.yourdomain.com/seafhttp'
-```
+### seahub\_settings.py 配置
 
-## Start Seafile and Seahub
+    HTTP_SERVER_ROOT = 'https://www.yourdomain.com/seafhttp'
 
-```bash
-./seafile.sh start
-./seahub.sh start-fastcgi
-```
+启动 Seafile 和 Seahub
+----------------------
+
+    ./seafile.sh start
+    ./seahub.sh start-fastcgi
