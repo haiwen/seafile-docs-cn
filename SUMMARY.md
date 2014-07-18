@@ -62,17 +62,17 @@
    * [WebDAV 扩展](extension/webdav.md
    * [FUSE 扩展](extension/fuse.md
 * [安全选项](security/README.md
-* [开发文档](develop/README.md
-   * [编译 Seafile](build_seafile/README.md
-       * [Linux](build_seafile/linux.md
-       * [Windows](build_seafile/windows.md
-       * [Max OS X](build_seafile/osx.md
-       * [Server](build_seafile/server.md
-   * [开发环境](develop/env.md
-   * [编程规范](develop/code_standard.md
-   * [Web API](develop/web_api.md
-   * [Python API](develop/python_api.md
-   * [数据模型](develop/data_model.md
-   * [服务器组件](develop/server-components.md
-   * [同步算法](develop/sync_algorithm.md
+* [开发文档](develop/README.md)
+   * [编译 Seafile](build_seafile/README.md)
+       * [Linux](build_seafile/linux.md)
+       * [Windows](build_seafile/windows.md)
+       * [Max OS X](build_seafile/osx.md)
+       * [Server](build_seafile/server.md)
+   * [开发环境](develop/env.md)
+   * [编程规范](develop/code_standard.md)
+   * [Web API](develop/web_api.md)
+   * [Python API](develop/python_api.md)
+   * [数据模型](develop/data_model.md)
+   * [服务器组件](develop/server-components.md)
+   * [同步算法](develop/sync_algorithm.md)
 
