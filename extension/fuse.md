@@ -1,10 +1,10 @@
 # FUSE扩展
 
-在seafile系统上文件被分割成数据块，这意味着在你的seafile服务器上存储的并不是完整的文件而是数据块。这种设计能够方便有效的运用数据去重技术。
+在Seafile系统上文件被分割成数据块，这意味着在你的Seafile服务器上存储的并不是完整的文件而是数据块。这种设计能够方便有效的运用数据去重技术。
 
 然而，有时系统管理员想要直接访问服务器上的文件，你可以使用seaf-fuse来做到这点。
 
-`Seaf-fuse`是一种[FUSE](http://fuse.sourceforge.net)虚拟文件系统的实现. 一句话来说就是，它挂载所有的seafile文件到一个目录（它被称为'''挂载点''')，所以你可以像访问服务器上的正常目录一样来访问由seafile服务器管理的所有文件。
+`Seaf-fuse`是一种[FUSE](http://fuse.sourceforge.net)虚拟文件系统的实现. 一句话来说就是，它挂载所有的Seafile文件到一个目录（它被称为'''挂载点''')，所以你可以像访问服务器上的正常目录一样来访问由Seafile服务器管理的所有文件。
 
 ```注意:```
 * 加密的目录不可以被seaf-fuse来访问。
@@ -23,7 +23,7 @@ mkdir -p /data/seafile-fuse
 
 #### 用脚本来启动seaf-fuse
 
-```注意:``` 在启动seaf-fuse之前, 你应该已经通过执行`./seafile.sh start`启动好seafile服务器。
+```注意:``` 在启动seaf-fuse之前, 你应该已经通过执行`./seafile.sh start`启动好Seafile服务器。
 
 <pre>
 ./seaf-fuse.sh start /data/seafile-fuse
@@ -74,9 +74,9 @@ $ ls -lhp /data/seafile-fuse/abc@abc.com/5403ac56-5552-4e31-a4f1-1de4eb889a5f_Ph
 -rw-r--r-- 1 root root 501K Jan  1  1970 sample.jpng
 </pre>
 
-#### 如果你得到"Permission denied"的错误
+#### 如果出现"Permission denied"的错误
 
-当你运行`./seaf-fuse.sh start`时，遇到"Permission denied"的错误信息, 很有可能你没有在“fuse组”你应当：
+如果你运行`./seaf-fuse.sh start`时，遇到"Permission denied"的错误信息, 很有可能你没有在“fuse用户组”解决方法：
 
 * 把你的用户加到fuse组
 <pre>

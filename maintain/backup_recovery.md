@@ -1,18 +1,18 @@
 ## 概述
 
-一般来说，seafile备份分为两部分内容：
+一般来说，Seafile备份分为两部分内容：
 
 * Seafile库数据
 * 数据库
 
-如果你根据我们的手册来安装seafile服务器，你应该有如下目录结构：
+如果你根据我们的手册来安装Seafile服务器，你应该有如下目录结构：
 
     haiwen       # 根目录，haiwen为示例文件名，如果你安装到其他目录则为相应的目录名
-      --seafile-server-2.x.x # seafile安装包解压缩后目录
-      --seafile-data   # seafile配置文件和数据（如果你选择默认方式）
-      --seahub-data    # seahub 数据
-      --ccnet          # ccnet配置文件和数据 
-      --seahub.db      # seahub用到的sqlite3数据库文件
+      --seafile-server-2.x.x # Seafile安装包解压缩后目录
+      --seafile-data   # Seafile配置文件和数据（如果你选择默认方式）
+      --seahub-data    # Seahub 数据
+      --ccnet          # Ccnet配置文件和数据 
+      --seahub.db      # Seahub用到的sqlite3数据库文件
       --seahub_settings.py # seahub可选属性配置文件
 
 你所有的库数据都存储在'haiwen'目录。
@@ -38,9 +38,9 @@ Seafile也在数据库中存储一些重要的元数据。数据库的命名和�
 
 1. 可选步: 如果你选择SQLite作为数据库，首先停掉Seafile服务器；
 2. 备份数据库；
-3. 备份seafile数据目录；
+3. 备份Seafile数据目录；
 
-我们假设你的seafile数据目录位于`/data/haiwen`，并且你想将其备份到`/backup`目录。`/backup`目录可以是NFS格式或者是由另一台机器导出的Windows共享挂载也可以仅仅只是外部的磁盘。你可以在`/backup`目录下创建如下目录结构：
+我们假设你的Seafile数据目录位于`/data/haiwen`，并且你想将其备份到`/backup`目录。`/backup`目录可以是NFS格式或者是由另一台机器导出的Windows共享挂载也可以仅仅只是外部的磁盘。你可以在`/backup`目录下创建如下目录结构：
 
     /backup
     ---- databases/  包含数据库备份文件
@@ -94,9 +94,9 @@ Seafile也在数据库中存储一些重要的元数据。数据库的命名和�
 
 ## 恢复备份 ##
 
-现在假设你的主seafile服务器已经坏掉，你正在转移到另一台机器即用备份的数据来恢复之前的seafile服务器:
+现在假设你的主Seafile服务器已经坏掉，你正在转移到另一台机器即用备份的数据来恢复之前的Seafile服务器:
 
-1. 拷贝`/backup/data/haiwen`文件夹到新的机器。假设seafile在新机器上任部署到`/data/haiwen`目录。
+1. 拷贝`/backup/data/haiwen`文件夹到新的机器。假设Seafile在新机器上任部署到`/data/haiwen`目录。
 2. 恢复数据库。
 
 ### 恢复数据库

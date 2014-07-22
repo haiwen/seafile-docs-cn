@@ -1,8 +1,8 @@
 # WebDAV扩展
 
-Seafile WebDAV Server(SeafDAV)在seafile server 2.1.0版本中被加入.
+Seafile WebDAV Server(SeafDAV)在Seafile Server 2.1.0版本中被加入.
 
-在下面的维基中, 我们假设你将seafile安装到`/data/haiwen`目录下。
+在下面的维基中, 我们假设你将Seafile安装到`/data/haiwen`目录下。
 
 ## SeafDAV配置
 
@@ -23,7 +23,7 @@ fastcgi = false
 share_name = /
 </pre>
 
-每次配置文件被修改后，你需要重启seafile服务器使之生效。
+每次配置文件被修改后，你需要重启Seafile服务器使之生效。
 
 <pre>
 ./seafile.sh restart
@@ -121,7 +121,7 @@ FastCGIExternalServer /var/www/seafdav.fcgi -host 127.0.0.1:8080
 
 #### Apache 无 HTTPS
 
-根据你的apache配置当你 [[将要部署 Seafile 和 apache|已经部署 seafile 和 Apache]], 加入seafdav的相关配置:
+根据你的Apache配置当你[将要部署 Seafile 和 Apache|已经部署 Seafile 和 Apache], 加入Seafdav的相关配置:
 
 <pre>
 <VirtualHost *:80>
@@ -158,7 +158,7 @@ ServerName www.myseafile.com
 
 #### Apache 有 HTTPS
 
-根据你的apache配置当你 [[配置seafile网站和Apache并启用Https]](../deploy/https_with_apache.md), 加入seafdav的相关配置:
+根据你的apache配置当你[配置Seafile网站和Apache并启用Https](../deploy/https_with_apache.md), 加入seafdav的相关配置:
 
 <pre>
 <VirtualHost *:443>
@@ -205,7 +205,7 @@ ServerName www.myseafile.com
 webdav对于Windows浏览器的支持实现并不是十分可用，因为：
 
 ```
-Windows 浏览器需要利用HTTP数字认证。但是由于seafile在服务器端不存储纯文本密码，所以它不支持这个特性。HTTP基本认证只被HTTPS支持（这是合理的）。但是浏览器不支持自我签署的证书。
+Windows 浏览器需要利用HTTP数字认证。但是由于Seafile在服务器端不存储纯文本密码，所以它不支持这个特性。HTTP基本认证只被HTTPS支持（这是合理的）。但是浏览器不支持自我签署的证书。
 ```
 
 结论就是如果你有一个合法的ssl证书，你应该能过通过Windows浏览器来访问seafdav。否则你应该使用客户端软件。Windows XP被声明不支持HTTPS webdav.
@@ -243,4 +243,4 @@ Finder对于WebDAV的支持不稳定而且较慢. 所以我们建议使用webdav
 
 ### 客户端得到"Error: 404 Not Found"错误
 
-如果你将SeafDAV部署在Nginx/Apache, 请确保像上面的配置文件一样更改<code>share_name</code>的值。重启seafile服务器后重新测试。
+如果你将SeafDAV部署在Nginx/Apache, 请确保像上面的配置文件一样更改<code>share_name</code>的值。重启Seafile服务器后重新测试。

@@ -1,3 +1,3 @@
 # WebDAV和FUSE扩展
 
-Seafile WebDAV和FUSE扩展使得Seafile能够很容易的与第三方应用协调工作。例如，你可以在ios上通过WebDAV接口访问Seafile上的文件。
+Seafile WebDAV和FUSE扩展使得Seafile能够很容易的与第三方应用协调工作。例如，你可以在IOS上通过WebDAV接口访问Seafile上的文件。

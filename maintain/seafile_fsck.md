@@ -20,7 +20,7 @@ seaf-fsck [-c config_dir] [-d seafile_dir] [repo_id_1 [repo_id_2 ...]]
 -s, --strict: 检查文件系统对象id是否和内容一致。
 ```
 
-假设你按照标准的安装方式和目录结构，并且你的seafile安装到`/data/haiwen`目录下，你应当运行如下命令：
+假设你按照标准的安装方式和目录结构，并且你的Seafile安装到`/data/haiwen`目录下，你应当运行如下命令：
 
 ```
 cd /data/haiwen/seafile-server-{version}/seafile

@@ -24,7 +24,7 @@
 
 * [备份和恢复](backup_recovery.md)
 
-服务器强制关闭或系统坏掉后，恢复损坏的seafile服务器文件：
+服务器强制关闭或系统坏掉后，恢复损坏的文件：
 
 * [Seafile FSCK](seafile_fsck.md)
 

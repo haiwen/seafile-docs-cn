@@ -15,7 +15,7 @@ Seafile利用存储去重技术来减少存储资源的利用。
 1. 未被资料库所引用的数据块。
 2. 如果你对一些资料库设置了历史长度限制，那么这些库的过期数据块也将会被删除。
 
-** 运行垃圾回收程序之前，你必须在服务器端停掉seafile程序。**
+** 运行垃圾回收程序之前，你必须在服务器端停掉Seafile程序。**
 这是因为垃圾回收程序会错误的删除刚刚写入Seafile的新的数据块。
 
 运行垃圾回收程序
@@ -24,7 +24,7 @@ Seafile利用存储去重技术来减少存储资源的利用。
     export LD_LIBRARY_PATH=./lib:${LD_LIBRARY_PATH}
     ./bin/seafserv-gc -c ../../ccnet -d ../../seafile-data
 
-如果你[[搭建seafile服务器从源码|搭建和部署seafile服务器从源码]]，仅仅运行
+如果你[搭建Seafile服务器从源码|搭建和部署Seafile服务器从源码]，仅仅运行
 
     seafserv-gc -c ../../ccnet -d ../../seafile-data
 
