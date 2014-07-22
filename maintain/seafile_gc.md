@@ -1,53 +1,47 @@
 # Seafile GC
 
-Seafile uses storage de-duplication technology to reduce storage usage.
-Simply put, there would be two implications:
+Seafile利用存储去重技术来减少存储资源的利用。
+简单来说，这包含如下两层含义：
 
-* Different versions of a file may share some data blocks;
-* Different libraries may also share some data blocks.
+* 不同版本的文件或许会共享一些数据块。
+* 不同的资料库也或许会共享一些数据块。
 
-The net result is that the underlying data blocks will not be removed
-immediately after you delete a file library. As a result, the number of
-unused data blocks will increase on Seafile server.
+这项技术的运用将导致底层数据块不会被立即删除当你删除一个资料库后，因此Seafile服务器端没用的数据块将会增多。
 
-To release the storage space occupied by unused blocks, you have to run a
-"garbage collection" program to clean up unused blocks on your server.
+为了释放无用数据块所占用的存储空间，你不得不在服务器端运行一个“垃圾回收”的程序来清理无用的数据块。
 
-The GC program cleans up two types of unused blocks:
+垃圾回收程序将会清理如下两种无用数据块：
 
-1. Blocks that no library references to;
-2. If you set history length limit on some libraries, the out-dated blocks in those libraries will also be removed.
+1. 未被资料库所引用的数据块。
+2. 如果你对一些资料库设置了历史长度限制，那么这些库的过期数据块也将会被删除。
 
-**Before running GC, you must shutdown the seafile program on your server.**
-This is because new blocks written into Seafile while GC is running may be
-mistakenly deleted by the GC program.
+** 运行垃圾回收程序之前，你必须在服务器端停掉seafile程序。**
+这是因为垃圾回收程序会错误的删除刚刚写入Seafile的新的数据块。
 
-To run GC program
+运行垃圾回收程序
 
     cd seafile-server-{version}/seafile
     export LD_LIBRARY_PATH=./lib:${LD_LIBRARY_PATH}
     ./bin/seafserv-gc -c ../../ccnet -d ../../seafile-data
 
-If you [[built seafile server from source|Build and deploy seafile server from source]],
-just run
+如果你[[搭建seafile服务器从源码|搭建和部署seafile服务器从源码]]，仅仅运行
 
     seafserv-gc -c ../../ccnet -d ../../seafile-data
 
-After the GC program terminates, you may also check whether it mistakenly removed any
-useful data blocks:
+当垃圾回收程序结束后，你也可以检查是否一些有用的数据块被错误的删除：
 
     seafserv-gc -c ../../ccnet -d ../../seafile-data --verify
 
-It will print a warning if any useful blocks are missing.
+如果一些有用的数据块丢失，它将会打印一些警告信息。
 
-If you want to do sanity check before actually removing any data, you can use the --dry-run option
+如果你想在真正删除一些数据块之前，做一些常规检查，可以使用--dry-run选项
 
     seafserv-gc -c ../../ccnet -d ../../seafile-data --dry-run
 
-It will show you the total block number vs. the number of blocks to be removed.
+这将会向你展示数据块总数量和将被删除数据块数量。
 
-If the metadata of some libraries are damaged on the server, the GC program would stop proceeding because it can't tell whether a block is used by some damaged libraries or not. If you don't want to keep the data of the damaged library, you can run GC with --ignore-errors or -i option
+如果在服务器端一些库的元数据被毁坏，垃圾回收程序将会停止处理，因为它无法识别是否一个数据块被一些毁坏的资料库所使用。如果你不想保留毁坏库的数据块，可以运行垃圾回收程序并使用--ignore-errors或-i选项。
 
     seafserv-gc -c ../../ccnet -d ../../seafile-data --ignore-errors
 
-This will mask the blocks of the damaged libraries as unused and delete them.
+这将会屏蔽毁坏资料库的数据块为无用状态并删除掉它们。

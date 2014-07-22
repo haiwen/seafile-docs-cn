@@ -1,33 +1,33 @@
-# Administration
+# 管理员
 
-### Enter the admin panel
+### 进入管理界面
 
-As the system admin, you can enter the admin panel by click the `tools` button at the top-left, beside the avatar:
+作为系统管理员，你可以通过点击网页左上侧的`tools`按钮（在个人头像旁)进入管理界面：
 
-![Admin tools](../images/tools-button.png)
+![管理工具](../images/tools-button.png)
 
-After clicking the button, you will get into the admin panel:
+点击完`tools`按钮，你便进入管理界面：
 
-![System admin panel](../images/system-admin.png)
+![系统管理界面](../images/system-admin.png)
 
-### Account management
+### 账号管理
 
-* [Account management](account.md)
+* [账号管理](account.md)
 
-### Logs
+### 日志
 
-* [The location of log files](logs.md)
+* [日志文件位置](logs.md)
 
-### Backup and Recovery
+### 备份和恢复
 
-Backup and recovery:
+备份和恢复:
 
-* [Backup and recovery](backup_recovery.md)
+* [备份和恢复](backup_recovery.md)
 
-Recover corrupt files after server hard shutdown or system crash:
+服务器强制关闭或系统坏掉后，恢复损坏的seafile服务器文件：
 
 * [Seafile FSCK](seafile_fsck.md)
 
-You can run Seafile GC to remove unused files:
+你可以运行Seafile GC来删除无用的文件:
 
 * [Seafile GC](seafile_gc.md)

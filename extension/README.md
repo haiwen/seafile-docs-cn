@@ -1,3 +1,3 @@
-# WebDAV and FUSE extensions
+# WebDAV和FUSE扩展
 
-Seafile WebDAV and FUSE extensions make it easy for Seafile to work with third party applications. For example, you can use Documents App in iOS to access files in Seafile via WebDAV interface.
+Seafile WebDAV和FUSE扩展使得Seafile能够很容易的与第三方应用协调工作。例如，你可以在ios上通过WebDAV接口访问Seafile上的文件。

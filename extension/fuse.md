@@ -1,45 +1,45 @@
-# FUSE extension
+# FUSE扩展
 
-Files in the seafile system are split to blocks, which means what are stored on your seafile server are not complete files, but blocks. This design faciliates effective data deduplication.
+在seafile系统上文件被分割成数据块，这意味着在你的seafile服务器上存储的并不是完整的文件而是数据块。这种设计能够方便有效的运用数据去重技术。
 
-However, administrators sometimes want to access the files directly on the server. You can use seaf-fuse to do this.
+然而，有时系统管理员想要直接访问服务器上的文件，你可以使用seaf-fuse来做到这点。
 
-`Seaf-fuse` is an implementation of the [FUSE](http://fuse.sourceforge.net) virtual filesystem. In a word, it mounts all the seafile files to a folder (which is called the '''mount point'''), so that you can access all the files managed by seafile server, just as you access a normal folder on your server.
+`Seaf-fuse`是一种[FUSE](http://fuse.sourceforge.net)虚拟文件系统的实现. 一句话来说就是，它挂载所有的seafile文件到一个目录（它被称为'''挂载点''')，所以你可以像访问服务器上的正常目录一样来访问由seafile服务器管理的所有文件。
 
-```Note:```
-* Encrypted folders can't be accessed by seaf-fuse.
-* Currently the implementation is '''read-only''', which means you can't modify the files through the mounted folder.
-* One debian/centos systems, you need to be in the "fuse" group to have the permission to mount a FUSE folder.
+```注意:```
+* 加密的目录不可以被seaf-fuse来访问。
+* Seaf-fuse的当前实现是只读访问，这意味着你不能通过挂载的目录来修改文件。
+* 对于debian/centos系统，你需要在“fuse”组才有权限来挂载一个FUSE目录。
 
-### How to start seaf-fuse
+### 如何启动seaf-fuse
 
-Assume we want to mount to `/data/seafile-fuse`.
+假设你想挂载到`/data/seafile-fuse`.
 
-#### Create the folder as the mount point
+#### 创建一个目录作为挂载点
 
 <pre>
 mkdir -p /data/seafile-fuse
 </pre>
 
-#### Start seaf-fuse with the script
+#### 用脚本来启动seaf-fuse
 
-```Note:``` Before start seaf-fuse, you should have started seafile server with `./seafile.sh start`.
+```注意:``` 在启动seaf-fuse之前, 你应该已经通过执行`./seafile.sh start`启动好seafile服务器。
 
 <pre>
 ./seaf-fuse.sh start /data/seafile-fuse
 </pre>
 
-#### Stop seaf-fuse
+#### 停止seaf-fuse
 
 <pre>
 ./seaf-fuse.sh stop
 </pre>
 
-### Contents of the mounted folder
+### 挂载目录的内容
 
-#### The top level folder
+#### 顶层目录
 
-Now you can list the content of `/data/seafile-fuse`.
+现在你可以列出`/data/seafile-fuse`目录的内容
 
 <pre>
 $ ls -lhp /data/seafile-fuse
@@ -51,10 +51,10 @@ drwxr-xr-x 2 root root 4.0K Jan  1  1970 sharp@sharp.com/
 drwxr-xr-x 2 root root 4.0K Jan  1  1970 test@test.com/
 </pre>
 
-* The top level folder contains many subfolders, each of which corresponds to a user
-* The time stamp of files and folders is not preserved.
+* 顶层目录包含许多子目录，每个子目录对应一个用户
+* 文件和目录的时间戳不会被保存
 
-#### The folder for each user
+#### 每个用户的目录
 
 <pre>
 $ ls -lhp /data/seafile-fuse/abc@abc.com
@@ -63,9 +63,9 @@ drwxr-xr-x 2 root root  924 Jan  1  1970 5403ac56-5552-4e31-a4f1-1de4eb889a5f_Ph
 drwxr-xr-x 2 root root 1.6K Jan  1  1970 a09ab9fc-7bd0-49f1-929d-6abeb8491397_My Notes/
 </pre>
 
-From the above list you can see, under the folder of a user there are subfolders, each of which represents a library of that user, and has a name of this format: '''{library_id}-{library-name}'''.
+从上面的列表可以看出，在用户目录下有一些子目录，每个子目录代表此用户的一个资料库，并且以'''{库id}-{库名字}'''的格式来命名。
 
-#### The folder for a library
+#### 资料库的目录
 
 <pre>
 $ ls -lhp /data/seafile-fuse/abc@abc.com/5403ac56-5552-4e31-a4f1-1de4eb889a5f_Photos/
@@ -74,15 +74,15 @@ $ ls -lhp /data/seafile-fuse/abc@abc.com/5403ac56-5552-4e31-a4f1-1de4eb889a5f_Ph
 -rw-r--r-- 1 root root 501K Jan  1  1970 sample.jpng
 </pre>
 
-#### If you get a "Permission denied" error
+#### 如果你得到"Permission denied"的错误
 
-If you get an error message saying "Permission denied" when running `./seaf-fuse.sh start`, most likely you are not in the "fuse group". You should:
+当你运行`./seaf-fuse.sh start`时，遇到"Permission denied"的错误信息, 很有可能你没有在“fuse组”你应当：
 
-* Add yourself to the fuse group
+* 把你的用户加到fuse组
 <pre>
 sudo usermod -a -G fuse <your-user-name>
 </pre>
 
-* Logout your shell and login again
-* Now try `./seaf-fuse.sh start <path>`again.
+* 退出shell重新登陆
+* 现在试着再一次执行`./seaf-fuse.sh start <path>`。
 

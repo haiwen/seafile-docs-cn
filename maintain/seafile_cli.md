@@ -3,102 +3,100 @@
 
 init
 ----
-Initialize config file
+初始化配置文件
 
-usage: seaf-cli -c <config-dir> -o init
+用法: seaf-cli -c <config-dir> -o init
 
 start
 -----
-Start seafile-applet to run a seafile client
+启动seafile-applet来运行seafile客户端
 
-usage: seaf-cli -c <config-dir> -o start
+用法: seaf-cli -c <config-dir> -o start
 
 start-ccnet
 -----------
-Start ccnet daemon
+启动ccnet守护进程
 
-usage: seaf-cli -c <config-dir> -o start-ccnet
+用法: seaf-cli -c <config-dir> -o start-ccnet
 
 start-seafile
 -------------
-Start seafile daemon
+启动seafile守护进程
 
-usage: seaf-cli -c <config-dir> [-w <worktree>] -o start-seafile
+用法: seaf-cli -c <config-dir> [-w <worktree>] -o start-seafile
 
 clone
 -----
-Clone a repo from seafile server
+从seafile服务器克隆一个资料库
 
-A repo id and a url need to be give because this program need to use seafile web
-API v2 to fetch repo information.
+由于此操作需要用到seafile web API v2，所以命令需要提供库id和url参数
 
-usage: seaf-cli -c <config-dir> -r <repo-id> -u <url> [-w <worktree>] -o clone
+用法: seaf-cli -c <config-dir> -r <repo-id> -u <url> [-w <worktree>] -o clone
 
 sync
 ----
-Try to synchronize a repo
+试着同步一个资料库
 
-usage: seaf-cli -c <config-dir> -r <repo-id> -o clone
+用法: seaf-cli -c <config-dir> -r <repo-id> -o clone
 
 remove
 ------
-Try to desynchronize a repo
+试着不同步一个资料库
 
-usage: seaf-cli -c <config-dir> -r <repo-id> -o remove
+用法: seaf-cli -c <config-dir> -r <repo-id> -o remove
 
-## Usage
+## 用法
 
-Subcommands:
+子命令:
 
-    init:           create config files for seafile client
-    start:          start and run seafile client as daemon
-    stop:           stop seafile client
-    list:           list local liraries
-    status:         show syncing status
-    download:       download a library from seafile server
-    sync:           synchronize an existing folder with a library in
-                        seafile server
-    desync:         desynchronize a library with seafile server
+    init:           为seafile客户端创建配置文件
+    start:          以守护进程方式启动和运行seafile客户端
+    stop:           退出seafile客户端
+    list:           列举本地资料库
+    status:         展示同步状态
+    download:       从seafile服务器下载一个资料库
+    sync:           同步本地文件夹与seafile服务器的资料库
+    desync:         取消seafile服务器资料库的同步
 
 
-##More details
+##更多细节
 
-Seafile client stores all its configure information in a config dir. The default location is `~/.ccnet`. All the commands below accept an option `-c <config-dir>`.
+Seafile客户端存储其所有的配置信息于配置目录，它默认位于`~/.ccnet`。所有的如下命令均接受`-c <config-dir>`选项。
 
 init
 ----
-Initialize seafile client. This command initializes the config dir. It also creates sub-directories `seafile-data` and `seafile` under `parent-dir`. `seafile-data` is used to store internal data, while `seafile` is used as the default location put downloaded libraries.
+初始化seafile客户端。这个命令初始化配置文件目录，它也同时创建`seafile-data`和`seafile`两个子目录在`parent-dir`下。`seafile-data`用于存储内部数据而`seafile`作为存放下载的资料库的默认位置。
 
     seaf-cli init [-c <config-dir>] -d <parent-dir>
 
 start
 -----
-Start seafile client. This command start `ccnet` and `seaf-daemon`, `ccnet` is the network part of seafile client, `seaf-daemon` manages the files.
+启动seafile客户端。这个命令启动`ccnet`和`seaf-daemon`, `ccnet`是seafile客户端网络通信部分，`seaf-daemon`用于管理文件。
 
     seaf-cli start [-c <config-dir>]
 
 stop
 ----
-Stop seafile client.
+退出seafile客户端。
 
     seaf-cli stop [-c <config-dir>]
 
 
 Download
 --------
-Download a library from seafile server
+从seafile服务器下载资料库。
 
     seaf-cli download -l <library-id> -s <seahub-server-url> -d <parent-directory> -u <username> [-p <password>]
 
 
 sync
 ----
-Synchronize a library with an existing folder.
+同步资料库与本地目录。
 
     seaf-cli sync -l <library-id> -s <seahub-server-url> -d <existing-folder> -u <username> [-p <password>]
 
 desync
 ------
-Desynchronize a library from seafile server
+取消seafile服务器的一个资料库同步。
 
     seaf-cli desync -d <existing-folder>
