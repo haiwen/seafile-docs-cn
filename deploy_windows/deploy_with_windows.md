@@ -1,43 +1,52 @@
-# Deploy with Windows
+## 安装与升级
 
-## Setup and Upgrade
+目前 Seafile Windows 服务器社区版仅支持 SQLite 数据库。Windows 专业版支持搜索，HTTPS, MySQL 数据库， WebDAV。我们测试用的系统是 Windows 2008 server R2 SP1。
 
-Seafile Windows Community Edition only support SQLite database now. The Seafie Windows professional edition supports MySQL, WebDAV and file search.
+- [下载安装 Windows 版 Seafile 服务器](deploy_windows/download_and_setup_seafile_windows_server.md)
+- [安装 Seafile 为 Windows 服务](deploy_windows/install_seafile_server_as_a_windows_service.md)
+- [所用端口说明](deploy_windows/ports_used_by_seafile_windows_server.md)
+- [升级](deploy_windows/upgrading_seafile_windows_server.md)
 
-- [Download and Setup Seafile Windows Server](download_and_setup_seafile_windows_server.md)
-- [LDAP Integration](../deploy/using_ldap.md)
-- [Install Seafile Server as a Windows Service](install_seafile_server_as_a_windows_service.md)
-- [Ports used by Seafile Windows Server](ports_used_by_seafile_windows_server.md)
-- [Upgrading Seafile Windows Server](Upgrading Seafile Windows Server)
-- [Options & Customization](../deploy/server_configuration.md)
+注意：默认情况下，Seafile 需要用到 8000, 8082, 10001, 12001 四个端口。
 
-For more information on Seafile server, check the documents on [Seafile Linux version](../deploy/README.md)
+## 服务器管理
 
-## Server Administration
+- [垃圾回收不再需要的数据块](../maintain/seafile_gc.md)
 
-- [Garbage Collecting Unused Blocks on Seafile Server](../maintain/seafile_gc.md)
+## 常见问题
 
-## Common Issues
+如果您安装 Seafile 服务器失败， 请首先查看`seafserv-applet.log`文件。
 
-If you failed to set up Seafile server, first check seafserv-applet.log.
 ### "ERROR: D:/seafile-server\seahub.db not found"
 
-This file is created during Seafile initialization. Please:
+此文件是在 Seafile 初始化过程中创建的。请执行下面两步:
 
-- Check whether your Python and the ``PATH`` for Python is correctly set.
-- Put Seafile server package in a simple path, like ``C:\seafile-packages``.
+1. 检查您的 Python 以及 Python 环境变量是否设置正确。 
+2. 将您的 Seafile 服务器包放在一个简短的路径下， 比如`C:\seafile-packages`。
 
-### Failed to create seahub.db
+### 创建`seahub.db`文件失败
 
-Use python version 2.7.4, do not use python 3+.
-### Can not upload/download files in the Web interface
+请使用 Python 2.7.4 版本， 不要使用 Python 3.0 及以上版本。
 
-Make sure you have modified ``SERVICE_URL`` in ccnet.conf.
+### 不能通过 Web 端上传或下载文件
 
-### The browser can't get the css and javascript files
+请先确保您已经更改了`ccnet.conf`配置文件中的`SERVICE_URL`，且更改正确。
 
-- Use python 2.7.4. If you have installed other python version, uninstall it and install python 2.7.4. Restart seafile server to see whether the problem has gone.
-- Delete non-ASCII keys from the registry path ``HKEY_CLASSES_ROOT\MIME\Database\Content`` Type, and try again.
+### 浏览器不能获得 css 和 javascript 文件
 
+1. 使用 python 2.7.4 版本。如果您已经安装了 python 的其他版本，请先卸载然后安装 python 2.7.4 版本。重启  Seafile 服务器确认此问题是否依然存在。
+2. 将注册表路径`HKEY_CLASSES_ROOT\MIME\Database\Content Type`下的非 ASCII 键删除，然后重试。
 
+### 如何移动 seafile-server 文件夹
 
+假设你的 Seafile 服务器程序位置为 `C:/SeafileProgram`, 数据文件夹位置为 `D:/seafile-server`。现在你希望把数据文件夹从 `D:/seafile-server` 移动到 `E:/seafile-server`
+
+1. 先在托盘菜单里选 **"停止并退出 seafile 服务器"**
+2. 把数据文件夹 `D:/seafile-server` 移动到新位置 `E:/seafile-server` 
+3. 打开 `C:/SeafileProgram` 文件夹下的 `seafserv.ini` 这个文件。这个文件记录了数据文件夹的路径。把这个文件的内容改为 `E:/seafile-server`。
+**注意：** 如果你的新位置的路径包含非英文字符，那么请用支持 UTF8 格式的文本编辑器来编辑 `seafserv.ini` 文件，并保存为 UTF8 格式。否则 Seafile 服务器程序可能无法正确读取这个文件的内容。
+4. 重新启动 Seafile 服务器。
+
+## 更多信息
+
+想了解更多关于 Seafile 服务器的信息， 请访问 https://github.com/haiwen/seafile/wiki

@@ -24,7 +24,7 @@
        * [从 SQLite 迁移至 MySQL](deploy/migrate_from_sqlite_to_mysql.md
    * [安装常见问题](deploy/common_problems_for_setting_up_server.md)
    * [升级](deploy/upgrade.md)
-* [Windows 下部署 Seafile 服务器](deploy_windows/deploy_with_windows.md
+* [Windows 下部署 Seafile 服务器](deploy_windows/deploy_with_windows.md)
    * [下载安装 Windows 版 Seafile 服务器](deploy_windows/download_and_setup_seafile_windows_server.md)
    * [安装 Seafile 为 Windows 服务](deploy_windows/install_seafile_server_as_a_windows_service.md)
    * [所用端口说明](deploy_windows/ports_used_by_seafile_windows_server.md)
