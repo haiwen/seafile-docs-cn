@@ -1,16 +1,16 @@
-# Account Management
+# 账号管理
 
-#### User Management
+#### 用户管理
 
-When you setup seahub website, you should have setup a admin account. After you logged in a admin, you may add/delete users and file libraries.
+当你部署好Seahub网站，你应该已经创建好一个管理员账号。用管理员账号登陆后，便可添加，删除用户和文件库。
 
-#### Resetting User Password
+#### 重置用户密码
 
-Administrator can reset password for a user in "System Admin" page.
+在“System Admin”页面，管理员可以重置用户密码。
 
-In a private server, the default settings doesn't support users to reset their password by email. If you want to enable this, you have first to [set up notification email](../config/sending_email.md).
+对于私有服务器，默认设置不支持用户通过邮箱地址来重置密码。如果你想采用这种方式，你必须首先[设置邮件通知](../config/sending_email.md)。
 
-#### Forgot Admin Account or Password?
+#### 如果忘记管理员账号或密码如何处理？
 
-You may run `reset-admin.sh` script under seafile-server directory. This script would help you reset the admin account and password.
+你可以进入seafile-server目录，运行`reset-admin.sh`脚本。这个脚本可以帮助你重置管理员账号和密码。
 

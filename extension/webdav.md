@@ -1,38 +1,38 @@
-# WebDAV extension
+# WebDAV扩展
 
-Seafile WebDAV Server(SeafDAV) is added in seafile server 2.1.0.
+Seafile WebDAV Server(SeafDAV)在Seafile Server 2.1.0版本中被加入.
 
-In the wiki below, we assume your seafile installation folder is `/data/haiwen`.
+在下面的维基中, 我们假设你将Seafile安装到`/data/haiwen`目录下。
 
-## SeafDAV Configuration
+## SeafDAV配置
 
-The configuration file is `/data/haiwen/conf/seafdav.conf`. If it is not created already, you can just create the file.
+SeafDAV配置文件是`/data/haiwen/conf/seafdav.conf`. 如果它还没有被创建，你可以自行创建它。
 
 <pre>
 [WEBDAV]
 
-# Default is false. Change it to true to enable SeafDAV server.
+# 默认值是false。改为true来使用SeafDAV server。
 enabled = true
 
 port = 8080
 
-# Change the value of fastcgi to true if fastcgi is to be used
+# 如果fastcgi将被使用则更改fastcgi的值为true。
 fastcgi = false
 
-# If you deploy seafdav behind nginx/apache, you need to modify "share_name".
+# 如果你将seafdav部署到nginx/apache，你需要更改“share_name”的值。
 share_name = /
 </pre>
 
-Every time the configuration is modified, you need to restart seafile server to make it take effect.
+每次配置文件被修改后，你需要重启Seafile服务器使之生效。
 
 <pre>
 ./seafile.sh restart
 </pre>
 
 
-### Sample Configuration 1: No nginx/apache
+### 示例配置 1: No nginx/apache
 
-Your WebDAV client would visit the Seafile WebDAV server at <code>http://example.com:8080</code>
+你的WebDAV客户端将在地址<code>http://example.com:8080</code>访问WebDAV服务器。
 
 <pre>
 [WEBDAV]
@@ -42,9 +42,9 @@ fastcgi = false
 share_name = /
 </pre>
 
-### Sample Configuration 2: With Nginx/Apache
+### 示例配置 2: With Nginx/Apache
 
-Your WebDAV client would visit the Seafile WebDAV server at <code>http://example.com/seafdav</code>
+你的WebDAV客户端将在地址<code>http://example.com/seafdav</code>访问WebDAV服务器。
 
 <pre>
 [WEBDAV]
@@ -54,12 +54,12 @@ fastcgi = true
 share_name = /seafdav
 </pre>
 
-In the above config, the value of '''share_name''' is changed to '''/seafdav''', which is the address suffix you assign to seafdav server.
+在上面的配置中，'''share_name'''的值被改为'''/seafdav''', 它是你指定给seafdav服务器的地址后缀。
 
 
-#### Nginx without HTTPS
+#### Nginx 无 HTTPS
 
-The corresponding Nginx configuration is (without https):
+相应的Nginx配置如下 (无 https):
 
 <pre>
      location /seafdav {
@@ -81,9 +81,9 @@ The corresponding Nginx configuration is (without https):
     }
 </pre>
 
-#### Nginx with HTTPS
+#### Nginx 有 HTTPS
 
-Nginx conf with https:
+Nginx配置为https:
 
 <pre>
      location /seafdav {
@@ -109,19 +109,19 @@ Nginx conf with https:
 
 #### Apache
 
-First edit <code>apache2.conf</code> file, add this line to the end of the file (or add it to <code>httpd.conf</code> depending on your Linux distro):
+首先编辑 <code>apache2.conf</code> 文件, 添加如下这行到文件结尾(或者根据你的Linux发行版将其添加到 <code>httpd.conf</code>):
 
 <pre>
 FastCGIExternalServer /var/www/seafdav.fcgi -host 127.0.0.1:8080
 </pre>
 
-Note, <code>/var/www/seafdav.fcgi</code> is just a placeholder, you don't need to actually have this file in your system.
+注意, <code>/var/www/seafdav.fcgi</code> 仅仅只是一个占位符, 实际在你的系统并不需要有此文件。
 
-Second, modify Apache config file (site-enabled/000-default):
+第二, 修改Apache配置文件 (site-enabled/000-default):
 
-#### Apache without HTTPS
+#### Apache 无 HTTPS
 
-Based on your apache configuration when you [[Deploy Seafile with apache|deployed seafile with Apache]], add seafdav related config:
+根据你的Apache配置当你[将要部署 Seafile 和 Apache|已经部署 Seafile 和 Apache], 加入Seafdav的相关配置:
 
 <pre>
 <VirtualHost *:80>
@@ -156,9 +156,9 @@ ServerName www.myseafile.com
 </virtualhost>
 </pre>
 
-#### Apache with HTTPS
+#### Apache 有 HTTPS
 
-Based on your apache configuration when you [Enable Https on Seafile web with Apache](../deploy/https_with_apache.md), add seafdav related config:
+根据你的apache配置当你[配置Seafile网站和Apache并启用Https](../deploy/https_with_apache.md), 加入seafdav的相关配置:
 
 <pre>
 <VirtualHost *:443>
@@ -197,33 +197,33 @@ ServerName www.myseafile.com
 </virtualhost>
 </pre>
 
-## Notes on Clients
+## 关于客户端的注意事项
 
 ### Windows
 
-On Windows it is recommended to use a webdav client software such as Cyberduck or BitKinex.
-The implementation of webdav support in Windows explorer is not very usable since:
+在Windows平台，我们推荐使用webdav客户端软件例如Cyberduck或BitKinex.
+webdav对于Windows浏览器的支持实现并不是十分可用，因为：
 
 ```
-Windows explorer requires to use HTTP digest authentication. But Seafile can't support this because it doesn't store plain text passwords on the server. HTTP basic authentication is only supported for HTTPS (which is reasonable). But explorer doesn't accept self-signed certificates.
+Windows 浏览器需要利用HTTP数字认证。但是由于Seafile在服务器端不存储纯文本密码，所以它不支持这个特性。HTTP基本认证只被HTTPS支持（这是合理的）。但是浏览器不支持自我签署的证书。
 ```
 
-The conclusion is if you have a valid ssl certificate, you should be able to access seafdav from Windows explorer. Otherwise you should use a client software. It's also reported that Windows XP doesn't support HTTPS webdav.
+结论就是如果你有一个合法的ssl证书，你应该能过通过Windows浏览器来访问seafdav。否则你应该使用客户端软件。Windows XP被声明不支持HTTPS webdav.
 
 ### Linux
 
-On Linux you have more choices. You can use file manager such as Nautilus to connect to webdav server. Or you can use davfs2 from the command line.
+在Linux平台你有更多的选择。你可以利用文件管理器例如Nautilus来连接webdav服务器，或者在命令行使用davfs2。
 
-To use davfs2
+使用davfs2
 
 <pre>
 sudo apt-get install davfs2
 sudo mount -t davfs -o uid=<username> https://example.com/seafdav /media/seafdav/
 </pre>
 
-The -o option sets the owner of the mounted directory to <username> so that it's writable for non-root users.
+-o选项设置挂载目录的拥有者为<username>，使得非root用户拥有可写权限。
 
-It's recommended to disable LOCK operation for davfs2. You have to edit /etc/davfs2/davfs2.conf
+我们建议对于davfs2，禁用锁操作。你需要编辑/etc/davfs2/davfs2.conf
 
 <pre>
  use_locks       0
@@ -231,18 +231,16 @@ It's recommended to disable LOCK operation for davfs2. You have to edit /etc/dav
 
 ### Mac OS X
 
-Finder's support for WebDAV is also not very stable and slow. So it is recommended to use a webdav client software such as Cyberduck.
+Finder对于WebDAV的支持不稳定而且较慢. 所以我们建议使用webdav客户端软件如Cyberduck.
 
-## Frequently Asked Questions
+## 常见问题
 
-### Clients can't connect to seafdav sersver
+### 客户端无法连接seafdav服务器
 
-By default, seafdav is disabled. Check whether you have <code>enabled = true</code> in <code>seafdav.conf</code>.
-If not, modify it and restart seafile server.
-
-
-### The client gets "Error: 404 Not Found"
-
-If you deploy SeafDAV behind Nginx/Apache, make sure to change the value of <code>share_name</code> as the sample configuration above. Restart your seafile server and try again.
+默认, seafdav是未被启用的。检查你是否在<code>seafdav.conf</code>中设置<code>enabled = true</code>。 
+如果没有，更改配置文件并重启seafle服务器。
 
 
+### 客户端得到"Error: 404 Not Found"错误
+
+如果你将SeafDAV部署在Nginx/Apache, 请确保像上面的配置文件一样更改<code>share_name</code>的值。重启Seafile服务器后重新测试。

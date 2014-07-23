@@ -52,16 +52,16 @@
    * [seahub_settings.py](config/seahub_settings_py.md)
    * [个性化 Seahub](config/seahub_customization.md
    * [个性化邮件提醒](config/customize_email_notifications.md
-* [管理员手册](maintain/README.md
-   * [账户管理](maintain/account.md
-   * [日志](maintain/logs.md
-   * [备份与恢复](maintain/backup_recovery.md
-   * [Seafile FSCK](maintain/seafile_fsck.md
-   * [Seafile GC](maintain/seafile_gc.md
-* [WebDAV 和 FUSE 扩展](extension/README.md
-   * [WebDAV 扩展](extension/webdav.md
-   * [FUSE 扩展](extension/fuse.md
-* [安全选项](security/README.md
+* [管理员手册](maintain/README.md)
+   * [账户管理](maintain/account.md)
+   * [日志](maintain/logs.md)
+   * [备份与恢复](maintain/backup_recovery.md)
+   * [Seafile FSCK](maintain/seafile_fsck.md)
+   * [Seafile GC](maintain/seafile_gc.md)
+* [WebDAV 和 FUSE 扩展](extension/README.md)
+   * [WebDAV 扩展](extension/webdav.md)
+   * [FUSE 扩展](extension/fuse.md)
+* [安全选项](security/README.md)
 * [开发文档](develop/README.md)
    * [编译 Seafile](build_seafile/README.md)
        * [Linux](build_seafile/linux.md)
