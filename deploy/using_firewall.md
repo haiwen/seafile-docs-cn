@@ -1,41 +1,39 @@
-# Firewall/NAT settings
+# 防火墙 / NAT 设置
 
-A lot of people want to deploy a seafile server in their LAN, and access it from the WAN.
+通过广域网(WAN)访问部署在局域网(LAN)的 Seafile 服务器,需要:
 
-To achieve this, you need:
-
-- A router which supports port forwarding
-- Use a dynamic DNS Service
-- Modify your seafile server configuration
+- 一台支持端口转发的路由器
+- 使用动态域名解析服务
+- 配置 Seafile 服务器
 
 
-## Setup the server
+## 安装 Seafile 服务器
 
-First, you should follow the guide on [[Download and Setup Seafile Server]] to setup your Seafile server.
+首先,按照[部署 Seafile 服务器（使用 SQLite）](deploy/using_sqlite.md)安装 Seafile 服务器。
 
-Before you continue, make sure:
+并确保以下功能正常运行:
 
-- You can visit your seahub website
-- You can download/sync a library through your seafile client
+- 正常访问 Seahub 网站
+- 在 Seafile 客户端可以下载/同步一个资料库
 
-## Setup Port Forwarding in Your Router
+## 在路由器中设置端口转发
 
-### Ensure Your Router Supports Port Forwarding
+### 确保路由器支持端口转发功能
 
-First, ensure your router supports port forwarding.
+首先, 确保你的路由器支持端口转发功能：
 
-- Login to the web adminstration page of your router. If you don't know how to do this, you should find the instructions on the manual of the router. If you have no maunal, just google **"XXX router administration page"** where `XXX` is your router's brand.
+- 根据路由器管理手册操作说明(或网络搜索), 进入路由器的管理用户界面。
 
-- Navigate around in the adminstration page, and check if there is a tag which contains a word such as "forward", "advanced". If your router supports it, chances are that you can find the port forwarding related settings there.
+- 找到包含 "转发" 或者 "高级" 等关键词的页面, 说明此路由器支持端口转发功能。
 
-### Setup Port Forwarding Rules
+### 设置路由转发规则
 
-Seafile server is composed of several components. You need to configure port forward for all the components listed below.
+Seafile 服务器包含很多组件， 请根据以下规则为所有组件设置端口转发。
 
 <table>
 <tr>
-  <th>component</th>
-  <th>default port</th>
+  <th>组件</th>
+  <th>默认端口</th>
 </tr>
 <tr>
   <td>ccnet</td>
@@ -46,7 +44,7 @@ Seafile server is composed of several components. You need to configure port for
   <td>12001</td>
 </tr>
 <tr>
-  <td>httpserver</td>
+  <td>fileserver</td>
   <td>8082</td>
 </tr>
 <tr>
@@ -55,72 +53,71 @@ Seafile server is composed of several components. You need to configure port for
 </tr>
 </table>
 
-* You don't need to open port 8000 and 8082 if you deploy Seafile behind Apache/Nginx.
-* If you're not using the default ports, you should adjust the table accroding to your own customiztion.
+* 如果是在 Apache/Nginx 环境下部署的 Seafile, 则不需要打开 8000 和 8082 端口。
+* 以上是默认端口设置，具体配置可自行更改.
 
-### How to test if your port forwarding is working
+### 端口转发测试
 
-After you have set the port forwarding rules on your router, you can check whether it works by:
+设置端口转发后，可按以下步骤测试是否成功:
 
-- Open a command line prompt
-- Get your WAN IP. A convenient way to get your WAN ip is to visit `http://who.is`, which would show you your WAN IP.
-- Try to connect your seahub server
+- 打开一个命令行终端
+- 访问 `http://who.is` 得到本机的IP
+- 通过以下命令连接 Seahub 
 ````
 telnet <Your WAN IP> 8000
 ```
 
-If your port forwarding is working, the command above should succeed. Otherwise, you may get a message saying something like *connection refused* or *connection timeout*.
+如果端口转发配置成功，命令行会提示连接成功。否则, 会显示 *connection refused* 或者 *connection timeout*， 提示连接不成功。
 
-If your port forwarding is not working, the reasons may be:
+若未成功，原因可能如下:
 
-- You have configured a wrong port forwarding
-- Your router may need a restart
-- You network may be down
+- 端口转发配置错误
+- 需要重启路由器
+- 网络不可用
 
-### Set SERVICE_URL
+### 设置 SERVICE_URL
 
-"SERVICE_URL" in `ccnet.conf` is used to generate the download/upload link for files when you browse files online. Set it using your WAN IP.
+`ccnet.conf` 中的 "SERVICE_URL" 字段，是用来在在线访问文件时，生成上传/下载链接的，更改此字段的值为你的IP。
 
 ```
 SERVICE_URL = http://<Your WAN IP>:8000
 ```
 
-Most routers support NAT loopback. When your access Seafile web from intranet, file download/upload still works even when external IP is used.
+大部分路由器都支持 NAT loopback. 当你通过内网访问 Seafile 时, 即时你的外部 IP 被占用，文件上传/下载仍然会工作。
 
-## Use a Dynamic DNS Serivce
+## 使用域名解析服务
 
-### Why use a Dynamic DNS(DDNS)  Service?
+### 为什么使用动态域名解析服务?
 
-Having done all the steps above, you should be able to visit your seahub server outside your LAN by your WAN IP. But for most people, the WAN IP address is likey to change regularly by their ISP(Internet Serice Provider), which makes this approach impratical.
+完成以上端口转发配置工作后，就可以通过外网 IP 访问部署在局域网内的 Seafile 服务器了。但是对于大多数人来说， 外网 IP 会被 ISP (互联网服务提供商)定期更改, 这就使得，需要不断的进行重新配置.
 
-You can use a dynamic DNS(DDNS) Service to overcome this problem. By using a dynamic DNS service, you can visit your seahub by domain name (instead of by IP), and the domain name will always be mapped to your WAN IP address, even if it changes regularly.
+可以使用动态域名解析服务来解决这个问题。通过使用域名解析服务，你可以通过域名（而不是 IP）来访问 Seahub，即使 IP 会不断变化，但是域名始终会指向当前 IP。
 
-There are a dozen of dynmaic DNS service providers on the internet. If you don't know what service to choose We recommend using [www.noip.com](http://www.noip.com) since it performs well in our testing.
+互联网上提供域名解析服务的有很多，我们推荐 [www.noip.com](http://www.noip.com)。
 
-The detailed process is beyond the scope of this wiki. But basically, you should:
+怎样使用域名解析服务，不在本手册说明范围之内，但是基本上，你需要遵循以下步骤:
 
-1. Choose a DDNS service provider
-2. Register an account on the DDNS service provider's website
-3. Download a client from your DDNS service provider to keep your domain name always mapped to your WAN IP
+1. 选择一个域名解析服务提供商。
+2. 注册成为此服务商的一个用户。
 
-## Modify your seafile configuration
+## 更改 Seafile 配置
 
-After you have setup your DDNS service, you need to modify the `ccnet.conf`:
+当你配置好域名解析服务之后，需要对 `ccnet.conf` 进行更改:
 
 ```
-SERVICE_URL = http://<Your dynamic DNS domain>:8000
+SERVICE_URL = http://<你的域名>:8000
 ```
 
-Restart your seafile server after this.
+然后重新 Seafile 服务.
 
-## Network
-By default, you should open 4 ports.
+## 网络设置
+默认情况下，你需要打开以下四个端口.
 
      |
      | Seahub
         | 8000
         |-
-        | HttpServer
+        | FileServer
         | 8082
         |-
         | Ccnet Daemon
@@ -130,7 +127,7 @@ By default, you should open 4 ports.
         | 12001
         |
 
-If you run Seafile behind Nginx/Apache with HTTPS, you should open ports
+如果你的 Seafile 服务器是运行在 Nginx/Apache 环境下，并且开启了 HTTPS, 则需要开启以下端口：
 
      |
      | HTTPS

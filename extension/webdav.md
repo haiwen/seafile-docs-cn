@@ -133,7 +133,7 @@ ServerName www.myseafile.com
   RewriteEngine On
 
   #
-  # seafile httpserver
+  # seafile fileserver
   #
   ProxyPass /seafhttp http://127.0.0.1:8082
   ProxyPassReverse /seafhttp http://127.0.0.1:8082
@@ -174,7 +174,7 @@ ServerName www.myseafile.com
   RewriteEngine On
 
   #
-  # seafile httpserver
+  # seafile fileserver
   #
   ProxyPass /seafhttp http://127.0.0.1:8082
   ProxyPassReverse /seafhttp http://127.0.0.1:8082
