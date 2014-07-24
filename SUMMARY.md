@@ -1,12 +1,12 @@
-# 产品手册
+# Summary
 
-* [概览](overview/README.md
+* [概览](overview/README.md)
    * [Seafile 组件](overview/components.md)
-   * [研发路线图](roadmap.md
-   * [常见问题解答](faq.md
-   * [修改日志](changelog.md
-   * [我要参与](contribution.md
-* [Linux 下部署 Seafile 服务器](deploy/README.md
+   * [研发路线图](roadmap.md)
+   * [常见问题解答](faq.md)
+   * [修改日志](changelog.md)
+   * [我要参与](contribution.md)
+* [Linux 下部署 Seafile 服务器](deploy/README.md)
    * [部署 Seafile 服务器（使用 SQLite）](deploy/using_sqlite.md)
    * [部署 Seafile 服务器（使用 MySQL）](deploy/using_mysql.md)
    * [Nginx 下配置 Seahub](deploy/deploy_with_nginx.md)
@@ -29,22 +29,21 @@
    * [安装 Seafile 为 Windows 服务](deploy_windows/install_seafile_server_as_a_windows_service.md)
    * [所用端口说明](deploy_windows/ports_used_by_seafile_windows_server.md)
    * [升级](deploy_windows/upgrading_seafile_windows_server.md)
-* [部署 Seafile 专业版服务器](deploy_pro/README.md
-   * [下载安装 Seafile 专业版服务器](deploy_pro/download_and_setup_seafile_professional_server.md
-   * [从社区版迁移至专业版](deploy_pro/migrate_from_seafile_community_server.md
-   * [升级](deploy_pro/upgrading_seafile_professional_server.md
-   * [Amazon S3 下安装](deploy_pro/setup_with_mazon_S3.md
-   * [OpenStackSwift 下安装](deploy_pro/setup_with_OpenStackSwift.md
-   * [Ceph 下安装](deploy_pro/setup_with_Ceph.md
-   * [配置选项](deploy_pro/configurable_options.md
+* [部署 Seafile 专业版服务器](deploy_pro/README.md)
+   * [下载安装 Seafile 专业版服务器](deploy_pro/下载与安装 Seafile 专业版服务器.md)
+   * [从社区版迁移至专业版](deploy_pro/从 Seafile 社区版服务器迁移到专业版服务器.md)
+   * [升级](deploy_pro/升级 Seafile 专业版服务器.md)
+   * [Amazon S3 下安装](deploy_pro/安装 Seafile 专业版服务器并使用亚马逊 S3.md)
+   * [OpenStackSwift 下安装](deploy_pro/seafile__openstackswif.md)
+   * [Ceph 下安装](deploy_pro/安装 Seafile 专业版服务器并使用 Ceph.md)
+   * [配置选项](seafile.md)
    * 其他部署说明
-       * [使用 ElasticSearch 服务器](deploy_pro/use_existing_ElasticSearch_server.md
-       * [文件搜索说明](deploy_pro/details_about_file_search.md
-       * [集群部署](deploy_pro/deploy_in_a_cluster.md
-       * [集群中启用搜索和后台服务](deploy_pro/enable_search_and_background_tasks_in_a_cluster.md
-   * [常见问题解答](deploy_pro/FAQ_for_seafile_pro_server.md
-   * [修改日志](deploy_pro/changelog_for_seafile_pro_server.md
-   * [软件许可协议](deploy_pro/seafile_professional_sdition_software_license_agreement.md
+       * [使用 ElasticSearch 服务器](deploy_pro/使用已经存在的 ElasticSearch 服务器.md)
+       * [文件搜索说明](deploy_pro/关于文件搜索的一些细节.md)
+       * [集群部署](deploy_pro/deploy_in_a_cluster.md)
+       * [集群中启用搜索和后台服务](deploy_pro/enable_search_and_background_tasks_in_a_cluster.md)
+   * [常见问题解答](deploy_pro/Seafile 专业版服务器的 FAQ.md)
+   * [软件许可协议](deploy_pro/license-pro-edition.md)
 * [服务器个性化配置](config/README.md
    * [Config and customize Email notifications](config/email.md
    * [ccnet.conf](config/ccnet-conf.md)

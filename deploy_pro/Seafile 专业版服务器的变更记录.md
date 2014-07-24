@@ -1,4 +1,3 @@
-# Changelog
 ## 3.0
 
 ### 3.0.7
@@ -84,31 +83,6 @@ Misc
 * Use random salt and PBKDF2 algorithm to store users' password.
 
 ## 2.1
-
-### 2.1.5
-
-* Add correct mime types for mp4 files when downloading
-* [fix] [Important] set correct file mode bit after uploading a file from web.
-* Show meaningful message instead of "auto merged by system" for file merges
-* Improve file history calculation for files which were renamed
-
-WebDAV
-
-* Return last modified time of files
-
-### 2.1.4-1
-
-* [fix] fixed the `pro.py search --clear` command
-* [fix] fixed full text search for office/pdf files
-
-### 2.1.4
-
-* Improved Microsoft Excel files online preview
-* [fix] Fixed file share link download issue on some browsers.
-* [wiki] Enable create index for wiki.
-* Hide email address in avatar.
-* Show "create library" button on Organization page.
-* [fix] Further improve markdown filter to avoid XSS attack.
 
 ### 2.1.3
 

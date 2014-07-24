@@ -1,6 +1,6 @@
-# Overview
+# 概览
 
-* [Seafile Components](components.md)
+* [Seafile 组建](components.md)
 * [FAQ](../faq.md)
 * [Changelog](../changelog.md)
 * [Roadmap](../roadmap.md)

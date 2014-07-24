@@ -1,17 +1,16 @@
-# Setup With Ceph
-Ceph is a scalable distributed storage system. Seafile can use Ceph's RADOS object storage layer for storage backend.
+Ceph 是一种可扩展的分布式存储系统。Seafile 可以使用 Ceph 的 RADOS 对象存储层作为存储后端。
 
-## Copy ceph conf file and client keyring
+## 拷贝 ceph 的配置文件和客户端的密钥环
 
-Seafile acts as a client to Ceph/RADOS, so it needs to access ceph cluster's conf file and keyring. You have to copy these files from a ceph admin node's /etc/ceph directory to the seafile machine.
+Seafile 可以看作 Ceph/RADOS 的客户端，所以它需要访问 ceph 集群的配置文件和密钥环。您必须将 ceph 管理员节点 /etc/ceph 目录下的文件拷贝到 seafile 的机器上。
 
 ```
 seafile-machine# sudo scp user@ceph-admin-node:/etc/ceph/ /etc
 ```
 
-## Edit seafile configuration
+## 编辑 Seafile 配置文件
 
-Edit `seafile-data/seafile.conf`, add the following lines:
+编辑 `seafile-data/seafile.conf` 文件，添加以下几行：
 
 ```
 [block_backend]
@@ -33,7 +32,7 @@ pool = seafile-fs
 memcached_options = --SERVER=localhost --POOL-MIN=10 --POOL-MAX=100
 ```
 
-It's recommended to create separate pools for commit, fs, and block objects.
+建议您为 commit， fs 和 block objects 分别创建连接池：
 
 ```
 ceph-admin-node# rados mkpool seafile-blocks
@@ -41,11 +40,11 @@ ceph-admin-node# rados mkpool seafile-commits
 ceph-admin-node# rados mkpool seafile-fs
 ```
 
-## Install and enable memcached
+## 安装并启用 memcached
 
-For best performance, Seafile requires install memcached and enable memcache for objects. 
+为了最佳性能，强烈建议您安装 memcached 并为 objects 启用 memcache。
 
-We recommend to allocate 128MB memory for memcached. Edit /etc/memcached.conf
+我们建议您为 memcached 分配 128MB 的内存空间。编辑 /etc/memcached.conf 文件如下：
 
 ```
 # Start with a cap of 64 megs of memory. It's reasonable, and the daemon default
