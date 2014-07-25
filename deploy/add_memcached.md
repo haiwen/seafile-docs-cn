@@ -1,7 +1,7 @@
-# Add memcached
+# 使用 memcached
 
-Seahub caches items(avatars, profiles, etc) on file system by default(/tmp/seahub_cache/). You can replace with Memcached.
-After install **python-memcache**, add the following lines to **seahub_settings.py**.
+Seahub 将默认在 `/tmp/seahub_cache/` 中缓存文件(avatars, profiles, etc)，但是可以使用 memcached 更改缓存设置。
+首先安装 **python-memcache**, 并在 **seahub_settings.py** 中加入以下配置信息.
 
 ```
 CACHES = {

@@ -168,7 +168,7 @@ The seafile server consists of the following components:
     <td>Seahub</td><td>website front-end of seafile server</td>
   </tr>
   <tr>
-    <td>httpserver</td><td>handles raw file upload/download for Seahub</td>
+    <td>fileserver</td><td>handles raw file upload/download for Seahub</td>
   </tr>
 </table>
 
@@ -249,8 +249,8 @@ The script would ask you a series of questions, and create all the configuration
     <td></td>
   </tr>
   <tr>
-    <td>seafile httpserver port</td>
-    <td>tcp port used by seafile httpserver</td>
+    <td>seafile fileserver port</td>
+    <td>tcp port used by seafile fileserver</td>
     <td>8082</td>
     <td></td>
   </tr>

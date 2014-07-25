@@ -5,7 +5,7 @@ This manual explains how to change various config options for Seafile server.
 There are three config files in the community edition:
 
 - [ccnet/ccnet.conf](ccnet-conf.md): contains the network settings
-- [seafile-data/seafile.conf](seafile-conf.md): contains settings for seafile daemon and HttpServer.
+- [seafile-data/seafile.conf](seafile-conf.md): contains settings for seafile daemon and FileServer.
 - [seahub_settings.py](seahub_settings_py.md): contains settings for Seahub
 
 There is one additional config file in the pro edition:
@@ -36,20 +36,20 @@ If you don't want to keep all file revision history, you may set a default histo
 keep_days = days of history to keep
 </pre>
 
-## Seafile httpserver configuration (seafile.conf)
+## Seafile fileserver configuration (seafile.conf)
 
-The configuration of seafile httpserver is in the <code>[httpserver]</code> section of the file <code>seafile-data/seafile.conf</code>
+The configuration of seafile fileserver is in the <code>[fileserver]</code> section of the file <code>seafile-data/seafile.conf</code>
 
 <pre>
-[httpserver]
-# tcp port for httpserver
+[fileserver]
+# tcp port for fileserver
 port = 8082
 </pre>
 
 Change upload/download settings.
 
 <pre>
-[httpserver]
+[fileserver]
 # Set maximum upload file size to 200M.
 max_upload_size=200
 

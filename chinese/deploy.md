@@ -82,8 +82,8 @@ $ ./setup-seafile.sh
 | seafile 服务器 使用的 TCP 端口
 | 一般使用默认的 12001 端口，如果已经被占用，可以设置为其他的端口
 |-
-| seafile httpserver port
-| seafile httpserver 使用的 TCP 端口
+| seafile fileserver port
+| seafile fileserver 使用的 TCP 端口
 | 一般使用默认的 8082 端口，如果已经被占用，可以设置为其他的端口
 |-
 | seahub admin email
@@ -159,5 +159,5 @@ $ pgrep -f "manage.py run_gunicorn" # 检查 seahub 进程是否在运行
 <pre>
 $ pkill -f seafile-controller
 $ pkill -f "manage.py run_gunicorn"
-$ pkill -f httpserver
+$ pkill -f fileserver
 </pre>

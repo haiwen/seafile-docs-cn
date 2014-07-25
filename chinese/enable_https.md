@@ -41,13 +41,13 @@ SSL数字证书需要向相应机构购买，这里使用免费的自认证证�
 
 登陆到 https://www.yourdomain.com, 如果看到浏览器的关于证书错误的警告，则表示配置成功。
 
-## Seafile httpserver 启用Https
+## Seafile fileserver 启用Https
 
 '''Note:''' 仅对 seafile server 1.4 或之后版本生效。
 
-Seafile httpserver的配置在文件<code>seafile-data/seafile.conf</code>里，加入以下几行到<code>seafile.conf</code>：
+Seafile fileserver的配置在文件<code>seafile-data/seafile.conf</code>里，加入以下几行到<code>seafile.conf</code>：
 <pre>
-[httpserver]
+[fileserver]
 port=8082
 https=true
 pemfile=/path/to/pemfile

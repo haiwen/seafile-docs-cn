@@ -52,15 +52,15 @@ default = 2
 
 如果你想给某个特定用户设置容量上限，你可以用管理员身份登录 seahub 网站，然后在“系统管理”页面中设置。
 
-## Seafile Httpserver配置 (seafile.conf)
+## Seafile fileserver配置 (seafile.conf)
 
-Seafile httpserver 的配置在<code>seafile-data/seafile.conf</code>里的<code>[httpserver]</code>段。
+Seafile fileserver 的配置在<code>seafile-data/seafile.conf</code>里的<code>[fileserver]</code>段。
 
-如果你需要为httpserver指定其他端口，或者要启动https，则需要修改httpserver的配置。关于如何为Seahub和httpserver开启https，请参考 [[Seafile web界面启用Https]]。
+如果你需要为fileserver指定其他端口，或者要启动https，则需要修改fileserver的配置。关于如何为Seahub和fileserver开启https，请参考 [[Seafile web界面启用Https]]。
 
 <pre>
-[httpserver]
-# tcp port for httpserver
+[fileserver]
+# tcp port for fileserver
 port = 8082
 # use https or not
 https=true
@@ -72,7 +72,7 @@ privkey=/path/to/ssl/privkey
 修改上传／下载限制。
 
 <pre>
-[httpserver]
+[fileserver]
 # Set maximum upload file size to 200M.
 max_upload_size=200
 

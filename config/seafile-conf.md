@@ -22,19 +22,19 @@
     [history]
     keep_days = days of history to keep
 
-Seafile httpserver 配置(seafile.conf)
+Seafile fileserver 配置(seafile.conf)
 -------------------------------------
 
-可通过`seafile-data/seafile.conf`的`[httpserver]`部分对 Seafile
-httpserver 进行配置
+可通过`seafile-data/seafile.conf`的`[fileserver]`部分对 Seafile
+fileserver 进行配置
 
-    [httpserver]
-    # httpserver 的 tcp 端口
+    [fileserver]
+    # fileserver 的 tcp 端口
     port = 8082
 
 更改上传/下载设置.
 
-    [httpserver]
+    [fileserver]
     # 上传文件最大为200M.
     max_upload_size=200
 

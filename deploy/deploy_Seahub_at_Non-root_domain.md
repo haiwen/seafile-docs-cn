@@ -1,11 +1,11 @@
-# Deploy Seahub at Non-root domain
-This documentation will talk about how to deploy Seafile Web using Apache/Nginx at Non-root directory of the website(e.g., www.example.com/seafile/).
+# 在非根域名下部署 Seahub
+这份文档将说明如何在网站的非根文件夹下通过 Apache/Nginx 部署 Seafile。
 
-**Note:** We assume you have read [[Deploy Seafile with nginx]] or [[Deploy Seafile with apache]].
+**注意:** 请先阅读 [Nginx 下配置 Seahub](deploy_with_nginx.md) 或者 [Apache 下配置 Seahub](deploy_with_apache.md).
 
-## Deploy with Nginx
+## Nginx 下部署
 
-First, we need to overwrite some variables in seahub_settings.py:
+首先更改 `seahub_settings.py` 中一些变量的值:
 
 <pre>
 SERVE_STATIC = False
@@ -13,13 +13,13 @@ MEDIA_URL = '/seafmedia/'
 SITE_ROOT = '/seafile/'
 </pre>
 
-We will use Nginx to serve static files(js, css, etc), so we just disable <code>SERVE_STATIC</code>.
+我们将使用 Nginx 来管理静态文件(js, css, etc), 所以将 <code>SERVE_STATIC</code> 设置为 `False`。
 
-<code>MEDIA_URL</code> can be anything you like, just make sure a trailing slash is appended at the end.
+可以自定义 <code>MEDIA_URL</code> 的值，但是确保结尾包含斜线。
 
-We deploy Seafile at <code>/seafile/</code> directory instead of root directory, so we set <code>SITE_ROOT</code> to <code>/seafile/</code>.
+因为要在 <code>/seafile/</code> 目录下而不是根目录下部署 Seafile, 所以设置 <code>SITE_ROOT</code> 的值为 <code>/seafile/</code>。
 
-Then, we need to configure the Nginx:
+接下来，配置 Nginx 如下:
 
 <pre>
 server {
@@ -38,7 +38,7 @@ server {
         fastcgi_param	SERVER_ADDR         $server_addr;
         fastcgi_param	SERVER_PORT         $server_port;
         fastcgi_param	SERVER_NAME         $server_name;
-#       fastcgi_param   HTTPS               on; # enable this line only if https is used
+#       fastcgi_param   HTTPS               on; # 如果使用 https，请取消掉这行的注释。
         access_log      /var/log/nginx/seahub.access.log;
     	error_log       /var/log/nginx/seahub.error.log;
     }
@@ -56,17 +56,23 @@ server {
 }
 </pre>
 
-You need also to modify `SERVICE_URL` and `HTTP_SERVER_ROOT` (see below).
+接下来设置 `SERVICE_URL` 和 `HTTP_SERVER_ROOT` 的值。
 
-## Deploy with Apache
+## Apache 下部署
 
-First, you need to modify seahub_settings.py as above.
+首先更改 `seahub_settings.py` 中一些变量的值:
 
-Then edit httpd.conf file, add this line:
+<pre>
+SERVE_STATIC = False
+MEDIA_URL = '/seafmedia/'
+SITE_ROOT = '/seafile/'
+</pre>
+
+在 `httpd.conf` 文件中加入以下语句:
 <pre>
   FastCGIExternalServer /var/www/seahub.fcgi -host 127.0.0.1:8000
 </pre>
-After that, you need to configure your Apache, here is the sample configuration:
+接下来配置 Apache，示例如下:
 
 <pre>
 <VirtualHost *:80>
@@ -77,7 +83,7 @@ After that, you need to configure your Apache, here is the sample configuration:
   RewriteEngine On
 
   #
-  # seafile httpserver
+  # seafile fileserver
   #
   ProxyPass /seafhttp http://127.0.0.1:8082
   ProxyPassReverse /seafhttp http://127.0.0.1:8082
@@ -92,30 +98,29 @@ After that, you need to configure your Apache, here is the sample configuration:
 </VirtualHost>
 </pre>
 
-We use Alias to let Apache serve static files, please change the second argument to your path.
+请注意更改 Alias 的值为自己的文件路径。
 
-## Modify ccnet.conf and seahub_setting.py
+## 更改 ccnet.conf 和 seahub_setting.py
 
-### Modify ccnet.conf
+### 更改 ccnet.conf
 
-You need to modify the value of <code>SERVICE_URL</code> in <code>/data/haiwen/ccnet/ccnet.conf</code>
-to let Seafile know the domain you choose.
+为使 Seafile 知道你所使用的域名，请更改 <code>/data/haiwen/ccnet/ccnet.conf</code> 中 <code>SERVICE_URL</code> 变量的值。
 
 <pre>
 SERVICE_URL = http://www.myseafile.com/seafile
 </pre>
 
-Note: If you later change the domain assigned to seahub, you also need to change the value of  <code>SERVICE_URL</code>.
+注意: 如果以后域名有所变动，请记得更改 <code>SERVICE_URL</code>.
 
-### Modify seahub_settings.py
+### 更改 seahub_settings.py
 
-You need to add a line in <code>seahub_settings.py</code> to set the value of `HTTP_SERVER_ROOT`
+更改 `seahub_settings.py` 中 `HTTP_SERVER_ROOT` 的值
 
 ```python
 HTTP_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 ```
 
-## Start Seafile and Seahub
+## 启动 Seafile 和 Seahub
 
 <pre>
 ./seafile.sh start

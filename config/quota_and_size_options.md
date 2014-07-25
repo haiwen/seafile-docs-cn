@@ -27,7 +27,7 @@ keep_days = days of history to keep
 In `seafile-data/seafile.conf`:
 
 <pre>
-[httpserver]
+[fileserver]
 # Set maximum upload file size to 200M.
 max_upload_size=200
 

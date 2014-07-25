@@ -1,29 +1,23 @@
-# Set up logrotate for server
+# 在服务器端设置 logrotate
 
-## How it works
+## 工作原理
 
-seaf-server and ccnet-server now (since version 3.1) support reopenning
-logfile by receiving SIGUR1 signal.
+自 3.1 版本以后，seaf-server 和 ccnet-server 支持通过接收 SIGUR1 信号来管理日志文件。
 
-This feature is very useful when you need cut logfile while you don't want
-to shutdown the server programs. All you need to do now is cutting the logfile on
-the fly.
+这个功能在你需要剪切日志文件但是不想关闭服务器的时候非常有用。
 
-> **NOTE**: signal is not supported by windows, so the feature is not available in windows
+> **注意**: 此功能在 Windows 下并不适用
 
-## Default logrotate configuration directory
+## logrotate 默认配置
 
-For debian, the default directory for logrotate should be ``/etc/logrotate.d/``
+对于 Debian, logrotate 默认存储在 ``/etc/logrotate.d/``
 
-## Sample configuration
+## 配置示例
 
-Assuming your ccnet-server's logfile is `/home/haiwen/logs/ccnet.log`, and your
-ccnet-server's pidfile for ccnet-server is ``/home/haiwen/pids/ccnet.pid``.
+假设你的 ccnet-server 的日志文件是 `/home/haiwen/logs/ccnet.log`, ccnet-server 进程的 pidfile 是 `/home/haiwen/pids/ccnet.pid`.
+seaf-server's 的日志文件是 `/home/haiwen/logs/seaf-server.log`, seaf-server 进程的 pidfile 是 `/home/haiwen/pids/seaf-server.pid`:
 
-Assuming your seaf-server's logfile is setup to ``/home/haiwen/logs/seaf-server.log``, and your
-seaf-server's pidfile for seaf-server is setup to ``/home/haiwen/pids/seaf-server.pid``:
-
-The configuration for logroate could be like this:
+则请按如下配置 logroate:
 ```
 /home/haiwen/logs/seaf-server.log
 {
@@ -54,8 +48,4 @@ The configuration for logroate could be like this:
 }
 ```
 
-You can save this file, for example in debian, to ``/etc/logrotate.d/seafile``
-
-## That's it
-
-You now gets all the things done, just sit and enjoy your time :-D
+对于 Debian 用户, 可以将以上配置文件存储在 ``/etc/logrotate.d/seafile``

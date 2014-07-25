@@ -27,14 +27,14 @@ Windows 下, 你需要在 httpd.conf 中增加 SSL 模块
       DocumentRoot /var/www
       Alias /media  /home/user/haiwen/seafile-server-latest/seahub/media
 
-      SSLEngine On 
+      SSLEngine On
       SSLCertificateFile /path/to/cacert.pem
       SSLCertificateKeyFile /path/to/privkey.pem
 
       RewriteEngine On
 
       #
-      # seafile httpserver
+      # seafile fileserver
       #
       ProxyPass /seafhttp http://127.0.0.1:8082
       ProxyPassReverse /seafhttp http://127.0.0.1:8082
@@ -73,7 +73,7 @@ Windows 下, 你需要在 httpd.conf 中增加 SSL 模块
 
 阅读[Seafile 组件](../overview/components.md)会帮你更好的理解 Seafile.
 
-在 Seafile 服务器端的两个组件：Seahub 和 HttpServer. HttpServer 通过监听 8082 端口处理文件的上传与下载. Seahub 通过监听 8000 端口负责其他的WEB页面. 但是在 https 下, Seahub 应该通过 fastcgi 模式监听8000端口 (运行`./seahub.sh start-fastcgi`). 而且在 fastcgi 模式下, 如果直接访问`http://domain:8000`，会返回错误页面.
+在 Seafile 服务器端的两个组件：Seahub 和 FileServer. FileServer 通过监听 8082 端口处理文件的上传与下载. Seahub 通过监听 8000 端口负责其他的WEB页面. 但是在 https 下, Seahub 应该通过 fastcgi 模式监听8000端口 (运行`./seahub.sh start-fastcgi`). 而且在 fastcgi 模式下, 如果直接访问`http://domain:8000`，会返回错误页面.
 
 当一个用户访问`https://domain.com/home/my/`时, Apache 接受到访问请求后，通过 fastcgi 将其转发至 Seahub. 可通过以下配置来实现:
 
@@ -88,9 +88,11 @@ and
 
     FastCGIExternalServer /var/www/seahub.fcgi -host 127.0.0.1:8000
 
-当一个用户在 Seahub 中点击文件下载链接时， Seahub 读取`HTTP_SERVER_ROOT`的值，并将其用户重定向到`https://domain.com/seafhttp/xxxxx/`.`https://domain.com/seafhttp`是`HTTP_SERVER_ROOT`的值. 这里,`HTTP_SERVER`表示是 Seafile 中只负责文件上传与下载的的 HttpServer 组件.
+当一个用户在 Seahub 中点击文件下载链接时， Seahub
+读取`HTTP_SERVER_ROOT`的值，并将其用户重定向到`https://domain.com/seafhttp/xxxxx/`.`https://domain.com/seafhttp`是`HTTP_SERVER_ROOT`的值.  这里,`HTTP_SERVER`表示是 Seafile 中只负责文件上传与下载的的 FileServer 组件.
 
-当 Apache 在`https://domain.com/seafhttp/xxxxx/`接收到访问请求后,它把请求发送到正在监听`127.0.0.1:8082`的 HttpServer 组件,可通过以下配置来实现:
+当 Apache
+在`https://domain.com/seafhttp/xxxxx/`接收到访问请求后,它把请求发送到正在监听`127.0.0.1:8082`的 FileServer 组件,可通过以下配置来实现:
 
     ProxyPass /seafhttp http://127.0.0.1:8082
     ProxyPassReverse /seafhttp http://127.0.0.1:8082
