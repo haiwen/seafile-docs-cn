@@ -1,1 +1,0 @@
-请参考我们在 GitHub 上的 [WebDAV 文档](https://github.com/haiwen/seafile/wiki/Seafile-WebDAV-Server)
