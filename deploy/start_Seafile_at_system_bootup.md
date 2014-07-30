@@ -18,7 +18,7 @@ Seafile/Seahub 开机启动.
     # 请将 user 改为你的Linux用户名
     user=haiwen
 
-    # 请将 script_path 改为你的 Seafile 文件安装路径
+    # 请将 script_dir 改为你的 Seafile 文件安装路径
     seafile_dir=/data/haiwen
     script_path=${seafile_dir}/seafile-server-latest
     seafile_init_log=${seafile_dir}/logs/seafile.init.log
