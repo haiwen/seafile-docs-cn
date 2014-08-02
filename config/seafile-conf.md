@@ -25,7 +25,7 @@
 Seafile fileserver 配置(seafile.conf)
 -------------------------------------
 
-可通过`seafile-data/seafile.conf`的`[fileserver]`部分对 Seafile
+可通过`seafile-data/seafile.conf`的`[fileserver]` (3.1 版之前用 [httpserver]) 部分对 Seafile
 fileserver 进行配置
 
     [fileserver]
