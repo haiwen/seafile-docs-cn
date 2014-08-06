@@ -11,3 +11,11 @@ CACHES = {
     }
 }
 ```
+**注意**:
+
+-   请重启 Seahub 以使更改生效.
+-   如果更改没有生效，请删除`seahub_setting.pyc`缓存文件.
+
+<!-- -->
+
+    ./seahub.sh restart

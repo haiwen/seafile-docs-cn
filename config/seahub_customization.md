@@ -1,49 +1,51 @@
-# Seahub customization
-## Customize Seahub Logo and Css
+# 个性化 Seahub
 
-Assume that you are using version 2.1.0. Create a folder `custom` under `seafile-server-2.1.0/seahub/media`. Put all the customization files here. The upgrade script will copy the folder to `seafile-server-2.1.1/seahub/media` when you upgrade to version 2.1.1.
+## 个性化 Logo 及 CSS 样式
 
-### Customize Logo
+假设你目前在使用 2.1.0 版本。
+在 `seafile-server-2.1.0/seahub/media` 下新建 `custom`。将所有的个性化文件放到这个文件夹下。 当你升级到 2.1.1 版本的时候，升级脚本会自动的将此文件夹复制到 `seafile-server-2.1.1/seahub/media` 下。
 
-1. Add your logo file to `seahub/media/custom/`
-2. Overwrite `LOGO_PATH` in `seahub_settings.py`
+### 自定义 Logo
+
+1. 将 Logo 文件放在 `seahub/media/custom/` 文件夹下
+2. 在 `seahub_settings.py` 中，重新定义 `LOGO_PATH` 的值。
 
    <pre>
    LOGO_PATH = 'custom/mylogo.png'
    </pre>
 
-3. Overwrite `LOGO_URL` in `seahub_settings.py`
+3. 在 `seahub_settings.py` 中，重新定义 `LOGO_URL` 的值。
 
    <pre>
    LOGO_URL = 'http://your-seafile.com'
    </pre>
 
-### Customize Seahub CSS
+### 自定义 Seahub CSS 样式
 
-1. Add your css file to `seahub/media/custom/`, for example, `custom.css`
-2. Overwrite `BRANDING_CSS` in `seahub_settings.py`
+1. 在 `seahub/media/custom/` 中新建 CSS 文件，比如： `custom.css`。
+2. 在 `seahub_settings.py` 中，重新定义 `BRANDING_CSS` 的值。
 
    <pre>
    BRANDING_CSS = 'custom/custom.css'
    </pre>
 
-## Customize footer and other Seahub Pages
+## 个性化 Seahub 页面
 
-**Note:** Since version 2.1.
+**注意:** 仅支持 2.1 及之后的版本
 
-Create a foler ``templates`` under ``<seafile-install-path>/seahub-data/custom``
+在 ``<seafile-install-path>/seahub-data/custom`` 目录下，新建 ``templates`` 文件夹。
 
-### Customize footer
+### 个性化“页脚”页面
 
-1. Copy ``seahub/seahub/templates/footer.html`` to ``seahub-data/custom/templates``.
-2. Modify `footer.html`.
+1. 复制``seahub/seahub/templates/footer.html`` 到 ``seahub-data/custom/templates``。
+2. 自行编写 `footer.html`。
 
-### Customize Download page
+### 个性化“下载”页面
 
-1. Copy ``seahub/seahub/templates/download.html`` to ``seahub-data/custom/templates``.
-2. Modify `download.html`.
+1. 复制 ``seahub/seahub/templates/download.html`` 到 ``seahub-data/custom/templates``。
+2. 自行编写 `download.html`。
 
-### Customize Help page
+### 个性化“帮助”页面
 
-1. Copy ``seahub/seahub/help/templates/help`` to ``seahub-data/custom/templates/help``.
-2. Modify pages under `help`.
+1. 复制 ``seahub/seahub/help/templates/help.html``到 ``seahub-data/custom/templates``。
+2. 自行编写 `help.html`。

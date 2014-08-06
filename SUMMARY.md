@@ -43,13 +43,15 @@
        * [集群中启用搜索和后台服务](deploy_pro/enable_search_and_background_tasks_in_a_cluster.md)
    * [常见问题解答](deploy_pro/FAQ_for_seafile_pro_server.md)
    * [软件许可协议](deploy_pro/license-pro-edition.md)
-* [服务器个性化配置](config/README.md
-   * [Config and customize Email notifications](config/email.md
+* [服务器个性化配置](config/README.md)
    * [ccnet.conf](config/ccnet-conf.md)
    * [seafile.conf](config/seafile-conf.md)
    * [seahub_settings.py](config/seahub_settings_py.md)
-   * [个性化 Seahub](config/seahub_customization.md
-   * [个性化邮件提醒](config/customize_email_notifications.md
+   * [发送邮件提醒](config/sending_email.md)
+   * [个性化邮件提醒](config/customize_email_notifications.md)
+   * [用户管理](config/user_options.md)
+   * [存储容量与文件上传/下载大小限制](config/quota_and_size_options.md)
+   * [自定义 Web](config/seahub_customization.md)
 * [管理员手册](maintain/README.md)
    * [账户管理](maintain/account.md)
    * [日志](maintain/logs.md)

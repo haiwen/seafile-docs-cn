@@ -1,24 +1,22 @@
-# Customize user management
+# 用户管理
 
-Here we summarize options related to user management in `seahub_settings.py`
+在 `seahub_settings.py` 配置文件中可以个性化用户管理
 
-    # Enalbe or disalbe registration on web. Default is `False`.
+    # 是否开启用户注册功能，默认为 `False`，不开启.
     ENABLE_SIGNUP = False
 
-
-    # Activate or deactivate user when registration complete. Default is `True`.
-    # If set to `False`, new users need to be activated by admin in admin panel.
+    # 用户注册后是否立即激活，默认为 `True`，立即激活。
+    # 如果设置为 `False`，需管理员在系统管理界面激活用户。
     ACTIVATE_AFTER_REGISTRATION = False
 
-    # Whether to send email when a system admin adding a new member. Default is `True`.
-    # NOTE: since version 1.4.
+    # 管理员添加新用户后，是否给此用户发送邮件提醒。默认为 `True`，发送邮件提醒。
+    # 此功能只支持 1.4 及之后版本。
     SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER = True
 
-
-    # Attempt limit before showing a captcha when login.
+    # 用户登录时，输入几次错误后，显示验证码。
     LOGIN_ATTEMPT_LIMIT = 3
 
-    # Whether a user's session cookie expires when the Web browser is closed.
+    # 关闭浏览器后，是否保存 Session Cookie，默认为 `False`，不保存。
     SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 
