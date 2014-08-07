@@ -51,6 +51,11 @@ LDAP 配置示例:
 
 `userPrincipalName`是 AD 提供的用户名， 通常隶属于`username@domain-name`, 而这里的`username`是指 Windows 用户登录名. 用户可以通过`username@domain-name`登录到 Seahub, 比如`poweruser@example.com`. 注意这样的用户登陆名并不是实际的 email 地址，Seahub 在这种设置下，邮件发送功能会失效.
 
+注意：
+
+1. 如果配置项包含中文，需要确保配置文件使用 UTF8 编码保存。
+2. 这个文档中描述的配置方法经过很多人在不同的 LDAP/AD 环境下试过，肯定是能工作的。
+
 ## 通过 Windows 服务器连接到 LDAP/AD
 
 Windows 下的配置语法与 Linux 下的有些不同. **你不需要增加`ldap:// prefix to the HOST field`.**
