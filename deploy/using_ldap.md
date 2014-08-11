@@ -13,7 +13,7 @@ Seafile 会通过数据库和 LDAP 来搜寻用户. 默认首先搜寻 LDAP. （
     # 为了使用 TLS, 请对 LDAP 服务器进行配置使其能够监听 LDAPS
     # 端口， 并在这里指明 ldaps:// 地址.
     HOST = ldap://ldap.example.com
-    # 设置所有用户均可方位 base DN
+    # 设置所有用户均可访问 base DN
     BASE = ou=users,dc=example,dc=com
     # 管理员用户 DN 绑定 LDAP. 如未设定，使用默认设置.
     USER_DN = cn=seafileadmin,dc=example,dc=com
