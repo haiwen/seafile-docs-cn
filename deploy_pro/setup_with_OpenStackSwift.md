@@ -1,3 +1,5 @@
+# OpenStackSwift 下安装
+
 从专业版服务器的 2.0.5 版本开始，Seafile 可以使用兼容 S3 的云存储（比如 OpenStack/Swift）作为后端。这篇文档将以使用 Swift 为例。 
 
 ## 准备工作

@@ -1,3 +1,5 @@
+# 配置选项
+
 在 `/data/haiwen/pro-data/seafevents.conf` 配置文件中：
 
 ```

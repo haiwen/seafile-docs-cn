@@ -1,6 +1,8 @@
+# Amazom S3 下安装
+
 为了安装 Seafile 专业版服务器并使用亚马逊 S3，您需要：
 
-- 按照 [[下载与安装 Seafile 专业版服务器]]指南安装基本的 Seafile 专业版服务器。
+- 按照 [下载安装 Seafile 专业版服务器](download_and_setup_seafile_professional_server.md) 指南安装基本的 Seafile 专业版服务器。
 - 安装 python 的 `boto` 库。它可以用来访问 S3 服务。
 ```
 sudo easy_install boto

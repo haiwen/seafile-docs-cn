@@ -65,9 +65,6 @@ Put the license you get under the top level diretory. In our wiki, we use the di
 
 ### Download/Uncompress Seafile Professional Server ###
 
-- 32bit
-- [64bit](https://seacloud.cc/repo/0a3b015d-d82b-4c89-90b8-b010855bc57b/)
-
 ```
 tar xf seafile-pro-server_2.1.3_x86-64.tar.gz
 ```
@@ -141,10 +138,10 @@ CREATE TABLE `avatar_uploaded` (`filename` TEXT NOT NULL, `filename_md5` CHAR(32
 
 You also need to add the settings for backend cloud storage systems to the config files.
 
-* For NFS: https://seacloud.cc/group/180/wiki/setup-seafile-cluster-with-nfs/
-* For S3: https://seacloud.cc/group/180/wiki/setup-seafile-professional-server-with-amazon-s3/
-* For OpenStack Swift: https://seacloud.cc/group/180/wiki/setup-seafile-professional-server-with-openstackswift/
-* For Ceph: https://seacloud.cc/group/180/wiki/setup-seafile-professional-server-with-ceph/
+* For NFS: [Setup Seafile cluster with NFS](setup_seafile_cluster_with_nfs.md)
+* For S3: [Setup With Amazon S3](setup_with_mazon_S3.md)
+* For OpenStack Swift: [Setup With OpenStackSwift](setup_with_OpenStackSwift.md)
+* For Ceph: [Setup With Ceph](setup_with_Ceph.md)
 
 
 ### Run and Test the Single Node
@@ -176,8 +173,12 @@ On each node, run `./seafile.sh` and `./seahub.sh` to start seafile server.
 
 You'll usually want to use Nginx/Apache and https for web access. You need to set it up on each machine running Seafile server. **Make sure the certificate on all the servers are the same.**
 
-* For Nginx: https://github.com/haiwen/seafile/wiki/Deploy-Seafile-with-nginx https://github.com/haiwen/seafile/wiki/Enable-Https-on-Seafile-web-with-nginx
-* For Apache: https://github.com/haiwen/seafile/wiki/Deploy-Seafile-with-apache https://github.com/haiwen/seafile/wiki/Enable-Https-on-Seafile-web-with-Apache
+* For Nginx:
+   * [Config Seahub with Nginx](../deploy/deploy_with_nginx.md)
+   * [Enabling Https with Nginx](../deploy/https_with_nginx.md)
+* For Apache:
+   * [Config Seahub with Apache](../deploy/deploy_with_apache.md)
+   * [Enabling Https with Apache](../deploy/https_with_apache.md)
 
 ## Firewall Settings
 
@@ -259,4 +260,4 @@ listen seafserver :12001
 
 Now you should be able to test your cluster. Open https://seafile.example.com in your browser and enjoy. You can also sync file with Seafile clients.
 
-If the above works, the next step would be [[Enable search and background tasks in a cluster|enable-cluster-search-and-background-tasks]].
+If the above works, the next step would be [Enable search and background tasks in a cluster](enable_search_and_background_tasks_in_a_cluster.md).
