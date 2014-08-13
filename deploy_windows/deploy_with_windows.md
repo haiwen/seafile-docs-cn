@@ -26,7 +26,7 @@
 
 ### 创建`seahub.db`文件失败
 
-请使用 Python 2.7.4 版本， 不要使用 Python 3.0 及以上版本。
+请使用 Python 2.7.4 32 位版本， 不要使用 Python 3.0 及以上版本。
 
 ### 不能通过 Web 端上传或下载文件
 
@@ -34,7 +34,7 @@
 
 ### 浏览器不能获得 css 和 javascript 文件
 
-1. 使用 python 2.7.4 版本。如果您已经安装了 python 的其他版本，请先卸载然后安装 python 2.7.4 版本。重启  Seafile 服务器确认此问题是否依然存在。
+1. 使用 python 2.7.4 32 位版本。如果您已经安装了 python 的其他版本，请先卸载然后安装 python 2.7.4 版本。重启  Seafile 服务器确认此问题是否依然存在。
 2. 将注册表路径`HKEY_CLASSES_ROOT\MIME\Database\Content Type`下的非 ASCII 键删除，然后重试。
 
 ### 如何移动 seafile-server 文件夹
