@@ -1,55 +1,55 @@
-# Deploying Seafile under Linux
+# Linux 下部署 Seafile 服务器
 
-Here we describe how to deploy Seafile from prebuild binary packages.
+此文档用来说明如何使用预编译安装包来部署 Seafile 服务器.
 
-### Deploy Seafile in Home/Personal Environment
+### 家庭/个人 环境下部署 Seafile 服务器
 
-* [Deploying Seafile with SQLite](using_sqlite.md)
+* [部署 Seafile 服务器（使用 SQLite）](using_sqlite.md)
 
-### Deploy Seafile in Production/Enterprise Environment
+### 生产/企业 环境下部署 Seafile 服务器
 
-In production environment we recommend using MySQL as the database and config Seafile web behing Nginx or Apache. For those who are not familiar with Nginx and Apache. We recommend Nginx, since it is easier to config than Apache.
+企业环境下我们建议使用 MySQL 数据库，并将 Seafile 部署在 Nginx 或者 Apache 上，如果对于 Nginx 和 Apache 都不是很熟悉的话，我们建议使用 Nginx，相对于 Apache 来说，Nginx 使用起来比较简单。
 
-Basic:
+基础功能:
 
-* [Deploying Seafile with MySQL](using_mysql.md)
-* [Config Seahub with Nginx](deploy_with_nginx.md)
-* [Enabling Https with Nginx](https_with_nginx.md)
-* [Config Seahub with Apache](deploy_with_apache.md)
-* [Enabling Https with Apache](https_with_apache.md)
+* [部署 Seafile 服务器（使用 MySQL）](using_mysql.md)
+* [Nginx 下配置 Seahub](deploy_with_nginx.md)
+* [Nginx 下启用 Https](https_with_nginx.md)
+* [Apache 下配置 Seahub](deploy_with_apache.md)
+* [Apache 下启用 Https](https_with_apache.md)
 
-Advanced:
+高级功能:
 
-* [Configure Seafile to use LDAP](using_ldap.md)
-* [Start Seafile at System Bootup](start_Seafile_at_system_bootup.md)
-* [Firewall settings](using_firewall.md)
-* [Logrotate](using_logrotate.md)
-* [Add Memcached](add_memcached.md)
+* [Seafile LDAP 配置](using_ldap.md)
+* [开机启动 Seafile](start_Seafile_at_system_bootup.md)
+* [防火墙设置](using_firewall.md)
+* [Logrotate 管理系统日志](using_logrotate.md)
+* [使用 Memcached](add_memcached.md)
 
-Other Deployment Issues
+其他部署事项
 
-* [Deploy Seafile behind NAT](deploy_Seafile_behind_NAT.md)
-* [Deploy Seahub at Non-root domain](deploy_Seahub_at_Non-root_domain.md)
-* [Migrate From SQLite to MySQL](migrate_from_sqlite_to_mysql.md)
+* [使用 NAT](deploy_Seafile_behind_NAT.md)
+* [非根域名下部署 Seahub](deploy_Seahub_at_Non-root_domain.md)
+* [从 SQLite 迁移至 MySQL](migrate_from_sqlite_to_mysql.md)
 
-Check [configuration options](../config/README.md) for server config options like enabling user registration.
+更多配置选项（比如开启用户注册功能），请查看 [服务器个性化配置](../config/README.md)。
 
-**Read here** if you have troubles setting up Seafile server
+**注意** 如果在部署 Seafile 服务器是遇到困难
 
-1. Read [Seafile Server Components Overview](../overview/components.md) to understand how Seafile server works. This will save you a lot of time.
-2. [Common Problems for Setting up Server](common_problems_for_setting_up_server.md)
-3. Use our google group forum or IRC to get help.
+1. 阅读 [Seafile 组件](../overview/components.md) 以了解 Seafile 的运行原理。
+2. [安装常见问题](common_problems_for_setting_up_server.md)。
+3. 通过 Google Group 或者 IRC 寻求帮助。
 
-## Upgrade Seafile Server
+## 升级 Seafile 服务器
 
-* [Upgrade Seafile server](upgrade.md)
+* [升级](upgrade.md)
 
-## For those that want to package Seafile server
+## 个人打包 Seafile 服务器
 
-If you want to package seafile yourself, (e.g. for your favorite Linux distribution), you should always use the correspondent tags:
+如果想要自己打包 Seafile 服务器（安装在自己喜欢的 Linux 系统中）, 请务必使用 tags:
 
-* When we release a new version of seafile client, say 3.0.1, we will add tags `v3.0.1` to ccnet, seafile and seafile-client.
-* Likewise, when we release a new version of seafile server, say 3.0.1, we will add tags `v3.0.1-server` to ccnet, seafile and seahub.
-* For libsearpc, we always use tag `v3.0-latest`.
+* 当 Seafile 客户端发行新版本时，比如 `v3.0.1`， 我们会将 `v3.0.1` 标签打在 **ccnet**, **seafile** 和 **seafile-client** 上。
+* 同样，当 Seafile 服务器发行新版本时，比如 `v3.0.1`， 我们会将 `v3.0.1` 标签打在 **ccnet**, **seafile** 和 **seahub** 上。
+* 对于 **libsearpc**，会一直使用 `v3.0-latest` 标签。
 
-**Note**: The version numbers of each project has nothing to do with the tag name.
+**注意**: 每个项目的版本号和 tag 名，不存在必然联系。
