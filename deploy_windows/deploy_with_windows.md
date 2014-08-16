@@ -2,10 +2,10 @@
 
 目前 Seafile Windows 服务器社区版仅支持 SQLite 数据库。Windows 专业版支持搜索，HTTPS, MySQL 数据库， WebDAV。我们测试用的系统是 Windows 2008 server R2 SP1。
 
-- [下载安装 Windows 版 Seafile 服务器](deploy_windows/download_and_setup_seafile_windows_server.md)
-- [安装 Seafile 为 Windows 服务](deploy_windows/install_seafile_server_as_a_windows_service.md)
-- [所用端口说明](deploy_windows/ports_used_by_seafile_windows_server.md)
-- [升级](deploy_windows/upgrading_seafile_windows_server.md)
+- [下载安装 Windows 版 Seafile 服务器](download_and_setup_seafile_windows_server.md)
+- [安装 Seafile 为 Windows 服务](install_seafile_server_as_a_windows_service.md)
+- [所用端口说明](ports_used_by_seafile_windows_server.md)
+- [升级](upgrading_seafile_windows_server.md)
 
 注意：默认情况下，Seafile 需要用到 8000, 8082, 10001, 12001 四个端口。
 
