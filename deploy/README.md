@@ -38,7 +38,7 @@
 
 1. 阅读 [Seafile 组件](../overview/components.md) 以了解 Seafile 的运行原理。
 2. [安装常见问题](common_problems_for_setting_up_server.md)。
-3. 通过 Google Group 或者 IRC 寻求帮助。
+3. 通过 [论坛](http://bbs.seafile.com/) 或者 Seafile 服务器管理员 QQ 交流群: 315229116 寻求帮助。
 
 ## 升级 Seafile 服务器
 
