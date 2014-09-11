@@ -62,14 +62,14 @@ port=8000
 SERVICE_URL = <您的 IP 或者域名>:8001
 ```
 
-## seafile httpserver
+## seafile fileserver
 
-`seafile httpserver` 负责为 Seahub 处理文件的上传和下载
+`seafile fileserver` 负责为 Seahub 处理文件的上传和下载
 
 - 默认端口： 8082
-- 如何设置端口号： 编辑`seafile.conf`文件。 设置在`httpserver`段下`port`的值：
+- 如何设置端口号： 编辑`seafile.conf`文件。 设置在`fileserver`段下`port`的值：
 
 ```
-[httpserver]
+[fileserver]
 port=8082
 ```

@@ -71,11 +71,11 @@ Run seafile with
     cd ~/dev/seafile/tests/basic
     ./seafile.sh 2
 
-Or you can start ccnet, seafile and httpserver manually by:
+Or you can start ccnet, seafile and fileserver manually by:
 
     ccnet-server -c ~/dev/seafile/test/basic/conf2/ -D all -f -
     seaf-server -c ~/dev/seafile/test/basic/conf2/ -d ~/dev/seafile/test/basic/conf2/seafile-data/ -f -l -
-    httpserver -c ~/dev/seafile/test/basic/conf2/ -d ~/dev/seafile/test/basic/conf2/seafile-data/ -f
+    fileserver -c ~/dev/seafile/test/basic/conf2/ -d ~/dev/seafile/test/basic/conf2/seafile-data/ -f
 
 ## Prepare seahub
 

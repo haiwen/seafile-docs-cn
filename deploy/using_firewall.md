@@ -7,7 +7,7 @@
 <td align="left"><p>8000</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>HttpServer</p></td>
+<td align="left"><p>FileServer</p></td>
 <td align="left"><p>8082</p></td>
 </tr>
 <tr class="odd">

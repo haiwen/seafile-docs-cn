@@ -16,7 +16,7 @@ Trouble shooting:
 
 #### Failed to upload/download file online
 
-* Make sure you firewall for seafile httpserver is opened.
+* Make sure you firewall for seafile fileserver is opened.
 * Using chrome/firefox debug mode to find which link is given when click download button and what's wrong with this link
 
 #### Does Seafile server support Python 3?

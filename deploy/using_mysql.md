@@ -147,8 +147,8 @@ Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
 <td align="left"><p>一般使用默认的 12001 端口，如果已经被占用，可以设置为其他的端口</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>seafile httpserver port</p></td>
-<td align="left"><p>seafile httpserver 使用的 TCP 端口</p></td>
+<td align="left"><p>seafile fileserver port</p></td>
+<td align="left"><p>seafile fileserver 使用的 TCP 端口</p></td>
 <td align="left"><p>一般使用默认的 8082 端口，如果已经被占用，可以设置为其他的端口</p></td>
 </tr>
 <tr class="odd">

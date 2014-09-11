@@ -11,7 +11,7 @@ Version 3.1 will focus on improving the file syncing algorithm. Including
 
 - Add OAuth support for easy integrating into other systems
 - Enable creating sub-libraries from an encrypted library
-- Rename HttpServer to FileServer to remove confusing.
+- Rename FileServer to FileServer to remove confusing.
 
 ####Web
 

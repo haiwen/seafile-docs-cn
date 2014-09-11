@@ -8,11 +8,11 @@ Ubuntu 下安装<code>python-flup</code>库:
 sudo apt-get install python-flup
 ```
 
-## Nginx 环境下部署 Seahub/HttpServer 
+## Nginx 环境下部署 Seahub/FileServer 
 
-Seahub 是 Seafile 服务器的网站界面. HttpServer 用来处理浏览器端文件的上传与下载. 默认情况下, 它在 8082 端口上监听 HTTP 请求. 
+Seahub 是 Seafile 服务器的网站界面. FileServer 用来处理浏览器端文件的上传与下载. 默认情况下, 它在 8082 端口上监听 HTTP 请求. 
 
-这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 HttpServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com". 
+这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 FileServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com". 
 
 这是一个 Nginx 配置文件的例子.
 
@@ -65,7 +65,7 @@ server {
 
 Nginx 默认设置 "client_max_body_size" 为 1M。如果上传文件大于这个值的话，会报错，相关 HTTP 状态码为 423 ("Request Entity Too Large").
 
-你可以将值设为 <code>0</code> 以禁用此功能，或者在 /seafile/seafile-data/seafile.conf 的 `httpserver` 字段中重新设定 max_upload_size 的值。 
+你可以将值设为 <code>0</code> 以禁用此功能，或者在 /seafile/seafile-data/seafile.conf 的 `fileserver` 字段中重新设定 max_upload_size 的值。 
 
 ## 修改 ccnet.conf 和 seahub_setting.py
 
