@@ -98,7 +98,7 @@
 
 ### seahub\_settings.py 配置
 
-    HTTP_SERVER_ROOT = 'https://www.yourdomain.com/seafhttp'
+    FILE_SERVER_ROOT = 'https://www.yourdomain.com/seafhttp'
 
 启动 Seafile 和 Seahub
 ----------------------

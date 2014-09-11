@@ -56,7 +56,7 @@ server {
 }
 </pre>
 
-接下来设置 `SERVICE_URL` 和 `HTTP_SERVER_ROOT` 的值。
+接下来设置 `SERVICE_URL` 和 `FILE_SERVER_ROOT` 的值。
 
 ## Apache 下部署
 
@@ -114,10 +114,10 @@ SERVICE_URL = http://www.myseafile.com/seafile
 
 ### 更改 seahub_settings.py
 
-更改 `seahub_settings.py` 中 `HTTP_SERVER_ROOT` 的值
+更改 `seahub_settings.py` 中 `FILE_SERVER_ROOT` 的值
 
 ```python
-HTTP_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
+FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 ```
 
 ## 启动 Seafile 和 Seahub

@@ -81,10 +81,10 @@ SERVICE_URL = http://www.myseafile.com
 
 ### 修改 seahub_settings.py
 
-请在<code>seahub_settings.py</code>新增一行，设定`HTTP_SERVER_ROOT`的值
+请在<code>seahub_settings.py</code>新增一行，设定`FILE_SERVER_ROOT`的值
 
 ```python
-HTTP_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
+FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 ```
 
 ## 启动 Seafile 和 Seahub

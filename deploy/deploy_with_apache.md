@@ -95,10 +95,10 @@ SERVICE_URL = http://www.myseafile.com
 
 ### 修改 seahub_settings.py
 
-请在<code>seahub_settings.py</code>新增一行，设定`HTTP_SERVER_ROOT`的值
+请在<code>seahub_settings.py</code>新增一行，设定`FILE_SERVER_ROOT`的值
 
 ```python
-HTTP_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
+FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 ```
 
 ## 启动 Seafile 和 Seahub
@@ -153,9 +153,9 @@ sudo service Apache2 restart
 
 
 当一个用户在 Seahub 中点击文件下载链接时， Seahub
-读取<code>HTTP_SERVER_ROOT</code>的值，并将其用户重定向到
+读取<code>FILE_SERVER_ROOT</code>的值，并将其用户重定向到
 `https://domain.com/seafhttp/xxxxx/`.
-`https://domain.com/seafhttp`时<code>HTTP_SERVER_ROOT</code>的值. 这里, `HTTP_SERVER` 表示是 Seafile 中只负责文件上传与下载的的 FileServer 组件.
+`https://domain.com/seafhttp`时<code>FILE_SERVER_ROOT</code>的值. 这里, `FILE_SERVER` 表示是 Seafile 中只负责文件上传与下载的的 FileServer 组件.
 
 当 Apache 在 `https://domain.com/seafhttp/xxxxx/`接收到访问请求后, 它把请求发送到正在监听 127.0.0.1:8082 的 FileServer 组件, 可通过以下配置来实现:
 

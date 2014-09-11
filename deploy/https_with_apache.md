@@ -60,7 +60,7 @@ Windows 下, 你需要在 httpd.conf 中增加 SSL 模块
 
 ### seahub\_settings.py 配置
 
-    HTTP_SERVER_ROOT = 'https://www.myseafile.com/seafhttp'
+    FILE_SERVER_ROOT = 'https://www.myseafile.com/seafhttp'
 
 启动Seafile和Seahub
 -------------------
@@ -89,7 +89,7 @@ and
     FastCGIExternalServer /var/www/seahub.fcgi -host 127.0.0.1:8000
 
 当一个用户在 Seahub 中点击文件下载链接时， Seahub
-读取`HTTP_SERVER_ROOT`的值，并将其用户重定向到`https://domain.com/seafhttp/xxxxx/`.`https://domain.com/seafhttp`是`HTTP_SERVER_ROOT`的值.  这里,`HTTP_SERVER`表示是 Seafile 中只负责文件上传与下载的的 FileServer 组件.
+读取`FILE_SERVER_ROOT`的值，并将其用户重定向到`https://domain.com/seafhttp/xxxxx/`.`https://domain.com/seafhttp`是`FILE_SERVER_ROOT`的值.  这里,`FILE_SERVER`表示是 Seafile 中只负责文件上传与下载的的 FileServer 组件.
 
 当 Apache
 在`https://domain.com/seafhttp/xxxxx/`接收到访问请求后,它把请求发送到正在监听`127.0.0.1:8082`的 FileServer 组件,可通过以下配置来实现:

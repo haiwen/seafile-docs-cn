@@ -2,7 +2,7 @@
 
 #### 无法上传/下载
 
-* 检查 ccnet.conf 中`SERVICE_URL`的配置，检查 seahub_settings.py 中`HTTP_SERVER_ROOT`的配置 
+* 检查 ccnet.conf 中`SERVICE_URL`的配置，检查 seahub_settings.py 中`FILE_SERVER_ROOT`的配置 
 * 确认防火墙没有禁用 seafile fileserver 
 * 使用 chrome/firefox 调试模式,找到点击下载按钮时使用的链接并查看错误信息。
 
