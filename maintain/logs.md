@@ -1,6 +1,6 @@
 # 日志
 
-Seafile服务器有如下日志文件:
+Seafile 服务器有如下日志文件:
 
 * Ccnet Log: logs/ccnet.log
 * Seafile server： logs/seafile.log
