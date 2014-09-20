@@ -69,7 +69,7 @@ sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei xfonts-wqy
 
 ### 安装 Python 库 ###
 
-首先确保您已经安装了 python 2.6 或者 2.7 版本
+首先确保您已经安装了 python 2.6.5+ 或者 2.7 版本
 ```
 sudo easy_install pip
 sudo pip install boto
@@ -89,8 +89,6 @@ sudo pip install setuptools --no-use-wheel --upgrade
 
 ### <a id="wiki-download-and-uncompress"></a>下载与解压 Seafile 专业版服务器 ###
 
-- 32 位
-- [64 位](https://cloud.seafile.com/repo/4cbf838a-bbb7-4106-a6b5-27f6d382dc90/)
 
 ```
 tar xf seafile-pro-server_2.1.5_x86-64.tar.gz
@@ -158,5 +156,5 @@ haiwen
 
 您可能想要了解更多关于 Seafile 专业版服务器的信息：
 
-- [[安装 Seafile 专业版服务器并使用亚马逊 S3]]
-- [[Seafile 专业版服务器的 FAQ]]
+
+- [Seafile 专业版服务器的 FAQ](FAQ_for_seafile_pro_server.md)
