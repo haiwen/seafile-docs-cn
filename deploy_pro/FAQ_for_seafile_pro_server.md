@@ -61,30 +61,3 @@ cd /data/haiwen/seafile-pro-server-1.7.0/
 ./seafile.sh restart
 ./seahub.sh restart
 ```
-
-### 文档预览在 Ubuntu 14.04 上无法工作?
-
-目前文档预览只能在 libreoffice 4.1 或 4.0 版本工作。Ubuntu 14.04 上的版本是 4.2。解决方法:
-
-先删除 libreoffice 4.2:
-```
-sudo apt-get remove libreoffice* python3-uno
-```
-
-从 libreoffice 官网下载 4.1 版:
-```
-wget http://ftp.jaist.ac.jp/pub/tdf/libreoffice/stable/4.1.6/deb/x86_64/LibreOffice_4.1.6_Linux_x86-64_deb.tar.gz
-```
-
-安装:
-```
-tar xf LibreOffice_4.1.6_Linux_x86-64_deb.tar.gz
-cd LibreOffice_4.1.6.2_Linux_x86-64_deb
-cd DEBS
-sudo dpkg -i *.deb
-```
-
-重启 Seafile 服务器
-```
-./seafile.sh restart
-```
