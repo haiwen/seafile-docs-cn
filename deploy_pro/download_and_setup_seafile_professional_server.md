@@ -39,9 +39,7 @@ sudo yum install poppler-utils
 
 ### 安装 Libreoffice 和 UNO 库 ###
 
-Libreoffice 和 Python-uno 库为 office 文件提供在线预览功能。如果它们没有安装，office 文件就不能在线预览。
-
-**注意**：我们推荐 libreoffice 4.0 或者以后的版本，老版本的 libreoffice 不能正确地处理非英文字符
+Libreoffice 和 Python-uno 库为 office 文件提供在线预览功能。如果它们没有安装，office 文件就不能在线预览。Seafile 需要 libreoffice 4.0 或者以后的版本。
 
 
 
