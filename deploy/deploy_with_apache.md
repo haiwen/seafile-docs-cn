@@ -65,6 +65,10 @@ FastCGIExternalServer e:/seafile-server-1.7.1/seahub/seahub.fcgi -host 127.0.0.1
 
   RewriteEngine On
 
+  <Location /media>
+    Require all granted
+  </Location>
+
   #
   # seafile fileserver
   #
@@ -80,6 +84,7 @@ FastCGIExternalServer e:/seafile-server-1.7.1/seahub/seahub.fcgi -host 127.0.0.1
   RewriteRule ^(.*)$ /seahub.fcgi$1 [QSA,L,E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </VirtualHost>
 ```
+
 
 ## 修改 ccnet.conf 和 seahub_setting.py
 
