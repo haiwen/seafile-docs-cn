@@ -7,7 +7,7 @@ Seahub 将默认在 `/tmp/seahub_cache/` 中缓存文件(avatars, profiles, etc)
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-	'LOCATION': '127.0.0.1:11211',
+        'LOCATION': '127.0.0.1:11211',
     }
 }
 ```
