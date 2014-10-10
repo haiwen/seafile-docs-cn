@@ -24,7 +24,7 @@ Seafile/Seahub 开机启动.
     seafile_init_log=${seafile_dir}/logs/seafile.init.log
     seahub_init_log=${seafile_dir}/logs/seahub.init.log
 
-    # 若使用 fastcgi, 请将其设置为True
+    # 若使用 fastcgi, 请将其设置为true
     fastcgi=false
     # fastcgi 端口, 默认为 8000. 
     fastcgi_port=8000
@@ -131,7 +131,7 @@ Seafile/Seahub 开机启动.
     seafile_init_log=${seafile_dir}/logs/seafile.init.log
     seahub_init_log=${seafile_dir}/logs/seahub.init.log
 
-    # 若使用 fastcgi, 请将其设置为True
+    # 若使用 fastcgi, 请将其设置为true
     fastcgi=false
     # fastcgi 端口, 默认为 8000. 
     fastcgi_port=8000
@@ -234,7 +234,7 @@ RHEL/CentOS 下 , 我们通过 /etc/init.d/ 脚本将 Seafile/Seahub作为服务
     seafile_init_log=${seafile_dir}/logs/seafile.init.log
     seahub_init_log=${seafile_dir}/logs/seahub.init.log
 
-    # 若使用 fastcgi, 请将其设置为True
+    # 若使用 fastcgi, 请将其设置true
     fastcgi=false
 
     # fastcgi 端口, 默认为 8000. 
