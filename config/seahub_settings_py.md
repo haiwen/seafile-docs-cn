@@ -29,9 +29,7 @@ Gmail 用户请加入以下语句:
 list](Email notification list "wikilink").
 
 **注意2**:
-如果你想在非用户验证情况下使用邮件服务，请将`EMAIL_HOST_USER`和
-`EMAIL_HOST_PASSWORD` 置为**blank** (`''`).
-(但是注意一点，这种情况下，邮件将不会记录发件人`From:`信息.)
+如果你想在非用户验证情况下使用邮件服务，请将 `EMAIL_HOST_PASSWORD` 置为**blank** (`''`).
 
 ### 缓存
 
@@ -42,7 +40,7 @@ etc) . 你可以通过 Memcached 进行缓存操作
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+            'LOCATION': '127.0.0.1:11211',
         }
     }
 
@@ -109,6 +107,9 @@ etc) . 你可以通过 Memcached 进行缓存操作
 
     # 使用服务器端的 crypto, 或者用户自行选择 crypto 方法.
     FORCE_SERVER_CRYPTO = True
+    
+    # 是否可以把一个群组设为公开.
+    ENABLE_MAKE_GROUP_PUBLIC = False
 
 **注意**:
 
