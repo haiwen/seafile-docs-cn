@@ -51,21 +51,7 @@ server {
 }
 </pre>
 
-对于 Windows 服务器, access_log, error_log and "location /media" 的路径需要被设置成 Windows 的文件路径格式, 如:
-<pre>
-    location / {
-        ...
-        access_log      E:/log/nginx/seahub.access.log;
-        error_log       E:/log/nginx/seahub.error.log;
-    }
-    location /media {
-        root E:/seafile-server-1.7.1/seahub;
-    }
-</pre>
-
-Nginx 默认设置 "client_max_body_size" 为 1M。如果上传文件大于这个值的话，会报错，相关 HTTP 状态码为 423 ("Request Entity Too Large").
-
-你可以将值设为 <code>0</code> 以禁用此功能，或者在 /seafile/seafile-data/seafile.conf 的 `fileserver` 字段中重新设定 max_upload_size 的值。 
+Nginx 默认设置 "client_max_body_size" 为 1M。如果上传文件大于这个值的话，会报错，相关 HTTP 状态码为 423 ("Request Entity Too Large"). 你可以将值设为 <code>0</code> 以禁用此功能.
 
 ## 修改 ccnet.conf 和 seahub_setting.py
 
