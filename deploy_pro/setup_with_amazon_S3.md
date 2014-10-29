@@ -4,10 +4,15 @@
 
 - 按照 [下载安装 Seafile 专业版服务器](download_and_setup_seafile_professional_server.md) 指南安装基本的 Seafile 专业版服务器。
 - 安装 python 的 `boto` 库。它可以用来访问 S3 服务。
+
 ```
 sudo easy_install boto
 ```
+
+- 安装和使用 Memcached.
+
 - 编辑 `/data/haiwen/seafile-data/seafile.conf` 文件，添加下面几行：
+
 ```
 [commit_object_backend]
 name = s3
