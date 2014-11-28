@@ -21,13 +21,17 @@ On this node, you need:
 
 On Ubuntu/Debian:
 ```
-sudo apt-get install default-jre
+sudo apt-get install openjdk-7-jre
 ```
 
 On CentOS/Red Hat:
 ```
-sudo yum install java-1.6.0-openjdk
+sudo yum install java-1.7.0-openjdk
 ```
+
+*提示*：您也可以使用 Oracle JRE.
+
+*注意*：Seafile 专业版需要 java 1.7 以上版本, 请用 `java -version` 命令查看您系统中的默认 java 版本. 如果不是 java 7, 那么, 请 [更新默认 java 版本](./change_default_java.md).
 
 ### Edit pro-data/seafevents.conf
 

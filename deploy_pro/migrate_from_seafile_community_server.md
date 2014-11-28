@@ -17,15 +17,17 @@
 
 如果您的系统环境是 Ubuntu 或者 Debian，执行以下命令：
 ```
-sudo apt-get install default-jre
+sudo apt-get install openjdk-7-jre
 ```
 
 如果您的系统环境是 CentOS 或者 Red Hat，执行以下命令：
 ```
-sudo yum install java-1.6.0-openjdk
+sudo yum install java-1.7.0-openjdk
 ```
 
-*注意*：您既可以使用 openJDK JRE 也可以使用 Oracle JRE，但不要使用 GCJ(GNU Java) 包。
+*注意*：您也可以使用 Oracle JRE.
+
+*注意*：Seafile 专业版需要 java 1.7 以上版本, 请用 `java -version` 命令查看您系统中的默认 java 版本. 如果不是 java 7, 那么, 请 [更新默认 java 版本](./change_default_java.md).
 
 ### 安装 poppler-utils ###
 
