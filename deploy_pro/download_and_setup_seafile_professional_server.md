@@ -12,15 +12,17 @@
 
 如果您的系统环境是 Ubuntu 或者 Debian，执行以下命令：
 ```
-sudo apt-get install default-jre
+sudo apt-get install openjdk-7-jre
 ```
 
 如果您的系统环境是 CentOS 或者 Red Hat，执行以下命令：
 ```
-sudo yum install java-1.6.0-openjdk
+sudo yum install java-1.7.0-openjdk
 ```
 
-*注意*： 您既可以使用 openJDK JRE 也可以使用 Oracle JRE，但是不要使用 GCJ(GNU Java) 包。
+*注意*：您也可以使用 Oracle JRE.
+
+*注意*：Seafile 专业版需要 java 1.7 以上版本, 请用 `java -version` 命令查看您系统中的默认 java 版本. 如果不是 java 7, 那么, 请 [更新默认 java 版本](./change_default_java.md).
 
 ### 安装 poppler-utils ###
 
@@ -55,7 +57,7 @@ sudo yum install libreoffice libreoffice-headless libreoffice-pyuno
 
 对于其他的 Linux 发行版您可以参考：[Linux 系统下安装 LibreOffice](http://www.libreoffice.org/get-help/installation/linux/)
 
-一般地，您还需要为您的使用语言安装字体，特别是在亚洲地区，否则 office 文件和 pdf 文件不能正确地显示。 
+一般地，您还需要为您的使用语言安装字体，特别是在亚洲地区，否则 office 文件和 pdf 文件不能正确地显示。
 
 比如， 中国的用户可能希望安装文泉驿系列的 TrueType 字体：
 
@@ -107,7 +109,7 @@ haiwen
 
 - Seafile 社区版服务器压缩包叫作 `seafile-server_2.1.5_x86-86.tar.gz`；解压后，文件夹名叫作  `seafile-server-2.1.5`
 - Seafile 专业版服务器压缩包叫作 `seafile-pro-server_2.1.5_x86-86.tar.gz`；解压后，文件夹名叫作 `seafile-pro-server-2.1.5`
-    
+
 -----------
 
 
@@ -128,7 +130,7 @@ haiwen
 │   └── seafile.ini
 ├── pro-data            # data specific for professional version
 │   └── seafevents.conf
-├── seafile-data        
+├── seafile-data
 │   └── seafile.conf
 ├── seafile-pro-server-2.1.5
 │   ├── reset-admin.sh
@@ -150,7 +152,7 @@ haiwen
 
 ## <a id="wiki-done"></a>安装完成
 
-到此，Seafile 专业版服务器的基本安装已经完成。 
+到此，Seafile 专业版服务器的基本安装已经完成。
 
 您可能想要了解更多关于 Seafile 专业版服务器的信息：
 
