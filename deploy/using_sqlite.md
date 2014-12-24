@@ -11,7 +11,7 @@
 部署和目录结构
 --------------
 
-注意:如果你把 Seafile文件放在一个外部存储的目录里（比如NFS，CIFS）,你应该使用 MySQL 而不是SQLite来作为数据库。请参考[[下载和安装Seafile服务器（使用MySQL）]]。
+注意:如果你把 Seafile文件放在一个外部存储的目录里（比如NFS，CIFS）,你应该使用 MySQL 而不是SQLite来作为数据库。请参考[下载和安装Seafile服务器（使用MySQL）](using_mysql.md)。
 
 假设你公司的名称为"haiwen",你也已经下载 seafile-server\_1.4.0\_\* 到你的home 目录下。 我们建议这样的目录结构:
 
@@ -53,9 +53,8 @@
 
 安装 Seafile 服务器之前，请确认已安装以下软件
 
--   python 2.6.5+ or 2.7
+-   python 2.7
 -   python-setuptools
--   python-simplejson
 -   python-imaging
 -   sqlite3
 
@@ -63,7 +62,7 @@
 
     #Debian系统下
     apt-get update
-    apt-get install python2.7 python-setuptools python-simplejson python-imaging sqlite3
+    apt-get install python2.7 python-setuptools python-imaging sqlite3
 
 ### 安装
 
