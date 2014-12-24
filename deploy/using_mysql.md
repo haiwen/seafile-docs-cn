@@ -91,9 +91,8 @@ Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
 
 安装 Seafile 服务器之前，请确认已安装以下软件
 
--   python 2.6.5+ or 2.7
+-   python 2.7
 -   python-setuptools
--   python-simplejson
 -   python-imaging
 -   python-mysqldb
 
@@ -101,7 +100,7 @@ Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
 
     #在Debian/Ubuntu系统下
     apt-get update
-    apt-get install python2.7 python-setuptools python-simplejson python-imaging python-mysqldb
+    apt-get install python2.7 python-setuptools python-imaging python-mysqldb
 
 ### 安装
 
