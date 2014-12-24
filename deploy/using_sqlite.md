@@ -69,11 +69,7 @@
     cd seafile-server-*
     ./setup-seafile.sh  #运行安装脚本并回答预设问题
 
-如果你的系统中没有安装上面的某个软件，那么 Seafile 初始化脚本会提醒你安装相应的软件包.
-
-[[images/server-setup.png]]
-
-该脚本会依次询问你一些问题，从而一步步引导你配置 Seafile 的各项参数
+如果你的系统中没有安装上面的某个软件，那么 Seafile 初始化脚本会提醒你安装相应的软件包. 该脚本会依次询问你一些问题，从而一步步引导你配置 Seafile 的各项参数
 
 <table>
 <tr>
@@ -118,7 +114,6 @@
 </table>
 
 **如果安装正确完成，会打印成功消息**
-[[images/server-setup-successfully.png]]
 
 现在你的目录结构将会是如下:
 
