@@ -1,8 +1,8 @@
 # 下载安装 Windows 版 Seafile 服务器
 
-### 安装 Python 2.7.4 ###
+### 安装 Python 2.7.4 32 位版本 ###
 
-- 下载并安装 [python 2.7.4](http://python.org/ftp/python/2.7.4/python-2.7.4.msi)
+- 下载并安装 [python 2.7.4 32 位版本](http://python.org/ftp/python/2.7.4/python-2.7.4.msi)
 - 将 python2.7 的安装路径添加到系统的环境变量中 (PATH 变量)。比如：如果您将 python 2.7.4 安装在`C:\Python27`路径下，那么就将`C:\Python27`添加到环境变量中。
 
 ### 下载并解压 Seafile 服务器 ###
@@ -67,4 +67,3 @@ Seafile 服务器的配置到此已经完成。如果您想了解如何使用 Se
 - [所用端口说明](ports_used_by_seafile_windows_server.md)
 - [升级](upgrading_seafile_windows_server.md)
 - [个性化配置](../deploy/server_configuration.md)
-

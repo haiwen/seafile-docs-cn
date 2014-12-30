@@ -1,6 +1,6 @@
 ## 安装与升级
 
-目前 Seafile Windows 服务器社区版仅支持 SQLite 数据库。Windows 专业版支持搜索，HTTPS, MySQL 数据库， WebDAV。我们测试用的系统是 Windows 2008 server R2 SP1。
+我们测试用的系统是 Windows 2008 server R2 SP1。
 
 - [下载安装 Windows 版 Seafile 服务器](download_and_setup_seafile_windows_server.md)
 - [安装 Seafile 为 Windows 服务](install_seafile_server_as_a_windows_service.md)
@@ -17,11 +17,15 @@
 
 如果您安装 Seafile 服务器失败， 请首先查看`seafserv-applet.log`文件。
 
+### 安装完后，本地网页无法打开
+
+确保您使用的是 Python 2.7.4 32位版本。
+
 ### "ERROR: D:/seafile-server\seahub.db not found"
 
 此文件是在 Seafile 初始化过程中创建的。请执行下面两步:
 
-1. 检查您的 Python 以及 Python 环境变量是否设置正确。 
+1. 检查您的 Python 以及 Python 环境变量是否设置正确。
 2. 将您的 Seafile 服务器包放在一个简短的路径下， 比如`C:\seafile-packages`。
 
 ### 创建`seahub.db`文件失败
@@ -42,7 +46,7 @@
 假设你的 Seafile 服务器程序位置为 `C:/SeafileProgram`, 数据文件夹位置为 `D:/seafile-server`。现在你希望把数据文件夹从 `D:/seafile-server` 移动到 `E:/seafile-server`
 
 1. 先在托盘菜单里选 **"停止并退出 seafile 服务器"**
-2. 把数据文件夹 `D:/seafile-server` 移动到新位置 `E:/seafile-server` 
+2. 把数据文件夹 `D:/seafile-server` 移动到新位置 `E:/seafile-server`
 3. 打开 `C:/SeafileProgram` 文件夹下的 `seafserv.ini` 这个文件。这个文件记录了数据文件夹的路径。把这个文件的内容改为 `E:/seafile-server`。
 **注意：** 如果你的新位置的路径包含非英文字符，那么请用支持 UTF8 格式的文本编辑器来编辑 `seafserv.ini` 文件，并保存为 UTF8 格式。否则 Seafile 服务器程序可能无法正确读取这个文件的内容。
 4. 重新启动 Seafile 服务器。
