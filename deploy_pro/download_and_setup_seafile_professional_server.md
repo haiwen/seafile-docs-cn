@@ -18,14 +18,14 @@
 > sudo pip install boto
 > ```
 > 
-> CentOS 7 下:
+> CentOS 6.6 下:
 > 
 > ```
 > wget https://bootstrap.pypa.io/get-pip.py
 > sudo python get-pip.py
-> sudo yum install java-1.7.0-openjdk poppler-utils libreoffice libreoffice-headless libreoffice-pyuno python-dev python-setuptools python-imaging MySQL-python mariadb-server.x86_64
+> sudo yum install java-1.7.0-openjdk poppler-utils libreoffice > libreoffice-headless libreoffice-pyuno python-dev python-setuptools > python-imaging MySQL-python mysql-server.x86_64
 > sudo pip install boto
-> sudo systemctl start mariadb.service
+> sudo /etc/init.d/mysqld start
 > ```
 > 
 
