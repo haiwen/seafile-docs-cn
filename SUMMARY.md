@@ -29,6 +29,8 @@
    * [安装 Seafile 为 Windows 服务](deploy_windows/install_seafile_server_as_a_windows_service.md)
    * [所用端口说明](deploy_windows/ports_used_by_seafile_windows_server.md)
    * [升级](deploy_windows/upgrading_seafile_windows_server.md)
+   * [从 Windows 迁移到 Linux](deploy_windows/migrate_from_win_to_linux.md)
+   * [垃圾回收](deploy_windows/windows_gc.md)
 * [部署 Seafile 专业版服务器](deploy_pro/README.md)
    * [下载安装 Seafile 专业版服务器](deploy_pro/download_and_setup_seafile_professional_server.md)
    * [从社区版迁移至专业版](deploy_pro/migrate_from_seafile_community_server.md)
