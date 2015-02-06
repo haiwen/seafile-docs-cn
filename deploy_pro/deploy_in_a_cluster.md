@@ -54,6 +54,8 @@ It's also recommended to set a higher limit for memcached's memory, such as 256M
 -m 256
 ```
 
+Seafile servers share session information within memcached. If you set up a memcached cluster, please make sure all the seafile server nodes connects to all the memcached nodes.
+
 ## <a id="wiki-configure-single-node"></a> Configure a Single Node
 
 You should make sure the config files on every Seafile server are consistent. **It's critical that you don't set up seafile server on each machine separately. You should set up seafile server on one machine then copy the config directory to the other machines.**
@@ -94,6 +96,14 @@ enabled = true
 memcached_options = --SERVER=192.168.1.134 --POOL-MIN=10 --POOL-MAX=100
 ```
 
+If you have a memcached cluster, you need to specify all the memcached server addresses in seafile.conf. The format is
+
+```
+[cluster]
+enabled = true
+memcached_options = --SERVER=192.168.1.134 --SERVER=192.168.1.135 --SERVER=192.168.1.136 --POOL-MIN=10 --POOL-MAX=100
+```
+
 (Optional) The Seafile server also opens a port for the load balancers to run health checks. Seafile by default use port 11001. You can change this by adding the following config to seafile-data/seafile.conf
 
 ```
@@ -115,6 +125,12 @@ CACHES = {
 
 AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
 
+```
+
+If you enable thumbnail feature, you'd better set thumbnail storage path to a **Shared Folder**, so that every node will create/get thumbnail through the same **Shared Folder** instead respectively.
+
+```
+THUMBNAIL_ROOT = 'path/to/shared/folder/'
 ```
 
 #### pro-data/seafevents.conf
