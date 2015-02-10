@@ -104,9 +104,6 @@ etc) . 你可以通过 Memcached 进行缓存操作
 
     # 浏览器关闭后，是否清空用户会话 cookie
     SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
-    # 使用服务器端的 crypto, 或者用户自行选择 crypto 方法.
-    FORCE_SERVER_CRYPTO = True
     
     # 是否可以把一个群组设为公开.
     ENABLE_MAKE_GROUP_PUBLIC = False
