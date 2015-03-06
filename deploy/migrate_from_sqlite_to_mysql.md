@@ -22,7 +22,15 @@
   create database `seahub-db` character set = 'utf8';
 ```
 
-4. 运行 sql 文件:
+4. 修改 /etc/my.conf, 添加下列语句，并重启 mysql (sudo service mysql restart)，这个语句主要是确保数据库使用 UTF8 编码
+```
+    [mysqld]
+    collation-server = utf8_unicode_ci
+    init-connect='SET NAMES utf8'
+    character-set-server = utf8
+```
+
+5. 运行 sql 文件:
 ```
   mysql> use `ccnet-db`
   mysql> source ccnet-db.sql
@@ -32,7 +40,7 @@
   mysql> source seahub-db.sql
 ```
 
-5. 更改配置
+6. 更改配置
 
   在 `ccnet/ccnet.conf` 中增加以下语句:
 
@@ -71,6 +79,6 @@
             }
         }
 
-6. 重启 Seafile and Seahub
+7. 重启 Seafile and Seahub
 
 
