@@ -70,7 +70,7 @@
           fastcgi_param   HTTP_SCHEME         https;
 
           access_log      /var/log/nginx/seahub.access.log;
-        error_log       /var/log/nginx/seahub.error.log;
+          error_log       /var/log/nginx/seahub.error.log;
       }       
       location /seafhttp {
           rewrite ^/seafhttp(.*)$ $1 break;
