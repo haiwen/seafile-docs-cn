@@ -8,13 +8,13 @@ Ubuntu 下安装<code>python-flup</code>库:
 sudo apt-get install python-flup
 ```
 
-## Nginx 环境下部署 Seahub/FileServer 
+## Nginx 环境下部署 Seahub/SeafServer 
 
-Seahub 是 Seafile 服务器的网站界面. FileServer 用来处理浏览器端文件的上传与下载. 默认情况下, 它在 8082 端口上监听 HTTP 请求. 
+Seahub 是 Seafile 服务器的网站界面. SeafServer 用来处理浏览器端文件的上传与下载. 默认情况下, 它在 8082 端口上监听 HTTP 请求. 
 
-这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 FileServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com". 
+这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 SeafServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com". 
 
-这是一个 Nginx 配置文件的例子.
+这是一个 Nginx 配置文件的例子 (你可以创建文件 /etc/nginx/conf.d/seafile.conf， 并拷贝以下内容).
 
 <pre>
 server {
