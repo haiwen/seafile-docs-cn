@@ -10,12 +10,6 @@
     openssl genrsa -out privkey.pem 2048
     openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095
 
-### 启用 Nginx 的 SSL 模块 (可选)
-
-如果你的 Nginx 并不支持 SSL, 请重新编译, 相关命令如下: 
-
-    ./configure --with-http_stub_status_module --with-http_ssl_module
-    make && make install
 
 ### 修改 Nginx 配置文件
 
