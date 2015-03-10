@@ -47,6 +47,7 @@
       ssl_certificate /etc/ssl/cacert.pem;            #cacert.pem 文件路径
       ssl_certificate_key /etc/ssl/privkey.pem;	#privkey.pem 文件路径
       server_name www.yourdoamin.com;    
+      proxy_set_header X-Forwarded-For $remote_addr;
       location / {
           fastcgi_pass    127.0.0.1:8000;
           fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;

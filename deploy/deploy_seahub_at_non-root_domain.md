@@ -25,6 +25,7 @@ SITE_ROOT = '/seafile/'
 server {
     listen 80;
     server_name www.example.com;
+    proxy_set_header X-Forwarded-For $remote_addr;
     location /seafile {
         fastcgi_pass    127.0.0.1:8000;
         fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;

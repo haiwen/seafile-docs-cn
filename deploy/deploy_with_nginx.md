@@ -20,6 +20,9 @@ Seahub 是 Seafile 服务器的网站界面. SeafServer 用来处理浏览器端
 server {
     listen 80;
     server_name www.myseafile.com;
+
+    proxy_set_header X-Forwarded-For $remote_addr;
+
     location / {
         fastcgi_pass    127.0.0.1:8000;
         fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;
