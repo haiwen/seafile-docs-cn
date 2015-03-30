@@ -12,12 +12,85 @@ Seafile 利用存储去重技术来减少存储资源的利用。
 
 垃圾回收程序将会清理如下两种无用数据块：
 
-1. 未被资料库所引用的数据块。
+1. 未被资料库所引用的数据块即数据块属于被删除的资料库。
 2. 设置了历史长度限制的资料库的过期数据块。
 
-**运行垃圾回收程序之前，请先在服务器端停掉 Seafile 程序。**
+**如果使用社区版服务器，运行垃圾回收程序之前，请先在服务器端停掉 Seafile 程序。这是因为垃圾回收程序，会错误的删除刚刚写入 Seafile 的新的数据块。对于专业版，3.1.11 及之后的版本，支持在线垃圾回收即如果使用 MySQL 或 PostgreSQL 数据库，你不需要暂停 Seafile 程序来进行垃圾回收。**
 
-这是因为垃圾回收程序，会错误的删除刚刚写入 Seafile 的新的数据块。
+## 4.1.1 及之后的版本
+
+从社区版 4.1.1 和 专业版 4.1.0开始， 我们改善了垃圾回收的命令参数和执行结果输出。
+
+### Dry-run 模式
+
+如果仅为了查看有多少垃圾可以回收而不进行删除操作，用 dry-run 选项：
+
+```
+seaf-gc.sh --dry-run [repo-id1] [repo-id2] ...
+```
+
+运行输出如下所示:
+
+```
+[03/19/15 19:41:49] seafserv-gc.c(115): GC version 1 repo My Library(ffa57d93)
+[03/19/15 19:41:49] gc-core.c(394): GC started. Total block number is 265.
+[03/19/15 19:41:49] gc-core.c(75): GC index size is 1024 Byte.
+[03/19/15 19:41:49] gc-core.c(408): Populating index.
+[03/19/15 19:41:49] gc-core.c(262): Populating index for repo ffa57d93.
+[03/19/15 19:41:49] gc-core.c(308): Traversed 5 commits, 265 blocks.
+[03/19/15 19:41:49] gc-core.c(440): Scanning unused blocks.
+[03/19/15 19:41:49] gc-core.c(472): GC finished. 265 blocks total, about 265 reachable blocks, 0 blocks can be removed.
+
+[03/19/15 19:41:49] seafserv-gc.c(115): GC version 1 repo aa(f3d0a8d0)
+[03/19/15 19:41:49] gc-core.c(394): GC started. Total block number is 5.
+[03/19/15 19:41:49] gc-core.c(75): GC index size is 1024 Byte.
+[03/19/15 19:41:49] gc-core.c(408): Populating index.
+[03/19/15 19:41:49] gc-core.c(262): Populating index for repo f3d0a8d0.
+[03/19/15 19:41:49] gc-core.c(308): Traversed 8 commits, 5 blocks.
+[03/19/15 19:41:49] gc-core.c(264): Populating index for sub-repo 9217622a.
+[03/19/15 19:41:49] gc-core.c(308): Traversed 4 commits, 4 blocks.
+[03/19/15 19:41:49] gc-core.c(440): Scanning unused blocks.
+[03/19/15 19:41:49] gc-core.c(472): GC finished. 5 blocks total, about 9 reachable blocks, 0 blocks can be removed.
+
+[03/19/15 19:41:49] seafserv-gc.c(115): GC version 1 repo test2(e7d26d93)
+[03/19/15 19:41:49] gc-core.c(394): GC started. Total block number is 507.
+[03/19/15 19:41:49] gc-core.c(75): GC index size is 1024 Byte.
+[03/19/15 19:41:49] gc-core.c(408): Populating index.
+[03/19/15 19:41:49] gc-core.c(262): Populating index for repo e7d26d93.
+[03/19/15 19:41:49] gc-core.c(308): Traversed 577 commits, 507 blocks.
+[03/19/15 19:41:49] gc-core.c(440): Scanning unused blocks.
+[03/19/15 19:41:49] gc-core.c(472): GC finished. 507 blocks total, about 507 reachable blocks, 0 blocks can be removed.
+
+[03/19/15 19:41:50] seafserv-gc.c(124): === Repos deleted by users ===
+[03/19/15 19:41:50] seafserv-gc.c(145): === GC is finished ===
+
+[03/19/15 19:41:50] Following repos have blocks to be removed:
+repo-id1
+repo-id2
+repo-id3
+```
+
+如果在参数中指定资料库 ID，则程序只检查指定的资料库，否则所有的资料库将会被检查。
+
+在程序输出的结尾，你会看到 "repos have blocks to be removed" 部分，这部分内容会列出含有可回收垃圾块的资料库的 ID，后续你可以运行程序不加 --dry-run 选项来回收这些资料库的垃圾数据块。
+
+### 删除垃圾数据块
+
+运行垃圾回收程序，不加 --dry-run 选项来删除垃圾数据块：
+
+```
+seaf-gc.sh [repo-id1] [repo-id2] ...
+```
+
+如果在参数中指定资料库 ID, 则程序只检查和删除指定的资料库。
+
+正如前面所说，有两种类型的垃圾数据块可被回收，有时仅删除第一类无用数据块（属于删除的资料库）便可达到回收的目的，这种情况下，垃圾回收程序将不会检查未被删除的资料库，加入 “-r” 选项便可实现这个功能：
+
+```
+seaf-gc.sh -r
+```
+
+**Seafile 4.1.1 及之后的版本，被用户删除的资料库不会直接从系统中删除，它们会被转移到系统管理员界面的**垃圾箱**。垃圾箱中的资料库，只有在从垃圾箱中清除以后，它们的数据块才可被回收。**
 
 ## 3.1.2 及之后版本
 

@@ -11,25 +11,84 @@
 1. 检查 Seafile 内部对象的完整性，并且删除毁坏的对象。
 2. 恢复所有受影响的资料库到最近一致，可用的状态。
 
-seaf-fsck 工具接受如下参数：
+4.1 及之后的版本，我们提供一个 seaf-fsck.sh 脚本来运行 seafile-fsck 工具。 执行流程如下所示：
 
 ```
-seaf-fsck [-c config_dir] [-d seafile_dir] [repo_id_1 [repo_id_2 ...]]
-附加选项：
--D, --dry-run: 检查文件系统对象和块，但是不删除它们。
--s, --strict: 检查文件系统对象id是否和内容一致。
+cd seafile-server-latest
+./seaf-fsck.sh [--repair|-r] [--enable-sync|-e] [repo_id_1 [repo_id_2 ...]]
 ```
 
-假设你按照标准安装，将 Seafile 安装到 `/data/haiwen` 目录下，在此目录下，运行如下命令：
+seaf-fsck 有检查资料库完整性和修复损坏资料库两种运行模式。
+
+## 检查资料库完整性
+
+执行 seaf-fsck.sh 不加任何参数将以**只读**方式检查所有资料库的完整性。
 
 ```
-cd /data/haiwen/seafile-server-{version}/seafile
-export LD_LIBRARY_PATH=./lib:${LD_LIBRARY_PATH}
-./bin/seaf-fsck -c ../../ccnet -d ../../seafile-data
+cd seafile-server-latest
+./seaf-fsck.sh
 ```
 
-这将会检查所有服务器端的资料库。
+如果你想检查指定资料库的完整性，只需将要检查的资料库 ID 作为参数即可：
 
-如果你知道哪个具体的资料库被毁坏，你也可以在命令行指定资料库 ID。可以通过在 Seahub 中访问资料库，来获得资料库 ID。在浏览器的地址栏，你将会看到类似于`https://seafile.example.com/repo/601c4f2f-5209-47a0-b939-1f8c7fae9ff2`的请求地址，其中`601c4f2f-5209-47a0-b939-1f8c7fae9ff2`便是资料库 ID.
+```
+cd seafile-server-latest
+./seaf-fsck.sh [library-id1] [library-id2] ...
+```
 
-在恢复之后，一些最近的文件更改或许会丢失，但是现在你可以访问这个资料库。请注意，此时一些客户端可能无法同步资料库，在客户端先解除同步，然后重新同步即可。
+运行输出如下:
+
+```
+[02/13/15 16:21:07] fsck.c(470): Running fsck for repo ca1a860d-e1c1-4a52-8123-0bf9def8697f.
+[02/13/15 16:21:07] fsck.c(413): Checking file system integrity of repo fsck(ca1a860d)...
+[02/13/15 16:21:07] fsck.c(35): Dir 9c09d937397b51e1283d68ee7590cd9ce01fe4c9 is missing.
+[02/13/15 16:21:07] fsck.c(200): Dir /bf/pk/(9c09d937) is curropted.
+[02/13/15 16:21:07] fsck.c(105): Block 36e3dd8757edeb97758b3b4d8530a4a8a045d3cb is corrupted.
+[02/13/15 16:21:07] fsck.c(178): File /bf/02.1.md(ef37e350) is curropted.
+[02/13/15 16:21:07] fsck.c(85): Block 650fb22495b0b199cff0f1e1ebf036e548fcb95a is missing.
+[02/13/15 16:21:07] fsck.c(178): File /01.2.md(4a73621f) is curropted.
+[02/13/15 16:21:07] fsck.c(514): Fsck finished for repo ca1a860d.
+```
+
+被损坏的文件和目录将显示在输出的结果中。
+
+有时，你会看到如下的输出结果：
+
+```
+[02/13/15 16:36:11] Commit 6259251e2b0dd9a8e99925ae6199cbf4c134ec10 is missing
+[02/13/15 16:36:11] fsck.c(476): Repo ca1a860d HEAD commit is corrupted, need to restore to an old version.
+[02/13/15 16:36:11] fsck.c(314): Scanning available commits...
+[02/13/15 16:36:11] fsck.c(376): Find available commit 1b26b13c(created at 2015-02-13 16:10:21) for repo ca1a860d.
+```
+
+这意味着记录在数据库中的 "head commit" （当前资料库状态的标识）与数据目录中的记录不一致。这种情况下，fsck 会试着找出最近可用的一致状态，并检查其完整性。
+
+建议: **如果你有很多资料库要检查，保存 fsck 的输出到日志文件中将有助于后面的进一步分析。**
+
+## 修复损坏的资料库
+
+fsck 修复损坏的资料库有如下两步流程:
+
+1. 如果记录在数据库中的资料库当前状态无法在数据目录中找出，fsck 将会在数据目录中找到最近可用状态。
+2. 检查第一步中可用状态的完整性。如果文件或目录损坏，fsck 将会将其置空并报告损坏的路径，用户便可根据损坏的路径来进行恢复操作。
+
+执行如下命令来修复所有资料库：
+
+```
+cd seafile-server-latest
+./seaf-fsck.sh --repair
+```
+
+大多数情况下我们建议你首先以只读方式检查资料库的完整性，找出损坏的资料库后，执行如下命令来修复指定的资料库：
+
+```
+cd seafile-server-latest
+./seaf-fsck.sh --repair [library-id1] [library-id2] ...
+```
+
+由于被损坏的文件或目录在修复过后会被置空，在客户端同步被修复的损坏资料库将会导致数据丢失，即客户端先前好的完整的文件或目录拷贝将被空文件或空目录替代。为了避免这种情况发生，服务器将会阻止客户端同步被**修复**的损坏资料库。系统管理员应该通知用户来恢复损坏的文件或目录，然后执行如下命令让此资料库可以再次同步：
+
+```
+cd seafile-server-latest
+./seaf-fsck.sh --enable-sync [library-id1] [library-id2] ...
+```
