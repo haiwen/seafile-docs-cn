@@ -65,6 +65,8 @@
    * [WebDAV 扩展](extension/webdav.md)
    * [FUSE 扩展](extension/fuse.md)
 * [安全选项](security/README.md)
+   * [Security features](security/security_features.md)
+   * [Access logs and auditing](security/auditing.md)
 * [开发文档](develop/README.md)
    * [编译 Seafile](build_seafile/README.md)
        * [Linux](build_seafile/linux.md)
