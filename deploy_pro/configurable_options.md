@@ -3,6 +3,10 @@
 在 `/data/haiwen/pro-data/seafevents.conf` 配置文件中：
 
 ```
+[Audit]
+## 审计日志默认是关闭的
+enable = true
+
 [INDEX FILES]
 # 要启用搜索，必须设置为 "true"
 enabled = true
