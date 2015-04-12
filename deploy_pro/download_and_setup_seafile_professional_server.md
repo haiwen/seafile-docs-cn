@@ -11,7 +11,7 @@
 > Ubuntu 14.04，可用以下命令安装全部依赖。
 > 
 > ```
-> sudo apt-get install openjdk-7-jre poppler-utils libreoffice libreoffice-script-provider-python libpython2.7 python-pip mysql-server python-setuptools python-imaging python-mysqldb
+> sudo apt-get install openjdk-7-jre poppler-utils libreoffice libreoffice-script-provider-python libpython2.7 python-pip mysql-server python-setuptools python-imaging python-mysqldb python-memcache
 > 
 > sudo pip install boto
 > ```
@@ -62,11 +62,11 @@ sudo yum install poppler-utils
 ```
 
 
-### 安装 Libreoffice 和 UNO 库 ###
+### 安装 Libreoffice 和 UNO 库 (可选) ###
+
+注意：Office 文件预览安装起来不是很方便，在不同的 Linux 平台上容易出不同的小问题。所以我们不再对这个功能提供官方支持。建议您略过这一安装步骤。
 
 Libreoffice 和 Python-uno 库为 office 文件提供在线预览功能。如果它们没有安装，office 文件就不能在线预览。Seafile 需要 libreoffice 4.0 或者以后的版本。
-
-
 
 如果您的系统环境是 Ubuntu 或者 Debian，执行以下命令：
 ```
@@ -180,4 +180,4 @@ haiwen
 您可能想要了解更多关于 Seafile 专业版服务器的信息：
 
 
-- [Seafile 专业版服务器的 FAQ](FAQ_for_seafile_pro_server.md)
+- [Seafile 专业版服务器的 FAQ](faq_for_seafile_pro_server.md)
