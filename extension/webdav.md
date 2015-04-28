@@ -75,6 +75,8 @@ share_name = /seafdav
         fastcgi_param   SERVER_ADDR         $server_addr;
         fastcgi_param   SERVER_PORT         $server_port;
         fastcgi_param   SERVER_NAME         $server_name;
+        
+        client_max_body_size 0;
 
         access_log      /var/log/nginx/seafdav.access.log;
         error_log       /var/log/nginx/seafdav.error.log;
@@ -100,6 +102,8 @@ Nginx配置为https:
         fastcgi_param   SERVER_PORT         $server_port;
         fastcgi_param   SERVER_NAME         $server_name;
 
+        client_max_body_size 0;
+        
         fastcgi_param   HTTPS               on;
 
         access_log      /var/log/nginx/seafdav.access.log;
