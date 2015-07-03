@@ -11,6 +11,7 @@
 <li><a href="#create-account">Create Account</a></li>
 <li><a href="#update-account">Update Account</a></li>
 <li><a href="#delete-account">Delete Account</a></li>
+<li><a href="#server-info">Get Server Information</a></li>
 </ul>
 </li>
 <li><a href="#starred-files">Starred Files</a><ul>
@@ -137,6 +138,7 @@
 </li>
 <li><a href="#list-group-and-contacts">List Group And Contacts</a></li>
 <li><a href="#get-file-events">Get File Activities</a></li>
+<li><a href="#add-organization">Add Organization</a></li>
 </ul>
 </li>
 </ul>
@@ -287,13 +289,18 @@ If scope parameter is passed then accounts will be searched inside the specific 
 
 **Request parameters**
 
+At least one of followings: 
+
 * password
-* is_staff (defaults to False)
-* is_active (defaults to True)
+* is_staff
+* is_active
+* name
+* note
+* storage
 
 **Sample request**
 
-    curl -v -X PUT -d "password=654321&is_staff=true" -H "Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd" -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/accounts/newaccount@gmail.com/
+    curl -v -X PUT -d "password=654321&is_staff=true&storage=1073741824" -H "Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd" -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/accounts/user@mail.com/
 
 **Sample response**
 
@@ -328,6 +335,42 @@ If scope parameter is passed then accounts will be searched inside the specific 
 **Errors**
 
 * 403 Permission error, only administrator can perform this action
+
+### <a id="server-info"></a>Get Server Information ###
+
+**GET** https://cloud.seafile.com/api2/server-info
+
+*Note*:
+
+- No authentication required.
+- Added in seafile community edition server `4.0.5` or pro edition server `4.0.3`
+
+**Sample request**
+
+    curl https://cloud.seafile.com/api2/server-info/
+
+**Sample response**
+
+Sample response from a seafile community edition server:
+
+    {
+        "version": "4.0.6",
+        "features": [
+        "seafile-basic",
+        ]
+    }
+
+Sample response from a seafile pro edition server:
+
+    {
+        "version": "4.0.6",
+        "features": [
+        "seafile-basic",
+        "seafile-pro",
+        "office-preview",
+        "file-search"
+        ]
+    }
 
 ## <a id="starred-files"></a>Starred Files ##
 
@@ -2145,17 +2188,17 @@ A sample request looks like `curl -X DELETE https://cloud.seafile.com/api2/repos
 
 ### <a id="get-thumbnail-image"></a>Get Thumbnail Image ##
 
-**GET** https://cloud.seafile.com/api2/repos/{repo_id}/thumbnail/{path}
+**GET** https://cloud.seafile.com/api2/repos/{repo_id}/thumbnail/
 
 **Request parameters**
 
 * repo_id
-* path
+* p
 * size
 
 **Sample request**
 
-    curl -H 'Authorization: Token 40f9a510a0629430865dc199a3880898ad2e48fc' https://cloud.seafile.com/api2/repos/fbead5d0-4817-4446-92f3-7ac8e6a8e5f5/thumbnail/5.jpg?s=123 > thumbnail.png
+    curl -H 'Authorization: Token 40f9a510a0629430865dc199a3880898ad2e48fc' https://cloud.seafile.com/api2/repos/fbead5d0-4817-4446-92f3-7ac8e6a8e5f5/thumbnail/?p=/5.jpg\&size=123 > thumbnail.png
 
 ## <a id="list-group-and-contacts"></a>List Group And Contacts ##
 
@@ -2205,3 +2248,24 @@ A sample request looks like `curl -X DELETE https://cloud.seafile.com/api2/repos
 **Sample response**
 
      {"more_offset": 16, "events":[{"repo_id": "6f3d28a4-73ae-4d01-a727-26774379dcb9", "author": "mysnowls@163.com", "nick": "lins05", "time": 1398078909, "etype": "repo-update", "repo_name": "Downloads", "desc": "Added \"seafile-cli_3.0.2_i386.tar.gz\"."},{"repo_id": "6f3d28a4-73ae-4d01-a727-26774379dcb9", "author": "mysnowls@163.com", "nick": "lins05", "time": 1398075540, "etype": "repo-update", "repo_name": "Downloads", "desc": "Added \"seafile-server_3.0.0_x86-64.tar.gz\"."}], "more": false}
+
+## <a id="add-organization"></a>Add Organization ##
+
+**POST** https://cloud.seafile.com/api2/organization/
+
+**Request parameters**
+
+* username
+* password
+* org_name
+* prefix
+* quota
+* member_limit
+
+**Sample request**
+
+    curl -v -X POST -d "username=example@example.com&password=example&org_name=example&prefix=example&quota=100&member_limit=10" -H "Authorization: Token ccdff90e4d1efe76b2b3d91c06b027a5cff189d4" -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/organization/
+
+**Sample response**
+
+    "success"
