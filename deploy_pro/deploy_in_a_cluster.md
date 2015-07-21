@@ -113,7 +113,7 @@ health_check_port = 12345
 
 #### seahub_settings.py
 
-Add following configuration to `seahub_settings.py`. These settings tell Seahub to store avatar in database and cache avatar in memcached.
+Add following configuration to `seahub_settings.py`. These settings tell Seahub to store avatar in database and cache avatar in memcached, and store css CACHE to locale memory of every node.
 
 ```
 CACHES = {
@@ -124,6 +124,8 @@ CACHES = {
 }
 
 AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
+
+COMPRESS_CACHE_BACKEND = 'locmem://'
 
 ```
 
