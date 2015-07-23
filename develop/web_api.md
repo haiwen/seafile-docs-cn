@@ -6,11 +6,12 @@
 <li><a href="#status-code">Status Code</a></li>
 <li><a href="#quick-start">Quick Start</a></li>
 <li><a href="#account">Account</a><ul>
-<li><a href="#list-accounts">List Accounts</a></li>
+<li><a href="#list-accounts">List Accounts(Admin only)</a></li>
+<li><a href="#get-account">Get Account Info(Admin only)</a></li>
+<li><a href="#create-account">Create Account(Admin only)</a></li>
+<li><a href="#update-account">Update Account(Admin only)</a></li>
+<li><a href="#delete-account">Delete Account(Admin only)</a></li>
 <li><a href="#check-account-info">Check Account Info</a></li>
-<li><a href="#create-account">Create Account</a></li>
-<li><a href="#update-account">Update Account</a></li>
-<li><a href="#delete-account">Delete Account</a></li>
 <li><a href="#server-info">Get Server Information</a></li>
 </ul>
 </li>
@@ -51,6 +52,7 @@
 <li><a href="#list-file-share-links">List File Share Links</a></li>
 <li><a href="#create-file-share-link">Create File Share Link</a></li>
 <li><a href="#delete-file-share-link">Delete File Share Link</a></li>
+<li><a href="#list-direntry-in-dir-download-link">List Direntry in Dir Download Link</a></li>
 </ul>
 </li>
 <li><a href="#shared-libraries">Shared Libraries</a><ul>
@@ -97,6 +99,8 @@
 <li><a href="#download-file-revision">Download File From a Revision</a></li>
 <li><a href="#create-file">Create File</a></li>
 <li><a href="#rename-file">Rename File</a></li>
+<li><a href="#lock-file">Lock File</a></li>
+<li><a href="#unlock-file">Unlock File</a></li>
 <li><a href="#move-file">Move File</a></li>
 <li><a href="#copy-file">Copy File</a></li>
 <li><a href="#revert-file">Revert File</a></li>
@@ -230,6 +234,33 @@ If scope parameter is passed then accounts will be searched inside the specific 
 **Errors**
 
 * 403 Permission error, only administrator can perform this action
+
+### <a id="get-account"></a>Get Account Info ###
+
+**GET** https://cloud.seafile.com/api2/accounts/{email}/
+
+**Request parameters**
+
+**Sample request**
+
+    curl -v -H "Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd" -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/accounts/user@mail.com/
+
+**Sample response**
+
+    {
+    "is_staff": false,
+    "is_active": true,
+    "id": 2,
+    "create_time": 1356061187741686,
+    "usage": 651463187,
+    "total": 107374182400,
+    "email": "user@mail.com"
+    }
+
+**Errors**
+
+* 403 Permission error, only administrator can perform this action
+
 
 ### <a id="check-account-info"></a>Check Account Info ###
 
@@ -874,18 +905,24 @@ None
 **Request parameters**
 
 * repo-id
-* type
 * p (Path to the file)
+* share_type (optional, `download` or `upload`, default `download`)
+* password (optional)
+* expire (optional)
 
 **Sample request**
 
 Create download link for file
 
-    curl -v  -X PUT -d "type=f&p=/foo.md" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/repos/afc3b694-7d4c-4b8a-86a4-89c9f3261b12/file/shared-link/
+    curl -v  -X PUT -d "p=/foo.md" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/repos/afc3b694-7d4c-4b8a-86a4-89c9f3261b12/file/shared-link/
 
-Create download link for directory
+Create download link for directory with password and expire date
 
-    curl -v  -X PUT -d "type=d&p=/123/" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/repos/afc3b694-7d4c-4b8a-86a4-89c9f3261b12/file/shared-link/
+    curl -v  -X PUT -d "password=password&expire=6&p=/123/" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/repos/afc3b694-7d4c-4b8a-86a4-89c9f3261b12/file/shared-link/
+
+Create upload link for directory
+
+    curl -v -X PUT -d "share_type=upload&p=/123/" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/repos/afc3b694-7d4c-4b8a-86a4-89c9f3261b12/file/shared-link/
 
 **Sample response**
 
@@ -901,6 +938,7 @@ Create download link for directory
 **Errors**
 
 * 400 Path is missing
+* 400 Password(if link is encrypted) is missing
 * 500 Internal server error
 
 #### <a id="delete-file-share-link"></a>Delete File Share Link ####
@@ -920,6 +958,24 @@ Create download link for directory
     ...
     < HTTP/1.0 200 OK
     ...
+
+#### <a id="list-direntry-in-dir-download-link"></a>List Direntry in Dir Download Link ####
+
+**GET** https://cloud.seafile.com/api2/d/{token}/dir/
+
+**Request parameters**
+
+* token (upload link token)
+* p (sub folder path)
+* password (if link is encrypted)
+
+**Sample request**
+
+    curl -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/d/3af7c46595/dir/?p=/subfolder/"
+
+**Sample response**
+
+    [{"mtime": 1436846750, "type": "dir", "name": "sadof", "id": "1806dbdb700b7bcd49e6275107c7ccf7b3ea1776"}, {"id": "bdb06f6de972c42893fda590ac954988b562429c", "mtime": 1436431020, "type": "file", "name": "test.mdert", "size": 20}]
 
 ### <a id="shared-libs"></a>Shared Libraries ###
 
@@ -1698,6 +1754,70 @@ check if a dir has a corresponding sub_repo, if it does not have, create one
 * 404 NOT FOUND, repo not found
 * 409 CONFLICT, the newname is the same to the old
 * 520 OPERATION FAILED, fail to rename file
+
+#### <a id="lock-file"></a>Lock File  ###
+
+**PUT** https://cloud.seafile.com/api2/repos/{repo-id}/file/
+
+**Request parameters**
+
+* repo-id
+* p
+* operation
+
+**Sample request**
+
+    curl -v -X PUT -d "operation=lock&p=/foo.c" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; charset=utf-8; indent=4' https://cloud.seafile.com/api2/repos/dae8cecc-2359-4d33-aa42-01b7846c4b32/file/
+
+**Sample response**
+
+    ...
+    < HTTP/1.0 200 OK
+    ...
+    "success"
+
+**Success**
+
+   Response code is 200, and a string `"success"` is returned.
+
+**Errors**
+
+* 400 BAD REQUEST, Path is missing or invalid(e.g. p=/)
+* 403 FORBIDDEN, You do not have permission to lock file
+* 404 NOT FOUND, repo not found
+* 520 OPERATION FAILED, fail to lock file
+
+#### <a id="unlock-file"></a>Unlock File  ###
+
+**PUT** https://cloud.seafile.com/api2/repos/{repo-id}/file/
+
+**Request parameters**
+
+* repo-id
+* p
+* operation
+
+**Sample request**
+
+    curl -v -X PUT -d "operation=unlock&p=/foo.c" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; charset=utf-8; indent=4' https://cloud.seafile.com/api2/repos/dae8cecc-2359-4d33-aa42-01b7846c4b32/file/
+
+**Sample response**
+
+    ...
+    < HTTP/1.0 200 OK
+    ...
+    "success"
+
+**Success**
+
+   Response code is 200, and a string `"success"` is returned.
+
+**Errors**
+
+* 400 BAD REQUEST, Path is missing or invalid(e.g. p=/)
+* 403 FORBIDDEN, You do not have permission to lock file
+* 404 NOT FOUND, repo not found
+* 520 OPERATION FAILED, fail to unlock file
 
 #### <a id="move-file"></a>Move File  ###
 
