@@ -88,20 +88,10 @@
 <td align="left"><p>seafile 服务器的 IP 地址或者域名</p></td>
 <td align="left"><p>客户端将通过这个 IP 或者地址来访问你的 Seafile 服务</p></td>
 </tr>
-<tr class="odd">
-<td align="left"><p>ccnet server port</p></td>
-<td align="left"><p>ccnet 使用的 TCP 端口</p></td>
-<td align="left"><p>一般使用默认的10001 端口，如果已经被占用，可以设置为其他的端口</p></td>
-</tr>
 <tr class="even">
 <td align="left"><p>seafile data dir</p></td>
 <td align="left"><p>seafile 数据存放的目录，用上面的例子，默认将是 /data/haiwen/seafile-data</p></td>
 <td align="left"><p>seafile 数据将随着使用而逐渐增加，请把它放在一个有足够大空闲空间的分区上</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>seafile server port</p></td>
-<td align="left"><p>seafile 服务器 使用的 TCP 端口</p></td>
-<td align="left"><p>一般使用默认的 12001 端口，如果已经被占用，可以设置为其他的端口</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>seafile fileserver port</p></td>
