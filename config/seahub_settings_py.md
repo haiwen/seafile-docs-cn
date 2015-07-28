@@ -107,6 +107,9 @@ etc) . 你可以通过 Memcached 进行缓存操作
     
     # 是否可以把一个群组设为公开.
     ENABLE_MAKE_GROUP_PUBLIC = False
+    
+    # 登录记住天数. 默认 7 天
+    LOGIN_REMEMBER_DAYS = 7
 
 **注意**:
 
