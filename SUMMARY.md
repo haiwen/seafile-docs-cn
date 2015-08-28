@@ -38,6 +38,7 @@
    * [Amazon S3 下安装](deploy_pro/setup_with_amazon_s3.md)
    * [OpenStackSwift 下安装](deploy_pro/setup_with_openstackswift.md)
    * [Ceph 下安装](deploy_pro/setup_with_ceph.md)
+   * [使用阿里云OSS存储](deploy_pro/setup_with_oss.md)
    * [配置选项](deploy_pro/configurable_options.md)
    * 其他部署说明
        * [文件搜索说明](deploy_pro/details_about_file_search.md)
