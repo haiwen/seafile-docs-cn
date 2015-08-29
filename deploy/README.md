@@ -23,6 +23,7 @@
 * [Nginx 下启用 Https](https_with_nginx.md)
 * [Apache 下配置 Seahub](deploy_with_apache.md)
 * [Apache 下启用 Https](https_with_apache.md)
+* [使用 Memcached](add_memcached.md)
 
 高级功能:
 
@@ -30,7 +31,7 @@
 * [开机启动 Seafile](start_Seafile_at_system_bootup.md)
 * [防火墙设置](using_firewall.md)
 * [Logrotate 管理系统日志](using_logrotate.md)
-* [使用 Memcached](add_memcached.md)
+
 
 其他部署事项
 
