@@ -1,7 +1,11 @@
 # 使用 memcached
 
-Seahub 将默认在 `/tmp/seahub_cache/` 中缓存文件(avatars, profiles, etc)，但是可以使用 memcached 更改缓存设置。
-首先安装 **python-memcached**, 并在 **seahub_settings.py** 中加入以下配置信息.
+安装 Memcached 能够显著提高系统性能，首先安装 memcached 和相应的库：
+
+* memcached
+* python memcached module (python-memcache or python-memcached)
+
+然后在 **seahub_settings.py** 中加入以下配置信息.
 
 ```
 CACHES = {
@@ -11,11 +15,9 @@ CACHES = {
     }
 }
 ```
-**注意**:
 
--   请重启 Seahub 以使更改生效.
--   如果更改没有生效，请删除`seahub_setting.pyc`缓存文件.
-
-<!-- -->
+最后重启 Seahub 以使更改生效：
 
     ./seahub.sh restart
+
+如果更改没有生效，请删除`seahub_setting.pyc`缓存文件.
