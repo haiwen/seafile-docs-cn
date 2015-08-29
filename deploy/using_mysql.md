@@ -44,48 +44,8 @@
 -   和 seafile 相关的配置文件都可以放在 **haiwen** 目录下，便于集中管理.
 -   后续升级时,你只需要解压最新的安装包到 **haiwen** 目录下.
 
-*这样你可以重用 **haiwen** 目录下已经存在的配置文件，而不用重新配置*.
 
-准备 MySQL 数据库
------------------
-
-Seafile 服务器有三个组件需要拥有自己的数据库:
-
--   ccnet server
--   seafile server
--   seahub
-
-Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
-
-有两种方法可以初始化数据库:
-
-1.  通过`setup-seafile-mysql.sh`脚本创建数据库.
-2.  自己或其他人(比如数据库管理员)创建
-
-我们建议采用第一种方法. 脚本会要求你提供 MySQL
-数据库的的根密码，之后创建:
-
--   ccnet/seafile/seahub 数据库
--   一个可以连接到这些数据库的用户
-
-然而，有时你不得不使用第二种方法.
-如果你没有根密码,你需要通过拥有这种权限的人（比如数据库管理员）来帮助你创建三个数据库，和一个能连接这三个数据库的用户.
-例如，为 ccnet/seafile/seahub 分别创建如下三个数据库: `ccnet-db` /
-`seafile-db` / `seahub-db`, 和一个可以连接这三个数据库的 MySQL
-用户`seafile`:
-
-    create database `ccnet-db` character set = 'utf8';
-    create database `seafile-db` character set = 'utf8';
-    create database `seahub-db` character set = 'utf8';
-
-    create user 'seafile'@'localhost' identified by 'seafile';
-
-    GRANT ALL PRIVILEGES ON `ccnet-db`.* to `seafile`;
-    GRANT ALL PRIVILEGES ON `seafile-db`.* to `seafile`;
-    GRANT ALL PRIVILEGES ON `seahub-db`.* to `seafile`;
-
-安装 Seafile 服务器
--------------------
+## 安装 Seafile 服务器
 
 ### 安装前的准备工作
 
@@ -122,7 +82,7 @@ Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
 <tbody>
 <tr class="odd">
 <td align="left"><p>seafile server name</p></td>
-<td align="left"><p>seafile 服务器的名字，将来在客户端会显示为这个名字</p></td>
+<td align="left"><p>seafile 服务器的名字，目前只在客户端的日志文件中使用</p></td>
 <td align="left"><p>3 ~ 15 个字符，可以用英文字母，数字，下划线</p></td>
 </tr>
 <tr class="even">
@@ -130,20 +90,10 @@ Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
 <td align="left"><p>seafile 服务器的 IP 地址或者域名</p></td>
 <td align="left"><p>客户端将通过这个 IP 或者地址来访问你的 Seafile 服务</p></td>
 </tr>
-<tr class="odd">
-<td align="left"><p>ccnet server port</p></td>
-<td align="left"><p>ccnet 使用的 TCP 端口</p></td>
-<td align="left"><p>一般使用默认的10001 端口，如果已经被占用，可以设置为其他的端口</p></td>
-</tr>
 <tr class="even">
 <td align="left"><p>seafile data dir</p></td>
 <td align="left"><p>seafile 数据存放的目录，用上面的例子，默认将是 /data/haiwen/seafile-data</p></td>
 <td align="left"><p>seafile 数据将随着使用而逐渐增加，请把它放在一个有足够大空闲空间的分区上</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>seafile server port</p></td>
-<td align="left"><p>seafile 服务器 使用的 TCP 端口</p></td>
-<td align="left"><p>一般使用默认的 12001 端口，如果已经被占用，可以设置为其他的端口</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>seafile fileserver port</p></td>
@@ -177,8 +127,7 @@ Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
 具体选择哪项, 取决于你是否拥有根密码.
 
 -   如果选择`1`, 你需要提供根密码. 脚本程序会创建数据库和用户。
--   如果选择`2`, ccnet/seafile/seahub
-    数据库应该已经被你（或者其他人）提前创建。
+-   如果选择`2`, ccnet/seafile/seahub 数据库应该已经被你（或者其他人）提前创建。
 
 如果选择 `[1] Create new ccnet/seafile/seahub databases`,你会被问三个问题:
 
@@ -317,11 +266,9 @@ Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
     └── seahub_settings.pyc
 
 `seafile-server-latest`文件夹为指向当前 Seafile 服务器文件夹的符号链接.
-将来你升级到新版本后, 升级脚本会自动更新使其始终指向最新的 Seafile
-服务器文件夹..
+将来你升级到新版本后, 升级脚本会自动更新使其始终指向最新的 Seafile 服务器文件夹.
 
-启动 Seafile 服务器
--------------------
+# 启动 Seafile 服务器
 
 ### 启动之前
 
@@ -417,9 +364,7 @@ Seafile 服务器组件更多信息请看[[Seafile服务器组件概览]].
 OK!
 ---
 
-查看seafile更多信息请移至..
-
-
+查看seafile更多信息请访问:
 
 * [Nginx 下配置 Seahub](deploy_with_nginx.md) / [Apache 下配置 Seahub](deploy_with_apache.md)
 * [Nginx 下启用 Https](https_with_nginx.md) / [Apache 下启用 Https](https_with_apache.md)
