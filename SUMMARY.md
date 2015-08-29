@@ -41,6 +41,7 @@
    * [使用阿里云OSS存储](deploy_pro/setup_with_oss.md)
    * [配置选项](deploy_pro/configurable_options.md)
    * 其他部署说明
+       * [开始 Office/PDF 文件在线预览](deploy_pro/office_documents_preview.md)
        * [文件搜索说明](deploy_pro/details_about_file_search.md)
        * [集群部署](deploy_pro/deploy_in_a_cluster.md)
        * [集群中启用搜索和后台服务](deploy_pro/enable_search_and_background_tasks_in_a_cluster.md)
