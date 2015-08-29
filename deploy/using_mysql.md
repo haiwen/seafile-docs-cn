@@ -110,114 +110,10 @@
     [1] Create new ccnet/seafile/seahub databases
     [2] Use existing ccnet/seafile/seahub databases
 
-具体选择哪项, 取决于你是否拥有根密码.
 
 -   如果选择`1`, 你需要提供根密码. 脚本程序会创建数据库和用户。
 -   如果选择`2`, ccnet/seafile/seahub 数据库应该已经被你（或者其他人）提前创建。
 
-如果选择 `[1] Create new ccnet/seafile/seahub databases`,你会被问三个问题:
-
-![mysql-create-new](../images/mysql-create-new.png)
-
-<table>
-<tr>
-<th>Question</th>
-<th>Description</th>
-<th>Note</th>
-</tr>
-<tbody>
-<tr class="odd">
-<td align="left"><p>mysql server host</p></td>
-<td align="left"><p>the host address of the mysql server</p></td>
-<td align="left"><p>the default is localhost</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>mysql server port</p></td>
-<td align="left"><p>the port of the mysql server</p></td>
-<td align="left"><p>the default is 3306. Almost every mysql server uses this port.</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>root password</p></td>
-<td align="left"><p>the password of mysql root account</p></td>
-<td align="left"><p>the root password is required to create new databases and a new user</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>mysql user for seafile</p></td>
-<td align="left"><p>the username for seafile programs to use to access MySQL server</p></td>
-<td align="left"><p>if the user does not exist, it would be created</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>password for seafile mysql user</p></td>
-<td align="left"><p>the password for the user above</p></td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left"><p>ccnet dabase name</p></td>
-<td align="left"><p>the name of the database used by ccnet, default is &quot;ccnet-db&quot;</p></td>
-<td align="left"><p>the database would be created if not existing</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>seafile dabase name</p></td>
-<td align="left"><p>the name of the database used by seafile, default is &quot;seafile-db&quot;</p></td>
-<td align="left"><p>the database would be created if not existing</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>seahub dabase name</p></td>
-<td align="left"><p>the name of the database used by seahub, default is &quot;seahub-db&quot;</p></td>
-<td align="left"><p>the database would be created if not existing</p></td>
-</tr>
-</tbody>
-</table>
-
-如果你选择`[2] Use existing ccnet/seafile/seahub databases`,
-你会被问到如下三个问题:
-
-![mysql-use-existing](../images/mysql-use-existing.png)
-
-<table>
-<tr>
-<th>Question</th>
-<th>Description</th>
-<th>Note</th>
-</tr>
-<tbody>
-<tr class="odd">
-<td align="left"><p>mysql server host</p></td>
-<td align="left"><p>the host address of the mysql server</p></td>
-<td align="left"><p>the default is localhost</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>mysql server port</p></td>
-<td align="left"><p>the port of the mysql server</p></td>
-<td align="left"><p>the default is 3306. Almost every mysql server uses this port</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>mysql user for seafile</p></td>
-<td align="left"><p>the user for seafile programs to use to access MySQL server</p></td>
-<td align="left"><p>the user must already exists</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>password for seafile mysql user</p></td>
-<td align="left"><p>the password for the user above</p></td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>ccnet dabase name</p></td>
-<td align="left"><p>the name of the database used by ccnet</p></td>
-<td align="left"><p>this database must already exist</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>seafile dabase name</p></td>
-<td align="left"><p>the name of the database used by seafile, default is &quot;seafile-db&quot;</p></td>
-<td align="left"><p>this database must already exist</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>seahub dabase name</p></td>
-<td align="left"><p>the name of the database used by seahub, default is &quot;seahub-db&quot;</p></td>
-<td align="left"><p>this database must already exist</p></td>
-</tr>
-</tbody>
-</table>
 
 如果安装正确完成，你会看到下面这样的输出
 
@@ -300,8 +196,7 @@
     ./seahub.sh stop # 停止 Seafile 进程
     ./seafile.sh stop # 停止 Seahub
 
--   更改`haiwen/ccnet/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip
-    或者域名时`192.168.1.100`), 如下:
+-   更改`haiwen/ccnet/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下:
 
 <!-- -->
 
@@ -314,7 +209,7 @@
     ./seafile.sh start # 启动 Seafile 服务
     ./seahub.sh start 8001 # 启动 Seahub 网站 （运行在8001端口上）
 
-`ccnet.conf`更多细节请看(server_configuration.md) .
+
 
 关闭/重启 Seafile 和 Seahub
 ---------------------------
