@@ -30,24 +30,6 @@ sudo /etc/init.d/mysqld start
 
 *注意*：Seafile 专业版需要 java 1.7 以上版本, 请用 `java -version` 命令查看您系统中的默认 java 版本. 如果不是 java 7, 那么, 请 [更新默认 java 版本](./change_default_java.md).
 
-### 补充说明：关于 poppler-utils, Libreoffice 和 UNO 库
-
-poppler-utils 提供对 PDF 文件的全文检索功能。
-
-Libreoffice 和 Python-uno 库为 office 文件提供在线预览功能。如果它们没有安装，office 文件就不能在线预览。Seafile 需要 libreoffice 4.0 或者以后的版本。
-
-
-对于其他的 Linux 发行版您可以参考：[Linux 系统下安装 LibreOffice](http://www.libreoffice.org/get-help/installation/linux/)
-
-一般地，您还需要为您的使用语言安装字体，特别是在亚洲地区，否则 office 文件和 pdf 文件不能正确地显示。
-
-比如， 中国的用户可能希望安装文泉驿系列的 TrueType 字体：
-
-```
-# 如果您的系统环境是 Ubuntu 或者 Debian，执行以下命令：
-sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei xfonts-wqy
-```
-
 
 ## <a id="wiki-download-and-setup"></a>下载与安装 Seafile 专业版服务器
 
