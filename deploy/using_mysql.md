@@ -67,11 +67,9 @@
     cd seafile-server-*
     ./setup-seafile-mysql.sh  #运行安装脚本并回答预设问题
 
-如果你的系统中没有安装上面的某个软件，那么 Seafile初始化脚本会提醒你安装相应的软件包.
+如果你的系统中没有安装上面的某个软件，那么 Seafile初始化脚本会提醒你安装相应的软件包. 
 
-![server-setup.mysql](../images/Server-setup.mysql.png)
-
-该脚本会依次询问你一些问题，从而一步步引导你配置 Seafile 的各项参数
+该脚本会依次询问你一些问题，从而一步步引导你配置 Seafile 的各项参数:
 
 <table>
 <tr>
