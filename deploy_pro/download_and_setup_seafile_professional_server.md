@@ -55,7 +55,7 @@ haiwen
 
 ### 安装
 
-Seafile 专业版服务器的安装步骤与Seafile 社区版服务器安装步骤相同。请参考社区维基：[下载与安装 Seafile 服务器并使用 MySQL 数据库](https://github.com/haiwen/seafile/wiki/Download-and-Setup-Seafile-Server-with-MySQL)
+Seafile 专业版服务器的安装步骤与Seafile 社区版服务器安装步骤相同。请参考社区维基：[下载与安装 Seafile 服务器并使用 MySQL 数据库](../deploy/using_mysql.md)
 
 在您成功安装 Seafile 专业版服务器之后，您的目录结构应该像如下这样：
 
