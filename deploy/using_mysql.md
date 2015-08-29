@@ -98,18 +98,6 @@
 <td align="left"><p>seafile fileserver 使用的 TCP 端口</p></td>
 <td align="left"><p>一般使用默认的 8082 端口，如果已经被占用，可以设置为其他的端口</p></td>
 </tr>
-<tr class="odd">
-<td align="left"><p>seahub admin email</p></td>
-<td align="left"><p>sehaub管理员的登录帐户名</p></td>
-<td align="left"><p>使用一个 email 地址</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>seahub admin password</p></td>
-<td align="left"><p>seahub 管理员的密码</p></td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-</tr>
 </tbody>
 </table>
 
