@@ -28,7 +28,8 @@ Seafile 服务器由两个组件组成，默认情况下用到 8000, 8082 两个
 **注意**：如果您改变了 Seahub 的端口号，`ccnet.conf`文件中的`SERVICE_URL`也应该随之改变。
 
 - 默认端口： 8000
-- 如何设置端口号： 编辑`seafile.conf`文件。 设置在`seahub`段下`port`的值. (**此功能在 Seafile Windows 服务器 1.7.0.1 版本加入**)
+- 如何设置端口号： 编辑`seafile.conf`文件。 设置在`seahub`段下`port`的值.
+
 ```
 [seahub]
 port=8000
