@@ -1983,7 +1983,7 @@ After getting the upload link, POST to this link for uploading files.
 
 **Note**
 
-For python client uploading, see <https://cloud.seafile.com/f/1b0ade6edc/>
+For python client uploading, see <https://github.com/haiwen/webapi-examples/blob/master/python/upload-file.py>
 
 #### <a id="update-file"></a>Update file ###
 
