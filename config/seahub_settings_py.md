@@ -54,6 +54,10 @@ etc) . 你可以通过 Memcached 进行缓存操作
     # 部分操作系统下有效.
     # 如果是 Windows 用户，请设置为你的系统时区.
     TIME_ZONE = 'UTC'
+    
+    # 语言选项，系统默认语言以及发邮件默认语言。
+    # 参考：http://www.i18nguy.com/unicode/language-identifiers.html
+    LANGUAGE_CODE = 'en'
 
     # Seahub 网站 URL. 邮件提醒中会包含此地址
     SITE_BASE = 'http://www.example.com/'
