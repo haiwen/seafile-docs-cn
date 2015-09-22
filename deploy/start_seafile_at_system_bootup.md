@@ -1,11 +1,8 @@
 # 开机启动 Seafile
 
-Ubuntu 下
----------
+## Ubuntu 系统
 
-Ubuntu
-下，我们使用了 [/etc/init.d/](https://help.ubuntu.com/community/UbuntuBootupHowto) 来设置
-Seafile/Seahub 开机启动.
+使用 [/etc/init.d/](https://help.ubuntu.com/community/UbuntuBootupHowto) 来配置 Seafile/Seahub 开机启动.
 
 ### 创建**/etc/init.d/seafile-server**脚本
 
@@ -99,10 +96,8 @@ Seafile/Seahub 开机启动.
 
 ### 完成
 
-在升级 Seafile 服务器后请记得更新`script\_path`的值.
 
-其他 Debian 系的 Linux 下
--------------------------
+## 其他 Debian 系的 Linux 下
 
 ### 创建脚本**/etc/init.d/seafile-server**
 
@@ -169,7 +164,7 @@ Seafile/Seahub 开机启动.
 
 ### 为日志文件创建目录
 
-     mkdir /path/to/seafile/dir/logs
+    mkdir /path/to/seafile/dir/logs
 
 ### 设置 seafile-sever 脚本为可执行文件
 
@@ -181,12 +176,11 @@ Seafile/Seahub 开机启动.
 
 ### 完成
 
-在升级 Seafile 服务器后请记得更新`script\_path`的值.
 
-RHEL/CentOS 下
---------------
 
-RHEL/CentOS 下,[/etc/rc.local](http://www.centos.org/docs/5/html/Installation_Guide-en-US/s1-boot-init-shutdown-run-boot.html)脚本会随系统开机自动执行,所以我们在这个脚本中设置启动Seafile/Seahub.
+## RHEL/CentOS 系统统方法 1
+
+RHEL/CentOS 下,[/etc/rc.local](http://www.centos.org/docs/5/html/Installation_Guide-en-US/s1-boot-init-shutdown-run-boot.html) 脚本会随系统开机自动执行,所以我们在这个脚本中设置启动 Seafile/Seahub.
 
 -   定位 python(python 2.6 or 2.7)
 
@@ -216,10 +210,8 @@ RHEL/CentOS 下,[/etc/rc.local](http://www.centos.org/docs/5/html/Installation_G
 **注意**: 如果你想在fastcgi下启动Seahub,只需将上文中最后一行**"seahub.sh start"**改为**"seahub.sh
 start-fastcgi"**
 
--   完成. 在升级 Seafile 服务器后请记得更新 `script\_pat` 的值.
+## RHEL/CentOS 系统方法 2
 
-只使用 RHEL/CentOS 为服务程序（service）下
-------------------------------------------
 
 RHEL/CentOS 下 , 我们通过 /etc/init.d/ 脚本将 Seafile/Seahub作为服务程序随开机启动.
 
