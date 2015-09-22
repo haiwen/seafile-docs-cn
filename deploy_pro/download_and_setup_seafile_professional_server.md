@@ -1,6 +1,5 @@
 - [准备工作](#wiki-preparation)
 - [下载与安装](#wiki-download-and-setup)
-- [安装完成](#wiki-done)
 
 ## <a id="wiki-preparation"></a>准备工作 ##
 
