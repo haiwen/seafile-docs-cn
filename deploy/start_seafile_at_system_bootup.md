@@ -4,7 +4,7 @@ Ubuntu 下
 ---------
 
 Ubuntu
-下，我们使用了这个[/etc/init.d/](https://help.ubuntu.com/community/UbuntuBootupHowto)这个脚本来设置
+下，我们使用了 [/etc/init.d/](https://help.ubuntu.com/community/UbuntuBootupHowto) 来设置
 Seafile/Seahub 开机启动.
 
 ### 创建**/etc/init.d/seafile-server**脚本
