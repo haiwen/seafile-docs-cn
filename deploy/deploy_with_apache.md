@@ -15,6 +15,8 @@
     sudo a2enmod rewrite
     sudo a2enmod fastcgi
     </pre>
+    
+    CentOS/Redhat 下需要从源码编译安装 mod_fastcgi, 请参考[这里](http://www.cyberciti.biz/tips/rhel-centos-fedora-apache2-fastcgi-php-configuration.html)。
 
 3. 启用 Apache proxy
 
