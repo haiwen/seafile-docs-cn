@@ -1,58 +1,25 @@
 # FAQ
 
-#### When downloading a library, the client hangs at "connecting server"
+#### 无法在网页上下载/上传文件
 
-First, you can check the ccnet.log in client (``~/.ccnet/logs/ccnet.log`` for
-Linux, ``C:/users/your_name/ccnet/logs/ccnet.log`` for Windows) to see what's wrong.
+* 请检查下 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置选项是否正确设置。
+* 你可以使用 chrome/firefox 的调试模式来查看具体的错误信息。
 
-Possible reasons:
+#### 网页上显示 "Page unavailable", 该怎么解决?
 
-* Miss config of  <code>SERVICE_URL</code>: Check whether the value of is set correctly in server's <code>ccnet.conf</code>.
-* Firewall: Ensure the firewall is configured properly. See [[Firewall Settings for Seafile Server ]]
+* 请检查 logs/seahub_django_request.log 来查看具体的错误信息。
 
-Trouble shooting:
+#### 安转完成后怎样修改 seafile-data 的位置?
 
-* Manually telnet to see if you can connect: <code>telnet your-server-IP-or-domain 10001</code>
+Seafile 中使用 ccnet/seafile.ini 来记录 seafile-data 的位置
 
-#### Failed to upload/download file online
+* 移动 seafile-data 到起来位置
+* 修改 ccnet/seafile.ini 文件的内容
 
-* Make sure you firewall for seafile fileserver is opened.
-* Using chrome/firefox debug mode to find which link is given when click download button and what's wrong with this link
+#### 发送邮件失败，怎么排查?
 
-#### Does Seafile server support Python 3?
+请检查 logs/seahub.log，常见错误如下：
 
-No, You must have python 2.6 or 2.7 installed on your server.
+1. 检查配置文件 seahub_settings.py 中的项目是否正确。比如忘了加引号， EMAIL_HOST_USER = XXX 应该改成 EMAIL_HOST_USER = 'XXX'
+1. 邮件服务器不可用。
 
-#### Can Seafile server run on FreeBSD?
-
-There was an unconfirmed solution on the internet, which later has vanished.
-(Please explain the installation routine if you successfully set up Seafile in FreeBSD.)
-
-#### Website displays "Page unavailable", what can I do?
-
-* You can check the back trace in seahub log files('''installation folder/logs/seahub_django_request.log''')
-
-* You can also turn on debug by adding <code>DEBUG = True</code> to seahub_settings.py and restart seahub by <code>./seahub.sh restart</code>, then refresh that page, all the debug infomations will be displayed. Make sure ./seahub.sh was started as: ./seahub.sh start-fastcgi
-
-#### Avatar pictures vanished after upgrading server, what can I do?
-
-* You need to check whether the "avatars" symbolic link under seahub/media/ is correctly link to ../../../seahub-data/avatars. If not, you need to correct the link according to the "minor upgrade" section in [[Upgrading-Seafile-Server]]
-
-* If your avatars link is correctly linked, and avatars are still broken, you may refresh seahub cache by <code>rm -rf /tmp/seahub_cache/*</code>
-
-#### How to change seafile-data location after setup?
-
-Modify file seafile.ini under ccnet. This file contains the location of seafile-data. Move seafile-data to another place, like `/opt/new/seafile-data`. Then modify the file accordingly.
-
-#### Failed to send email, what can I do?
-
-Please check logs/seahub.log.
-
-There are some common mistakes:
-
-1. Check whether there are some typos in the config, e.g., forget single quote, EMAIL_HOST_USER = XXX, which should be EMAIL_HOST_USER = 'XXX'
-1. Your mail server is not available.
-
-### How to migrate libraries and groups from one account to another ?
-
-Since version 4.4.2, system admin can migrate libraries and groups from one account to another exsiting account using [RESTful web api](https://github.com/haiwen/seafile-docs/blob/master/develop/web_api.md#migrate-account).
