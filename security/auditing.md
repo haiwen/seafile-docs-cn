@@ -1,34 +1,14 @@
-# Access log and auditing
+# 访问记录和审计
 
-In pro edition, Seafile offers four auditing logs in system admin panel:
+Seafile 企业版在管理员界面中提供了四类日志:
 
-* Login log
-* File access log
-* File update log
-* Permission change log
+* 登录日志
+* 文件访问日志
+* 文件更新日志
+* 权限更改日志
 
-The logging feature is turned off by default. See [config options for pro edition](../deploy_pro/configurable_options.md) for how to turn it on.
+![Seafile Auditing Log](../images/admin-audit-log.png)
 
-## file access log
+日志功能默认是关闭的，以便不产生大量的数据库条目。参考文档 [config options for pro edition](../deploy_pro/configurable_options.md) 来开启这个功能。
 
-Access log (under directory logs/stats-logs) records the following information
 
-* file download via Web
-* file download via API (including mobile clients and cloud file browser)
-* file sync via desktop clients
-
-The format is:
-
-    user, operation type, ip/device, date, library, path. 
-
-## file update log
-
-The format is:
-
-    user, date, library, path, detail
-
-## permission change log
-
-The format is:
-
-    user, grant to, operation, permission, library, folder, date
