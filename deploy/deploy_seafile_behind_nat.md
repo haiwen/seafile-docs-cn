@@ -7,15 +7,6 @@
 - 配置 Seafile 服务器
 
 
-## 安装 Seafile 服务器
-
-首先,按照[部署 Seafile 服务器（使用 SQLite）](using_sqlite.md)安装 Seafile 服务器。
-
-并确保以下功能正常运行:
-
-- 正常访问 Seahub 网站
-- 在 Seafile 客户端可以下载/同步一个资料库
-
 ## 在路由器中设置端口转发
 
 ### 确保路由器支持端口转发功能
@@ -28,20 +19,12 @@
 
 ### 设置路由转发规则
 
-Seafile 服务器包含很多组件， 请根据以下规则为所有组件设置端口转发。
+Seafile 服务器包含两个组件， 请根据以下规则为 Seafile 组件设置端口转发。
 
 <table>
 <tr>
   <th>组件</th>
   <th>默认端口</th>
-</tr>
-<tr>
-  <td>ccnet</td>
-  <td>10001</td>
-</tr>
-<tr>
-  <td>seaf-server</td>
-  <td>12001</td>
 </tr>
 <tr>
   <td>fileserver</td>
@@ -53,7 +36,7 @@ Seafile 服务器包含很多组件， 请根据以下规则为所有组件设�
 </tr>
 </table>
 
-* 如果是在 Apache/Nginx 环境下部署的 Seafile, 则不需要打开 8000 和 8082 端口。
+* 如果是在 Apache/Nginx 环境下部署的 Seafile, 则不需要打开 8000 和 8082 端口，只需要 80 或 443 端口即可。
 * 以上是默认端口设置，具体配置可自行更改.
 
 ### 端口转发测试
@@ -119,24 +102,8 @@ SERVICE_URL = http://<你的域名>:8000
         |-
         | FileServer
         | 8082
-        |-
-        | Ccnet Daemon
-        | 10001
-        |-
-        | Seafile Daemon
-        | 12001
-        |
 
-如果你的 Seafile 服务器是运行在 Nginx/Apache 环境下，并且开启了 HTTPS, 则需要开启以下端口：
 
-     |
-     | HTTPS
-        | 443
-        |-
-        | Ccnet Daemon
-        | 10001
-        |-
-        | Seafile Daemon
-        | 12001
-        |
+如果你的 Seafile 服务器是运行在 Nginx/Apache 环境下，并且开启了 HTTPS, 则需要开启 443 端口：
+
 
