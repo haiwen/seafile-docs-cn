@@ -14,6 +14,8 @@ SERVICE_URL = http://IP
 FILE_SERVER_ROOT = "http://IP/seafhttp"
 ```
 
+注意 FILE_SERVER_ROOT 是写在 python 配置文件中，所以需要加引号来表示这是个字符串。
+
 如果还有问题，你可以使用 chrome/firefox 的调试模式来查看具体的错误信息。
 
 #### 网页上显示 "Page unavailable", 该怎么解决?
