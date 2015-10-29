@@ -56,10 +56,6 @@
     esac
 
 
-### 为日志文件创建目录
-
-     mkdir /path/to/seafile/dir/logs
-
 ### 创建**/etc/init/seafile-server.conf**文件
 
 #### 非使用 MySQL
