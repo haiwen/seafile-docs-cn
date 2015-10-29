@@ -2,8 +2,19 @@
 
 #### 无法在网页上下载/上传文件
 
-* 请检查下 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置选项是否正确设置。
-* 你可以使用 chrome/firefox 的调试模式来查看具体的错误信息。
+请检查下 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置选项是否正确设置。如果使用内置的 Web 服务器，监听在 8000 端口上，应该是
+```
+SERVICE_URL = http://IP:8000
+FILE_SERVER_ROOT 选项不用配置
+```
+
+如果是使用 Nginx/Apache 为 Web 服务器，应该是
+```
+SERVICE_URL = http://IP
+FILE_SERVER_ROOT = http://IP/seafhttp
+```
+
+如果还有问题，你可以使用 chrome/firefox 的调试模式来查看具体的错误信息。
 
 #### 网页上显示 "Page unavailable", 该怎么解决?
 
