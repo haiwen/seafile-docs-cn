@@ -8,7 +8,7 @@ SERVICE_URL = http://IP:8000
 FILE_SERVER_ROOT 选项不用配置
 ```
 
-如果是使用 Nginx/Apache 为 Web 服务器，应该是
+如果是使用 Nginx/Apache 为 Web 服务器 (确保 Seahub 以 factcgi 模式来运行)，应该是
 ```
 SERVICE_URL = http://IP
 FILE_SERVER_ROOT = "http://IP/seafhttp"
