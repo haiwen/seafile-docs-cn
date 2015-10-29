@@ -11,7 +11,7 @@ FILE_SERVER_ROOT 选项不用配置
 如果是使用 Nginx/Apache 为 Web 服务器，应该是
 ```
 SERVICE_URL = http://IP
-FILE_SERVER_ROOT = http://IP/seafhttp
+FILE_SERVER_ROOT = "http://IP/seafhttp"
 ```
 
 如果还有问题，你可以使用 chrome/firefox 的调试模式来查看具体的错误信息。
