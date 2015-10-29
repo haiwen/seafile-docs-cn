@@ -94,16 +94,7 @@ SERVICE_URL = http://<你的域名>:8000
 然后重新 Seafile 服务.
 
 ## 网络设置
-默认情况下，你需要打开以下四个端口.
 
-     |
-     | Seahub
-        | 8000
-        |-
-        | FileServer
-        | 8082
-
-
-如果你的 Seafile 服务器是运行在 Nginx/Apache 环境下，并且开启了 HTTPS, 则需要开启 443 端口：
+你如果使用内置的服务器，需要开启 8000 和 8082 两个端口。如果你的 Seafile 服务器是运行在 Nginx/Apache 环境下，并且开启了 HTTPS, 则需要开启 443 端口。
 
 
