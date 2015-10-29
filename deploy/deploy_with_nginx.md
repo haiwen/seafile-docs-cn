@@ -14,7 +14,13 @@ Seahub 是 Seafile 服务器的网站界面. SeafServer 用来处理浏览器端
 
 这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 SeafServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com". 
 
-这是一个 Nginx 配置文件的例子 (你可以创建文件 /etc/nginx/conf.d/seafile.conf， 并拷贝以下内容, 如果你用 gedit 编辑，别忘了删除 seafile.conf~ 这个临时文件)。注意，如果 `/etc/nginx/conf.d` 下有个 `default.conf` 文件，需要把这个文件删掉。
+下面是一个 Nginx 配置文件的例子。
+
+Ubuntu 下你可以 
+
+1. 创建文件 /etc/nginx/site-available/seafile.conf，并拷贝以下内容
+2. 删除 /etc/nginx/site-enabled/default: `rm /etc/nginx/site-enabled/default`
+3. 创建符号链接: `ln -s /etc/nginx/sites-available/seafile.conf /etc/nginx/sites-enabled/seafile.conf`
 
 <pre>
 server {
