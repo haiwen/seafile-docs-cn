@@ -58,12 +58,19 @@ telnet <Your WAN IP> 8000
 - 需要重启路由器
 - 网络不可用
 
-### 设置 SERVICE_URL
+### 设置 SERVICE_URL 和 FILE_SERVER_ROOT
 
-`ccnet.conf` 中的 "SERVICE_URL" 字段，是用来在在线访问文件时，生成上传/下载链接的，更改此字段的值为你的IP。
+服务器依赖于 `ccnet.conf` 中的 "SERVICE_URL" 和 `seahub_setting.py` 中的 FILE_SERVER_ROOT 来生成文件的上传/下载链接。如果使用内置的 web 服务器，改为
 
 ```
 SERVICE_URL = http://<Your WAN IP>:8000
+```
+
+如果配置了 Nginx, 则需要修改为 
+
+```
+SERVICE_URL = http://<Your WAN IP>
+FILE_SERVER_ROOT = http://<Your WAN IP>/seafhttp
 ```
 
 大部分路由器都支持 NAT loopback. 当你通过内网访问 Seafile 时, 即时你的外部 IP 被占用，文件上传/下载仍然会工作。
