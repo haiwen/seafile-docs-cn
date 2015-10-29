@@ -21,8 +21,8 @@
     seafile_init_log=${seafile_dir}/logs/seafile.init.log
     seahub_init_log=${seafile_dir}/logs/seahub.init.log
 
-    # 若使用 fastcgi, 请将其设置为true
-    fastcgi=false
+    # 若使用 Nginx/Apache, 请将其设置为true, 否者为 false
+    fastcgi=true
     # fastcgi 端口, 默认为 8000. 
     fastcgi_port=8000
 
@@ -50,12 +50,11 @@
                     sudo -u ${user} ${script_path}/seahub.sh $1 >> ${seahub_init_log}
             ;;
             *)
-                    echo "Usage: /etc/init.d/seafile {start|stop|restart}"
+                    echo "Usage: /etc/init.d/seafile-server {start|stop|restart}"
                     exit 1
             ;;
     esac
 
-**注意**: 如果你想在 fastcgi 下运行 Seahub,请设置`fastcgi`变量为`true`
 
 ### 为日志文件创建目录
 
