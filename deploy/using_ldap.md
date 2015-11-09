@@ -27,8 +27,8 @@ Seafile 如下管理来自 LDAP 中的用户：
 
     [LDAP]
     HOST = ldap://ldap.example.com
-    BASE = ou=users,dc=example,dc=com
-    USER_DN = cn=seafileadmin,dc=example,dc=com
+    BASE = base DN for searching users
+    USER_DN = admin user DN for accessing other user information
     PASSWORD = secret
     LOGIN_ATTR = mail
 
@@ -89,8 +89,8 @@ Windows 下的配置语法与 Linux 下的有些不同. **你不需要增加`lda
 
     [LDAP]
     HOST = ldap.example.com
-    BASE = ou=users,dc=example,dc=com
-    USER_DN = cn=seafileadmin,dc=example,dc=com
+    BASE = base DN for searching users
+    USER_DN = admin user DN for accessing other user information
     PASSWORD = secret
     LOGIN_ATTR = mail
 
@@ -137,6 +137,27 @@ Windows 下的配置语法与 Linux 下的有些不同. **你不需要增加`lda
     LOGIN_ATTR = userPrincipalName
 
 `userPrincipalName` 是一个 AD 支持的特殊属性。它具有 `username@domain-name` 的格式，其中 `username` 是 Windows 用户的登录名。使用上述配置之后，用户可以用 `username@domain-name` 作为用户名登录 Seafile。注意这个登录名并不是真实的邮件地址，因此 Seafile 的邮件通知功能可能不能工作。
+
+## 测试你的 LDAP 配置
+
+从专业版 5.0.0 开始，我们提供了一个测试你的 LDAP 配置合法性的命令行工具。
+
+使用这个工具之前，请先确定你使用的是专业版而且 Linux 系统中安装了 `python-ldap` 这个包。
+
+```
+sudo apt-get install python-ldap
+```
+
+然后你可以执行测试：
+
+```
+cd seafile-server-latest
+./pro/pro.py ldapsync --test
+```
+
+测试脚本会检查 ccnet.conf 里面 `[LDAP]` 下面的配置。如果一切正常工作，它会打印出搜索的前十个用户。如果出错，它会打印出可能出错的配置信息。
+
+注意当前这个脚本并不支持测试 `[LDAP_SYNC]` 下面的 LDAP 同步配置。
 
 ## 使用多个 BASE DN 以及用户过滤选项
 
