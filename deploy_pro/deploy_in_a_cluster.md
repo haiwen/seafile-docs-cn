@@ -1,4 +1,7 @@
 # Deploy in a cluster
+
+**Note**: Since Seafile Server 5.0.0, all config files are moved to the central **conf** folder. [Read More](../deploy/new_directory_layout_5_0_0.md).
+
 ## <a id="wiki-arch"></a> Architecture
 
 The Seafile cluster solution employs a 3-tier architecture:
@@ -10,6 +13,23 @@ The Seafile cluster solution employs a 3-tier architecture:
 This architecture scales horizontally. That is, you can handle more traffic by adding more machines. The architecture is presented in the following picture.
 
 ![seafile-cluster](../images/seafile-cluster.png)
+
+There are two main components on the Seafile server node: web server (Nginx/Apache) and Seafile app server. The web server passes requests from the clients to Seafile app server. The Seafile app servers work independently. They don't know about each other's state. That means each app server can fail independently without affecting other app server instances. The load balancer is responsible for detecting failure and re-routing requests.
+
+Even though Seafile app servers work independently, they still have to share some session information. All shared session information are stored in memcached. So all Seafile app servers have to connect to the same memcached (cluster). More details about memcached configuration will discussed later.
+
+All Seafile app servers access the same set of user data. The user data has two parts: in MySQL database and in backend storage cluster (S3, Ceph etc.). All app servers serve the data equally to the clients.
+
+For database, all app servers have to connect to the same database or database cluster. We recommend to use MariaDB Galera Cluster if you need a database cluster.
+
+There are a few steps to deploy a Seafile cluster:
+
+1. Prepare hardware, operating systems, memcached and database
+2. Setup a single Seafile server node
+3. Copy the deployment to other Seafile nodes
+4. Setup Nginx/Apache and firewall rules
+5. Setup load balancer
+6. [Setup backgroup task node](enable_search_and_background_tasks_in_a_cluster.md)
 
 ## <a id="wiki-preparation"></a>Preparation
 
@@ -56,6 +76,21 @@ It's also recommended to set a higher limit for memcached's memory, such as 256M
 
 Seafile servers share session information within memcached. If you set up a memcached cluster, please make sure all the seafile server nodes connects to all the memcached nodes.
 
+When setting up a memcached cluster, you can either run one memcached instance on each Seafile server node, or set up separate machines for the memcached cluster. It usually saves you some money if you run memcached on Seafile server nodes.
+
+### (Optional) Setup MariaDB Cluster
+
+MariaDB cluster helps you to remove single point of failure from the cluster architecture. Every update in the database cluster is synchronously replicated to all instances.
+
+It's recommended that you run one database instance on each Seafile server node. There are a few benefits about this approach:
+
+* The Seafile app server always access its local database intance, which is faster.
+* You don't have to set up another load balancer for the database instances.
+
+This architecture should scale well for a few tens of database nodes, since Seafile has no much write operations to the db. For bigger deployment, you'd better use more sophiscated load balancing techiques for the databases.
+
+Details about setting up MariaDB cluster is covered in [this document](clustering_with_mariadb_ceph.md).
+
 ## <a id="wiki-configure-single-node"></a> Configure a Single Node
 
 You should make sure the config files on every Seafile server are consistent. **It's critical that you don't set up seafile server on each machine separately. You should set up seafile server on one machine then copy the config directory to the other machines.**
@@ -86,9 +121,9 @@ Note: **Use the load balancer's address or domain name for the server address. D
 
 After the setup process is done, you still have to do a few manually changes to the config files.
 
-#### seafile-data/seafile.conf
+#### seafile.conf
 
-You have to add the following configuration to `seafile-data/seafile.conf`
+You have to add the following configuration to `seafile.conf`
 
 ```
 [cluster]
@@ -104,7 +139,7 @@ enabled = true
 memcached_options = --SERVER=192.168.1.134 --SERVER=192.168.1.135 --SERVER=192.168.1.136 --POOL-MIN=10 --POOL-MAX=100
 ```
 
-(Optional) The Seafile server also opens a port for the load balancers to run health checks. Seafile by default use port 11001. You can change this by adding the following config to seafile-data/seafile.conf
+(Optional) The Seafile server also opens a port for the load balancers to run health checks. Seafile by default use port 11001. You can change this by adding the following config to `seafile.conf`
 
 ```
 [cluster]
@@ -113,7 +148,7 @@ health_check_port = 12345
 
 #### seahub_settings.py
 
-Add following configuration to `seahub_settings.py`. These settings tell Seahub to store avatar in database and cache avatar in memcached, and store css CACHE to locale memory of every node.
+Add following configuration to `seahub_settings.py`. These settings tell Seahub to store avatar in database and cache avatar in memcached, and store css CACHE to local memory of every node.
 
 ```
 CACHES = {
@@ -129,15 +164,26 @@ COMPRESS_CACHE_BACKEND = 'locmem://'
 
 ```
 
+If you use memcached cluster, please replace the `CACHES` variable with the following:
+
+```
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': ['192.168.1.134:11211', '192.168.1.135:11211', '192.168.1.136:11211',],
+    }
+}
+```
+
 If you enable thumbnail feature, you'd better set thumbnail storage path to a **Shared Folder**, so that every node will create/get thumbnail through the same **Shared Folder** instead respectively.
 
 ```
 THUMBNAIL_ROOT = 'path/to/shared/folder/'
 ```
 
-#### pro-data/seafevents.conf
+#### seafevents.conf
 
-Add following to `pro-data/seafevents.conf` to disable file indexing service:
+Add following to `seafevents.conf` to disable file indexing service:
 
 ```
 [INDEX FILES]
@@ -240,9 +286,9 @@ defaults
     mode http
     retries 3
     maxconn 2000
-    contimeout 5000
-    clitimeout 50000
-    srvtimeout 50000
+    timeout connect 10000
+    timeout client 300000
+    timeout server 300000
 
 listen seahub 0.0.0.0:80
     mode http
@@ -258,20 +304,6 @@ listen seahub-https 0.0.0.0:443
     option dontlognull
     server seahubserver01 192.168.1.165:443 check port 11001
     server seahubserver02 192.168.1.200:443 check port 11001
-
-listen ccnetserver :10001
-    mode tcp
-    option tcplog
-    balance leastconn
-    server seafserver01 192.168.1.165:10001 check port 11001
-    server seafserver02 192.168.1.200:10001 check port 11001
-
-listen seafserver :12001
-    mode tcp
-    option tcplog
-    balance leastconn
-    server seafserver01 192.168.1.165:12001 check port 11001
-    server seafserver02 192.168.1.200:12001 check port 11001
 ```
 
 ## See how it runs
