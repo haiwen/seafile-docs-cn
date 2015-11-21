@@ -10,6 +10,7 @@
 <li><a href="#get-account">Get Account Info(Admin only)</a></li>
 <li><a href="#create-account">Create Account(Admin only)</a></li>
 <li><a href="#update-account">Update Account(Admin only)</a></li>
+<li><a href="#migrate-account">Migrate Account(Admin only)</a></li>
 <li><a href="#delete-account">Delete Account(Admin only)</a></li>
 <li><a href="#check-account-info">Check Account Info</a></li>
 <li><a href="#server-info">Get Server Information</a></li>
@@ -19,12 +20,6 @@
 <li><a href="#list-starred-files">List starred files</a></li>
 <li><a href="#star-a-file">Star A File</a></li>
 <li><a href="#unstar-a-file">Unstar A File</a></li>
-</ul>
-</li>
-<li><a href="#user-messages">User Messages</a><ul>
-<li><a href="#list-user-messages">List User Messages</a></li>
-<li><a href="#reply-a-user-message">Reply A User Message</a></li>
-<li><a href="#count-unseen-messages">Count Unseen Messages</a></li>
 </ul>
 </li>
 <li><a href="#group">Group</a><ul>
@@ -60,15 +55,6 @@
 <li><a href="#list-be-shared-libraries">List Be Shared Libraries</a></li>
 <li><a href="#share-a-library">Share A Library</a></li>
 <li><a href="#unshare-a-library">Unshare A Library</a></li>
-</ul>
-</li>
-<li><a href="#shared-files">Shared Files</a><ul>
-<li><a href="#list-shared-files">List Shared Files</a></li>
-<li><a href="#download-shared-file">Download Shared File</a></li>
-<li><a href="#get-shared-file-detail">Get Shared File Detail</a></li>
-<li><a href="#delete-shared-file">Delete Shared File</a></li>
-<li><a href="#download-private-shared-file">Download Private Shared File</a></li>
-<li><a href="#get-private-shared-file-detail">Get Private Shared File Detail</a></li>
 </ul>
 </li>
 </ul>
@@ -126,7 +112,12 @@
 <li><a href="#delete-directory">Delete Directory</a></li>
 <li><a href="#download-directory">Download Directory</a></li>
 <li><a href="#share-directory">Share Directory</a></li>
-<li><a href="#batch-delete">Batch Delete</a></li>
+</ul>
+</li>
+<li><a href="#multiple-files-directories">Multiple Files / Directories</a><ul>
+<li><a href="#multiple-files-directories-copy">Copy</a></li>
+<li><a href="#multiple-files-directories-move">Move</a></li>
+<li><a href="#multiple-files-directories-delete">Delete</a></li>
 </ul>
 </li>
 </ul>
@@ -214,7 +205,7 @@ For each API, we provide `curl` examples to illustrate the usage.
 
 To retrieve all users, just set both `start` and `limit` to `-1`.
 
-If scope parameter is passed then accounts will be searched inside the specific scope, otherwise it will be used the old approach: first LDAP and, if no account is found, DB. 
+If scope parameter is passed then accounts will be searched inside the specific scope, otherwise it will be used the old approach: first LDAP and, if no account is found, DB.
 
 **Sample request**
 
@@ -320,7 +311,7 @@ If scope parameter is passed then accounts will be searched inside the specific 
 
 **Request parameters**
 
-At least one of followings: 
+At least one of followings:
 
 * password
 * is_staff
@@ -349,6 +340,37 @@ At least one of followings:
 
 * 400 Bad Request, keyword password is required
 * 403 Permission error, only administrator can perform this action
+
+### <a id="migrate-account"></a>Migrate Account ###
+
+**POST** https://cloud.seafile.com/api2/accounts/{email}/
+
+**Request parameters**
+
+* op
+* to_user this user must exist
+
+**Sample request**
+
+    curl -v -d "op=migrate&to_user=user2@mail.com" -H "Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd" -H 'Accept: application/json; indent=4' https://cloud.seafile.com/api2/accounts/user@mail.com/
+
+**Sample response**
+
+    ...
+    < HTTP/1.0 200 OK
+    ...
+
+    "success"
+
+**Success**
+
+    Response code 200(OK) is returned.
+
+**Errors**
+
+* 400 Bad Request, arguments are missing or invalid
+* 403 Permission error, only administrator can perform this action
+
 
 ### <a id="delete-account"></a>Delete Account ###
 
@@ -492,91 +514,7 @@ Sample response from a seafile pro edition server:
 
 * 400 `repo_id` or `p` is missing, or `p` is not valid file path(e.g. /foo/bar/).
 
-## <a id="user-messages"></a>User Messages ##
 
-### <a id="list-user-messages"></a>List User Messages ###
-
-**GET** https://cloud.seafile.com/api2/user/msgs/{id_or_email}/
-
-**Request parameters**
-
-* id_or_email
-
-**Sample request**
-
-    curl -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/user/msgs/2/"
-
-**Sample response**
-
-    {
-        "to_email": "user@example.com",
-        "next_page": -1,
-        "msgs": [
-            {
-                "attachments": [
-                    {
-                        "path": "/123.md",
-                        "repo_id": "c7436518-5f46-4296-97db-2fcba4c8c8db"
-                    }
-                ],
-                "timestamp": 1398233096,
-                "from_email": "user@example.com",
-                "msgid": 3,
-                "msg": "another test msg",
-                "nickname": "user"
-            },
-            {
-                "attachments": [],
-                "timestamp": 1398233067,
-                "from_email": "user@example.com",
-                "msgid": 2,
-                "msg": "a test msg",
-                "nickname": "user"
-            }
-        ]
-    }
-
-**Errors**
-
-* 404 user not found
-
-### <a id="reply-a-user-message"></a>Reply A User Message ###
-
-**POST** https://cloud.seafile.com/api2/user/msgs/{id_or_email}/
-
-**Request parameters**
-
-* id_or_email
-* message
-
-**Sample request**
-
-    curl -d "message=this is a user msg reply" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/user/msgs/2/"
-
-**Sample response**
-
-    {
-        "msgid": 4
-    }
-
-**Errors**
-
-* 404 user not found
-
-### <a id="count-unseen-messages"></a>Count Unseen Messages ##
-
-**GET** https://cloud.seafile.com/api2/unseen_messages/
-
-
-**Sample request**
-
-    curl -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/unseen_messages/"
-
-**Sample response**
-
-    {
-        "count": 1
-    }
 
 ## <a id="group"></a>Group ##
 
@@ -644,7 +582,7 @@ None
 **Sample request**
 
     curl -X DELETE -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/groups/1/"
-    
+
 **Success**
 
 200 if everything is fine.
@@ -1047,121 +985,6 @@ If share_type is 'personal' then 'user' param is required, if share_type is 'gro
 
     "success"
 
-### <a id="shared-files"></a>Shared Files ###
-
-#### <a id="list-shared-files"></a>List Shared Files ####
-
-**GET** https://cloud.seafile.com/api2/shared-files/
-
-**Sample request**
-
-    curl -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/shared-files/"
-
-**Sample response**
-
-    {"priv_share_in": [{"s_type": "f", "repo_id": "989e3952-9d6f-4427-ab16-4bf9b53212eb", "permission": "r", "to_user": "user@example.com", "token": "94aace406a", "from_user": "user@example.com", "path": "/lib.md"}], "priv_share_out": [{"s_type": "f", "repo_id": "affc837f-7fdd-4e91-b88a-32caf99897f2", "permission": "r", "to_user": "user@example.com", "token": "b7b31bc39b", "from_user": "user@example.com", "path": "/lian123.md"}]}
-
-#### <a id="download-shared-file"></a>Download Shared File ####
-
-**GET** https://cloud.seafile.com/api2/f/{token}/
-
-**Request parameters**
-
-* token(file share token)
-
-**Sample request**
-
-    curl -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/f/ad93cd0d66/"
-
-**Sample response**
-
-    "http://192.168.1.101:8082/files/89223601/lib.md"
-
-**Errors**
-
-* 404 repo/token/file not found
-* 520 OPERATION FAILED, fail to get file id by path
-
-#### <a id="get-shared-file-detail"></a>Get Shared File Detail ####
-
-**GET** https://cloud.seafile.com/api2/f/{token}/detail/
-
-**Request parameters**
-
-* token(file share token)
-
-**Sample request**
-
-    curl -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/f/ad93cd0d66/detail/"
-
-**Sample response**
-
-    {"repo_id": "989e3952-9d6f-4427-ab16-4bf9b53212eb", "name": "lib.md", "mtime": 1398218747, "path": "/lib.md", "type": "file", "id": "0000000000000000000000000000000000000000", "size": 0}
-
-**Errors**
-
-* 404 repo/token/file not found
-* 520 OPERATION FAILED, fail to get file id by path
-
-#### <a id="delete-shared-file"></a>Delete Shared File ####
-
-**DELETE** https://cloud.seafile.com/api2/shared-files/?t=0ae587a7d1
-
-**Request parameters**
-
-* t
-
-**Sample request**
-
-    curl -v -X DELETE -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/shared-files/?t=94aace406a"
-
-**Sample response**
-
-    ...
-    < HTTP/1.0 200 OK
-    ...
-
-#### <a id="download-private-shared-file"></a>Download Private Shared File ####
-
-**GET** https://cloud.seafile.com/api2/s/f/{token}/
-
-**Request parameters**
-
-* token(private file share token)
-
-**Sample request**
-
-    curl -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/s/f/c5aa5f0219/"
-
-**Sample response**
-
-    "http://192.168.1.101:8082/files/6960d5a4/lib.md"
-
-**Errors**
-
-* 404 repo/token/file not found
-* 520 OPERATION FAILED, fail to get file id by path
-
-#### <a id="get-private-shared-file-detail"></a>Get Private Shared File Detail ###
-
-**GET** https://cloud.seafile.com/api2/s/f/{token}/detail/
-
-**Request parameters**
-
-* token(private file share token)
-
-**Sample request**
-
-    curl -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/s/f/c5aa5f0219/detail/"
-
-**Sample response**
-
-    {"repo_id": "989e3952-9d6f-4427-ab16-4bf9b53212eb", "name": "lib.md", "shared_by": "user@example.com", "mtime": 1398218747, "path": "/lib.md", "type": "file", "id": "0000000000000000000000000000000000000000", "size": 0}
-
-**Errors**
-
-* 404 repo/token/file not found
-* 520 OPERATION FAILED, fail to get file id by path
 
 ## <a id="library"></a>Library ##
 
@@ -1567,10 +1390,11 @@ check if a dir has a corresponding sub_repo, if it does not have, create one
 
 * repo-id
 * p
+* reuse (optional): Set `resue` to `1` if you want the generated download link can be accessed more than once in one hour.
 
 **Sample request**
 
-    curl  -v  -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; charset=utf-8; indent=4' https://cloud.seafile.com/api2/repos/dae8cecc-2359-4d33-aa42-01b7846c4b32/file/?p=/foo.c
+    curl  -v  -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' -H 'Accept: application/json; charset=utf-8; indent=4' 'https://cloud.seafile.com/api2/repos/dae8cecc-2359-4d33-aa42-01b7846c4b32/file/?p=/foo.c&reuse=1'
 
 **Sample response**
 
@@ -1855,29 +1679,36 @@ check if a dir has a corresponding sub_repo, if it does not have, create one
 
 #### <a id="copy-file"></a>Copy File ###
 
-**POST** https://cloud.seafile.com/api2/repos/{repo_id}/fileops/copy/
+**POST** https://cloud.seafile.com/api2/repos/{repo-id}/file/?p=/foo.c
 
 **Request parameters**
 
-* p: source folder path, defaults to `"/"`
-* file_names: list of file/folder names to copy. Multiple file/folder names can be seperated by `:`.
-* dst_repo: the destination repo id
-* dst_dir: the destination folder in `dst_repo`
+* repo-id
+* p
+* operation
+* dst_repo
+* dst_dir
 
 **Sample request**
 
-    curl -d "dst_repo=73ddb2b8-dda8-471b-b7a7-ca742b07483c&dst_dir=/&file_names=foo.c" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' "https://cloud.seafile.com/api2/repos/c7436518-5f46-4296-97db-2fcba4c8c8db/fileops/copy/
+    curl -v -d "dst_repo=73ddb2b8-dda8-471b-b7a7-ca742b07483c&dst_dir=/&file_names=foo.c" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' https://cloud.seafile.com/api2/repos/c7436518-5f46-4296-97db-2fcba4c8c8db/file/?p=/foo.c
 
 **Sample response**
 
+    ...
+    < HTTP/1.1 200 OK
+    ...
     "success"
+
+**Success**
+
+   Response code is 200, and a string `"success"` is returned.
 
 **Errors**
 
-* 400 missing argument
-* 403 You do not have permission to copy file
-* 404 repo not found
-* 502 failed to copy file
+* 400 BAD REQUEST, Path is missing or invalid(e.g. p=/)
+* 403 FORBIDDEN, You do not have permission to copy file
+* 500 INTERNAL SERVER ERROR
 
 #### <a id="revert-file"></a>Revert File ###
 
@@ -2085,7 +1916,9 @@ The id of the updated file
 
 * repo-id
 * p (optional): The path to a directory. If `p` is missing, then defaults to '/' which is the top directory.
-* oid (optional)
+* oid (optional): The object id of the directory. The object id is the checksum of the directory contents.
+* t (optional): If set `t` argument as `f`, will only return file entries, and `d` for only dir entries.
+* recursive (optional): If set `t` argument as `d` **AND** `recursive` argument as `1`, return all dir entries recursively
 
 **Sample request**
 
@@ -2093,7 +1926,7 @@ The id of the updated file
 
 **Sample response**
 
-   If oid is the latest oid of the directory, returns `"uptodate"` , else returns
+   If oid is the same as the current oid of the directory, returns `"uptodate"` , else returns
 
     [
     {
@@ -2148,7 +1981,7 @@ The id of the updated file
 **Notes**
 
    Newly created directory will be renamed if the name is duplicated.
-   
+
 #### <a id="rename-directory"></a>Rename Directory ###
 
 **POST** https://cloud.seafile.com/api2/repos/{repo-id}/dir/
@@ -2253,12 +2086,83 @@ The id of the updated file
 
    Response code is 200(OK).
 
-#### <a id="batch-delete"></a>Batch Delete ###
+### <a id="multiple-files-directories">Multiple Files / Directories ##
 
-Pipelining over HTTP/1.1 can be used to delete multiple files and directories without losing performance.
+#### <a id="multiple-files-directories-copy"></a>Copy ###
 
-A sample request looks like `curl -X DELETE https://cloud.seafile.com/api2/repos/{repo-id}/dir/?p=/foo http://cloud.seafile.com/api2/repos/{repo-id}/dir/?p=/bar`. This code snippet shows how to use Python client to batch delete multiple files and directories. See <http://cloud.seafile.com/f/f7fd5d5b9d/>
+**POST** https://cloud.seafile.com/api2/repos/{repo_id}/fileops/copy/
 
+**Request parameters**
+
+* p: source folder path, defaults to `"/"`
+* file_names: list of file/folder names to copy. Multiple file/folder names can be seperated by `:`.
+* dst_repo: the destination repo id
+* dst_dir: the destination folder in `dst_repo`
+
+**Sample request**
+
+    curl -d "dst_repo=73ddb2b8-dda8-471b-b7a7-ca742b07483c&dst_dir=/&file_names=foo.c:bar.c:dir1:dir2" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' https://cloud.seafile.com/api2/repos/c7436518-5f46-4296-97db-2fcba4c8c8db/fileops/copy/
+
+**Sample response**
+
+    "success"
+
+**Errors**
+
+* 400 missing argument
+* 403 You do not have permission to copy file
+* 404 repo not found
+* 502 failed to copy file
+
+#### <a id="multiple-files-directories-move"></a>Move ###
+
+**POST** https://cloud.seafile.com/api2/repos/{repo_id}/fileops/move/
+
+**Request parameters**
+
+* p: source folder path, defaults to `"/"`
+* file_names: list of file/folder names to move. Multiple file/folder names can be seperated by `:`.
+* dst_repo: the destination repo id
+* dst_dir: the destination folder in `dst_repo`
+
+**Sample request**
+
+    curl -d "dst_repo=73ddb2b8-dda8-471b-b7a7-ca742b07483c&dst_dir=/&file_names=foo.c:bar.c:dir1:dir2" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' https://cloud.seafile.com/api2/repos/c7436518-5f46-4296-97db-2fcba4c8c8db/fileops/move/
+
+**Sample response**
+
+    "success"
+
+**Errors**
+
+* 400 missing argument
+* 403 You do not have permission to move file
+* 404 repo not found
+* 502 failed to move file
+
+#### <a id="multiple-files-directories-delete"></a>Delete ###
+
+**POST** https://cloud.seafile.com/api2/repos/{repo_id}/fileops/delete/
+
+**Request parameters**
+
+* p: source folder path, defaults to `"/"`
+* file_names: list of file/folder names to delete. Multiple file/folder names can be seperated by `:`.
+
+**Sample request**
+
+    curl -d "file_names=foo.c:bar.c:dir1:dir2" -H 'Authorization: Token f2210dacd9c6ccb8133606d94ff8e61d99b477fd' https://cloud.seafile.com/api2/repos/c7436518-5f46-4296-97db-2fcba4c8c8db/fileops/delete/
+
+**Sample response**
+
+    "success"
+
+**Errors**
+
+* 400 missing argument
+* 403 You do not have permission to delete file
+* 404 repo not found
+* 502 failed to delete file
 
 ## <a id="get-avatar"></a>Get Avatar ##
 
@@ -2370,6 +2274,8 @@ A sample request looks like `curl -X DELETE https://cloud.seafile.com/api2/repos
      {"more_offset": 16, "events":[{"repo_id": "6f3d28a4-73ae-4d01-a727-26774379dcb9", "author": "mysnowls@163.com", "nick": "lins05", "time": 1398078909, "etype": "repo-update", "repo_name": "Downloads", "desc": "Added \"seafile-cli_3.0.2_i386.tar.gz\"."},{"repo_id": "6f3d28a4-73ae-4d01-a727-26774379dcb9", "author": "mysnowls@163.com", "nick": "lins05", "time": 1398075540, "etype": "repo-update", "repo_name": "Downloads", "desc": "Added \"seafile-server_3.0.0_x86-64.tar.gz\"."}], "more": false}
 
 ## <a id="add-organization"></a>Add Organization ##
+
+This API is only used internally to create an organization account in seacloud.cc.
 
 **POST** https://cloud.seafile.com/api2/organization/
 
