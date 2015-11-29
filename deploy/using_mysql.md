@@ -1,7 +1,6 @@
 # 部署 Seafile 服务器（使用 MySQL）
 
-此文档用来说明通过预编译好的安装包，来安装并运行基于 MySQL 的 Seafile
-服务器.
+本文档用来说明通过预编译好的安装包来安装并运行基于 MySQL 的 Seafile 服务器。
 
 下载
 ----
@@ -12,7 +11,7 @@
 部署和目录设计
 --------------
 
-假设你公司的名称为 **haiwen**,你也已经下载 seafile-server\_1.4.0\_\* 到你的
+假设你公司的名称为 **haiwen**, 你也已经下载 seafile-server\_1.4.0\_\* 到你的
 **home** 目录下。 我们建议这样的目录结构:
 
     mkdir haiwen
@@ -51,16 +50,18 @@
 
 安装 Seafile 服务器之前，请确认已安装以下软件
 
--   python 2.7
--   python-setuptools
--   python-imaging
--   python-mysqldb
+- python 2.7
+- python-setuptools
+- python-imaging
+- python-mysqldb
+- python-ldap
+- python-memcache (或者 python-memcached)
 
 <!-- -->
 
     #在Debian/Ubuntu系统下
     apt-get update
-    apt-get install python2.7 python-setuptools python-imaging python-mysqldb
+    apt-get install python2.7 python-setuptools python-imaging python-ldap python-mysqldb python-memcache
 
 ### 安装
 
@@ -80,7 +81,7 @@
 <tbody>
 <tr class="odd">
 <td align="left"><p>seafile server name</p></td>
-<td align="left"><p>seafile 服务器的名字，目前只在客户端的日志文件中使用</p></td>
+<td align="left"><p>seafile 服务器的名字，目前该配置已经不再使用</p></td>
 <td align="left"><p>3 ~ 15 个字符，可以用英文字母，数字，下划线</p></td>
 </tr>
 <tr class="even">
@@ -114,8 +115,7 @@
 -   如果选择`1`, 你需要提供根密码. 脚本程序会创建数据库和用户。
 -   如果选择`2`, ccnet/seafile/seahub 数据库应该已经被你（或者其他人）提前创建。
 
-
-如果安装正确完成，你会看到下面这样的输出
+如果安装正确完成，你会看到下面这样的输出 (新版本可能会有所不同)
 
 ![server-setup-succesfully](../images/Server-setup-successfully.png)
 
@@ -152,12 +152,6 @@
 
 # 启动 Seafile 服务器
 
-### 启动之前
-
-因为 Seafile 在客户端和服务器之间使用持续连接，如果你的客户端**数量巨大**, 你应该在启动 Seafile 之前修改你的 Linux 文件最大打开数，如下:
-
-    ulimit -n 30000
-
 ### 启动 Seafile 服务器和 Seahub 网站
 
 在 seafile-server-1.8.2 目录下，运行如下命令
@@ -181,7 +175,7 @@
 
     http://192.168.1.111:8000/
 
-你会被重定向到登陆页面. 输入你在安装 Seafile 时提供的用户名和密码后，你会进入 Myhome 页面，新建资料库.
+你会被重定向到登陆页面. 输入管理员用户名和密码即可。
 
 **恭喜!** 现在你已经成功的安装了 Seafile 服务器.
 
