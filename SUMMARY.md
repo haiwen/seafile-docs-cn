@@ -2,9 +2,7 @@
 
 * [概览](overview/README.md)
    * [Seafile 组件](overview/components.md)
-   * [研发路线图](roadmap.md)
    * [常见问题解答](faq.md)
-   * [修改日志](changelog.md)
    * [我要参与](contribution.md)
 * [Linux 下部署 Seafile 服务器](deploy/README.md)
    * [部署 Seafile 服务器（使用 SQLite）](deploy/using_sqlite.md)
