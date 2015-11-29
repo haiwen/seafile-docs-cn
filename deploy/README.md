@@ -41,7 +41,7 @@
 
 更多配置选项（比如开启用户注册功能），请查看 [服务器个性化配置](../config/README.md)。
 
-**注意** 如果在部署 Seafile 服务器是遇到困难
+**注意** 如果在部署 Seafile 服务器时遇到困难
 
 1. 阅读 [Seafile 组件](../overview/components.md) 以了解 Seafile 的运行原理。
 2. [安装常见问题](common_problems_for_setting_up_server.md)。
@@ -51,12 +51,3 @@
 
 * [升级](upgrade.md)
 
-## 个人打包 Seafile 服务器
-
-如果想要自己打包 Seafile 服务器（安装在自己喜欢的 Linux 系统中）, 请务必使用 tags:
-
-* 当 Seafile 客户端发行新版本时，比如 `v3.0.1`， 我们会将 `v3.0.1` 标签打在 **ccnet**, **seafile** 和 **seafile-client** 上。
-* 同样，当 Seafile 服务器发行新版本时，比如 `v3.0.1`， 我们会将 `v3.0.1` 标签打在 **ccnet**, **seafile** 和 **seahub** 上。
-* 对于 **libsearpc**，会一直使用 `v3.0-latest` 标签。
-
-**注意**: 每个项目的版本号和 tag 名，不存在必然联系。
