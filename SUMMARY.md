@@ -18,7 +18,6 @@
    * 其他部署说明
        * [使用 Memcached](deploy/add_memcached.md)
        * [使用 NAT](deploy/deploy_seafile_behind_nat.md)
-       * [非根域名下部署 Seahub](deploy/deploy_seahub_at_non-root_domain.md)
        * [从 SQLite 迁移至 MySQL](deploy/migrate_from_sqlite_to_mysql.md)
    * [安装常见问题](faq.md)
    * [升级](deploy/upgrade.md)
