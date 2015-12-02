@@ -40,8 +40,8 @@ QQ 邮箱示例：
     EMAIL_HOST_USER = 'test@vip.126.com'
     EMAIL_HOST_PASSWORD = 'password'
     EMAIL_PORT = 25
-    DEFAULT_FROM_EMAIL = 'investlism@vip.126.com'
-    SERVER_EMAIL = DEFAULT_FROM_EMAIL
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    SERVER_EMAIL = EMAIL_HOST_USER
 
 
 
