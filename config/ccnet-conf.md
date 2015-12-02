@@ -11,7 +11,7 @@
     # 请不要改变这个 ID.
     ID=eb812fd276432eff33bcdde7506f896eb4769da0
 
-    # Seafile 服务器名称, 目前只出现在客户端日志中。
+    # 该设置不再使用
     NAME=example
 
     # Seahub(Seafile Web) 外部 URL，如果改值没有设对，会影响文件的上传下载。
