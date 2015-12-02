@@ -22,6 +22,18 @@ Gmail 用户请加入以下语句:
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
 
+QQ 用户请加入以下语句：
+
+    EMAIL_USE_TLS = False
+    EMAIL_HOST = 'smtp.exmail.qq.com'
+    EMAIL_HOST_USER = 'username@domain.com'
+    EMAIL_HOST_PASSWORD = 'password'
+    EMAIL_PORT = '25'
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    SERVER_EMAIL = EMAIL_HOST_USER
+
+163 邮箱用户请注意，配置 163 邮箱未测试成功.
+
 **注意1**:如果邮件功能不能正常使用，请在`logs/seahub.log`日志文件中查看问题原因.
 更多信息请见 [Email notification
 list](Email notification list "wikilink").
