@@ -21,7 +21,7 @@ Gmail 邮箱示例:
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
 
-QQ 邮箱示例：
+QQ 邮箱示例 (只能在没有使用 TLS 的情况下配置成功，不安全)：
 
     EMAIL_USE_TLS = False
     EMAIL_HOST = 'smtp.exmail.qq.com'
