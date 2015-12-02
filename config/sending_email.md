@@ -1,7 +1,6 @@
 # 发送邮件提醒
 
-邮件提醒会使某些功能有更好的用户体验, 比如发送邮件提醒用户新消息到达.
-请在`seahub_settings.py`中加入以下语句以安装邮件提醒功能
+邮件提醒会使某些功能有更好的用户体验, 比如发送邮件提醒用户新消息到达. 请在`seahub_settings.py`中加入以下语句以安装邮件提醒功能
 (同时需要对你的邮箱进行设置).
 
     EMAIL_USE_TLS = False
@@ -12,7 +11,7 @@
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
 
-Gmail 用户请加入以下语句:
+Gmail 邮箱示例:
 
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
@@ -22,7 +21,7 @@ Gmail 用户请加入以下语句:
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
 
-QQ 用户请加入以下语句：
+QQ 邮箱示例：
 
     EMAIL_USE_TLS = False
     EMAIL_HOST = 'smtp.exmail.qq.com'
@@ -32,7 +31,20 @@ QQ 用户请加入以下语句：
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
 
-163 邮箱用户请注意，配置 163 邮箱未测试成功.
+163 邮箱未测试成功 (有些国内公共邮箱做了限制的，是不能配置成功的.)
+
+126 邮箱:
+
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.vip.126.com'
+    EMAIL_HOST_USER = 'test@vip.126.com'
+    EMAIL_HOST_PASSWORD = 'password'
+    EMAIL_PORT = 25
+    DEFAULT_FROM_EMAIL = 'investlism@vip.126.com'
+    SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+
+
 
 **注意1**:如果邮件功能不能正常使用，请在`logs/seahub.log`日志文件中查看问题原因.
 更多信息请见 [Email notification
