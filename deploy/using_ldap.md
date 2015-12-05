@@ -81,62 +81,6 @@ Seafile 如下管理来自 LDAP 中的用户：
 1. 如果配置项包含中文，需要确保配置文件使用 UTF8 编码保存。
 2. 这个文档中描述的配置方法经过很多人在不同的 LDAP/AD 环境下试过，肯定是能工作的。
 
-## 通过 Windows 服务器连接到 LDAP/AD
-
-Windows 下的配置语法与 Linux 下的有些不同. **你不需要增加`ldap:// prefix to the HOST field`.**
-
-要通过 LDAP 来认证用户，您需要把下面的配置加入 ccnet.conf。需要注意的是下面的配置只是例子，您需要根据自己的实际情况来进行修改。
-
-    [LDAP]
-    HOST = ldap.example.com
-    BASE = base DN for searching users
-    USER_DN = admin user DN for accessing other user information
-    PASSWORD = secret
-    LOGIN_ATTR = mail
-
-各个配置选项的含义如下：
-
-* HOST: LDAP 服务器的地址 URL。如果您的 LDAP 服务器监听在非标准端口上，您也可以在 URL 里面包含端口号，如 ldap://ldap.example.com:389。
-* BASE: 在 LDAP 服务器的组织架构中，用于查询用户的根节点的唯一名称（Distingushed Name，简称 DN）。这个节点下面的所有用户都可以访问 Seafile。
-* USER_DN: 用于查询 LDAP 服务器中信息的用户的 DN。这个用户应该有足够的权限访问 BASE 以下的所有信息。通常建议使用 LDAP/AD 的管理员用户。
-* PASSWORD: USER_DN 对应的用户的密码。
-* LOGIN_ATTR: 用作 Seafile 中用户登录 ID 的 LDAP 属性。在 LDAP 里面，每个用户都关联了很多属性。默认我们使用 'mail' 作为登录 ID。
-
-如果您使用的是 AD，以下信息将有助于您配置：
-
-* 要确定您的 BASE 属性，您首先需要打开域管理器的图形界面，并浏览您的组织架构。
-    * 如果您想要让系统中所有用户都能够访问 Seafile，您可以用 'cn=users,dc=yourdomain,dc=com' 作为 BASE 选项（需要替换成你们的域名）。
-    * 如果您只想要某个部门的人能访问，您可以把范围限定在某个 OU （Organization Unit）中。您可以使用 `dsquery` 命令行工具来查找相应 OU 的 DN。比如，如果 OU 的名字是 'staffs'，您可以运行 `dsquery ou -name staff`。更多的信息可以参考[这里](https://technet.microsoft.com/en-us/library/cc770509.aspx)。
-* AD 支持使用 'user@domain.com' 格式的用户名作为 `USER_DN`。比如您可以使用 administrator@example.com 作为 `USER_DN`。有些时候 AD 不能正确识别这种格式。此时您可以使用 `dsquery` 来查找用户的 DN。比如，假设用户名是 'seafileuser'，运行 `dsquery user -name seafileuser` 来找到该用户的 DN。更多的信息可以参考[这里](https://technet.microsoft.com/en-us/library/cc725702.aspx)。
-
-针对 AD 的配置例子：
-
-    [LDAP]
-    HOST = 192.168.1.123
-    BASE = cn=users,dc=example,dc=com
-    USER_DN = administrator@example.local
-    PASSWORD = secret
-    LOGIN_ATTR = mail
-
-针对 OpenLDAP 或者其他 LDAP 服务器的配置例子：
-
-    [LDAP]
-    HOST = 192.168.1.123
-    BASE = ou=users,dc=example,dc=com
-    USER_DN = cn=admin,dc=example,dc=com
-    PASSWORD = secret
-    LOGIN_ATTR = mail
-
-如果您使用 AD 但是没有给用户设置邮件地址（mail 属性），您也可以使用以下的配置：
-
-    [LDAP]
-    HOST = 192.168.1.123
-    BASE = cn=users,dc=example,dc=com
-    USER_DN = administrator@example.local
-    PASSWORD = secret
-    LOGIN_ATTR = userPrincipalName
-
-`userPrincipalName` 是一个 AD 支持的特殊属性。它具有 `username@domain-name` 的格式，其中 `username` 是 Windows 用户的登录名。使用上述配置之后，用户可以用 `username@domain-name` 作为用户名登录 Seafile。注意这个登录名并不是真实的邮件地址，因此 Seafile 的邮件通知功能可能不能工作。
 
 ## 测试你的 LDAP 配置
 
