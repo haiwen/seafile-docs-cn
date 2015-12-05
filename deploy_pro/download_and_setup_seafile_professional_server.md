@@ -68,15 +68,18 @@ Seafile 专业版服务器的安装步骤与Seafile 社区版服务器安装步�
 #tree haiwen -L 2
 haiwen
 ├── seafile-license.txt # license file
-├── ccnet               # configuration files
+├── conf                # configuration files
 │   ├── ccnet.conf
+│   └── seafile.conf
+│   └── seahub_settings.py
+│   └── seafdav.conf
+├── ccnet
 │   ├── mykey.peer
 │   ├── PeerMgr
 │   └── seafile.ini
 ├── pro-data            # data specific for professional version
 │   └── seafevents.conf
 ├── seafile-data
-│   └── seafile.conf
 ├── seafile-pro-server-2.1.5
 │   ├── reset-admin.sh
 │   ├── runtime
@@ -91,7 +94,6 @@ haiwen
 │   └── upgrade
 ├── seahub-data
 │   └── avatars         # for user avatars
-├── seahub_settings.py   # seahub config file
 ```
 
 

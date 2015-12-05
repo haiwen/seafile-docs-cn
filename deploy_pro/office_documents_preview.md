@@ -26,7 +26,7 @@ sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei xfonts-wqy
 
 ### 开启配置项
 
-1. 打开 `pro-data/seafevents.conf`, 添加:
+1. 打开 `conf/seafevents.conf`, 添加:
 ```conf
 [OFFICE CONVERTER]
 enabled = true

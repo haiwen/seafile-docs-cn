@@ -68,7 +68,7 @@ Nginx 默认设置 "client_max_body_size" 为 1M。如果上传文件大于这�
 
 ### 修改 ccnet.conf
 
-你需要在<code>/data/haiwen/ccnet/ccnet.conf</code>的<code>SERVICE_URL</code>字段中自定义域名。
+你需要在<code>/data/haiwen/conf/ccnet.conf</code>的<code>SERVICE_URL</code>字段中自定义域名。
 
 <pre>
 SERVICE_URL = http://www.myseafile.com

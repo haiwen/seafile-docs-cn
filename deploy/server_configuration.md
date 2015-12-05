@@ -1,23 +1,25 @@
 # Server Configuration and Customization
 
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
 This manual explains how to change various config options for Seafile server.
 
 There are three config files in the community edition:
 
-- [ccnet/ccnet.conf](ccnet-conf.md): contains the network settings
-- [seafile-data/seafile.conf](seafile-conf.md): contains settings for seafile daemon and FileServer.
-- [seahub_settings.py](seahub_settings_py.md): contains settings for Seahub
+- [conf/ccnet.conf](ccnet-conf.md): contains the network settings
+- [conf/seafile.conf](seafile-conf.md): contains settings for seafile daemon and FileServer.
+- [conf/seahub_settings.py](seahub_settings_py.md): contains settings for Seahub
 
 There is one additional config file in the pro edition:
 
-- `pro-data/seafevents.conf`: contains settings for search and documents preview
+- `conf/seafevents.conf`: contains settings for search and documents preview
 
 
 
 
 ## Storage Quota Setting (seafile.conf)
 
-You may set a default quota (e.g. 2GB) for all users. To do this, just add the following lines to `seafile-data/seafile.conf` file
+You may set a default quota (e.g. 2GB) for all users. To do this, just add the following lines to `seafile.conf` file
 
 <pre>
 [quota]
@@ -38,7 +40,7 @@ keep_days = days of history to keep
 
 ## Seafile fileserver configuration (seafile.conf)
 
-The configuration of seafile fileserver is in the <code>[fileserver]</code> section of the file <code>seafile-data/seafile.conf</code>
+The configuration of seafile fileserver is in the <code>[fileserver]</code> section of the file seafile.conf
 
 <pre>
 [fileserver]

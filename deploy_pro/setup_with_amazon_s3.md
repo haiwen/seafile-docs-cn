@@ -1,5 +1,7 @@
 # Amazom S3 下安装
 
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
 为了安装 Seafile 专业版服务器并使用亚马逊 S3，您需要：
 
 - 按照 [下载安装 Seafile 专业版服务器](download_and_setup_seafile_professional_server.md) 指南安装基本的 Seafile 专业版服务器。
@@ -11,7 +13,7 @@ sudo easy_install boto
 
 - 安装和使用 Memcached.
 
-- 编辑 `/data/haiwen/seafile-data/seafile.conf` 文件，添加下面几行：
+- 编辑 `/data/haiwen/conf/seafile.conf` 文件，添加下面几行：
 
 ```
 [commit_object_backend]

@@ -107,7 +107,7 @@ SITE_ROOT = '/seafile/'
 
 ### 更改 ccnet.conf
 
-为使 Seafile 知道你所使用的域名，请更改 <code>/data/haiwen/ccnet/ccnet.conf</code> 中 <code>SERVICE_URL</code> 变量的值。
+为使 Seafile 知道你所使用的域名，请更改 <code>/data/haiwen/conf/ccnet.conf</code> 中 <code>SERVICE_URL</code> 变量的值。
 
 <pre>
 SERVICE_URL = http://www.myseafile.com/seafile

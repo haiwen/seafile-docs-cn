@@ -26,7 +26,7 @@
 
 1. Shutdown services by `./seahub.sh stop` and `./seafile.sh stop`. Then, append the following PostgreSQL configurations to 3 config files (you may need to change to fit your configuration).
 
-    Append following lines to `ccnet/ccnet.conf`:
+    Append following lines to `conf/ccnet.conf`:
 
         [Database]
         ENGINE=pgsql
@@ -35,7 +35,7 @@
         PASSWD=seafile
         DB=ccnet_db
 
-    Replace the database section in `seafile-data/seafile.conf` with following lines:
+    Replace the database section in `seafile.conf` with following lines:
 
         [database]
         type=pgsql

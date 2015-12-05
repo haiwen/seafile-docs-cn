@@ -25,7 +25,7 @@
 - 我想启用对 office/pdf 文档的全文搜索功能，所以我在配置文件中将 `index_office_pdf` 的值设置为 `true`，但它没起作用。
 
   在这种情况下，您需要做以下几步：
-  1. 编辑 `/data/haiwen/pro-data/seafevents.conf` 文件，将 `index_office_pdf` 的值设置为 `true`
+  1. 编辑 `/data/haiwen/conf/seafevents.conf` 文件，将 `index_office_pdf` 的值设置为 `true`
   2. 重启 Seafile 服务器：
   ```
   cd /data/haiwen/seafile-pro-server-2.1.5
@@ -45,7 +45,7 @@
 
 ### 怎么修改可预览最大文件大小和页面数?
 
-在 `/data/haiwen/pro-data/seafevents.conf` 中的 `OFFICE CONVERTER` 配置部分添加配置选项
+在 `/data/haiwen/conf/seafevents.conf` 中的 `OFFICE CONVERTER` 配置部分添加配置选项
 
 ```
 # the max size of documents to allow to be previewed online, in MB. Default is 2 MB

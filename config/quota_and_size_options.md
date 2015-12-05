@@ -1,8 +1,10 @@
 # 存储容量与文件上传/下载大小限制
 
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
 ## 存储容量
 
-可以通过在 `seafile-data/seafile.conf` 文件中增加以下语句，来为所有用户设置默认存储容量（比如，2GB）。
+可以通过在 `seafile.conf` 文件中增加以下语句，来为所有用户设置默认存储容量（比如，2GB）。
 
 <pre>
 [quota]
@@ -14,7 +16,7 @@ default = 2
 
 ## 文件修改历史保存期限 (seafile.conf)
 
-如果你不想保存所有的文件修改历史，可以在 `seafile-data/seafile.conf` 中设置:
+如果你不想保存所有的文件修改历史，可以在 `seafile.conf` 中设置:
 
 <pre>
 [history]
@@ -24,7 +26,7 @@ keep_days = 10
 
 ## 文件上传/下载大小限制
 
-在 `seafile-data/seafile.conf` 中:
+在 `seafile.conf` 中:
 
 <pre>
 [fileserver]

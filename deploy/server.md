@@ -131,15 +131,17 @@ Now you should have the following directory layout :
 <pre>
 #tree haiwen -L 2
 haiwen
-├── ccnet               # configuration files
+├── conf               # configuration files
 │   ├── ccnet.conf
+│   └── seafile.conf
+│   └── seahub_settings.py
+├── ccnet
 │   ├── mykey.peer
 │   ├── PeerMgr
 │   └── seafile.ini
 ├── installed
 │   └── seafile-server_1.4.0_x86-64.tar.gz
 ├── seafile-data
-│   └── seafile.conf
 ├── seafile-server-1.4.0  # active version
 │   ├── reset-admin.sh
 │   ├── runtime
@@ -153,7 +155,6 @@ haiwen
 ├── seahub-data
 │   └── avatars
 ├── seahub.db
-├── seahub_settings.py   # optional config file
 └── seahub_settings.pyc
 </pre>
 
@@ -206,7 +207,7 @@ If you want to run seahub in a port other than the default 8000, say 8001, you m
 ./seafile.sh stop
 </pre>
 
-* modify the value of <code>SERVICE_URL</code> in the file <code>haiwen/ccnet/ccnet.conf</code>, like this: (assume your ip or domain is <code>192.168.1.100</code>)
+* modify the value of <code>SERVICE_URL</code> in the file <code>haiwen/conf/ccnet.conf</code>, like this: (assume your ip or domain is <code>192.168.1.100</code>)
 <pre>
 SERVICE_URL = http://192.168.1.100:8001
 </pre>

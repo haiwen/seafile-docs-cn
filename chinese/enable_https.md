@@ -45,7 +45,7 @@ SSL数字证书需要向相应机构购买，这里使用免费的自认证证�
 
 '''Note:''' 仅对 seafile server 1.4 或之后版本生效。
 
-Seafile fileserver的配置在文件<code>seafile-data/seafile.conf</code>里，加入以下几行到<code>seafile.conf</code>：
+Seafile fileserver的配置在文件seafile.conf里，加入以下几行到seafile.conf：
 <pre>
 [fileserver]
 port=8082
@@ -56,7 +56,7 @@ privkey=/path/to/privkey
 
 8082是默认端口，你可以使用任何有效的端口。
 
-修改完<code>seafile.conf</code>后，需要通过<code>./seafile.sh restart</code>重启Seafile。之后在浏览器里输入<code>https://www.yourdomain.com:8082</code>，出现空白页面，则表示配置成功。
+修改完seafile.conf后，需要通过<code>./seafile.sh restart</code>重启Seafile。之后在浏览器里输入<code>https://www.yourdomain.com:8082</code>，出现空白页面，则表示配置成功。
 
 '''Note:''' 如果你的密钥文件已加密，请先解密。
 
@@ -64,7 +64,7 @@ privkey=/path/to/privkey
 
 #### ccnet conf
 
-你需要修改 <code>ccnet/ccnet.conf</code> 中的"SERVICE_URL"：
+你需要修改 <code>conf/ccnet.conf</code> 中的"SERVICE_URL"：
 <pre>
 SERVICE_URL = https://your.server.domain
 </pre>

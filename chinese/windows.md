@@ -30,7 +30,7 @@
 Windows 服务器目前仅支持 SQLITE 和 MySQL，默认使用SQLITE，MySQL的配置参考[[Deploy Seafile with MySQL|Deploy Seafile with MySQL]]。
 
 ## 使用Nginx/Apache配置Seafile Web服务器
-先修改配置文件seafile-data/seafile.conf,
+先修改配置文件seafile.conf,
 <pre>
     [seahub]
     port=8000

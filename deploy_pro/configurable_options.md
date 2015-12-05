@@ -1,6 +1,8 @@
 # 配置选项
 
-在 `/data/haiwen/pro-data/seafevents.conf` 配置文件中：
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
+在 `/data/haiwen/conf/seafevents.conf` 配置文件中：
 
 ```
 [Audit]
@@ -47,7 +49,7 @@ interval = 30m
 
 ### <a id="wiki-options-you-may-want-to-modify"></a>您可能想要更改的配置选项
 
-以上小节已经列出了 `/data/haiwen/pro-data/seafevents.conf` 配置文件中的所有配置选项。大多数情况下，使用默认配置就足够了。但是为了更好地满足自身需求，您可能想要更改其中的某些选项。
+以上小节已经列出了 `/data/haiwen/conf/seafevents.conf` 配置文件中的所有配置选项。大多数情况下，使用默认配置就足够了。但是为了更好地满足自身需求，您可能想要更改其中的某些选项。
 
 我们将这些配置选项列出在下面的表中，以及我们选择默认设置的原因。
 
