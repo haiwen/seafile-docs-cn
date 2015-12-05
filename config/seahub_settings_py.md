@@ -4,34 +4,7 @@
 
 ### Seahub 下发送邮件提醒
 
-邮件提醒会使某些功能有更好的用户体验, 比如发送邮件提醒用户新消息到达.
-请在`seahub_settings.py`中加入以下语句以安装邮件提醒功能
-(同时需要对你的邮箱进行设置).
-
-    EMAIL_USE_TLS = False
-    EMAIL_HOST = 'smtp.domain.com'        # smpt 服务器
-    EMAIL_HOST_USER = 'username@domain.com'    # 用户名和域名
-    EMAIL_HOST_PASSWORD = 'password'    # 密码
-    EMAIL_PORT = '25'
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-    SERVER_EMAIL = EMAIL_HOST_USER
-
-Gmail 用户请加入以下语句:
-
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = 'username@gmail.com'
-    EMAIL_HOST_PASSWORD = 'password'
-    EMAIL_PORT = 587
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-    SERVER_EMAIL = EMAIL_HOST_USER
-
-**注意1**:如果邮件功能不能正常使用，请在`logs/seahub.log`日志文件中查看问题原因.
-更多信息请见 [Email notification
-list](Email notification list "wikilink").
-
-**注意2**:
-如果你想在非用户验证情况下使用邮件服务，请将 `EMAIL_HOST_PASSWORD` 置为**blank** (`''`).
+请参看 [发送邮件提醒](sending_email.md)
 
 ### 缓存
 
@@ -46,83 +19,117 @@ etc) . 你可以通过 Memcached 进行缓存操作
         }
     }
 
-### Seahub 设置
+### 用户管理选项
 
-通过修改`seahub_settings.py`文件，可以对 Seahub 网站进行更改.
+The following options affect user registration, password and session.
+
+```python
+# 是非开启用户注册功能. 默认为 `False`.
+ENABLE_SIGNUP = False
+
+# 用户注册后是否立刻激活，默认为 `True`.
+# 如设置为 `False`, 需管理员手动激活.
+ACTIVATE_AFTER_REGISTRATION = False
+
+# 管理员新增用户后是否给用户发送邮件. 默认为 `True`.
+SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER = True
+
+# 管理员重置用户密码后是否给用户发送邮件. 默认为 `True`.
+SEND_EMAIL_ON_RESETTING_USER_PASSWD = True
+
+# 登录记住天数. 默认 7 天
+LOGIN_REMEMBER_DAYS = 7
+
+# 用户输入密码错误次数超过改设置后，显示验证码
+LOGIN_ATTEMPT_LIMIT = 3
+
+# 用户密码最少长度
+USER_PASSWORD_MIN_LENGTH = 6
+
+# 检查用户密码的复杂性
+USER_STRONG_PASSWORD_REQUIRED = False
+
+# 用户密码复杂性:
+#    数字, 大写字母, 小写字母, 其他符号
+# '3' 表示至少包含以上四种类型中的 3 个
+USER_PASSWORD_STRENGTH_LEVEL = 3
+
+# cookie 的保存时限，(默认为 2 周).
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
+
+# 浏览器关闭后，是否清空用户会话 cookie
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# 是否存储每次请求的会话数据. 默认为 `False`
+SESSION_SAVE_EVERY_REQUEST = False
+```
+
+## 资料库设置
 
 
-    # 时区设置，更多请见:
-    # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-    # 部分操作系统下有效.
-    # 如果是 Windows 用户，请设置为你的系统时区.
-    TIME_ZONE = 'UTC'
-    
-    # 语言选项，系统默认语言以及发邮件默认语言。
-    # 参考：http://www.i18nguy.com/unicode/language-identifiers.html
-    LANGUAGE_CODE = 'en'
+```python
+# 加密资料库密码最小长度
+REPO_PASSWORD_MIN_LENGTH = 8
 
-    # Seahub 网站 URL. 邮件提醒中会包含此地址
-    SITE_BASE = 'http://www.example.com/'
+# 加密外链密码最小长度
+SHARE_LINK_PASSWORD_MIN_LENGTH = 8
 
-    # 网站名称. 邮件提醒中会包含此名称.
-    SITE_NAME = 'example.com'
+# 关闭与任意目录同步的功能
+DISABLE_SYNC_WITH_ANY_FOLDER = True
 
-    # 网站标题
-    SITE_TITLE = 'Seafile'
+# 允许用户设置资料库的历史保留天数
+ENABLE_REPO_HISTORY_SETTING = True
+```
 
-    # 若果不想再根路径上运行 Seahub 网站, 请更改此设置.
-    # e.g. setting it to '/seahub/' would run seahub on http://example.com/seahub/.
-    SITE_ROOT = '/'
 
-    # 是否使用 pdf.js 在线查看 pdf 文件. 默认为 `True`.
-    # NOTE: 1.4版本后可用.
-    USE_PDFJS = True
+## 在线文件查看设置
 
-    # 是否在网站页面显示注册按钮，默认为 `False`.
-    # NOTE: 1.4版本后可用.
-    ENABLE_SIGNUP = False
+```python
+# 是否使用 pdf.js 来在线查看文件. 默认喂 `True`
+USE_PDFJS = True
 
-    # 用户注册后是否立刻激活，默认为 `True`.
-    # 如设置为 `False`, 需管理员手动激活.
-    # NOTE: 1.8版本后可用
-    ACTIVATE_AFTER_REGISTRATION = False
+# 在线文件查看最大文件大小，默认为 30M.
+# 注意, 在专业版中，seafevents.conf 中有另一个选项
+# `max-size` 也控制 doc/ppt/excel/pdf 文件在线查看的最大文件大小。
+# 您需要同时把这两个选项调大，如果您要允许 30M 以上 doc/ppt/excel/pdf 的查看。
+FILE_PREVIEW_MAX_SIZE = 30 * 1024 * 1024
 
-    # 管理员新增用户后是否给用户发送邮件. 默认为 `True`.
-    # NOTE: 1.4版本后可用.
-    SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER = True
+# 开启 thumbnails 功能
+ENABLE_THUMBNAIL = True
 
-     # 管理员重置用户密码后是否给用户发送邮件. 默认为 `True`.
-    # NOTE: 1.4版本后可用.
-    SEND_EMAIL_ON_RESETTING_USER_PASSWD = True
+# 文件缩略图的存储位置
+THUMBNAIL_ROOT = '/haiwen/seahub-data/thumbnail/thumb/'
+```
 
-    # 隐藏 `Organization` 标签 .
-    # 如果你希望你的私人 Seafile 像 https://cloud.seafile.com/ 一样运行， 请设置.
-    CLOUD_MODE = True
+## 其他选项
 
-    # 在线查看文件大小限制，默认为 30M.
-    FILE_PREVIEW_MAX_SIZE = 30 * 1024 * 1024
+```python
 
-    # cookie的保存时限，(默认为 2 周).
-    SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
+# 时区设置
+# 可用的时区参考:
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+TIME_ZONE = 'UTC'
 
-    # 是否存储每次请求的会话数据.
-    SESSION_SAVE_EVERY_REQUEST = False
+# 系统默认语言设置
+# 可用的设置值参考
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'en'
 
-    # 浏览器关闭后，是否清空用户会话 cookie
-    SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-    
-    # 是否可以把一个群组设为公开.
-    ENABLE_MAKE_GROUP_PUBLIC = False
-    
-    # 登录记住天数. 默认 7 天
-    LOGIN_REMEMBER_DAYS = 7
+# 站点名, 用在 Email 中.
+SITE_NAME = 'example.com'
 
-**注意**:
+# 站点 Title
+SITE_TITLE = 'Seafile'
+```
 
--   请重启 Seahub 以使更改生效.
--   如果更改没有生效，请删除`seahub_setting.pyc`缓存文件.
+## 专业版选项
 
-<!-- -->
+```python
+# 是否允许管理员通过 Web UI 查看用户文件. 默认为 False
+ENABLE_SYS_ADMIN_VIEW_REPO = True
+```
 
-    ./seahub.sh restart
+## 注意
 
+-  请重启 Seahub 以使更改生效.
+-  如果更改没有生效，请删除 `seahub_setting.pyc` 缓存文件.
