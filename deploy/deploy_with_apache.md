@@ -15,7 +15,7 @@
     sudo a2enmod rewrite
     sudo a2enmod fastcgi
     </pre>
-    
+
     CentOS/Redhat 下需要从源码编译安装 mod_fastcgi, 请参考[这里](http://www.cyberciti.biz/tips/rhel-centos-fedora-apache2-fastcgi-php-configuration.html)。
 
 3. 启用 Apache proxy
@@ -77,26 +77,31 @@ FastCGIExternalServer /var/www/html/seahub.fcgi -host 127.0.0.1:8000
 </VirtualHost>
 ```
 
+## 修改 SERVICE_URL 和 FILE_SERVER_ROOT
 
-## 修改 ccnet.conf 和 seahub_setting.py
+下面还需要更新 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置项。否则无法通过 Web 正常的上传和下载文件。
+
+5.0 版本开始，您可以直接通过管理员 Web 界面来设置这两个值：
+```
+SERVICE_URL: http://www.myseafile.com
+FILE_SERVER_ROOT: http://www.myseafile.com/seafhttp
+```
+
+5.0 版本之前需要修改 ccnet.conf 文件和 seahub_settings.py 文件
 
 ### 修改 ccnet.conf
-
-你需要在<code>/data/haiwen/conf/ccnet.conf</code>的<code>SERVICE_URL</code>字段中自定义域名。
 
 <pre>
 SERVICE_URL = http://www.myseafile.com
 </pre>
 
-注意:如果你改变了 Seahub 的域名,也需要同步更改<code>SERVICE_URL</code>.
-
-### 修改 seahub_settings.py
-
-请在<code>seahub_settings.py</code>新增一行，设定`FILE_SERVER_ROOT`的值
+### 修改 seahub_settings.py （增加一行，这是一个 python 文件，注意引号）
 
 ```python
 FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 ```
+
+
 
 ## 启动 Seafile 和 Seahub
 

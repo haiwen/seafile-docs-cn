@@ -121,7 +121,7 @@
     ├── installed
     │   └── seafile-server_1.4.0_x86-64.tar.gz
     ├── seafile-data        
-    ├── seafile-server-1.4.0  # active version 
+    ├── seafile-server-1.4.0  # active version
     │   ├── reset-admin.sh
     │   ├── runtime
     │   ├── seafile
@@ -174,7 +174,7 @@
     ./seafile.sh stop # 停止 Seahub
 ```
 
-- 更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下:
+- 更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下 (从 5.0 版本开始，可以直接在管理员界面中设置):
 ```
     SERVICE_URL = http://192.168.1.100:8001
 ```
@@ -217,4 +217,3 @@
     pkill -f seafile-controller # 结束 Seafile 进程
     pkill -f "manage.py run_gunicorn" # 结束 Seafile 进程
 ```
-

@@ -1,28 +1,20 @@
 # Nginx 下配置 Seahub
 
-## 准备工作
+## Nginx 环境下部署 Seahub/SeafServer
 
-Ubuntu 下安装<code>python-flup</code>库:
- 
-```
-sudo apt-get install python-flup
-```
+Seahub 是 Seafile 服务器的网站界面. SeafServer 用来处理浏览器端文件的上传与下载. 默认情况下, 它在 8082 端口上监听 HTTP 请求.
 
-## Nginx 环境下部署 Seahub/SeafServer 
-
-Seahub 是 Seafile 服务器的网站界面. SeafServer 用来处理浏览器端文件的上传与下载. 默认情况下, 它在 8082 端口上监听 HTTP 请求. 
-
-这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 SeafServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com". 
+这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 SeafServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com".
 
 下面是一个 Nginx 配置文件的例子。
 
-Ubuntu 下你可以 
+Ubuntu 下你可以
 
 1. 创建文件 /etc/nginx/site-available/seafile.conf，并拷贝以下内容
 2. 删除 /etc/nginx/site-enabled/default: `rm /etc/nginx/site-enabled/default`
 3. 创建符号链接: `ln -s /etc/nginx/sites-available/seafile.conf /etc/nginx/sites-enabled/seafile.conf`
 
-<pre>
+```
 server {
     listen 80;
     server_name www.myseafile.com;
@@ -60,25 +52,29 @@ server {
         root /home/user/haiwen/seafile-server-latest/seahub;
     }
 }
-</pre>
+```
 
 Nginx 默认设置 "client_max_body_size" 为 1M。如果上传文件大于这个值的话，会报错，相关 HTTP 状态码为 423 ("Request Entity Too Large"). 你可以将值设为 <code>0</code> 以禁用此功能.
 
-## 修改 ccnet.conf 和 seahub_setting.py
+## 修改 SERVICE_URL 和 FILE_SERVER_ROOT
+
+下面还需要更新 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置项。否则无法通过 Web 正常的上传和下载文件。
+
+5.0 版本开始，您可以直接通过管理员 Web 界面来设置这两个值：
+```
+SERVICE_URL: http://www.myseafile.com
+FILE_SERVER_ROOT: http://www.myseafile.com/seafhttp
+```
+
+5.0 版本之前需要修改 ccnet.conf 文件和 seahub_settings.py 文件
 
 ### 修改 ccnet.conf
-
-你需要在<code>/data/haiwen/conf/ccnet.conf</code>的<code>SERVICE_URL</code>字段中自定义域名。
 
 <pre>
 SERVICE_URL = http://www.myseafile.com
 </pre>
 
-注意:如果你改变了 Seahub的域名,也需要同步更改<code>SERVICE_URL</code>.
-
-### 修改 seahub_settings.py
-
-请在<code>seahub_settings.py</code>新增一行，设定`FILE_SERVER_ROOT`的值
+### 修改 seahub_settings.py （增加一行，这是一个 python 文件，注意引号）
 
 ```python
 FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
@@ -90,4 +86,3 @@ FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 ./seafile.sh start
 ./seahub.sh start-fastcgi
 </pre>
-

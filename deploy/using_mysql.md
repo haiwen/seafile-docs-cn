@@ -68,7 +68,7 @@
     cd seafile-server-*
     ./setup-seafile-mysql.sh  #运行安装脚本并回答预设问题
 
-如果你的系统中没有安装上面的某个软件，那么 Seafile初始化脚本会提醒你安装相应的软件包. 
+如果你的系统中没有安装上面的某个软件，那么 Seafile初始化脚本会提醒你安装相应的软件包.
 
 该脚本会依次询问你一些问题，从而一步步引导你配置 Seafile 的各项参数:
 
@@ -191,7 +191,7 @@
     ./seahub.sh stop # 停止 Seafile 进程
     ./seafile.sh stop # 停止 Seahub
 
--   更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下:
+-   更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下 (从 5.0 版本开始，可以直接在管理员界面中设置):
 
 <!-- -->
 
@@ -246,4 +246,3 @@ OK!
 * [Nginx 下启用 Https](https_with_nginx.md) / [Apache 下启用 Https](https_with_apache.md)
 * [Seafile LDAP配置](using_ldap.md)
 * [管理员手册](../maintain/README.md)
-

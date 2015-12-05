@@ -1,11 +1,10 @@
 # Nginx 下启用 Https
 
-在 Seahub 端启用 https
-----------------------
+## 在 Seahub 端启用 https
 
 免费 Self-Signed SSL 数字认证用户请看. 如果你是 SSL 付费认证用户可跳过此步.
 
-### 通过 OpenSS L生成 SSL 数字认证
+### 通过 OpenSSL 生成 SSL 数字认证
 
     openssl genrsa -out privkey.pem 2048
     openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095
@@ -13,11 +12,11 @@
 
 ### 修改 Nginx 配置文件
 
-假设你已经按照[[在Nginx环境下部署Seafile]]对 nginx 进行了相关设置. 请修改 nginx 配置文件以使用 HTTPS.
+请修改 nginx 配置文件以使用 HTTPS：
 
     server {
       listen       80;
-      server_name  www.yourdoamin.com; 
+      server_name  www.yourdoamin.com;
       rewrite ^ https://$http_host$request_uri? permanent;	#强制将http重定向到https
     }
 
@@ -36,6 +35,7 @@
 
 这里是配置文件示例:
 
+```
     server {
       listen       80;
       server_name  www.yourdoamin.com;
@@ -78,27 +78,24 @@
           root /home/user/haiwen/seafile-server-latest/seahub;
       }
     }
+```
 
 ### 重新加载 Nginx
 
     nginx -s reload
 
-修改相关配置以使用 https
-------------------------
 
-### ccnet 配置
+## 修改 SERVICE_URL 和 FILE_SERVER_ROOT
 
-因为你想使用 https 而非 http,
-你需要修改`conf/ccnet.conf`中**SERVICE\_URL**字段的值:
+下面还需要更新 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置项。否则无法通过 Web 正常的上传和下载文件。
 
-    SERVICE_URL = https://www.yourdomain.com
+5.0 版本开始，您可以直接通过管理员 Web 界面来设置这两个值：
+```
+SERVICE_URL: https://www.myseafile.com
+FILE_SERVER_ROOT: https://www.myseafile.com/seafhttp
+```
 
-### seahub\_settings.py 配置
-
-    FILE_SERVER_ROOT = 'https://www.yourdomain.com/seafhttp'
-
-启动 Seafile 和 Seahub
-----------------------
+## 启动 Seafile 和 Seahub
 
     ./seafile.sh start
     ./seahub.sh start-fastcgi
