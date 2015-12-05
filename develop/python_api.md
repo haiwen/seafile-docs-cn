@@ -24,8 +24,12 @@ First of all, make sure you have [Download and Setup Seafile Server](https://git
 
     # tree . -L 3
     .
-    ├── ccnet
+    ├── conf
     │   ├── ccnet.conf
+    │   ├── seafile.conf
+    │   ├── seafdav.conf
+    │   ├── seahub_settings.py
+    ├── ccnet
     │   ├── ......
     │......
     ├── seafile-server-3.0.3

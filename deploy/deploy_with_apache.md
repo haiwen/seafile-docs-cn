@@ -82,7 +82,7 @@ FastCGIExternalServer /var/www/html/seahub.fcgi -host 127.0.0.1:8000
 
 ### 修改 ccnet.conf
 
-你需要在<code>/data/haiwen/ccnet/ccnet.conf</code>的<code>SERVICE_URL</code>字段中自定义域名。
+你需要在<code>/data/haiwen/conf/ccnet.conf</code>的<code>SERVICE_URL</code>字段中自定义域名。
 
 <pre>
 SERVICE_URL = http://www.myseafile.com

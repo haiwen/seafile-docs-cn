@@ -42,7 +42,7 @@
 
 6. 更改配置
 
-  在 `ccnet/ccnet.conf` 中增加以下语句:
+  在 `conf/ccnet.conf` 中增加以下语句:
 
         [Database]
         ENGINE=mysql
@@ -54,7 +54,7 @@
 
     注意: 使用 `127.0.0.1`, 不要使用 `localhost`.
 
-    将 `seafile-data/seafile.conf` 中的数据库配置信息更改文以下语句:
+    将 `seafile.conf` 中的数据库配置信息更改文以下语句:
 
         [database]
         type=mysql

@@ -1,5 +1,7 @@
 # Seahub 配置
 
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
 ### Seahub 下发送邮件提醒
 
 邮件提醒会使某些功能有更好的用户体验, 比如发送邮件提醒用户新消息到达.

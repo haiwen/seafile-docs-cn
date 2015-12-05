@@ -40,7 +40,7 @@ C:\SeafileProgram
 初始化服务器之后，还需配置以下选项:
 
 - 右击 Seafile 托盘图标，选择"**打开 seafile-server 文件夹**"选项。您的 seafile-server 数据文件夹将会打开。
-- 编辑*ccnet/ccnet.conf*文件。在*ccnet.conf*文件中更改以下两行：
+- 编辑*conf/ccnet.conf*文件。在*ccnet.conf*文件中更改以下两行：
 ```
 NAME = XXXXX
 SERVICE_URL = XXX

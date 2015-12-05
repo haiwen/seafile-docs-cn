@@ -1,5 +1,7 @@
 # OpenStackSwift 下安装
 
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
 从专业版服务器的 2.0.5 版本开始，Seafile 可以使用兼容 S3 的云存储（比如 OpenStack/Swift）作为后端。这篇文档将以使用 Swift 为例。 
 
 ## 准备工作
@@ -29,7 +31,7 @@ connection.create_bucket('seafile-blocks')
 
 ## 修改 seafile.conf 文件
 
-将下面几行追加到 `seafile-data/seafile.conf` 文件中
+将下面几行追加到 `seafile.conf` 文件中
 
 ```
 [block_backend]

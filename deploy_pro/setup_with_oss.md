@@ -19,7 +19,7 @@
 
 ## 修改 seafile.conf
 
-编辑 `/data/haiwen/seafile-data/seafile.conf` 文件，添加下面几行：
+编辑 `/data/haiwen/conf/seafile.conf` 文件，添加下面几行：
 
 ```
 [commit_object_backend]

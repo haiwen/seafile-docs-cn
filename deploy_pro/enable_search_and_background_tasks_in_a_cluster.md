@@ -1,4 +1,7 @@
 # Enable search and background tasks in a cluster
+
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
 In the seafile cluster, only one server should run the background tasks, including:
 
 - indexing files for search
@@ -33,7 +36,7 @@ sudo yum install java-1.7.0-openjdk
 
 *注意*：Seafile 专业版需要 java 1.7 以上版本, 请用 `java -version` 命令查看您系统中的默认 java 版本. 如果不是 java 7, 那么, 请 [更新默认 java 版本](./change_default_java.md).
 
-### Edit pro-data/seafevents.conf
+### Edit conf/seafevents.conf
 
 REMOVE the line:
 
@@ -49,7 +52,7 @@ In your firewall rules for node A, you should open the port 9500 (for search req
 
 On nodes B and C, you need to:
 
-* Edit pro-data/seafevents.conf, add the following lines:
+* Edit conf/seafevents.conf, add the following lines:
 ```
 [INDEX FILES]
 external_es_server = true

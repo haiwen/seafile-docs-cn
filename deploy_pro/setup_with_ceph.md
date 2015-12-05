@@ -1,5 +1,7 @@
 # Ceph 下安装
 
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
 Ceph 是一种可扩展的分布式存储系统。Seafile 可以使用 Ceph 的 RADOS 对象存储层作为存储后端。
 
 ## 拷贝 ceph 的配置文件和客户端的密钥环
@@ -12,7 +14,7 @@ seafile-machine# sudo scp user@ceph-admin-node:/etc/ceph/ /etc
 
 ## 编辑 Seafile 配置文件
 
-编辑 `seafile-data/seafile.conf` 文件，添加以下几行：
+编辑 `seafile.conf` 文件，添加以下几行：
 
 ```
 [block_backend]

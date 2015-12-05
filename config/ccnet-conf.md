@@ -1,6 +1,8 @@
 # ccnet.conf 配置
 
-通过修改`ccnet/ccnet.conf`文件，可以对 Seafile
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
+通过修改`conf/ccnet.conf`文件，可以对 Seafile
 的网络选项进行设置，示例如下:
 
     [General]

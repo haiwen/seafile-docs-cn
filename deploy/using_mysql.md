@@ -123,15 +123,18 @@
 
     #tree haiwen -L 2
     haiwen
-    ├── ccnet               # configuration files
+    ├── conf                # configuration files
     │   ├── ccnet.conf
+    │   └── seafile.conf
+    │   └── seahub_settings.py
+    │   └── seafdav.conf
+    ├── ccnet
     │   ├── mykey.peer
     │   ├── PeerMgr
     │   └── seafile.ini
     ├── installed
     │   └── seafile-server_1.8.2_x86-64.tar.gz
     ├── seafile-data
-    │   └── seafile.conf
     ├── seafile-server-1.8.2  # active version
     │   ├── reset-admin.sh
     │   ├── runtime
@@ -144,8 +147,6 @@
     ├── seafile-server-latest  # symbolic link to seafile-server-1.8.2
     ├── seahub-data
     │   └── avatars
-    ├── seahub_settings.py   # optional config file
-    └── seahub_settings.pyc
 
 `seafile-server-latest`文件夹为指向当前 Seafile 服务器文件夹的符号链接.
 将来你升级到新版本后, 升级脚本会自动更新使其始终指向最新的 Seafile 服务器文件夹.
@@ -190,7 +191,7 @@
     ./seahub.sh stop # 停止 Seafile 进程
     ./seafile.sh stop # 停止 Seahub
 
--   更改`haiwen/ccnet/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下:
+-   更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下:
 
 <!-- -->
 

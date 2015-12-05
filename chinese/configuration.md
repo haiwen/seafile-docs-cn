@@ -3,7 +3,7 @@
 
 ## Seafile 的网络配置 (ccnet.conf)
 
-你可以通过修改 ccnet/ccnet.conf 文件中的选项来控制 Seafile 的网络参数。下面我们通过一个示例配置来介绍可配置的选项。
+你可以通过修改 conf/ccnet.conf 文件中的选项来控制 Seafile 的网络参数。下面我们通过一个示例配置来介绍可配置的选项。
 
 <pre>
 [General]
@@ -42,7 +42,7 @@ cd seafile-server
 
 ## 存储容量限制 (seafile.conf)
 
-你可以为所有用户设定一个默认的容量上限。这只需要在 seafile-data/seafile.conf 文件中加入以下几行：
+你可以为所有用户设定一个默认的容量上限。这只需要在 seafile.conf 文件中加入以下几行：
 
 <pre>
 [quota]
@@ -54,7 +54,7 @@ default = 2
 
 ## Seafile fileserver配置 (seafile.conf)
 
-Seafile fileserver 的配置在<code>seafile-data/seafile.conf</code>里的<code>[fileserver]</code>段。
+Seafile fileserver 的配置在seafile.conf里的<code>[fileserver]</code>段。
 
 如果你需要为fileserver指定其他端口，或者要启动https，则需要修改fileserver的配置。关于如何为Seahub和fileserver开启https，请参考 [[Seafile web界面启用Https]]。
 

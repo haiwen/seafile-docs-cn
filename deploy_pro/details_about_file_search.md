@@ -3,6 +3,7 @@
   - [当我搜索一个关键词时，没有返回结果](#wiki-search-no-result)
   - [不能搜索加密的文件](#wiki-cannot-search-encrypted-files)
 
+**Note**: Since Seafile Server 5.0.0, all config files are moved to the central **conf** folder. [Read More](../deploy/new_directory_layout_5_0_0.md).
 
 ## <a id="wiki-faq"></a>常见问题
 

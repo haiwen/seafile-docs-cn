@@ -1,10 +1,12 @@
 # seafile.conf 配置
 
+**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+
 存储空间容量设置(seafile.conf)
 ------------------------------
 
 如果你想向所有用户分配存储空间(e.g. 2GB)时 .
-你可以在`seafile-data/seafile.conf`文件中增加以下语句
+你可以在`seafile.conf`文件中增加以下语句
 
     [quota]
     # 单位为 Gb， 请使用数字
@@ -25,7 +27,7 @@
 Seafile fileserver 配置(seafile.conf)
 -------------------------------------
 
-可通过`seafile-data/seafile.conf`的`[fileserver]` (3.1 版之前用 `[httpserver]`) 部分对 Seafile
+可通过`seafile.conf`的`[fileserver]` (3.1 版之前用 `[httpserver]`) 部分对 Seafile
 fileserver 进行配置
 
     [fileserver]

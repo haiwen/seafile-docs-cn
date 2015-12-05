@@ -89,7 +89,7 @@
 ### ccnet 配置
 
 因为你想使用 https 而非 http,
-你需要修改`ccnet/ccnet.conf`中**SERVICE\_URL**字段的值:
+你需要修改`conf/ccnet.conf`中**SERVICE\_URL**字段的值:
 
     SERVICE_URL = https://www.yourdomain.com
 
