@@ -1814,7 +1814,7 @@ After getting the upload link, POST to this link for uploading files.
 
 **Note**
 
-For python client uploading, see <https://github.com/haiwen/webapi-examples/blob/master/python/upload-file.py>
+For python client uploading, see <https://github.com/haiwen/webapi-examples/blob/master/python/upload-file.py>, or it can be done much more easily with elegant [python requests library](http://docs.python-requests.org/en/latest/), see <https://github.com/haiwen/webapi-examples/blob/master/python/upload-file2.py>
 
 #### <a id="update-file"></a>Update file ###
 
