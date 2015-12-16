@@ -127,6 +127,9 @@ SITE_TITLE = 'Seafile'
 ```python
 # 是否允许管理员通过 Web UI 查看用户文件. 默认为 False
 ENABLE_SYS_ADMIN_VIEW_REPO = True
+
+# 允许管理员查看用户的所有非加密文件. 默认为 False.
+ENABLE_SYS_ADMIN_VIEW_REPO = True
 ```
 
 ## 注意
