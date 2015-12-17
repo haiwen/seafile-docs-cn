@@ -92,3 +92,10 @@ cd seafile-server-latest
 cd seafile-server-latest
 ./seaf-fsck.sh --enable-sync [library-id1] [library-id2] ...
 ```
+
+### 开源版5.0.3和企业版5.0.2中的改动
+
+从开源版5.0.3和企业版5.0.2开始，我们对 seaf-fsck 命令作了两项改进：
+
+- 管理员执行 --repair 之后，不需要再执行 --enable-sync 命令。seaf-fsck 会自动将改资料库的所有同步客户端解除同步。用户需要重新同步该资料库。
+- seaf-fsck 会在资料库的历史中添加一个损坏文件和目录的列表，便于用户找到损坏的路径。
