@@ -5,22 +5,24 @@
 - 下载并安装 [python 2.7.4 32 位版本](http://python.org/ftp/python/2.7.4/python-2.7.4.msi)
 - 将 python2.7 的安装路径添加到系统的环境变量中 (PATH 变量)。比如：如果您将 python 2.7.4 安装在`C:\Python27`路径下，那么就将`C:\Python27`添加到环境变量中。
 
+**注意**：一定要使用 Python 2.7.4 32 位版本。64 位版本或不是 2.7.4 的版本不能工作。
+
 ### 下载并解压 Seafile 服务器 ###
 - 获取 [Seafile 服务器](http://seafile.com/download/)的最新版本。
 - 为 Seafile 服务器程序创建一个新的文件夹，比如`C:\SeafileProgram\`。请记住此文件夹的位置，我们将在以后用到它。
-- 将**seafile-server_1.7.0_win32.tar.gz**解压到`C:\SeafileProgram\`目录下。
+- 将**seafile-server_5.0.3_win32.tar.gz**解压到`C:\SeafileProgram\`目录下。
 
 现在，您的目录结构应该像如下这样：
 ```
 C:\SeafileProgram
-         |__ seafile-server-1.7.0
+         |__ seafile-server-5.0.3
 ```
 
 ## 启动与初始化 ##
 
 ### 启动 Seafile 服务器 ###
 
-在`C:\SeafileProgram\seafile-server-1.7.0\`文件夹下，找到**run.bat**文件并双击，以启动 Seafile 服务器。此时，您应该注意到 Seafile 服务器的图标已经出现在您的系统托盘中。
+在`C:\SeafileProgram\seafile-server-5.0.3\`文件夹下，找到**run.bat**文件并双击，以启动 Seafile 服务器。此时，您应该注意到 Seafile 服务器的图标已经出现在您的系统托盘中。
 
 ### 选择一个磁盘作为 Seafile 服务器数据的存储位置 ###
 
