@@ -2,13 +2,14 @@
 
 LDAP (Light-weight Directory Access Protocol) 是企业广泛部署的用户信息管理服务器，微软的活动目录服务器（Active Directory）完全兼容 LDAP。这个文档假定您已经了解了 LDAP 相关的知识和术语。
 
-在目前的 Seahub，只支持 email 格式的用户名登陆，所以，使用 UNIX 和 Windows Domain 用户名并不能登录到 Seahub，后续版本中会对此进行改进.
+社区版只支持用 Email 登录。 从 5.0 开始 Seafile 企业版支持用用户名登录，不过需要[配置和开启 AD/LDAP 同步功能](http://manual.seafile.com/deploy/ldap_user_sync.html)。
 
 Seafile 会通过数据库和 LDAP 来搜寻用户. 默认首先搜寻 LDAP. （请注意，在安装时设置的 Seafile 管理员账户，会始终保存在 SQLite/MySQL 数据库中。）
 
+
 ## LDAP 用户管理
 
-Seafile 如下管理来自 LDAP 中的用户：
+Seafile 用如下方法管理来自 LDAP 中的用户：
 
 * 当一个 LDAP 用户第一次登录的时候，他会被自动导入到 Seafile 的数据库中（ccnet 数据库的 LDAPUser 表）。
 * 系统管理员可以对导入的 LDAP 用户进行管理，包括禁用、删除、设置为系统管理员等。
@@ -21,7 +22,7 @@ Seafile 如下管理来自 LDAP 中的用户：
 
 关于这项功能的更详细信息请参考 [这个文档](http://manual.seafile.com/deploy/ldap_user_sync.html)。
 
-## LINUX 下连接LDAP/AD
+## LINUX 下连接 LDAP/AD
 
 要通过 LDAP 来认证用户，您需要把下面的配置加入 ccnet.conf。需要注意的是下面的配置只是例子，您需要根据自己的实际情况来进行修改。
 
@@ -35,10 +36,10 @@ Seafile 如下管理来自 LDAP 中的用户：
 各个配置选项的含义如下：
 
 * HOST: LDAP 服务器的地址 URL。如果您的 LDAP 服务器监听在非标准端口上，您也可以在 URL 里面包含端口号，如 ldap://ldap.example.com:389。
-* BASE: 在 LDAP 服务器的组织架构中，用于查询用户的根节点的唯一名称（Distingushed Name，简称 DN）。这个节点下面的所有用户都可以访问 Seafile。
+* BASE: 在 LDAP 服务器的组织架构中，用于查询用户的根节点的唯一名称（Distingushed Name，简称 DN）。这个节点下面的所有用户都可以访问 Seafile。注意这里必须使用 *OU* 或 *CN*，即 `BASE = cn=users,dc=example,dc=com` 或者 `BASE = ou=users,dc=example,dc=com` 可以工作。但是 `BASE = dc=example,dc=com` 不能工作。`BASE` 中可以填多个 OU, 用 `;` 分隔。
 * USER_DN: 用于查询 LDAP 服务器中信息的用户的 DN。这个用户应该有足够的权限访问 BASE 以下的所有信息。通常建议使用 LDAP/AD 的管理员用户。
 * PASSWORD: USER_DN 对应的用户的密码。
-* LOGIN_ATTR: 用作 Seafile 中用户登录 ID 的 LDAP 属性。在 LDAP 里面，每个用户都关联了很多属性。默认我们使用 'mail' 作为登录 ID。
+* LOGIN_ATTR: 用作 Seafile 中用户登录 ID 的 LDAP 属性，可以使用 `mail` 或者 `userPrincipalName`。
 
 如果您使用的是 AD，以下信息将有助于您配置：
 
@@ -74,12 +75,17 @@ Seafile 如下管理来自 LDAP 中的用户：
     PASSWORD = secret
     LOGIN_ATTR = userPrincipalName
 
-`userPrincipalName` 是一个 AD 支持的特殊属性。它具有 `username@domain-name` 的格式，其中 `username` 是 Windows 用户的登录名。使用上述配置之后，用户可以用 `username@domain-name` 作为用户名登录 Seafile。注意这个登录名并不是真实的邮件地址，因此 Seafile 的邮件通知功能可能不能工作。
+`userPrincipalName` 是一个 AD 支持的特殊属性。它具有 `username@domain-name` 的格式，其中 `username` 是 Windows 用户的登录名。使用上述配置之后，用户可以用 `username@domain-name` 作为用户名登录 Seafile。
 
-注意：
+注意：如果配置项包含中文，需要确保配置文件使用 UTF8 编码保存。
 
-1. 如果配置项包含中文，需要确保配置文件使用 UTF8 编码保存。
-2. 这个文档中描述的配置方法经过很多人在不同的 LDAP/AD 环境下试过，肯定是能工作的。
+#### 配置建议
+
+Seafile 依赖于每个用户有一个不变的类邮箱格式的唯一标示。如果您的企业为每个用户配置了一个邮箱地址，推荐使用邮箱地址作为每个用户的唯一标示。否则推荐使用 AD/LDAP 中的 `userPrincipalName` (`LOGIN_ATTR = userPrincipalName`) 作为每个用户的唯一标示。同时使用企业版的 AD 同步功能，将用户名、邮箱、姓名同步到 Seafile 中。这样的好处是：
+
+* 用户可以用 username 来登录
+* 用户可以用姓名来搜索其他用户
+* 邮件同时会发送到正确的邮箱地址中，而不是发送到 `username@domain-name`。
 
 
 ## 测试你的 LDAP 配置
