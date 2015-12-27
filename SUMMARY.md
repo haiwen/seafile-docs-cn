@@ -52,7 +52,6 @@
    * [seahub_settings.py](config/seahub_settings_py.md)
    * [发送邮件提醒](config/sending_email.md)
    * [个性化邮件提醒](config/customize_email_notifications.md)
-   * [用户管理](config/user_options.md)
    * [存储容量与文件上传/下载大小限制](config/quota_and_size_options.md)
    * [自定义 Web](config/seahub_customization.md)
 * [日常维护](maintain/README.md)
