@@ -55,7 +55,7 @@
    * [用户管理](config/user_options.md)
    * [存储容量与文件上传/下载大小限制](config/quota_and_size_options.md)
    * [自定义 Web](config/seahub_customization.md)
-* [管理员手册](maintain/README.md)
+* [日常维护](maintain/README.md)
    * [账户管理](maintain/account.md)
    * [日志](maintain/logs.md)
    * [备份与恢复](maintain/backup_recovery.md)
