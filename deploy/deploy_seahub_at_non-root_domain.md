@@ -10,9 +10,10 @@
 <pre>
 SERVE_STATIC = False
 MEDIA_URL = '/seafmedia/'
-SITE_ROOT = '/seafile/'
 COMPRESS_URL = MEDIA_URL
 STATIC_URL = MEDIA_URL + 'assets/'
+SITE_ROOT = '/seafile/'
+LOGIN_URL = '/seafile/accounts/login/'    # NOTE: since version 5.0.4
 </pre>
 
 我们将使用 Nginx 来管理静态文件(js, css, etc), 所以将 <code>SERVE_STATIC</code> 设置为 `False`。
