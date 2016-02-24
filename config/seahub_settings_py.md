@@ -85,7 +85,7 @@ ENABLE_REPO_HISTORY_SETTING = True
 ## 在线文件查看设置
 
 ```python
-# 是否使用 pdf.js 来在线查看文件. 默认喂 `True`
+# 是否使用 pdf.js 来在线查看文件. 默认为 `True`
 USE_PDFJS = True
 
 # 在线文件查看最大文件大小，默认为 30M.
