@@ -152,4 +152,4 @@ USE_PAGED_RESULT = true
 
 ### 从 LDAP 中导入群组
 
-请参考[这个文档](http://manual.seafile.com/deploy/ldap_group_sync.html)。
+请参考[这个文档](http://manual.seafile.com/deploy_pro/ldap_group_sync.html)。
