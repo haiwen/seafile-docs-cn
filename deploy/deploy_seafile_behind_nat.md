@@ -73,7 +73,7 @@ SERVICE_URL = http://<Your WAN IP>
 FILE_SERVER_ROOT = http://<Your WAN IP>/seafhttp
 ```
 
-大部分路由器都支持 NAT loopback. 当你通过内网访问 Seafile 时, 即时你的外部 IP 被占用，文件上传/下载仍然会工作。
+大部分路由器都支持 NAT loopback. 当你通过内网访问 Seafile 时, 即使使用外部 IP ，流量仍然会直接通过内网走。
 
 ## 使用域名解析服务
 
@@ -92,7 +92,7 @@ FILE_SERVER_ROOT = http://<Your WAN IP>/seafhttp
 
 ## 更改 Seafile 配置
 
-当你配置好域名解析服务之后，需要对 `ccnet.conf` 进行更改:
+当你配置好域名解析服务之后，需要对 `ccnet.conf` 进行更改 (或者通过管理员 Web 界面来修改):
 
 ```
 SERVICE_URL = http://<你的域名>:8000
