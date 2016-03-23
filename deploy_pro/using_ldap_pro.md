@@ -1,10 +1,6 @@
-# Seafile LDAP 和 Active Directory 配置
-
-注意：这个文档是社区版的 LDAP 配置文档。企业版中包含了 LDAP 用户/群组同步等高级功能，企业版用户请参考[企业版文档](../deploy_pro/using_ldap_pro.md)
+# Seafile 企业版 LDAP 和 Active Directory 配置
 
 LDAP (Light-weight Directory Access Protocol) 是企业广泛部署的用户信息管理服务器，微软的活动目录服务器（Active Directory）完全兼容 LDAP。这个文档假定您已经了解了 LDAP 相关的知识和术语。
-
-社区版只支持用 Email 登录。 从 5.0 开始 Seafile 企业版支持用用户名登录，不过需要配置和开启 AD/LDAP 同步功能。
 
 ## Seafile 是如何管理 LDAP 用户的
 
@@ -82,6 +78,27 @@ LOGIN_ATTR = mail
 
 配置选项的含义与 AD 配置相同。不过，你只能使用 mail 作为用户的 ID，因为其他 LDAP 服务器不支持 UserPrincipalName。
 
+### 测试你的 LDAP 配置
+
+从专业版 5.0.0 开始，我们提供了一个测试你的 LDAP 配置合法性的命令行工具。
+
+使用这个工具之前，请先确定你使用的是专业版而且 Linux 系统中安装了 `python-ldap` 这个包。
+
+```
+sudo apt-get install python-ldap
+```
+
+然后你可以执行测试：
+
+```
+cd seafile-server-latest
+./pro/pro.py ldapsync --test
+```
+
+测试脚本会检查 ccnet.conf 里面 `[LDAP]` 下面的配置。如果一切正常工作，它会打印出搜索的前十个用户。如果出错，它会打印出可能出错的配置信息。
+
+注意当前这个脚本并不支持测试 `[LDAP_SYNC]` 下面的 LDAP 同步配置。
+
 ## LDAP 高级配置选项
 
 ### 使用多个 BASE DN
@@ -109,3 +126,80 @@ FILTER = memberOf=CN=group,CN=developers,DC=example,DC=com
 FILTER = memberOf={dsquery 命令的输出}
 ```
 
+### 使用结果分页扩展（paged results extension）
+
+LDAP 协议 v3 支持一个称为 "paged results" 的扩展功能。当您在 LDAP 中有大量用户的时候，这个选项能够大大提高列出用户的速度。而且，AD 限制了单次请求中返回的用户条目数量，您需要启用这个选项才能避免查询错误。
+
+在 Seafile 企业版中，在 LDAP 配置中加入以下设置：
+
+```
+USE_PAGED_RESULT = true
+```
+
+## 【可选】配置 AD 用户同步
+
+在企业版中，你还可以把 AD 中用户的其他信息导入到 Seafile 的内部数据库。这些信息包括：
+
+- 用户的全名，部门等。这些信息可以用户方便地根据人名+部门来查找用户，在共享文件的时候比较有用。
+- 用户的 Windows 登录名。导入到数据库之后，用户可以直接使用 Windows 用户名来登录 Seafile。
+- 当用户在 AD 中被删除之后（比如离职），Seafile 会自动禁用他的账户。
+
+### AD 用户同步配置
+
+把以下配置添加到 ccnet.conf 里：
+
+```
+[LDAP]
+......
+
+[LDAP_SYNC]
+ENABLE_USER_SYNC = true
+SYNC_INTERVAL = 60
+USER_OBJECT_CLASS = person
+ENABLE_EXTRA_USER_INFO_SYNC = true
+FIRST_NAME_ATTR = givenName
+LAST_NAME_ATTR = sn
+USER_NAME_REVERSE = true
+DEPT_ATTR = department
+UID_ATTR = sAMAccountName
+```
+
+各个选项的含义：
+
+- **ENABLE_USER_SYNC**: 设置为 true 以启用用户同步功能
+- **SYNC_INTERVAL**: 以分钟为单位的同步间隔。默认为 60 分钟同步一次。
+- **USER_OBJECT_CLASS**: 用户对象的 class 名字。在 AD 中一般是 "person"。默认值也是 "person"。
+- **ENABLE_EXTRA_USER_INFO_SYNC**: 同步用户的额外信息，包括用户的全名，部门，Windows 登录名。
+- **FIRST_NAME_ATTR**: 用户名字对应的属性，默认使用 "givenName" 属性。
+- **LAST_NAME_ATTR**: 用户的姓氏属性。默认使用 "sn" 属性。
+- **USER_NAME_REVERSE**: 中文的人名里面姓氏和名字与西方的习惯相反，所以对中文名字，需要把这个选项设置为 true。
+- **DEPT_ATTR**: 用户的部门属性。默认使用 "department" 属性。
+- **UID_ATTR**: 用户的 Windows 登录名属性。一般使用 "sAMAccountName" 属性。
+
+如果你选择了 "userPrincipalName" 作为用户的唯一 ID，Seafile 不能使用这个 ID 作为 email 地址来发送通知邮件给用户。如果你的 AD 中也有用户的 email 地址属性，你可以把这个属性同步到 Seafile 的内部数据库中。配置的选项是：
+
+- **CONTACT_EMAIL_ATTR**: 一般来说你可以把它设置为 "mail" 属性。
+
+### 手工执行 AD 同步
+
+在配置完成后，你可以手工执行同步来测试配置是否有效。
+
+```
+cd seafile-server-lastest
+./pro/pro.py ldapsync
+```
+
+### 让 AD 同步不要自动导入新用户到数据库中
+
+在默认情况下，AD 同步会把 AD 中检测到的新用户自动同步到 Seafile 的数据库中。这些新创建的用户会被自动设置为“已激活”。这些用户会被算入 license 用户数量中。
+
+我们考虑以下场景：你在 AD 中有很多用户。但是你不想一次购买足够多的 license 把所有用户一次全部加入 Seafile。此时自动导入新用户的功能就会很容易把你的 license 消耗完毕，导致系统不可用。解决方案是：新用户只有在第一次登录的时候创建，而 AD 同步不会自动创建新用户。我们提供了一个选项来满足这种需求：
+
+```
+[LDAP_SYNC]
+IMPORT_NEW_USER = false
+```
+
+## 【可选】导入 AD 中的群组到 Seafile
+
+请参考[英文的文档](http://manual.seafile.com/deploy_pro/ldap_group_sync.html)
