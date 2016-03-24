@@ -7,7 +7,10 @@ Seafile 包含以下系统组件：
 - **Ccnet server** (``ccnet-server``)： 内部 RPC 服务进程，连接多个组件。
 - **Controller**: 监控 ccnet 和 seafile 进程，必要时会重启进程。
 
-下面这张图显示了将 Seafile 部署在 Nginx/Apache 后的架构。客户端需要在选项界面中开启 "sync over HTTP/HTTPS"。
+下面这张图显示了将 Seafile 部署在 Nginx/Apache 后的架构。
 
 ![Seafile Sync](../images/seafile-arch-new-http.png)
+
+- 所有 Seafile 服务都可以配置在 Nginx/Apache 后面，由 Nginx/Apache 提供标准的 http(s) 访问。
+- 当用户通过 seahub 访问数据时，seahub 通过 ccnet 提供的内部 RPC 来从 seafile server 获取数据。
 
