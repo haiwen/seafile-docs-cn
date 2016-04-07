@@ -54,6 +54,10 @@ USER_STRONG_PASSWORD_REQUIRED = False
 # '3' 表示至少包含以上四种类型中的 3 个
 USER_PASSWORD_STRENGTH_LEVEL = 3
 
+# 管理员添加／重置用户后，强制用户修改登录密码
+# 在版本 5.1.1 加入, 默认开启
+FORCE_PASSWORD_CHANGE = True
+
 # cookie 的保存时限，(默认为 2 周).
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
 
@@ -133,3 +137,4 @@ ENABLE_SYS_ADMIN_VIEW_REPO = True
 
 -  请重启 Seahub 以使更改生效.
 -  如果更改没有生效，请删除 `seahub_setting.pyc` 缓存文件.
+-  如果需要在 `seahub_settings.py` 里添加中文注释，请把 `# -*- coding: utf-8 -*-` 写入文件第一行，并单独为一行。
