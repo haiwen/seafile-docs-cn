@@ -8,8 +8,8 @@
 Ubuntu 14.04，可用以下命令安装全部依赖。
  
 ```
-sudo apt-get install openjdk-7-jre poppler-utils  libpython2.7 python-pip mysql-server \
-  python-setuptools python-imaging python-mysqldb python-memcache
+sudo apt-get install openjdk-7-jre poppler-utils libpython2.7 python-pip \
+mysql-server python-setuptools python-imaging python-mysqldb python-memcache python-ldap
 
 sudo pip install boto
 ```
@@ -19,8 +19,8 @@ CentOS 6.6 下:
 ```
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
-sudo yum install java-1.7.0-openjdk poppler-utils libreoffice libreoffice-headless \
-  libreoffice-pyuno python-dev python-setuptools python-imaging MySQL-python mysql-server.x86_64
+sudo yum install java-1.7.0-openjdk poppler-utils python-dev python-setuptools \
+python-imaging MySQL-python mysql-server.x86_64 python-memcached python-ldap
 sudo pip install boto
 sudo /etc/init.d/mysqld start
 ```
