@@ -50,7 +50,7 @@
 
 安装 Seafile 服务器之前，请确认已安装以下软件
 
-- python 2.7
+- python 2.7 (从 Seafile 5.1 开始，python 版本最低要求为2.7）
 - python-setuptools
 - python-imaging
 - python-mysqldb
@@ -62,6 +62,10 @@
     #在Debian/Ubuntu系统下
     apt-get update
     apt-get install python2.7 python-setuptools python-imaging python-ldap python-mysqldb python-memcache
+    
+    #在CentOS 6.6
+    python 2.7 需要编译安装，具体可以搜索网上教程。
+    yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached 
 
 ### 安装
 
