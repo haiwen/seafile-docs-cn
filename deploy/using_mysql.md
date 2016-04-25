@@ -59,13 +59,12 @@
 
 <!-- -->
 
-    #在Debian/Ubuntu系统下
+    # 在Debian/Ubuntu系统下
     apt-get update
     apt-get install python2.7 python-setuptools python-imaging python-ldap python-mysqldb python-memcache
-    
-    #在CentOS 6.6
-    python 2.7 需要编译安装，具体可以搜索网上教程。
-    yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached 
+
+    # 在 CentOS 7 下
+    yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached
 
 ### 安装
 

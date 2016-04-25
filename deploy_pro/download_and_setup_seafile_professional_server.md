@@ -6,7 +6,7 @@
 安装依赖库。
 
 Ubuntu 14.04，可用以下命令安装全部依赖。
- 
+
 ```
 sudo apt-get install openjdk-7-jre poppler-utils libpython2.7 python-pip \
 mysql-server python-setuptools python-imaging python-mysqldb python-memcache python-ldap
@@ -14,7 +14,7 @@ mysql-server python-setuptools python-imaging python-mysqldb python-memcache pyt
 sudo pip install boto
 ```
 
-CentOS 6.6 下:
+CentOS 7 下:
 
 ```
 wget https://bootstrap.pypa.io/get-pip.py
@@ -95,5 +95,3 @@ haiwen
 ├── seahub-data
 │   └── avatars         # for user avatars
 ```
-
-

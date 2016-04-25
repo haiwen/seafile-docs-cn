@@ -64,6 +64,9 @@
     apt-get update
     apt-get install python2.7 python-setuptools python-imaging python-ldap sqlite3
 
+    # 在 CentOS 7 下
+    yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached
+
 ### 安装
 
     cd seafile-server-*
