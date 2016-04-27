@@ -105,7 +105,7 @@ Seafile 也在数据库中存储一些重要的元数据。数据库的命名和
 
     mysql -u[username] -p[password] ccnet-db < ccnet-db.sql.2013-10-19-16-00-05
     mysql -u[username] -p[password] seafile-db < seafile-db.sql.2013-10-19-16-00-20
-    mysql -u[username] -p[password] seahub-db.sql.2013-10-19-16-01-05
+    mysql -u[username] -p[password] seahub-db < seahub-db.sql.2013-10-19-16-01-05
 
 **SQLite**
 
@@ -118,4 +118,3 @@ Seafile 也在数据库中存储一些重要的元数据。数据库的命名和
     sqlite3 ccnet/GroupMgr/groupmgr.db < groupmgr.db.bak.xxxx
     sqlite3 seafile-data/seafile.db < seafile.db.bak.xxxx
     sqlite3 seahub.db < seahub.db.bak.xxxx
-

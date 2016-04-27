@@ -11,7 +11,6 @@
    * [Nginx 下启用 Https](deploy/https_with_nginx.md)
    * [Apache 下配置 Seahub](deploy/deploy_with_apache.md)
    * [Apache 下启用 Https](deploy/https_with_apache.md)
-   * [Seafile AD/LDAP 配置](deploy/using_ldap.md)
    * [升级](deploy/upgrade.md)
    * 其他部署说明
        * [开机启动 Seafile](deploy/start_seafile_at_system_bootup.md)
