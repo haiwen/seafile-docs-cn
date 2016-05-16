@@ -43,6 +43,10 @@ LOGIN_REMEMBER_DAYS = 7
 # 用户输入密码错误次数超过改设置后，显示验证码
 LOGIN_ATTEMPT_LIMIT = 3
 
+# 如果登录密码输错次数超过 ``LOGIN_ATTEMPT_LIMIT``，冻结账号
+# since 5.1.2
+FREEZE_USER_ON_LOGIN_FAILED = True
+
 # 用户密码最少长度
 USER_PASSWORD_MIN_LENGTH = 6
 
@@ -131,6 +135,14 @@ SITE_TITLE = 'Seafile'
 ```python
 # 是否允许管理员通过 Web UI 查看用户文件. 默认为 False
 ENABLE_SYS_ADMIN_VIEW_REPO = True
+
+# 允许管理员查看用户非加密资料库。
+# 默认为 False
+ENABLE_SYS_ADMIN_VIEW_REPO = True
+
+# 未登录用户，外链页面下载／上传需要提供邮箱，做审计。
+# Since version 5.1.4
+ENABLE_SHARE_LINK_AUDIT = True
 ```
 
 ## 注意
