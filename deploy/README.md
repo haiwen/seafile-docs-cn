@@ -2,11 +2,11 @@
 
 此文档用来说明如何使用预编译安装包来部署 Seafile 服务器.
 
-### 使用安装脚本在 Ubuntu 14.04 上快速安装
+### 使用安装脚本在 Ubuntu 14.04 或 CentOS 7 上快速安装
 
-我们准备了一个安装脚本帮助您在 Ubuntu 14.04 快速的安装部署 Seafile 服务(配置好 MariaDB, Memcached, WebDAV, Ngnix 和开机自动启动脚本)： https://github.com/haiwen/seafile-server-installer-cn
+我们准备了一个安装脚本帮助您在 Ubuntu 14.04 或 CentOS 7 快速的安装部署 Seafile 服务(配置好 MariaDB, Memcached, WebDAV, Ngnix 和开机自动启动脚本)： https://github.com/haiwen/seafile-server-installer-cn
 
-在此基础上，您可以继续根据下面的文档来配置 AD，邮箱发送等服务。  
+在此基础上，您可以继续根据下面的文档来配置邮箱发送等服务。  
 
 ### 家庭/个人 环境下部署 Seafile 服务器
 
@@ -27,7 +27,6 @@
 
 高级功能:
 
-* [Seafile LDAP 配置](using_ldap.md)
 * [开机启动 Seafile](start_Seafile_at_system_bootup.md)
 * [防火墙设置](using_firewall.md)
 * [Logrotate 管理系统日志](using_logrotate.md)
