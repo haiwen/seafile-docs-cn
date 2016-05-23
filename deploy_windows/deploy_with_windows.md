@@ -7,7 +7,7 @@
 - [所用端口说明](ports_used_by_seafile_windows_server.md)
 - [升级](upgrading_seafile_windows_server.md)
 
-注意：默认情况下，Seafile 需要用到 8000, 8082, 10001, 12001 四个端口。
+注意：默认情况下，Seafile 需要用到 8000, 8082 两个端口。
 
 ## 服务器管理
 
