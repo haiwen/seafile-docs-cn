@@ -41,17 +41,9 @@ C:\SeafileProgram
 
 初始化服务器之后，还需配置以下选项:
 
-- 右击 Seafile 托盘图标，选择"**打开 seafile-server 文件夹**"选项。您的 seafile-server 数据文件夹将会打开。
-- 编辑 `conf/ccnet.conf` 文件。在 `ccnet.conf` 文件中更改以下一行：
-
-```
-SERVICE_URL = XXX
-```
-
+- 打开 Web 端"管理员界面->设置"
 - 将**SERVICE_URL**的值配置成`http://<您的 IP 地址>:8000`。比如您的 Windows 服务器地址为 *192.168.1.100*， 那么配置成`SERVICE_URL = http://192.168.1.100:8000`
 
-
-编辑完成后，右击 Seafile 服务器托盘图标，选择"**重启 Seafile Server**"选项以重启 Seafile 服务器。
 
 ### 访问Seahub ###
 
