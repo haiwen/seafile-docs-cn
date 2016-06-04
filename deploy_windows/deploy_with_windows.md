@@ -19,7 +19,7 @@
 
 ### 安装完后，本地网页无法打开
 
-确保您使用的是 Python 2.7.4 32位版本。
+确保您使用的是 Python 2.7.11 32 位版本。
 
 ### "ERROR: D:/seafile-server\seahub.db not found"
 
@@ -34,11 +34,11 @@
 
 ### 不能通过 Web 端上传或下载文件
 
-请先确保您已经更改了`ccnet.conf`配置文件中的`SERVICE_URL`，且更改正确。
+请先确保您已经更改了`ccnet.conf`配置文件中的`SERVICE_URL`，且更改正确。也可以通过 Web 端"管理员界面->设置"中更改。
 
 ### 浏览器不能获得 css 和 javascript 文件
 
-1. 使用 python 2.7.4 32 位版本。如果您已经安装了 python 的其他版本，请先卸载然后安装 python 2.7.4 版本。重启  Seafile 服务器确认此问题是否依然存在。
+1. 使用 python 2.7.11 32 位版本。如果您已经安装了 python 的其他版本，请先卸载然后安装 python 2.7.11 版本。重启  Seafile 服务器确认此问题是否依然存在。
 2. 将注册表路径`HKEY_CLASSES_ROOT\MIME\Database\Content Type`下的非 ASCII 键删除，然后重试。
 
 ### 如何移动 seafile-server 文件夹
