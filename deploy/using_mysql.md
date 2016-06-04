@@ -231,14 +231,14 @@
 <!-- -->
 
     pgrep -f seafile-controller # 查看 Seafile 进程
-    pgrep -f "manage.py run_gunicorn" # 查看 Seahub 进程
+    pgrep -f "seahub" # 查看 Seahub 进程
 
 -   使用**pkill**命令杀掉相关进程
 
 <!-- -->
 
     pkill -f seafile-controller # 结束 Seafile 进程
-    pkill -f "manage.py run_gunicorn" # 结束 Seafile 进程
+    pkill -f "seahub" # 结束 Seafile 进程
 
 OK!
 ---
