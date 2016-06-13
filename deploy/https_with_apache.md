@@ -1,5 +1,7 @@
 # Apache 下启用 Https
 
+请使用 Apache 2.4 版本。
+
 ## 通过 OpenSSL 生成 SSL 数字认证
 
 
@@ -10,38 +12,46 @@
 
 ## 在 Seahub 端启用 https
 
-假设你已经按照[Apache 下配置 Seahub](deploy_with_apache.md)对 Apache 进行了相关设置.请启用 mod\_ssl
+假设你已经按照[Apache 下配置 Seahub](deploy_with_apache.md)对 Apache 进行了相关设置.请启用  `mod_ssl`
 
+```
     [sudo] a2enmod ssl
+```
 
 接下来修改你的 Apache 配置文件，这是示例:
 
 ```
-    <VirtualHost *:443>
-      ServerName www.myseafile.com
-      DocumentRoot /var/www
-      Alias /media  /home/user/haiwen/seafile-server-latest/seahub/media
+<VirtualHost *:443>
+  ServerName www.myseafile.com
+  DocumentRoot /var/www
 
-      SSLEngine On
-      SSLCertificateFile /path/to/cacert.pem
-      SSLCertificateKeyFile /path/to/privkey.pem
+  SSLEngine On
+  SSLCertificateFile /path/to/cacert.pem
+  SSLCertificateKeyFile /path/to/privkey.pem
 
-      RewriteEngine On
+  Alias /media  /home/user/haiwen/seafile-server-latest/seahub/media
 
-      #
-      # seafile fileserver
-      #
-      ProxyPass /seafhttp http://127.0.0.1:8082
-      ProxyPassReverse /seafhttp http://127.0.0.1:8082
-      RewriteRule ^/seafhttp - [QSA,L]
+  <Location /media>
+    ProxyPass !
+    Require all granted
+  </Location>
 
-      #
-      # seahub
-      #
-      RewriteRule ^/(media.*)$ /$1 [QSA,L,PT]
-      RewriteCond %{REQUEST_FILENAME} !-f
-      RewriteRule ^(.*)$ /seahub.fcgi/$1 [QSA,L,E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-    </VirtualHost>
+  RewriteEngine On
+
+  #
+  # seafile fileserver
+  #
+  ProxyPass /seafhttp http://127.0.0.1:8082
+  ProxyPassReverse /seafhttp http://127.0.0.1:8082
+  RewriteRule ^/seafhttp - [QSA,L]
+
+  #
+  # seahub
+  #
+  SetEnvIf Request_URI . proxy-fcgi-pathinfo=unescape
+  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+  ProxyPass / fcgi://127.0.0.1:8000/
+</VirtualHost>
 ```
 
 ## 修改 SERVICE_URL 和 FILE_SERVER_ROOT
