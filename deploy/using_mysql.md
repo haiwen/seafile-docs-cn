@@ -55,16 +55,20 @@
 - python-imaging
 - python-mysqldb
 - python-ldap
+- python-urllib3
 - python-memcache (或者 python-memcached)
 
-<!-- -->
 
-    # 在Debian/Ubuntu系统下
-    apt-get update
-    apt-get install python2.7 python-setuptools python-imaging python-ldap python-mysqldb python-memcache
+```
+# 在Debian/Ubuntu系统下
+apt-get update
+apt-get install python2.7 python-setuptools python-imaging python-ldap python-mysqldb python-memcache python-urllib3
+```
 
-    # 在 CentOS 7 下
-    yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached
+```
+# 在 CentOS 7 下
+yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached python-urllib3
+```
 
 ### 安装
 

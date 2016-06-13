@@ -56,16 +56,20 @@
 - python-setuptools
 - python-imaging
 - python-ldap
+- python-urllib3
 - sqlite3
 
-<!-- -->
 
-    #Debian系统下
-    apt-get update
-    apt-get install python2.7 python-setuptools python-imaging python-ldap sqlite3
+```
+#Debian系统下
+apt-get update
+apt-get install python2.7 python-setuptools python-imaging python-ldap sqlite3 python-urllib3
+```
 
-    # 在 CentOS 7 下
-    yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached
+```
+# 在 CentOS 7 下
+yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached python-urllib3
+```
 
 ### 安装
 
