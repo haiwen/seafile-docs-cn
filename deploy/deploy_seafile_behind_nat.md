@@ -45,7 +45,7 @@ Seafile 服务器包含两个组件， 请根据以下规则为 Seafile 组件�
 
 - 打开一个命令行终端
 - 访问 `http://who.is` 得到本机的IP
-- 通过以下命令连接 Seahub 
+- 通过以下命令连接 Seahub
 ````
 telnet <Your WAN IP> 8000
 ```
@@ -60,13 +60,13 @@ telnet <Your WAN IP> 8000
 
 ### 设置 SERVICE_URL 和 FILE_SERVER_ROOT
 
-服务器依赖于 `ccnet.conf` 中的 "SERVICE_URL" 和 `seahub_setting.py` 中的 FILE_SERVER_ROOT 来生成文件的上传/下载链接。如果使用内置的 web 服务器，改为
+服务器依赖于 `ccnet.conf` 中的 "SERVICE_URL" 和 `seahub_setting.py` 中的 FILE_SERVER_ROOT 来生成文件的上传/下载链接 (从 5.0 开始这两个值可以通过 Web 界面来设置）。如果使用内置的 web 服务器，改为
 
 ```
 SERVICE_URL = http://<Your WAN IP>:8000
 ```
 
-如果配置了 Nginx, 则需要修改为 
+如果配置了 Nginx, 则需要修改为
 
 ```
 SERVICE_URL = http://<Your WAN IP>
@@ -103,5 +103,3 @@ SERVICE_URL = http://<你的域名>:8000
 ## 网络设置
 
 你如果使用内置的服务器，需要开启 8000 和 8082 两个端口。如果你的 Seafile 服务器是运行在 Nginx/Apache 环境下，并且开启了 HTTPS, 则需要开启 443 端口。
-
-
