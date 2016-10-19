@@ -229,6 +229,24 @@ password = seafile
 service_name = XE
 ```
 
+修改 `haiwen/conf/seahub_settings.py`，加入以下选项：
+
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'xe',
+        'USER': 'seahub',
+        'PASSWORD': 'seahub',
+        'HOST': '192.168.1.178',
+        'PORT': '1521',
+    },
+    'OPTIONS': {
+        'threaded': True,
+    },
+}
+```
+
 ### 在 Oracle 数据库中创建 Seafile 所需表格
 
 在启动 seafile/ccnet 之前，需要先手工创建表格。创建表格的 SQL 语句在 `seafile-server-latest/create-db/oracle` 目录下面的 `ccnet_db.sql`, `seafile_db.sql`, `seahub_db.sql` 脚本里面。
