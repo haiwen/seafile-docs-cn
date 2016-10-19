@@ -1,4 +1,5 @@
 - [安装依赖库](#wiki-install-libs)
+- [数据库配置](#wiki-setup-oracle)
 - [下载与安装](#wiki-download-and-setup)
 - [启动 Seafile 服务器](#wiki-start-server)
 
@@ -8,7 +9,7 @@ Ubuntu 14.04，可用以下命令安装全部依赖。
 
 ```
 sudo apt-get install openjdk-7-jre poppler-utils libpython2.7 python-pip \
-mysql-server python-setuptools python-imaging python-mysqldb python-memcache \
+mysql-server python-setuptools python-imaging python-memcache \
 python-ldap python-urllib3
 
 sudo pip install boto
@@ -20,15 +21,68 @@ CentOS 7 下:
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
 sudo yum install java-1.7.0-openjdk poppler-utils python-dev python-setuptools \
-python-imaging MySQL-python mysql-server.x86_64 python-memcached python-ldap \
+python-imaging python-memcached python-ldap \
 python-urllib3
 sudo pip install boto
-sudo /etc/init.d/mysqld start
 ```
 
-### 补充说明： 关于 Java
+**补充说明： 关于 Java**
 
 *注意*：Seafile 专业版需要 java 1.7 以上版本, 请用 `java -version` 命令查看您系统中的默认 java 版本. 如果不是 java 7, 那么, 请 [更新默认 java 版本](./change_default_java.md).
+
+### 安装 Oracle 客户端库
+
+从 [Oracle 官网](http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html) 下载 `basic`, `sqlplus` 两个 rpm 包。
+
+在 CentOS/RedHat 下，
+
+```
+sudo rpm -ivh oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
+sudo rpm -ivh oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64.rpm
+```
+
+在 Ubuntu 下，使用 `alien` 程序来安装 rpm 包。
+
+```
+sudo apt-get install alien
+sudo alien -i oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
+sudo alien -i oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64.rpm
+```
+
+安装之后，相应的文件所在路径：
+
+- 库：/usr/lib/oracle/12.1/client64/lib
+- 客户端程序：/usr/lib/oracle/12.1/client64/bin
+
+另外，在 /usr/bin 下面还有一个 sqlplus64 的符号链接指向 /usr/lib/oracle/12.1/client64/bin/sqlplus。
+
+把 Oracle 库的路径加入 `LD_LIBRARY_PATH`:
+
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib
+```
+
+设置 `ORACLE_HOME` 环境变量：
+
+```
+export ORACLE_HOME=/usr/lib/oracle/12.1/client64
+```
+
+**把上面两个配置加入到 `~/.bashrc` 里面，以便重新登录之后仍然生效。**
+
+测试 sqlplus 客户端是否能工作：
+
+```
+sqlplus64 seafile/seafile@192.168.1.178/XE
+```
+
+上述命令通过 seafile 用户和密码访问 Oracle 数据库。命令的格式为 `sqlplus64 {user}/{password}@{server_address}/{service_name}`。`service_name` 是 Oracle 数据库在安装的时候设置的，可以咨询 DBA。
+
+最后安装 Oracle python 客户端库 `cx_Oracle`：
+
+```
+sudo pip install cx_Oracle
+```
 
 ## <a id="wiki-setup-oracle"></a>Oracle数据库配置 ##
 
