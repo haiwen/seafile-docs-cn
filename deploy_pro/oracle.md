@@ -105,7 +105,7 @@ create user seafile identified by seafile default tablespace seafile_ts quota 50
 赋予新用户权限。Seafile 服务器需要使用创建 Sequence 对象的权限。
 
 ```
-grant connect, create table, create sequence to seafile;
+grant connect, create table, create sequence, create trigger to seafile;
 ```
 
 ## <a id="wiki-download-and-setup"></a>下载与安装 Seafile 专业版服务器
