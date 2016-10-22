@@ -11,7 +11,7 @@ Ubuntu 14.04，可用以下命令安装全部依赖。
 
 ```
 sudo apt-get install openjdk-7-jre poppler-utils libpython2.7 python-pip \
-mysql-server python-setuptools python-imaging python-memcache \
+mysql-server python-setuptools python-imaging python-memcache python-dev \
 python-ldap python-urllib3
 
 sudo pip install boto
@@ -188,7 +188,7 @@ haiwen
     │   └── seafile.ini
     ├── installed
     │   └── seafile-server_1.4.0_x86-64.tar.gz
-    ├── seafile-data        
+    ├── seafile-data
     ├── seafile-server-1.4.0  # active version
     │   ├── reset-admin.sh
     │   ├── runtime
@@ -238,8 +238,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'xe',
-        'USER': 'seahub',
-        'PASSWORD': 'seahub',
+        'USER': 'seafile',
+        'PASSWORD': 'seafile',
         'HOST': '192.168.1.178',
         'PORT': '1521',
     },
@@ -247,6 +247,17 @@ DATABASES = {
         'threaded': True,
     },
 }
+```
+
+修改 `haiwen/conf/seafevents.conf`，加入以下选项：
+
+```
+[DATABASE]
+type = oracle
+host = 192.168.1.178
+username = seafile
+password = seafile
+service_name = XE
 ```
 
 ### 在 Oracle 数据库中创建 Seafile 所需表格
