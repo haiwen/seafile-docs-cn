@@ -32,6 +32,7 @@
    * [下载安装 Seafile 专业版服务器](deploy_pro/download_and_setup_seafile_professional_server.md)
    * [从社区版迁移至专业版](deploy_pro/migrate_from_seafile_community_server.md)
    * [升级](deploy_pro/upgrading_seafile_professional_server.md)
+   * [使用 Oracle 数据库部署](deploy_pro/oracle.md)
    * [专业版 AD/LDAP 配置](deploy_pro/using_ldap_pro.md)
    * [同步 AD 群组](deploy_pro/ldap_group_sync.md)
    * [开启 Office/PDF 文件在线预览](deploy_pro/office_documents_preview.md)
