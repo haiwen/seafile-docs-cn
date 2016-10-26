@@ -34,7 +34,7 @@
 
 ### 不能通过 Web 端上传或下载文件
 
-请先确保您已经更改了`ccnet.conf`配置文件中的`SERVICE_URL`，且更改正确。也可以通过 Web 端"管理员界面->设置"中更改。
+请先确保您已经正确设置了 `SERVICE_URL` 和 `FILE_SERVER_ROOT`。这可以通过 Web 端"管理员界面->设置"中更改。
 
 ### 浏览器不能获得 css 和 javascript 文件
 
