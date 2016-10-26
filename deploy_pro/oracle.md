@@ -34,13 +34,14 @@ sudo pip install boto
 
 ### 安装 Oracle 客户端库
 
-从 [Oracle 官网](http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html) 下载 `basic`, `sqlplus` 两个 rpm 包。
+从 [Oracle 官网](http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html) 下载 `basic`, `sqlplus`, `devel` 三个 rpm 包。
 
 在 CentOS/RedHat 下，
 
 ```
 sudo rpm -ivh oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
 sudo rpm -ivh oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64.rpm
+sudo rpm -ivh oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm
 ```
 
 在 Ubuntu 下，使用 `alien` 程序来安装 rpm 包。
@@ -49,6 +50,7 @@ sudo rpm -ivh oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64.rpm
 sudo apt-get install alien
 sudo alien -i oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
 sudo alien -i oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64.rpm
+sudo alien -i oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm
 ```
 
 安装之后，相应的文件所在路径：
