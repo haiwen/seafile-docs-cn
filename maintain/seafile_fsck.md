@@ -15,7 +15,7 @@ Seafile 服务器包含了 `seafile-fsck` 工具来帮助你恢复这些毁坏�
 
 ```
 cd seafile-server-latest
-./seaf-fsck.sh [--repair|-r] [--enable-sync|-e] [repo_id_1 [repo_id_2 ...]]
+./seaf-fsck.sh [--repair|-r] [repo_id_1 [repo_id_2 ...]]
 ```
 
 seaf-fsck 有检查资料库完整性和修复损坏资料库两种运行模式。
@@ -86,16 +86,4 @@ cd seafile-server-latest
 ./seaf-fsck.sh --repair [library-id1] [library-id2] ...
 ```
 
-由于被损坏的文件或目录在修复过后会被置空，在客户端同步被修复的损坏资料库将会导致数据丢失，即客户端先前好的完整的文件或目录拷贝将被空文件或空目录替代。为了避免这种情况发生，服务器将会阻止客户端同步被**修复**的损坏资料库。系统管理员应该通知用户来恢复损坏的文件或目录，然后执行如下命令让此资料库可以再次同步：
-
-```
-cd seafile-server-latest
-./seaf-fsck.sh --enable-sync [library-id1] [library-id2] ...
-```
-
-### 开源版5.0.3和企业版5.0.2中的改动
-
-从开源版5.0.3和企业版5.0.2开始，我们对 seaf-fsck 命令作了两项改进：
-
-- 管理员执行 --repair 之后，不需要再执行 --enable-sync 命令。seaf-fsck 会自动将改资料库的所有同步客户端解除同步。用户需要重新同步该资料库。
-- seaf-fsck 会在资料库的历史中添加一个损坏文件和目录的列表，便于用户找到损坏的路径。
+seaf-fsck 会自动将改资料库的所有同步客户端解除同步。用户需要重新同步该资料库。seaf-fsck 也会在资料库的历史中添加一个损坏文件和目录的列表，便于用户找到损坏的路径。
