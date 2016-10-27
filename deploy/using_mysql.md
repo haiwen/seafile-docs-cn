@@ -1,6 +1,6 @@
-# 部署 Seafile 服务器（使用 MySQL）
+# 部署 Seafile 服务器（使用 MySQL/MariaDB）
 
-本文档用来说明通过预编译好的安装包来安装并运行基于 MySQL 的 Seafile 服务器。
+本文档用来说明通过预编译好的安装包来安装并运行基于 MySQL/MariaDB 的 Seafile 服务器。(MariaDB 是 MySQL 的分支)
 
 下载
 ----
@@ -50,6 +50,7 @@
 
 安装 Seafile 服务器之前，请确认已安装以下软件
 
+- MariaDB 服务器 (MariaDB 是 MySQL 的分支)
 - python 2.7 (从 Seafile 5.1 开始，python 版本最低要求为2.7）
 - python-setuptools
 - python-imaging
@@ -62,11 +63,13 @@
 ```
 # 在Debian/Ubuntu系统下
 apt-get update
+apt-get install mariadb-server
 apt-get install python2.7 python-setuptools python-imaging python-ldap python-mysqldb python-memcache python-urllib3
 ```
 
 ```
 # 在 CentOS 7 下
+yum install mariadb-server
 yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached python-urllib3
 ```
 
