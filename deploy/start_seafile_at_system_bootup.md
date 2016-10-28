@@ -10,7 +10,7 @@
 
 脚本内容为: (同时需要修改相应的`user`和`script\_path`字段的值)
 
-    #!/bin/sh
+    #!/bin/bash
     ### BEGIN INIT INFO
     # Provides:          seafile-server
     # Required-Start:    $remote_fs $syslog
