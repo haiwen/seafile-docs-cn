@@ -11,7 +11,16 @@
 脚本内容为: (同时需要修改相应的`user`和`script\_path`字段的值)
 
     #!/bin/sh
-
+    ### BEGIN INIT INFO
+    # Provides:          seafile-server
+    # Required-Start:    $remote_fs $syslog
+    # Required-Stop:     $remote_fs $syslog
+    # Default-Start:     2 3 4 5
+    # Default-Stop:      0 1 6
+    # Short-Description: Seafile server
+    # Description:       Start Seafile server
+    ### END INIT INFO
+    
     # 请将 user 改为你的Linux用户名
     user=haiwen
 
@@ -55,35 +64,7 @@
             ;;
     esac
 
-
-### 创建**/etc/init/seafile-server.conf**文件
-
-#### 非使用 MySQL
-
-    start on (runlevel [2345])
-    stop on (runlevel [016])
-
-    pre-start script
-    /etc/init.d/seafile-server start
-    end script
-
-    post-stop script
-    /etc/init.d/seafile-server stop
-    end script
-
-#### 使用 MySQL
-
-    start on (started mysql
-    and runlevel [2345])
-    stop on (runlevel [016])
-
-    pre-start script
-    /etc/init.d/seafile-server start
-    end script
-
-    post-stop script
-    /etc/init.d/seafile-server stop
-    end script
+**注意:** 如果使用本地 mysql 服务器，请把 `# Required-Start:    $remote_fs $syslog` 替换为 `# Required-Start:    $remote_fs $syslog mysql`。
 
 ### 设置 seafile-sever 脚本为可执行文件
 
