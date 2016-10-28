@@ -88,6 +88,11 @@
 ### 设置 seafile-sever 脚本为可执行文件
 
     sudo chmod +x /etc/init.d/seafile-server
+    
+
+### 在 rc.d 中新增 seafile-server
+
+    sudo update-rc.d seafile-server defaults    
 
 ### 完成
 
