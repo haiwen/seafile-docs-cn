@@ -141,7 +141,9 @@
             ;;
     esac
 
-**注意**: 如果你想在 fastcgi 下运行 Seahub,请设置`fastcgi`变量为`true`
+**注意**: 
+- 如果你想在 fastcgi 下运行 Seahub,请设置`fastcgi`变量为`true`
+- 如果使用本地 mysql 服务器，请把 `# Required-Start:    $remote_fs $syslog` 替换为 `# Required-Start:    $remote_fs $syslog mysql`。
 
 ### 为日志文件创建目录
 
