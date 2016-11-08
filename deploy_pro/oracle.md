@@ -24,7 +24,7 @@ wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
 sudo yum install java-1.7.0-openjdk poppler-utils python-dev python-setuptools \
 python-imaging python-memcached python-ldap \
-python-urllib3
+python-urllib3 python-devel gcc
 sudo pip install boto
 ```
 
@@ -275,6 +275,14 @@ SQL> @seahub_db.sql
 ```
 
 ## <a id="wiki-start-server"></a>启动 Seafile 服务器
+
+### 启动 Seafile 前，需要先删除一些 Seafile 自带的文件
+
+在 seafile-server-latest 目录下，运行如下命令
+
+```
+rm seafile/lib/libclntsh*
+```
 
 ### 启动 Seafile 服务器和 Seahub 网站
 
