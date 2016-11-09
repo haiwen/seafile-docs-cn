@@ -301,7 +301,7 @@ rm seafile/lib/libclntsh*
     ./seahub.sh start <port>  # 启动 Seahub 网站 （默认运行在8000端口上）
 
 
-**小贴士:** 你第一次启动 seahub 时，`seahub.sh` 脚本会提示你创建一个 seafile 管理员帐号。
+**小贴士:** 你第一次启动 seahub 时，`seahub.sh` 脚本会提示你创建一个 Seafile 管理员帐号。
 
 服务启动后, 打开浏览器并输入以下地址
 
@@ -322,7 +322,7 @@ rm seafile/lib/libclntsh*
     ./seahub.sh stop # 停止 Seafile 进程
     ./seafile.sh stop # 停止 Seahub
 
--   更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下 (从 5.0 版本开始，可以直接在管理员界面中设置。注意，如果同时在 Web 界面和配置文件中设置了这个值，以 Web 界面的配置为准。):
+-   更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名是`192.168.1.100`), 如下 (从 5.0 版本开始，可以直接在管理员界面中设置。注意，如果同时在 Web 界面和配置文件中设置了这个值，以 Web 界面的配置为准。):
 
 <!-- -->
 
@@ -367,6 +367,39 @@ rm seafile/lib/libclntsh*
 
     pkill -f seafile-controller # 结束 Seafile 进程
     pkill -f "seahub" # 结束 Seafile 进程
+
+
+## 一键安装脚本下额外配置
+
+如果你使用 [一键安装脚本]( https://github.com/haiwen/seafile-server-installer-cn) 部署的 Seafile，在完成上述配置之后，还需：
+
+#### Ubuntu 16.04 root 用户下
+
+在 `/etc/init.d/seafile-server` 文件中，在 `fastcgi_port=8000` 与 `case "$1" in` 之间加入
+
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib
+export ORACLE_HOME=/usr/lib/oracle/12.1/client64
+```
+
+#### Centos 7 root 用户下
+
+1. 在 `/etc/systemd/system/seafile.service` 的 `[Service]` 配置中加入
+ ```
+Environment="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib"
+Environment="ORACLE_HOME=/usr/lib/oracle/12.1/client64"
+```
+
+1. 在 `/etc/systemd/system/seahub.service` 的 `[Service]` 配置中加入
+ ```
+Environment="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib"
+Environment="ORACLE_HOME=/usr/lib/oracle/12.1/client64"
+```
+
+1. 运行
+ ```
+systemctl enable seafile
+```
 
 OK!
 ---
