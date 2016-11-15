@@ -2,23 +2,25 @@
 
 ## 个性化 Logo 及 CSS 样式
 
-假设你目前在使用 2.1.0 版本。
-在 `seafile-server-2.1.0/seahub/media` 下新建 `custom`。将所有的个性化文件放到这个文件夹下。 当你升级到 2.1.1 版本的时候，升级脚本会自动的将此文件夹复制到 `seafile-server-2.1.1/seahub/media` 下。
+创建 ``<seafile-install-path>/seahub-data/custom`` 目录. 在 `seafile-server-latest/seahub/media` 目录下创建一个符号链接： `ln -s ../../../seahub-data/custom custom`.
 
-### 自定义 Logo
+升级过程中，Seafile 升级脚本会自动创建符号链接以维持个性化设置
 
-1. 将 Logo 文件放在 `seahub/media/custom/` 文件夹下
+### 个性化 Logo
+
+1. 将 Logo 文件放在 `seafile-server-latest/seahub/media/custom/` 文件夹下
 2. 在 `seahub_settings.py` 中，重新定义 `LOGO_PATH` 的值。
 
-   <pre>
+   ```python
    LOGO_PATH = 'custom/mylogo.png'
-   </pre>
+   ```
 
-3. 在 `seahub_settings.py` 中，重新定义 `LOGO_URL` 的值。
+3. 在 `seahub_settings.py` 中，重新定义 Logo 宽高的值。
 
-   <pre>
-   LOGO_URL = 'http://your-seafile.com'
-   </pre>
+   ```python
+   LOGO_WIDTH = 149
+   LOGO_HEIGHT = 32
+   ```
 
 ### 自定义 Seahub CSS 样式
 
@@ -31,11 +33,11 @@
 
 ## 个性化 Seahub 页面
 
-**注意:** 仅支持 2.1 及之后的版本
-
 在 ``<seafile-install-path>/seahub-data/custom`` 目录下，新建 ``templates`` 文件夹。
 
 ### 个性化“页脚”页面
+
+**注意:** 6.0 版本之后，Seafile web 页面使用全屏设计, 不再使用页脚。
 
 1. 复制``seahub/seahub/templates/footer.html`` 到 ``seahub-data/custom/templates``。
 2. 自行编写 `footer.html`。
@@ -47,5 +49,5 @@
 
 ### 个性化“帮助”页面
 
-1. 复制 ``seahub/seahub/help/templates/help.html``到 ``seahub-data/custom/templates``。
+1. 复制 ``seahub/seahub/help/templates/help.html`` 到 ``seahub-data/custom/templates``。
 2. 自行编写 `help.html`。
