@@ -49,5 +49,5 @@
 
 ### 个性化“帮助”页面
 
-1. 复制 ``seahub/seahub/help/templates/help.html`` 到 ``seahub-data/custom/templates``。
-2. 自行编写 `help.html`。
+1. 复制 ``seahub/seahub/help/templates`` 目录到 ``seahub-data/custom/``。
+2. 自行编写 `seahub-data/custom/templates/help` 目录下的 html 文件。

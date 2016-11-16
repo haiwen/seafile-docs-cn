@@ -51,6 +51,7 @@
        * [集群中启用搜索和后台服务](deploy_pro/enable_search_and_background_tasks_in_a_cluster.md)
        * [NFS 下集群安装](deploy_pro/setup_seafile_cluster_with_nfs.md)
        * [升级集群](deploy_pro/upgrade_a_cluster.md)
+   * [用户角色与权限](deploy_pro/roles_permissions.md)
    * [配置选项](deploy_pro/configurable_options.md)
    * [常见问题解答](deploy_pro/faq_for_seafile_pro_server.md)
    * [软件许可协议](deploy_pro/license-pro-edition.md)
