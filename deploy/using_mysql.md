@@ -50,7 +50,7 @@
 
 安装 Seafile 服务器之前，请确认已安装以下软件
 
-- MariaDB 服务器 (MariaDB 是 MySQL 的分支)
+- MariaDB 或者 MySQL 服务器 (MariaDB 是 MySQL 的分支)
 - python 2.7 (从 Seafile 5.1 开始，python 版本最低要求为2.7）
 - python-setuptools
 - python-imaging

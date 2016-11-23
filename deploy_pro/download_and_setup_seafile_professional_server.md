@@ -5,14 +5,15 @@
 
 安装依赖库。
 
-Ubuntu 14.04，可用以下命令安装全部依赖。
+Ubuntu 16.04，可用以下命令安装全部依赖。
 
 ```
-sudo apt-get install openjdk-7-jre poppler-utils libpython2.7 python-pip \
-mysql-server python-setuptools python-imaging python-mysqldb python-memcache \
-python-ldap python-urllib3
+sudo apt-get install openjdk-8-jre poppler-utils libpython2.7 python-pip \
+mysql-server python-setuptools python-imaging python-mysqldb python-memcache python-ldap \
+python-urllib3
 
-sudo pip install boto
+sudo pip install boto requests
+sudo ln -sf /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java /usr/bin/
 ```
 
 CentOS 7 下:
