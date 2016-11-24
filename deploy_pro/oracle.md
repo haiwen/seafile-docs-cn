@@ -22,7 +22,7 @@ CentOS 7 下:
 ```
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
-sudo yum install java-1.7.0-openjdk poppler-utils python-dev python-setuptools \
+sudo yum install java-1.7.0-openjdk poppler-utils python-setuptools \
 python-imaging python-memcached python-ldap \
 python-urllib3 python-devel gcc
 sudo pip install boto
