@@ -21,8 +21,8 @@ CentOS 7 下:
 ```
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
-sudo yum install java-1.7.0-openjdk poppler-utils python-dev python-setuptools \
-python-imaging MySQL-python mysql-server.x86_64 python-memcached python-ldap \
+sudo yum install java-1.7.0-openjdk poppler-utils python-setuptools \
+python-imaging MySQL-python mariadb-server python-memcached python-ldap \
 python-urllib3
 sudo pip install boto
 sudo /etc/init.d/mysqld start
