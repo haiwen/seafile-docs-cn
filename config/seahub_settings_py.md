@@ -133,11 +133,7 @@ SITE_TITLE = 'Seafile'
 ## 专业版选项
 
 ```python
-# 是否允许管理员通过 Web UI 查看用户文件. 默认为 False
-ENABLE_SYS_ADMIN_VIEW_REPO = True
-
-# 允许管理员查看用户非加密资料库。
-# 默认为 False
+# 是否允许管理员通过 Web 查看用户非加密资料库. 默认为 False
 ENABLE_SYS_ADMIN_VIEW_REPO = True
 
 # 未登录用户，外链页面下载／上传需要提供邮箱，做审计。
