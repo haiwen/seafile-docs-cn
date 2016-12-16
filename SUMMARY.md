@@ -66,6 +66,7 @@
 * [日常维护](maintain/README.md)
    * [账户管理](maintain/account.md)
    * [日志](maintain/logs.md)
+   * [清理数据库](maintain/clean_database.md)
    * [备份与恢复](maintain/backup_recovery.md)
    * [Seafile FSCK](maintain/seafile_fsck.md)
    * [Seafile GC](maintain/seafile_gc.md)
