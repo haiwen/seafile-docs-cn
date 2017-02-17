@@ -56,6 +56,15 @@ server {
 
 Nginx 默认设置 "client_max_body_size" 为 1M。如果上传文件大于这个值的话，会报错，相关 HTTP 状态码为 423 ("Request Entity Too Large"). 你可以将值设为 <code>0</code> 以禁用此功能.
 
+如果要上传大于 4GB 的文件，默认情况下 Nginx 会把整个文件存在一个临时文件中，然后发给上游服务器 (seaf-server)，这样容易出错。使用 1.8.0 以上版本同时在 Nginx 配置文件中设置以下内容能解决这个问题：
+
+```
+    location /seafhttp {
+        ... ...
+        proxy_request_buffering off;
+    }
+```
+
 ## 修改 SERVICE_URL 和 FILE_SERVER_ROOT
 
 下面还需要更新 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置项。否则无法通过 Web 正常的上传和下载文件。
