@@ -89,6 +89,7 @@ SERVICE_URL = http://www.myseafile.com
 FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 ```
 
+
 ## 启动 Seafile 和 Seahub
 
 <pre>
