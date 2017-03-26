@@ -57,3 +57,59 @@ ceph-admin-node# rados mkpool seafile-fs
 # -m 64
 -m 128
 ```
+
+### 使用 memcached 集群
+
+在集群环境中，你可能会使用多个 memcached 服务器组成一个集群。你需要在 seafile.conf 中列出所有服务器的地址。加入一下选项：
+
+```
+memcached_options = --SERVER=192.168.1.134 --SERVER=192.168.1.135 --SERVER=192.168.1.136 --POOL-MIN=10 --POOL-MAX=100 --RETRY-TIMEOUT=3600
+```
+
+注意最后有一个 `--RETRY-TIMEOUT=3600` 选项。这个选项对于处理 memcached 服务器宕机的情况非常重要。在一个 memcached 服务器宕机之后，Seafile 服务器会在 `RETRY-TIMEOUT` 秒之内不再尝试使用这个服务器。你需要把这个超时设置到一个相对较大的值，以防止由于频繁重试一个不可用服务器而导致经常给客户端返回错误。
+
+## 使用其他 Ceph 用户
+
+上述的配置会使用默认的Ceph用户（client.admin）来访问 Ceph。从安全性的角度考虑，你可能想使用其他用户来为 Seafile 提供Ceph访问。假设你创建的 Ceph 用户 id 为 seafile，加入以下配置：
+
+```
+[block_backend]
+name = ceph
+ceph_config = /etc/ceph/ceph.conf
+# Sepcify Ceph user for Seafile here
+ceph_client_id = seafile
+pool = seafile-blocks
+memcached_options = --SERVER=localhost --POOL-MIN=10 --POOL-MAX=100
+
+[commit_object_backend]
+name = ceph
+ceph_config = /etc/ceph/ceph.conf
+# Sepcify Ceph user for Seafile here
+ceph_client_id = seafile
+pool = seafile-commits
+memcached_options = --SERVER=localhost --POOL-MIN=10 --POOL-MAX=100
+
+[fs_object_backend]
+name = ceph
+ceph_config = /etc/ceph/ceph.conf
+# Sepcify Ceph user for Seafile here
+ceph_client_id = seafile
+pool = seafile-fs
+memcached_options = --SERVER=localhost --POOL-MIN=10 --POOL-MAX=100
+```
+
+你可以通过以下命令创建 ceph 用户：
+
+```
+ceph auth add client.seafile \
+  mds 'allow' \
+  mon 'allow r' \
+  osd 'allow rwx pool=seafile-blocks, allow rwx pool=seafile-commits, allow rwx pool=seafile-fs'
+```
+
+你还需要把这个用户的 keyring 路径写入 /etc/ceph/ceph.conf 中：
+
+```
+[client.seafile]
+keyring = <path to user's keyring file>
+```

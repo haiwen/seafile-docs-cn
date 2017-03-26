@@ -52,3 +52,12 @@ memcached_options = --SERVER=localhost --POOL-MIN=10 --POOL-MAX=100
 * key_id 和 key 用来提供 OSS 的身份认证。您可以在 OSS 管理界面上找到它们。
 * region 是您创建的 bucket 所在的区域，比如 beijing, hangzhou, shenzhen 等。
 
+## 使用 memcached 集群
+
+在集群环境中，你可能会使用多个 memcached 服务器组成一个集群。你需要在 seafile.conf 中列出所有服务器的地址。加入一下选项：
+
+```
+memcached_options = --SERVER=192.168.1.134 --SERVER=192.168.1.135 --SERVER=192.168.1.136 --POOL-MIN=10 --POOL-MAX=100 --RETRY-TIMEOUT=3600
+```
+
+注意最后有一个 `--RETRY-TIMEOUT=3600` 选项。这个选项对于处理 memcached 服务器宕机的情况非常重要。在一个 memcached 服务器宕机之后，Seafile 服务器会在 `RETRY-TIMEOUT` 秒之内不再尝试使用这个服务器。你需要把这个超时设置到一个相对较大的值，以防止由于频繁重试一个不可用服务器而导致经常给客户端返回错误。

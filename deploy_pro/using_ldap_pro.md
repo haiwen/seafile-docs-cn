@@ -154,6 +154,7 @@ USE_PAGED_RESULT = true
 
 [LDAP_SYNC]
 ENABLE_USER_SYNC = true
+DEACTIVE_USER_IF_NOTFOUND = true
 SYNC_INTERVAL = 60
 USER_OBJECT_CLASS = person
 ENABLE_EXTRA_USER_INFO_SYNC = true
@@ -167,6 +168,7 @@ UID_ATTR = sAMAccountName
 各个选项的含义：
 
 - **ENABLE_USER_SYNC**: 设置为 true 以启用用户同步功能
+- **DEACTIVE_USER_IF_NOTFOUND**: 设置为 true 以禁用已经在 AD 中删除的用户
 - **SYNC_INTERVAL**: 以分钟为单位的同步间隔。默认为 60 分钟同步一次。
 - **USER_OBJECT_CLASS**: 用户对象的 class 名字。在 AD 中一般是 "person"。默认值也是 "person"。
 - **ENABLE_EXTRA_USER_INFO_SYNC**: 同步用户的额外信息，包括用户的全名，部门，Windows 登录名。
