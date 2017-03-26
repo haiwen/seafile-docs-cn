@@ -121,8 +121,6 @@ path_style_request = true
 memcached_options = --SERVER=localhost --POOL-MIN=10 --POOL-MAX=100
 ```
 
-`host` is the address and port of the S3-compatible service. You cannot prepend "http" or "https" to the `host` option. By default it'll use http connections. If you want to use https connection, please set `use_https = true` option.
-
 其中，`host` 是存储服务的地址加端口。你不能在前面添加 http 或者 https 选项。`path_style_request` 选项让 Seafile 使用形如 `https://192.168.1.123:8080/bucketname/object` 去访问对象。在亚马逊的 S3 服务中，默认的 URL 格式是虚拟主机格式，比如 `https://bucketname.s3.amazonaws.com/object`。但是一般的对象存储并不支持这种格式。
 
   [1]: http://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html "the bucket naming rules"
