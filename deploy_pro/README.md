@@ -11,7 +11,6 @@
 S3/Swift/Ceph
 
 - [安装 Seafile 专业版服务器并使用亚马逊 S3](setup_with_mazon_S3.md)
-- [安装 Seafile 专业版服务器并使用 OpenStackSwift](seafile_openstackswif.md)
 - [安装 Seafile 专业版服务器并使用 Ceph](setup_with_Ceph.md)
 - [安装 Seafile 专业版服务器并使用阿里云 OSS](setup_with_oss.md)
 
