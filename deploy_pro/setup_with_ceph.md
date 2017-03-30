@@ -12,6 +12,22 @@ Seafile 可以看作 Ceph/RADOS 的客户端，所以它需要访问 ceph 集群
 seafile-machine# sudo scp user@ceph-admin-node:/etc/ceph/ /etc
 ```
 
+## 安装 Python Ceph 客户端库
+
+WebDAV 访问和文件检索服务依赖于 python ceph 客户端库，因此需要在系统中安装。
+
+在 Debian/Ubuntu 上
+
+```
+sudo apt-get install python-ceph
+```
+
+在 CentOS/RHEL 上
+
+```
+sudo yum install python-rados
+```
+
 ## 编辑 Seafile 配置文件
 
 编辑 `seafile.conf` 文件，添加以下几行：
@@ -42,6 +58,15 @@ memcached_options = --SERVER=localhost --POOL-MIN=10 --POOL-MAX=100
 ceph-admin-node# rados mkpool seafile-blocks
 ceph-admin-node# rados mkpool seafile-commits
 ceph-admin-node# rados mkpool seafile-fs
+```
+
+## 删除安装包中自带的 C++ 库
+
+由于 Seafile 的发布包是在比较老版本的 CentOS 上面编译的，所以自带的 C++ 库以及 ceph 客户端库和新的操作系统不兼容。因此，在比较新的系统上（比如 CentOS 7, Ubuntu 16.04）需要把发布包里面几个自带的库删除掉，以保证 seafile 会使用安装在系统中的库。
+
+```
+cd seafile-server-latest/seafile/lib
+rm librados.so.2 libstdc++.so.6 libnspr4.so
 ```
 
 ## 安装并启用 memcached
