@@ -163,6 +163,7 @@ LAST_NAME_ATTR = sn
 USER_NAME_REVERSE = true
 DEPT_ATTR = department
 UID_ATTR = sAMAccountName
+ACTIVATE_USER_WHEN_IMPORT = true
 ```
 
 各个选项的含义：
@@ -177,6 +178,7 @@ UID_ATTR = sAMAccountName
 - **USER_NAME_REVERSE**: 中文的人名里面姓氏和名字与西方的习惯相反，所以对中文名字，需要把这个选项设置为 true。
 - **DEPT_ATTR**: 用户的部门属性。默认使用 "department" 属性。
 - **UID_ATTR**: 用户的 Windows 登录名属性。一般使用 "sAMAccountName" 属性。
+- **ACTIVATE_USER_WHEN_IMPORT**: 导入用户之后是否立即激活，默认是 true，即立即激活该用户。
 
 如果你选择了 "userPrincipalName" 作为用户的唯一 ID，Seafile 不能使用这个 ID 作为 email 地址来发送通知邮件给用户。如果你的 AD 中也有用户的 email 地址属性，你可以把这个属性同步到 Seafile 的内部数据库中。配置的选项是：
 
