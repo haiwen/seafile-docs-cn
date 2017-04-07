@@ -22,6 +22,16 @@
    LOGO_HEIGHT = 32
    ```
 
+### 个性化 Favicon
+
+1. 将 favicon 文件放在 `seafile-server-latest/seahub/media/custom/` 文件夹下
+2. 在 `seahub_settings.py` 中，重新定义 `FAVICON_PATH` 的值。
+
+
+   ```python
+   FAVICON_PATH = 'custom/favicon.png'
+   ```
+
 ### 自定义 Seahub CSS 样式
 
 1. 在 `seahub/media/custom/` 中新建 CSS 文件，比如： `custom.css`。
