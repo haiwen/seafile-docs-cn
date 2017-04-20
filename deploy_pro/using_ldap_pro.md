@@ -99,6 +99,10 @@ cd seafile-server-latest
 
 注意当前这个脚本并不支持测试 `[LDAP_SYNC]` 下面的 LDAP 同步配置。
 
+### 重启 Seafile 服务
+
+***在更新了 ccnet.conf 之后，你必须重启 Seafile 服务以使得配置生效。***
+
 ## LDAP 高级配置选项
 
 ### 使用多个 BASE DN
