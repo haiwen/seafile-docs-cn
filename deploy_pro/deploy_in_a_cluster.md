@@ -37,13 +37,14 @@ Seafile 服务器节点上有两个主要组件：web 服务(Nginx/Apache)和 Se
 假如一个seafile集群中有三个节点：A、B 和 C
 * 节点 A 作为后端节点，用来执行后端任务
 * 节点 B 和 C 作为前端节点，用来接收来自客户端的请求
+
 ![cluster-nodes](../images/cluster-nodes.png)
 
 ### 安装 Python 依赖库
 
 在每个节点上,您需要安装一些python库。
 
-**首先确定您已经安装了 Python 2.7，**然后执行：
+**首先确定您已经安装了 Python 2.7**，然后执行：
 ```
 sudo easy_install pip
 sudo pip install boto
@@ -104,7 +105,7 @@ bash seafile-server-centos-7-amd64-http 5.0.2
 脚本会让你选择要安装的版本, 按照提示进行选择即可:
 
 * 如果要安装专业版, 需要先将下载好的专业版的包 `seafile-pro-server_VERSION_x86-64.tar.gz` 放到 `/opt/` 目录下
-* 如果是安装开源版，安装脚本在执行过程中会检查**/opt/**目录下是否有指定版本号的安装包，如果存在则会安装此包，否则会从 Seafile 网站下载。所以，为了避免因下载失败而导致安装中断，您可以提前下载好安装包放到**/opt/**目录下。
+* 如果是安装开源版，安装脚本在执行过程中会检查 **/opt/** 目录下是否有指定版本号的安装包，如果存在则会安装此包，否则会从 Seafile 网站下载。所以，为了避免因下载失败而导致安装中断，您可以提前下载好安装包放到 **/opt/** 目录下。
 
 该脚本运行完后会在命令行中打印配置信息和管理员账号密码，请仔细阅读。(你也可以查看安装日志 /opt/seafile/aio_seafile-server.log)，MySQL 密码在 `/root/.my.cnf` 中。
 
@@ -223,7 +224,7 @@ es_port = 9500
 
 首先停止seafile服务
 
-需要在远程数据库里创建3个数据
+需要在远程数据库里创建3个数据库
 
 ```
 create database `ccnet_db` character set = 'utf8';
@@ -305,7 +306,7 @@ password = seafile
 name = seahub_db
 ```
 
-再启动seafile服务，调用命令 `seafile-server-latest/reset-admin.sh` 可创建新的管理员账号。
+再启动seafile服务，调用命令 `seafile-server-latest/reset-admin.sh` 可重置新的管理员账号。
 
 ## 配置出多个节点
 
@@ -409,8 +410,8 @@ listen seafile 0.0.0.0:80
     option dontlognull
     option forwardfor
     cookie SERVERID insert indirect nocache
-    server seafileserver01 <ip of frontend node1>:80 check port 11001 cookie seafileserver01
-    server seafileserver02 <ip of frontend node2>:80 check port 11001 cookie seafileserver02
+    server seafileserver01 <ip of frontend node1>:80 check port 12345 cookie seafileserver01
+    server seafileserver02 <ip of frontend node2>:80 check port 12345 cookie seafileserver02
 ```
 
 启动haproxy服务，并测试使用。
