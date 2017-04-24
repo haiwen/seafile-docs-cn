@@ -376,6 +376,10 @@ OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'
 ./seahub.sh stop
 ```
 
+### license文件存放位置
+
+使用专业版的seafile服务需要获取授权文件，获取该文件后应该拷贝放置到sefile的顶级安装目录下，使用脚本安装部署的用户请将 `license` 文件放在 `/opt/seafile` 目录下，重启服务即可生效。
+
 ## 负载均衡配置
 
 ### HAproxy
