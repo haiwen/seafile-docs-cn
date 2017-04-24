@@ -32,7 +32,7 @@ Seafile 服务器节点上有两个主要组件：web 服务(Nginx/Apache)和 Se
 
 ### 硬件
 
-至少2台Linux服务器，至少2GB RAM。
+至少3台Linux服务器，至少4核，8GB内存。
 
 假如一个seafile集群中有三个节点：A、B 和 C
 * 节点 A 作为后端节点，用来执行后端任务
@@ -89,23 +89,22 @@ CentOS 7:
 wget https://raw.githubusercontent.com/haiwen/seafile-server-installer-cn/master/seafile-server-centos-7-amd64-http
 ```
 
-运行安装脚本并指定要安装的版本 (5.0.2)
+运行安装脚本并指定要安装的版本 (比如 6.0.10)
 
 Ubuntu：
 ```
-bash seafile-server-ubuntu-14-04-amd64-http 5.0.2
+bash seafile-server-ubuntu-14-04-amd64-http 6.0.10
 ```
 
 CentOS 7：
 
 ```
-bash seafile-server-centos-7-amd64-http 5.0.2
+bash seafile-server-centos-7-amd64-http 6.0.10
 ```
 
-脚本会让你选择要安装的版本, 按照提示进行选择即可:
+脚本会让你选择要安装的版本, 按照提示进行选择即可:(专业版安装请选择'2)')
 
-* 如果要安装专业版, 需要先将下载好的专业版的包 `seafile-pro-server_VERSION_x86-64.tar.gz` 放到 `/opt/` 目录下
-* 如果是安装开源版，安装脚本在执行过程中会检查 **/opt/** 目录下是否有指定版本号的安装包，如果存在则会安装此包，否则会从 Seafile 网站下载。所以，为了避免因下载失败而导致安装中断，您可以提前下载好安装包放到 **/opt/** 目录下。
+* 要安装专业版, 需要先将下载好的专业版的包 `seafile-pro-server_VERSION_x86-64.tar.gz` 放到 `/opt/` 目录下
 
 该脚本运行完后会在命令行中打印配置信息和管理员账号密码，请仔细阅读。(你也可以查看安装日志 /opt/seafile/aio_seafile-server.log)，MySQL 密码在 `/root/.my.cnf` 中。
 
@@ -152,7 +151,9 @@ CACHESIZE="64"
 OPTIONS="-l 0.0.0.0 -m 256"
 
 systemctl restart memcached
+systemctl enable memcached
 ```
+注意：为了避免重启服务后出现不必要的麻烦，请设置 memcached 服务开机自启。
 
 #### 配置 `seafile.conf`
 
@@ -190,12 +191,6 @@ AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
 COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.LocMemCache'
 ```
 
-如果启动了缩略图功能，最好将缩略图存储路径设置为 **共享文件路径**，以便于每个节点都可以通过相同的 **共享文件路径** 创建、获取缩略图
-
-```
-THUMBNAIL_ROOT = 'path/to/shared/folder/'
-```
-
 #### 配置 `seafevents.conf`
 
 在 `seafevents.conf` 中添加以下内容以禁用本地服务器上的文件索引服务,因为文件索引服务应该在专用后台服务器上启动。
@@ -217,7 +212,7 @@ es_host = background.seafile.com
 es_port = 9500
 ```
 
-注意： `enable = true` 应该保持不变。 `es_host = <IP of background node>` 指定后端服务器地址。
+注意： `enabled = true` 应该保持不变。 `es_host = <IP of background node>` 指定后端服务器地址。
 
 
 #### 切换为远程数据库
@@ -310,7 +305,7 @@ name = seahub_db
 
 ## 配置出多个节点
 
-配置多个单机节点，与之前所描述的单机节点部署相同，使用自动化安装脚本在多个主机上部署seafile服务。并且要确保在每个节点上，`seafile-data/httptemp` 应该指向同一个NFS共享文件。安装完成后，将最先部署的单机节点上的配置文件目录 `conf` 下的所有配置文件复制替换掉刚部署的其他几个节点的配置文件。
+配置多个节点，与之前所描述的单机节点部署相同，使用自动化安装脚本在多个主机上部署seafile服务。安装完成后，将最先部署的单机节点上的配置文件目录 `conf` 下的所有配置文件复制替换掉刚部署的其他几个节点的配置文件。
 
 ## 配置后端服务器(background)
 
