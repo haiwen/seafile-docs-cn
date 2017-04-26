@@ -425,5 +425,34 @@ listen seafile 0.0.0.0:80
 
 启动haproxy服务，并测试使用。
 
+## 修改 SERVICE_URL 和 FILE_SERVER_ROOT
 
+下面还需要更新 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置项。否则无法通过 Web 正常的上传和下载文件。
 
+5.0 版本开始，您可以直接通过管理员 Web 界面来设置这两个值 (注意，如果同时在 Web 界面和配置文件中设置了这个值，以 Web 界面的配置为准。建议在Web界面修改此配置。)：
+```
+SERVICE_URL: http://<ip of haproxy node>
+FILE_SERVER_ROOT: http://<ip of haproxy node>/seafhttp
+```
+
+5.0 版本之前需要修改 ccnet.conf 文件和 seahub_settings.py 文件
+
+### 修改 ccnet.conf
+
+<pre>
+SERVICE_URL = http://<ip of haproxy node>
+</pre>
+
+### 修改 seahub_settings.py （增加一行，这是一个 python 文件，注意引号）
+
+```python
+FILE_SERVER_ROOT = 'http://<ip of haproxy node>/seafhttp'
+```
+若在配置文件中修改，需要重启seafile和seahub服务。
+
+## 高可用 HAproxy 节点
+
+请参考[高可用 HAproxy 节点](setup_keepalived_with_haproxy.md)
+
+## HAproxy 下启用 Https
+请参考[HAproxy 下启用 Https](https_with_haproxy.md)
