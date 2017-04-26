@@ -303,6 +303,16 @@ name = seahub_db
 
 再启动seafile服务，调用命令 `seafile-server-latest/reset-admin.sh` 可重置新的管理员账号。
 
+### 配置后端存储
+
+还需要将后端云存储系统的设置添加到配置文件中，这里提供了4种后端存储的配置方案：
+
+* 使用 NFS ：[NFS 下集群安装](setup_seafile_cluster_with_nfs.md)
+* 使用 S3：[Amazon S3 下安装](setup_with_amazon_S3.md)
+* 使用 OSS：[使用阿里云OSS存储](setup_with_oss.md)
+* 使用 Ceph：[Ceph 下安装](setup_with_Ceph.md)
+
+
 ## 配置出多个节点
 
 配置多个节点，与之前所描述的单机节点部署相同，使用自动化安装脚本在多个主机上部署seafile服务。安装完成后，将最先部署的单机节点上的配置文件目录 `conf` 下的所有配置文件复制替换掉刚部署的其他几个节点的配置文件。
