@@ -437,13 +437,13 @@ FILE_SERVER_ROOT: http://<ip of haproxy node>/seafhttp
 
 5.0 版本之前需要修改 ccnet.conf 文件和 seahub_settings.py 文件
 
-### 修改 ccnet.conf
+#### 修改 ccnet.conf
 
 <pre>
 SERVICE_URL = http://<ip of haproxy node>
 </pre>
 
-### 修改 seahub_settings.py （增加一行，这是一个 python 文件，注意引号）
+#### 修改 seahub_settings.py （增加一行，这是一个 python 文件，注意引号）
 
 ```python
 FILE_SERVER_ROOT = 'http://<ip of haproxy node>/seafhttp'
