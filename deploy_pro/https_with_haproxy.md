@@ -42,34 +42,34 @@ listen seafile
 ## 修改 nginx 配置
 在前端seafile服务器节点上（即node B 和 node C）的nginx配置中添加两行配置到 `location /` 代码块中： `vim /etc/nginx/conf.d/seafile.conf`
 
-	```
+```
 	fastcgi_param	HTTPS			on;
 	fastcgi_param	HTTP_SCHEME		https;
-	```
+```
 
 配置示例：
-	
-	```
-	location / {
-          fastcgi_pass    127.0.0.1:8000;
-          fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;
-          fastcgi_param   PATH_INFO           $fastcgi_script_name;
 
-          fastcgi_param   SERVER_PROTOCOL    $server_protocol;
-          fastcgi_param   QUERY_STRING        $query_string;
-          fastcgi_param   REQUEST_METHOD      $request_method;
-          fastcgi_param   CONTENT_TYPE        $content_type;
-          fastcgi_param   CONTENT_LENGTH      $content_length;
-          fastcgi_param   SERVER_ADDR         $server_addr;
-          fastcgi_param   SERVER_PORT         $server_port;
-          fastcgi_param   SERVER_NAME         $server_name;
-          fastcgi_param   HTTPS               on;
-          fastcgi_param   HTTP_SCHEME         https;
-          ...
-    ```
+```
+location / {
+	fastcgi_pass    127.0.0.1:8000;
+        fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;
+        fastcgi_param   PATH_INFO           $fastcgi_script_name;
+
+        fastcgi_param   SERVER_PROTOCOL    $server_protocol;
+        fastcgi_param   QUERY_STRING        $query_string;
+        fastcgi_param   REQUEST_METHOD      $request_method;
+        fastcgi_param   CONTENT_TYPE        $content_type;
+        fastcgi_param   CONTENT_LENGTH      $content_length;
+        fastcgi_param   SERVER_ADDR         $server_addr;
+        fastcgi_param   SERVER_PORT         $server_port;
+        fastcgi_param   SERVER_NAME         $server_name;
+        fastcgi_param   HTTPS               on;
+        fastcgi_param   HTTP_SCHEME         https;
+        ...
+```
 
 重新加载nginx配置：
 	
-	```
-	nginx -s reload
-	```
+```
+nginx -s reload
+```
