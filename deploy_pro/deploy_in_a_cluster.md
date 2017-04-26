@@ -308,7 +308,7 @@ name = seahub_db
 还需要将后端云存储系统的设置添加到配置文件中，这里提供了4种后端存储的配置方案：
 
 * 使用 NFS ：[NFS 下集群安装](setup_seafile_cluster_with_nfs.md)
-* 使用 S3：[Amazon S3 下安装](setup_with_amazon_S3.md)
+* 使用 S3：[Amazon S3 下安装](setup_with_amazon_s3.md)
 * 使用 OSS：[使用阿里云OSS存储](setup_with_oss.md)
 * 使用 Ceph：[Ceph 下安装](setup_with_Ceph.md)
 
