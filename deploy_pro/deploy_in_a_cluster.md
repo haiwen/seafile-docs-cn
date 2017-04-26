@@ -310,7 +310,7 @@ name = seahub_db
 * 使用 NFS ：[NFS 下集群安装](setup_seafile_cluster_with_nfs.md)
 * 使用 S3：[Amazon S3 下安装](setup_with_amazon_s3.md)
 * 使用 OSS：[使用阿里云OSS存储](setup_with_oss.md)
-* 使用 Ceph：[Ceph 下安装](setup_with_Ceph.md)
+* 使用 Ceph：[Ceph 下安装](setup_with_ceph.md)
 
 
 ## 配置出多个节点
