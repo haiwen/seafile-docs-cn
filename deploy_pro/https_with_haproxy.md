@@ -27,9 +27,9 @@ defaults
     timeout server 300000
 
 listen seafile
-	bind :80
-	bind :443 ssl crt /etc/haproxy/demo.pem
-	redirect scheme https if !{ ssl_fc }
+    bind :80
+    bind :443 ssl crt /etc/haproxy/demo.pem
+    redirect scheme https if !{ ssl_fc }
     mode http
     option httplog
     option dontlognull
