@@ -7,6 +7,7 @@
 - [从 Seafile 社区版服务器迁移到专业版服务器](migrate_from_seafile_community_server.md)
 - [升级 Seafile 专业版服务器](upgrading_seafile_professional_server.md)
 - [使用 Oracle 数据库部署](oracle.md)
+- [Seafile 集群部署](deploy_in_a_cluster)
 
 S3/Swift/Ceph
 
