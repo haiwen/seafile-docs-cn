@@ -1,27 +1,27 @@
-# Setup Seafile cluster with NFS
+# NFS 下集群安装
 
-In a Seafile cluster, one common way to share data among the Seafile server instances is to us NFS. You should only share the files objects on NFS. Here we'll provide a tutorial about how and what to share.
+Seafile 集群中，各seafile服务器节点之间数据共享的一个常用方法是使用NFS共享存储。在NFS上共享的对象应该只是文件，这里提供了一个关于如何共享和共享什么的教程。
 
-How to setup nfs server and client is beyond the scope of this wiki. Here are few references:
+如何配置NFS服务器和客户端超出了本wiki的范围，提供以下参考文献：
 
 * Ubuntu: https://help.ubuntu.com/community/SettingUpNFSHowTo
 * CentOS: http://www.centos.org/docs/5/html/Deployment_Guide-en-US/ch-nfs.html
 
-Supposed your seafile server installation directory is `/data/haiwen`, after you run the setup script there should be a `seafile-data` directory in it. And supposed you mount the NFS drive on `/seafile-nfs`, you should follow a few steps:
+假设您使用了脚本安装,seafile的安装目录就是 `/opt/seafile` ,该目录下有一个 `seafile-data` 目录。并且，假如您挂载了NFS到 `/seafile-nfs` 目录下，请按照如下几个步骤配置：
 
-* Move the `seafile-data` folder to `/seafile-nfs`:
-
-```
-mv /data/haiwen/seafile-data /seafile-nfs/
-```
-
-
-* On every node in the cluster, make a symbolic link to the shared seafile-data folder 
+* 将 `seafile-data` 目录移动到 `/seafile-nfs` 目录下:
 
 ```
-cd /data/haiwen
-ln -s /seafile-nfs/seafile-data /data/haiwen/seafile-data
+mv /opt/seafile/seafile-data /seafile-nfs/
 ```
 
 
-This way the instances will share the same `seafile-data` folder. All other config files and log files will remain independent.
+* 在集群中的每个节点上，为共享目录 `seafile-data` 设置一个软链接
+
+```
+ln -s /seafile-nfs/seafile-data /opt/seafile/seafile-data
+```
+
+这样，各seafile实例将共享同一个 `seafile-data` 目录。所有的其他配置文件和日志文件将保持独立。
+
+
