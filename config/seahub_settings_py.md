@@ -107,6 +107,13 @@ ENABLE_THUMBNAIL = True
 
 # 文件缩略图的存储位置
 THUMBNAIL_ROOT = '/haiwen/seahub-data/thumbnail/thumb/'
+
+# 开启或禁用视频缩略图
+# NOTE: since version 6.1
+ENABLE_VIDEO_THUMBNAIL = False
+
+# 使用第5秒的图片作为缩略图
+THUMBNAIL_VIDEO_FRAME_TIME = 5 
 ```
 
 ## 其他选项
