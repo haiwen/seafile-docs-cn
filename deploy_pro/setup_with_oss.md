@@ -5,7 +5,7 @@
 为了安装 Seafile 专业版服务器并使用阿里云OSS，您需要：
 
 - 按照 [下载安装 Seafile 专业版服务器](download_and_setup_seafile_professional_server.md) 指南安装基本的 Seafile 专业版服务器。
-- 按照 [这个文档](https://docs.aliyun.com/?spm=5176.383663.9.4.fTwNdK#/pub/oss/sdk/sdk-download&python) 安装 OSS Python SDK `0.4.6`（或者 `0.4.*` 最新版）。
+- 安装 oss2 软件包：`sudo pip install oss2`，更多安装帮助可以参考[这个文档](https://help.aliyun.com/document_detail/32026.html?spm=5176.doc32171.2.1.g3y7pa)。
 - 安装和使用 Memcached。Seafile 会将部分对象缓存在 memcached 中，以提高性能。建议至少给 memcached 分配 128MB 内存。请修改 memcached 的配置文件（Ubuntu 上在 /etc/memcached.conf）：
 
 ```
