@@ -25,7 +25,7 @@
       ssl on;
       ssl_certificate /etc/ssl/cacert.pem;	#cacert.pem 文件路径
       ssl_certificate_key /etc/ssl/privkey.pem;	#privkey.pem 文件路径
-      server_name www.yourdoamin.com;    
+      server_name www.yourdoamin.com;
       # ......
       fastcgi_param   HTTPS               on;
       fastcgi_param   HTTP_SCHEME         https;
@@ -46,7 +46,7 @@
       ssl on;
       ssl_certificate /etc/ssl/cacert.pem;            #cacert.pem 文件路径
       ssl_certificate_key /etc/ssl/privkey.pem;	#privkey.pem 文件路径
-      server_name www.yourdoamin.com;    
+      server_name www.yourdoamin.com;
       proxy_set_header X-Forwarded-For $remote_addr;
       location / {
           fastcgi_pass    127.0.0.1:8000;
@@ -61,12 +61,13 @@
           fastcgi_param   SERVER_ADDR         $server_addr;
           fastcgi_param   SERVER_PORT         $server_port;
           fastcgi_param   SERVER_NAME         $server_name;
+          fastcgi_param   REMOTE_ADDR         $remote_addr;
           fastcgi_param   HTTPS               on;
           fastcgi_param   HTTP_SCHEME         https;
 
           access_log      /var/log/nginx/seahub.access.log;
           error_log       /var/log/nginx/seahub.error.log;
-      }       
+      }
       location /seafhttp {
           rewrite ^/seafhttp(.*)$ $1 break;
           proxy_pass http://127.0.0.1:8082;
