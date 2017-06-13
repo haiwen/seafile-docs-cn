@@ -36,6 +36,7 @@
    * AD 集成
        * [专业版 AD/LDAP 配置](deploy_pro/using_ldap_pro.md)
        * [同步 AD 群组](deploy_pro/ldap_group_sync.md)
+       * [配置 ADFS 登陆](deploy_pro/adfs.md)
    * Office 文件预览和编辑
        * [开启 Office/PDF 文件在线预览](deploy_pro/office_documents_preview.md)
        * [Office Web App 集成](deploy_pro/office_web_app.md)
@@ -49,10 +50,14 @@
        * [使用阿里云OSS存储](deploy_pro/setup_with_oss.md)
    * 集群部署
        * [集群部署](deploy_pro/deploy_in_a_cluster.md)
-       * [集群中启用搜索和后台服务](deploy_pro/enable_search_and_background_tasks_in_a_cluster.md)
+       * [基于MariaDB和Ceph的Seafile集群部署](deploy_cn/clustering_with_mariadb_ceph.md)
        * [NFS 下集群安装](deploy_pro/setup_seafile_cluster_with_nfs.md)
        * [升级集群](deploy_pro/upgrade_a_cluster.md)
    * [用户角色与权限](deploy_pro/roles_permissions.md)
+   * 高级认证
+       * [两步认证](deploy_pro/two_factor_authentication.md)
+   * 高级维护工具
+       * [向seafile中导入目录](deploy_pro/seaf-import.md)
    * [配置选项](deploy_pro/configurable_options.md)
    * [常见问题解答](deploy_pro/faq_for_seafile_pro_server.md)
    * [软件许可协议](deploy_pro/license-pro-edition.md)
