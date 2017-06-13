@@ -1,3 +1,25 @@
 # Web 文件断点续传
 
-请参考[英文文档](http://manual.seafile.com/deploy_pro/web_resumable_upload.html)
+在Web界面上传大文件时，如果网络不可靠，则可能会中断上传。如果上传可以从上次停止的地方恢复，将会很方便。在 Seafile 专业版 4.4.0及更新版本中，支持断点续传功能。
+
+断点续传的工作原理如下：
+
+1. 用户在Web界面上传一个大文件，并且在上传过程中连接中断。
+2. 服务器将记住上传停止的位置。
+3. 当同一个文件被上传到相同资料库中的同一文件夹时，服务器会告诉浏览器从哪里开始上传。
+
+限制：
+
+1. 只支持重新上传；文件更新和文件夹上传无法断点续传。
+2. 只支持 Chrome, Firefox, IE 10+ 。
+
+要启用断点续传功能，请添加如下配置到 `seahub_settings.py` 中：
+
+```
+ENABLE_RESUMABLE_FILEUPLOAD = True
+```
+
+在 Seafile 集群中，为了使此功能如期工作，必须执行以下两个特殊配置之一：
+
+1. seafile-server-latest/seafile-data/httptemp 目录应该通过NFS共享给所有前端 Seafile 服务器。
+2. 或者，将负载均衡器配置为始终将来自同一IP地址的请求发送到固定的后端服务器。
