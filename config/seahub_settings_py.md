@@ -107,6 +107,13 @@ ENABLE_THUMBNAIL = True
 
 # 文件缩略图的存储位置
 THUMBNAIL_ROOT = '/haiwen/seahub-data/thumbnail/thumb/'
+
+# 开启或禁用视频缩略图
+# NOTE: since version 6.1
+ENABLE_VIDEO_THUMBNAIL = False
+
+# 使用第5秒的图片作为缩略图
+THUMBNAIL_VIDEO_FRAME_TIME = 5 
 ```
 
 ## 其他选项
@@ -139,6 +146,25 @@ ENABLE_SYS_ADMIN_VIEW_REPO = True
 # 未登录用户，外链页面下载／上传需要提供邮箱，做审计。
 # Since version 5.1.4
 ENABLE_SHARE_LINK_AUDIT = True
+```
+
+## RESTful API
+
+```
+# API throttling 相关配置。如果api的返回码为429，可以调高下面的数值。
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_RATES': {
+        'ping': '600/minute',
+        'anon': '5/minute',
+        'user': '300/minute',
+    },
+    'UNICODE_JSON': False,
+}
+
+# Throtting 白名单，用来忽略特定IP。
+# e.g. REST_FRAMEWORK_THROTTING_WHITELIST = ['127.0.0.1', '192.168.1.1']
+# 请确保 `REMOTE_ADDR` 头部在 Nginx 配置了，具体参考 https://manual.seafile.com/deploy/deploy_with_nginx.html 
+REST_FRAMEWORK_THROTTING_WHITELIST = []
 ```
 
 ## 注意
