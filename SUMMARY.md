@@ -50,7 +50,7 @@
        * [使用阿里云OSS存储](deploy_pro/setup_with_oss.md)
    * 集群部署
        * [集群部署](deploy_pro/deploy_in_a_cluster.md)
-       * [基于MariaDB和Ceph的Seafile集群部署](deploy_cn/clustering_with_mariadb_ceph.md)
+       * [MariaDB/Ceph集群](deploy_pro/clustering_with_mariadb_ceph.md)
        * [NFS 下集群安装](deploy_pro/setup_seafile_cluster_with_nfs.md)
        * [升级集群](deploy_pro/upgrade_a_cluster.md)
    * [用户角色与权限](deploy_pro/roles_permissions.md)
