@@ -6,19 +6,37 @@ Seafile集群方案采用了3层架构：
 
 * 负载均衡层：将接入的流量分配到 seafile 服务器上。并且可以通过部署多个负载均衡器来实现高可用。
 * Seafile 服务器集群：一组 seafile 服务器实例。如果集群中的某个实例不可用，负载均衡调度器将停止向其传输流量，以实现高可用。
-* 后端存储：分布式存储集群。例如：S3、openstack或ceph。
+* 后端存储、数据库、缓存
 
 该架构支持横向扩展。这意味着，您可以通过添加更多的 Seafile 服务器来分担处理流量，架构图如下：
 
-![seafile-cluster](../images/seafile-cluster.png)
+![seafile-cluster](../images/seafile-cluster-new.png)
 
-Seafile 服务器节点上有两个主要组件：web 服务(Nginx/Apache)和 Seafile 应用程序服务。web 服务将请求从客户端传递到 seafile 应用程序服务。Seafile 服务器独立工作，它们不知道对方的状态。这意味着集群中某个服务器发生故障不会影响到其他服务器实例。负载均衡服务器负责检测故障和重新分发请求。
+负载均衡器可以使用硬件负载均衡器或者 HAProxy 这种软件负载均衡器。当使用 HAProxy 作为负载均衡器时，可以采用主从热备的架构。客户端通过一个虚拟IP地址（VIP）来访问 Seafile 服务。该 VIP 平时绑定在 HAProxy 主节点上。主从节点之间通过 [Keepalived](http://www.keepalived.org/) 来进行可用性监控，当从节点检测到主节点不可用时，主动将 VIP 接管过来。对客户端来说，这个切换是不可感知的。
 
-即便 Seafile 服务器是独立工作的，它们也必须共享一些会话信息。所有共享的会话信息被保存在 memcached 服务上。因此，所有的 Seafile 服务器必须连接到相同的 memcached 服务器（集群）。稍后可提供有关memcached配置的更多详细信息。
+Seafile 服务器集群中的服务器分为两类角色：前端服务器节点和后端服务器节点。前端服务器直接为客户端提供文件访问的服务，包括网页、移动端和文件同步访问。后端服务器节点负责运行一些后台任务，包括文件全文检索、Office文件预览生成器、AD 用户信息同步等。一个集群中可以有任意多个的前端服务器节点，可根据性能需求进行扩展。而后端服务器节点只有一个，不过由于其运行的时候后台任务，不可用并不会影响主要的文件访问功能，所以可以不配置高可用。如果需要为后端节点实现高可用，可以通过主从热备的方式，用 Keepalived 来实现主后端节点不可用时，自动切换到从节点。
 
-所有的 Seafile 服务器都访问相同的用户数据。这些用户数据包括两部分：一部分存储在 MySQL 数据库中，另一部分存储在后端分布式存储集群中 (S3, Ceph etc.)。所有的应用程序服务器都向客户提供同样的数据。
+Seafile 前端服务器节点上有两个主要组件：web 服务(Nginx/Apache)和 Seafile 应用程序服务。web 服务将请求从客户端传递到 seafile 应用程序服务。Seafile 服务器独立工作，它们不知道对方的状态。这意味着集群中某个服务器发生故障不会影响到其他服务器实例。负载均衡服务器负责检测故障和重新分发请求。
 
-所有的应用服务器都必须能够连接到相同的数据库或相同的数据库集群。如果需要数据库群集,我们建议使用 [mariadb 群集](clustering_with_mariadb_ceph.md)。
+即便 Seafile 服务器是独立工作的，它们也必须共享一些会话信息。所有共享的会话信息被保存在 memcached 服务上。因此，所有的 Seafile 服务器必须连接到相同的 memcached 服务器（集群）。
+
+所有的 Seafile 服务器都访问相同的用户数据。这些用户数据包括两部分：一部分存储在 MariaDB 数据库中，另一部分存储在后端分布式存储集群中 (S3, Ceph etc.)。所有的应用程序服务器都向客户提供同样的数据。所有的应用服务器都必须能够连接到相同的数据库或相同的数据库集群。
+
+从整个服务的高可用性上考虑，我们建议把 MariaDB 和 Memcached 都配置成集群模式，并且 MariaDB 和 Memcached 可以部署在相同的服务器上，以节省硬件资源。具体的配置方式可参考[这个文档](mariadb_memcached_cluster.md)。
+
+上述的集群架构是针对相对大型的集群而设计的，集群中各个部件一般都运行在独立的服务器上。按照上述的架构，我们需要的服务器资源为：
+
+* 负载均衡：2台服务器
+* Seafile 前端服务器集群：至少2台服务器
+* Seafile 后端服务器：1台服务器，如果配置高可用需要2台服务器
+* Memcached + MariaDB 集群：3台服务器
+* 文件存储：取决于使用的存储后端类型，如果使用分布式存储，也需要多台服务器构成集群
+
+有时为了节约硬件资源，我们可以把多个部件部署在一个服务器上。我们可以利用最少3台服务器来实现 Seafile 集群。架构图如下：
+
+![seafile-3-node-cluster](../images/3-node-cluster.png)
+
+上述3节点的架构中，我们把负载均衡和 Seafile 前端服务器共享到两台服务器上，第三台服务器作为后端服务器节点。而 MariaDB 和 Memcached 的集群则部署到这3台服务器上。文件存储后端并没有算入这个架构的服务器数量中。
 
 部署 Seafile 集群有以下几个步骤：
 
@@ -28,9 +46,11 @@ Seafile 服务器节点上有两个主要组件：web 服务(Nginx/Apache)和 Se
 4. 配置后端服务
 5. 部署负载均衡服务器
 
+注意，这个安装部署步骤假设 memcached, MariaDB 以及分布式存储都是独立于 Seafile 集群之外的。如果您需要使用 3 节点的最小部署架构，可以根据这个步骤进行简化。
+
 ## <a id="wiki-preparation"></a>准备工作
 
-### 硬件
+### 硬件、存储、memcached、数据库
 
 至少3台Linux服务器，至少4核，8GB内存。
 
@@ -39,6 +59,8 @@ Seafile 服务器节点上有两个主要组件：web 服务(Nginx/Apache)和 Se
 * 节点 B 和 C 作为前端节点，用来接收来自客户端的请求
 
 ![cluster-nodes](../images/cluster-nodes.png)
+
+memcached、MariaDB 集群的配置可参考[这个文档](mariadb_memcached_cluster.md)。
 
 ### 安装 Python 依赖库
 
@@ -118,42 +140,6 @@ bash seafile-server-centos-7-amd64-http 6.0.10
 
 ### 配置为集群服务 
 要作为集群部署，还需要对配置文件做一些额外配置。
-
-#### 修改 memcached 配置：
-部署为seafile集群时必须要安装使用memcached，配置使用memcached服务器时请一定先阅读参考 ["使用 memcached"](../deploy/add_memcached.md)
-
-```
-# 在Ubuntu系统下
-vi /etc/memcached.conf
-
-# Start with a cap of 64 megs of memory. It's reasonable, and the daemon default
-# Note that the daemon will grow to this size, but does not start out holding this much
-# memory
-# -m 64
--m 256
-
-# Specify which IP address to listen on. The default is to listen on all IP addresses
-# This parameter is one of the only security measures that memcached has, so make sure
-# it's listening on a firewalled interface.
--l 0.0.0.0
-
-service memcached restart
-```
-
-```
-# 在CentOS 7系统下
-vim /etc/sysconfig/memcached
-
-PORT="11211"
-USER="memcached"
-MAXCONN="1024"
-CACHESIZE="64"
-OPTIONS="-l 0.0.0.0 -m 256"
-
-systemctl restart memcached
-systemctl enable memcached
-```
-注意：为了避免重启服务后出现不必要的麻烦，请设置 memcached 服务开机自启。
 
 #### 配置 `seafile.conf`
 
