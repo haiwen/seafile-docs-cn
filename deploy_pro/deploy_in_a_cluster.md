@@ -372,6 +372,33 @@ OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'
 ./seahub.sh stop
 ```
 
+### 设置开机自启动后端服务
+
+在CentOS 7下添加`/etc/systemd/system/seafile-background-tasks.service` 配置文件，添加以下内容：
+
+```
+[Unit]
+Description=Seafile Background Tasks Server
+After=network.target seahub.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/seafile/seafile-server-latest/seafile-background-tasks.sh start
+ExecStop=/opt/seafile/seafile-server-latest/seafile-background-tasks.sh stop
+RemainAfterExit=yes
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+```
+
+执行以下命令，添加开机自启动任务：
+
+```
+systemctl enable seafile-background-tasks.service
+```
+
 ## license文件存放位置
 
 使用专业版的seafile服务需要获取授权文件，获取该文件后应该拷贝放置到sefile的顶级安装目录下，使用脚本安装部署的用户请将 `license` 文件放在 `/opt/seafile` 目录下，重启服务即可生效。
