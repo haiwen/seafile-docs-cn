@@ -195,7 +195,7 @@ interval = 10m
 index_office_pdf = true
 external_es_server = true
 es_host = background.seafile.com
-es_port = 9500
+es_port = 9200
 ```
 
 注意： `enabled = true` 应该保持不变。 `es_host = <IP of background node>` 指定后端服务器地址。
@@ -345,7 +345,7 @@ OFFICE_CONVERTOR_NODE = True
 [INDEX FILES]
 external_es_server = true
 es_host = <ip of node background>
-es_port = 9500
+es_port = 9200
 ```
 
 编辑 **seahub_settings.py** 添加以下配置信息:
@@ -372,7 +372,7 @@ OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'
 ./seahub.sh stop
 ```
 
-### license文件存放位置
+## license文件存放位置
 
 使用专业版的seafile服务需要获取授权文件，获取该文件后应该拷贝放置到sefile的顶级安装目录下，使用脚本安装部署的用户请将 `license` 文件放在 `/opt/seafile` 目录下，重启服务即可生效。
 
@@ -438,7 +438,11 @@ FILE_SERVER_ROOT = 'http://<ip of haproxy node>/seafhttp'
 
 ## 高可用 HAproxy 节点
 
-请参考[高可用 HAproxy 节点](setup_keepalived_with_haproxy.md)
+请参考 [高可用 HAproxy 节点](setup_keepalived_with_haproxy.md)
 
 ## HAproxy 下启用 Https
-请参考[HAproxy 下启用 Https](https_with_haproxy.md)
+请参考 [HAproxy 下启用 Https](https_with_haproxy.md)
+
+## 高可用seafile后端节点
+
+请参考 [高可用seafile后端节点](setup_keepalived_with_background.md)

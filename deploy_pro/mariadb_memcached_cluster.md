@@ -22,91 +22,18 @@ Seafile 将文件组织到库中，每一个库都是一个类似于树状文件
 
 ## 部署 MariaDB 集群
 
-#### 安装 MariaDB 和 Galera
+MariaDB 集群的实现选择采用MariaDB官方推荐的集群部署方案：`MariaDB Galera Cluster`。
+MariaDB Galera Cluster 是MariaDB的一个同步多主集群架构。它只在Linux上可用，并且只支持XtraDB/InnoDB存储引擎。
+为了避免“脑裂”，MariaDB Galera Cluster要求使用最少三个节点来构建集群，推荐SST(快照状态转移)使用`rsync`方式；推荐使用`HAproxy`对外部请求做负载均衡。
+为保证集群正常工作，请务必在所有集群节点开放以下防火墙端口：
+3306 (mysql)
+4444 (rsync / SST)
+4567 (galera)
+4568 (galera IST)
+9200 (clustercheck)
 
-首先，为MariaDB和Galera配置apt源，在[MariaDB](https://downloads.mariadb.org/mariadb/repositories)页面中选择一个5.5的仓库。然后安装MariaDB和Galera。
-
-```
-sudo apt-get install mariadb-galera-server galera
-sudo apt-get install rsync
-```
-
-#### 配置 MariaDB
-
-在 `/etc/mysql/conf.d/cluster.cnf`
-
-```
-[mysqld]
-
-query_cache_size=0
-binlog_format=ROW
-default-storage-engine=innodb
-innodb_autoinc_lock_mode=2
-query_cache_type=0
-bind-address=0.0.0.0
-
-# Galera Provider Configuration
-wsrep_provider=/usr/lib/galera/libgalera_smm.so
-#wsrep_provider_options="gcache.size=32G"
-
-# Galera Cluster Configuration
-wsrep_cluster_name="test_cluster"
-wsrep_cluster_address="gcomm://first_ip,second_ip,third_ip
-
-# Galera Synchronization Congifuration
-wsrep_sst_method=rsync
-#wsrep_sst_auth=user:pass
-
-# Galera Node Configuration
-wsrep_node_address="this_node_ip"
-wsrep_node_name="this_node_name"
-```
-
-这里的 first_ip，second_ip和third_ip 对应 node1、node2和node3的IP地址。
-
-#### 更改 MariaDB 的数据目录（可选）
-
-我们想要把数据存储到一个独立的磁盘中。假设该磁盘已经被挂载到了 `/mysql`。
-
-停止 MariaDB 使用以下命令：
-
-```
-sudo /etc/init.d/mysql stop
-```
-复制已经存在的数据目录(默认位置在 /var/lib/mysql),使用以下命令：
-
-```
-sudo cp -R -p /var/lib/mysql/* /mysql
-```
-
-编辑 /etc/mysql/my.cnf，更新 `datadir` 配置项到 `/mysql`。
-
-使用以下命令重启 MariaDB：
-
-```
-sudo /etc/init.d/mysql restart
-```
-
-#### 启动
-
-启动 MariaDB 集群之前，确保在所有数据库节点上打开3456端口和4444端口。
-
-在node1：
-
-```
-node1# sudo service mysql start --wsrep-new-cluster
-```
-
-在node2和node3：
-
-```
-node2# sudo service mysql start
-node3# sudo service mysql start
-```
-
-#### 参考
-
-https://www.digitalocean.com/community/tutorials/how-to-configure-a-galera-cluster-with-mariadb-on-ubuntu-12-04-servers
+关于MariaDB Galera Cluster在CentOS下的部署详情请参考文档 [MariaDB Galera Cluster](https://mariadb.com/resources/blog/setting-mariadb-enterprise-cluster-part-2-how-set-mariadb-cluster)
+HAproxy做MariaDB集群负载均衡的配置过程请参考文档 [Setup HAProxy Load Balancer](https://mariadb.com/resources/blog/setup-mariadb-enterprise-cluster-part-3-setup-ha-proxy-load-balancer-read-and-write-pools)
 
 ## 部署 memcached 集群
 
