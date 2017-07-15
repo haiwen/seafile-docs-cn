@@ -51,6 +51,9 @@
    * 集群部署
        * [集群部署](deploy_pro/deploy_in_a_cluster.md)
        * [MariaDB/Memcached集群](deploy_pro/mariadb_memcached_cluster.md)
+       * [后台任务节点高可用](deploy_pro/setup_keepalived_with_background.md)
+       * [HAProxy高可用](deploy_pro/setup_keepalived_with_haproxy.md)
+       * [HAProxy HTTPS 配置](deploy_pro/https_with_haproxy.md)
        * [NFS 下集群安装](deploy_pro/setup_seafile_cluster_with_nfs.md)
        * [升级集群](deploy_pro/upgrade_a_cluster.md)
    * [用户角色与权限](deploy_pro/roles_permissions.md)
