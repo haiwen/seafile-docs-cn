@@ -22,17 +22,18 @@ Seafile 将文件组织到库中，每一个库都是一个类似于树状文件
 
 ## 部署 MariaDB 集群
 
-MariaDB 集群的实现选择采用MariaDB官方推荐的集群部署方案：`MariaDB Galera Cluster`。
-MariaDB Galera Cluster 是MariaDB的一个同步多主集群架构。它只在Linux上可用，并且只支持XtraDB/InnoDB存储引擎。
-为了避免“脑裂”，MariaDB Galera Cluster要求使用最少三个节点来构建集群，推荐SST(快照状态转移)使用`rsync`方式；推荐使用`HAproxy`对外部请求做负载均衡。
+MariaDB 集群的实现选择采用 MariaDB 官方推荐的集群部署方案：`MariaDB Galera Cluster`。MariaDB Galera Cluster 是MariaDB的一个同步多主集群架构。它只在Linux上可用，并且只支持XtraDB/InnoDB存储引擎。为了避免“脑裂”，MariaDB Galera Cluster 要求使用最少三个节点来构建集群，推荐SST(快照状态转移)使用`rsync`方式；推荐使用`HAproxy`对外部请求做负载均衡。如果你的 Seafile 集群是采用[集群文档](deploy_in_a_cluster.md)中介绍的 3 节点最小化部署，则不需要用 HAProxy 来负载均衡，每个节点使用本地的 MariaDB 实例即可。
+
 为保证集群正常工作，请务必在所有集群节点开放以下防火墙端口：
-3306 (mysql)
-4444 (rsync / SST)
-4567 (galera)
-4568 (galera IST)
-9200 (clustercheck)
+
+- 3306 (mysql)
+- 4444 (rsync / SST)
+- 4567 (galera)
+- 4568 (galera IST)
+- 9200 (clustercheck)
 
 关于MariaDB Galera Cluster在CentOS下的部署详情请参考文档 [MariaDB Galera Cluster](https://mariadb.com/resources/blog/setting-mariadb-enterprise-cluster-part-2-how-set-mariadb-cluster)
+
 HAproxy做MariaDB集群负载均衡的配置过程请参考文档 [Setup HAProxy Load Balancer](https://mariadb.com/resources/blog/setup-mariadb-enterprise-cluster-part-3-setup-ha-proxy-load-balancer-read-and-write-pools)
 
 ## 部署 memcached 集群
@@ -73,7 +74,3 @@ systemctl restart memcached
 systemctl enable memcached
 ```
 注意：为了避免重启服务后出现不必要的麻烦，请设置 memcached 服务开机自启。
-
-## 部署 Seafile 集群
-
-请按照 http://manual-cn.seafile.com/deploy_pro/setup_with_ceph.html 在Ceph下安装seafile，并按照 http://manual-cn.seafile.com/deploy_pro/deploy_in_a_cluster.html 部署seafile集群。
