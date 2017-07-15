@@ -1,4 +1,4 @@
-# 高可用seafile后端节点
+# 后台任务节点高可用
 
 ## 配置keepalived服务
 
@@ -9,7 +9,7 @@ CentOS 7:
 yum install keepalived -y
 ```
 
-假设配置了两个seafile后端节点：background1、background2
+假设配置了两个seafile后台任务节点：background1、background2
 
 在background1上修改 keepalived 配置文件(/etc/keepalived/keepalived.conf),写入如下内容：
 
@@ -43,7 +43,7 @@ vrrp_instance VI_1 {
 }
 ```
 
-在node2上修改 keepalived 配置文件(/etc/keepalived/keepalived.conf),写入如下内容：
+在background2上修改 keepalived 配置文件(/etc/keepalived/keepalived.conf),写入如下内容：
 
 ```
 ! Configuration File for keepalived
@@ -75,7 +75,7 @@ vrrp_instance VI_1 {
 }
 ```
 
- * 注意：以上配置中`interface`指定该节点的网卡设备名称，请根据实际情况配置。`virtual_ipaddress`配置HAproxy集群的虚拟IP地址，也需要根据实际情况配置。
+ * 注意：以上配置中`interface`指定该节点的网卡设备名称，请根据实际情况配置。`virtual_ipaddress` 是后台服务的虚拟IP地址，也需要根据实际情况配置。
 
 分别在两个后端节点上重启keepalived服务：
 
