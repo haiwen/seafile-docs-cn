@@ -40,6 +40,8 @@ vrrp_instance VI_1 {
     virtual_ipaddress {
         172.26.154.43/24 dev eno16777736
     }
+    notify_master "/opt/seafile/seafile-server-latest/seafile-background-tasks.sh start"
+    notify_backup "/opt/seafile/seafile-server-latest/seafile-background-tasks.sh stop"
 }
 ```
 
@@ -72,6 +74,8 @@ vrrp_instance VI_1 {
     virtual_ipaddress {
         172.26.154.43/24 dev eno16777736
     }
+    notify_master "/opt/seafile/seafile-server-latest/seafile-background-tasks.sh start"
+    notify_backup "/opt/seafile/seafile-server-latest/seafile-background-tasks.sh stop"
 }
 ```
 
