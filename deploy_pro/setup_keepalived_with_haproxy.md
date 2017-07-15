@@ -74,7 +74,7 @@ vrrp_instance VI_1 {
 
  * 注意：以上配置中`interface`指定该节点的网卡设备名称，请根据实际情况配置。`virtual_ipaddress`配置HAproxy集群的虚拟IP地址，也需要根据实际情况配置。
 
- ## 修改 SERVICE_URL 和 FILE_SERVER_ROOT
+## 修改 SERVICE_URL 和 FILE_SERVER_ROOT
 
 下面还需要更新 SERVICE_URL 和 FILE_SERVER_ROOT 这两个配置项。否则无法通过 Web 正常的上传和下载文件。
 
