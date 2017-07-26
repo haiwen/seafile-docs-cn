@@ -45,7 +45,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 ```
 
-**注意1**:关于如何正确使用465端口和587端口:
+**注意1**:关于如何正确使用465端口和587端口:\n
 如果使用587端口，需要建立TLS连接，所以需要配置 `EMAIL_USE_TLS = True`;
 如果使用465端口，需要建立SSL连接，所以要替换为 `EMAIL_USE_SSL = True`。
 **注意2**:如果邮件功能不能正常使用，请在`logs/seahub.log`日志文件中查看问题原因.
