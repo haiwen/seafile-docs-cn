@@ -36,13 +36,13 @@ QQ 邮箱示例：
 126 邮箱:
 
 ```
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = 'smtp.vip.126.com'
-    EMAIL_HOST_USER = 'test@vip.126.com'
-    EMAIL_HOST_PASSWORD = 'password'
-    EMAIL_PORT = '587'
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-    SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.vip.126.com'
+EMAIL_HOST_USER = 'test@vip.126.com'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_PORT = '587'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
 ```
 
 **注意1**:关于如何正确使用465端口和587端口
