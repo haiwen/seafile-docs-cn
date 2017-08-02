@@ -40,7 +40,7 @@
 
 `SERVICE_URL` 和 `FILE_SERVER_ROOT` 为常用配置项，Seafile服务安装完成后可能都需要修改此项配置。当你上传下载文件失败时我们建议您首先要检查此处配置信息。
 
-`SERVICE_URL`：服务器URL，例如 https://seafile.example.com或者http://192.168.1.2:8000。如果没有配置Nginx/Apache代理，则默认需要通过8000端口访问，因此需要加上8000端口；若使用了Nginx/Apache代理，则默认通过80端口访问，无需添加任何端口信息；如果您使用了其他自定义端口，请在此处配置上自定义端口。
+`SERVICE_URL`：服务器URL，例如`https://seafile.example.com`或者`http://192.168.1.2:8000`。如果没有配置Nginx/Apache代理，则默认需要通过8000端口访问，因此需要加上8000端口；若使用了Nginx/Apache代理，则默认通过80端口访问，无需添加任何端口信息；如果您使用了其他自定义端口，请在此处配置上自定义端口。
 
 `FILE_SERVER_ROOT`：下载上传文件的内部URL。如果此URL错误，用户将不能下载上传文件。如果配置了Nginx/Apache代理，这个URL的值为 "SERVICE_URL/seafhttp"；否则这个URL可能为 "http://<seafile_server of ip>:8082"。
 
