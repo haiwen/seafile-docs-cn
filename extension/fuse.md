@@ -29,6 +29,22 @@ mkdir -p /data/seafile-fuse
 ./seaf-fuse.sh start /data/seafile-fuse
 </pre>
 
+自从社区版4.2.1和专业版4.2.0开始，脚本支持FUSE的标准挂载。例如，你可以指定以挂载目录的所有者。
+
+<pre>
+./seaf-fuse.sh start -o uid=<uid> /data/seafile-fuse
+</pre>
+
+您可以使用 `man fuse` 来查找所有支持选项。
+
+#### 使用 Ceph 的特有说明
+
+如果您使用Ceph作为后端存储，为了要求 fuse 程序不运行为守护进程，在执行 seaf-fuse.sh 脚本时您需要加上 `-f` 选项。否则在访问文件时，fuse程序将会有奇怪的“冻结”行为。
+
+```
+./seaf-fuse.sh start -f /data/seafile-fuse
+```
+
 #### 停止seaf-fuse
 
 <pre>
@@ -52,7 +68,6 @@ drwxr-xr-x 2 root root 4.0K Jan  1  1970 test@test.com/
 </pre>
 
 * 顶层目录包含许多子目录，每个子目录对应一个用户
-* 文件和目录的时间戳不会被保存
 
 #### 每个用户的目录
 

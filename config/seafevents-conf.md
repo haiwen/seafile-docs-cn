@@ -1,14 +1,20 @@
-# 配置选项
+# seafevents.conf 配置
 
-**Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
+**注意**: Seafile 服务 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
 
-在 `/data/haiwen/conf/seafevents.conf` 配置文件中：
+在 `seafevents.conf` 配置文件中：
+
+### 审计日志管理选项
 
 ```
 [AUDIT]
 ## 审计日志默认是关闭的
 enabled = true
+```
 
+### 搜索管理选项
+
+```
 [INDEX FILES]
 # 要启用搜索，必须设置为 "true"
 enabled = true
@@ -19,7 +25,11 @@ interval=10m
 # 如果设置为 "true"，搜索索引更新时也会索引办公文件和 pdf 文件中的内容
 # 注意： 如果您将此选项从 "false" 设置为 "true"， 那么您需要清空搜索索引然后再次更新索引。更多详情请参考 FAQ。
 index_office_pdf=false
+```
 
+### 文件预览管理选项
+
+```
 [OFFICE CONVERTER]
 
 # 要启用办公文件和 pdf 文件的在线预览功能必须设置为 "true"
@@ -36,7 +46,11 @@ max-pages = 50
 
 # 允许的最大预览文件的大小，单位是 MB。默认为 2 MB
 max-size = 2
+```
 
+### 邮件通知管理选项
+
+```
 [SEAHUB EMAIL]
 
 # 要启用用户邮件通知，必须设置为 "true" 

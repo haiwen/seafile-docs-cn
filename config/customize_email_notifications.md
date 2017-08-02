@@ -12,6 +12,8 @@ seahub/seahub/auth/forms.py line:103
 
 seahub/seahub/templates/registration/password_reset_email.html
 
+注意：你可以复制 password_reset_email.html 到 `seahub-data/custom/templates/registration/password_reset_email.html` 并且修改这个新的文件。通过这个方法，升级之后将维护个性化定制。 
+
 ## 管理员添加新用户 ##
 
 **Subject**
@@ -22,6 +24,8 @@ seahub/seahub/views/sysadmin.py line:424
 
 seahub/seahub/templates/sysadmin/user_add_email.html
 
+注意：你可以复制 user_add_email.html 到 `seahub-data/custom/templates/sysadmin/user_add_email.html` 并且修改这个新的文件。通过这个方法，升级之后将维护个性化定制。
+
 ## 管理员重置用户密码 ##
 
 **Subject**
@@ -31,6 +35,8 @@ seahub/seahub/views/sysadmin.py line:368
 **Body**
 
 seahub/seahub/templates/sysadmin/user_reset_email.html
+
+注意：你可以复制 user_reset_email.html 到 `seahub-data/custom/templates/sysadmin/user_reset_email.html` 并且修改这个新的文件。通过这个方法，升级之后将维护个性化定制。
 
 ## 用户发送文件/文件夹外链 ##
 

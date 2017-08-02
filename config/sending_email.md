@@ -17,17 +17,17 @@ Gmail 邮箱示例:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'username@gmail.com'
     EMAIL_HOST_PASSWORD = 'password'
-    EMAIL_PORT = 587
+    EMAIL_PORT = '587'
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
 
-QQ 邮箱示例 (只能在没有使用 TLS 的情况下配置成功，不安全)：
+QQ 邮箱示例：
 
-    EMAIL_USE_TLS = False
+    EMAIL_USE_SSL = True
     EMAIL_HOST = 'smtp.exmail.qq.com'
     EMAIL_HOST_USER = 'username@domain.com'
     EMAIL_HOST_PASSWORD = 'password'
-    EMAIL_PORT = '25'
+    EMAIL_PORT = '465'
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
 
@@ -39,14 +39,15 @@ QQ 邮箱示例 (只能在没有使用 TLS 的情况下配置成功，不安全)
     EMAIL_HOST = 'smtp.vip.126.com'
     EMAIL_HOST_USER = 'test@vip.126.com'
     EMAIL_HOST_PASSWORD = 'password'
-    EMAIL_PORT = 25
+    EMAIL_PORT = '587'
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
 
 
 
 
-**注意1**:如果邮件功能不能正常使用，请在`logs/seahub.log`日志文件中查看问题原因.
+**注意1**:关于如何正确使用465端口和587端口： 如果使用587端口，需要建立TLS连接，所以需要配置 EMAIL_USE_TLS = True; 如果使用465端口，需要建立SSL连接，所以要替换为 EMAIL_USE_SSL = True。
+**注意2**：如果邮件功能不能正常使用，请在`logs/seahub.log`日志文件中查看问题原因.
 更多信息请见 [Email notification
 list](Email notification list "wikilink").
 
