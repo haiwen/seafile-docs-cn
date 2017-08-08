@@ -11,6 +11,7 @@
 - [conf/ccnet.conf](ccnet-conf.md): 用来配置网络和 LDAP/AD 连接
 - [conf/seafile.conf](seafile-conf.md): 用来配置 Seafile
 - [conf/seahub_settings.py](seahub_settings_py.md): 用来配置 Seahub
+- [conf/seafevents.conf](seafevents-conf.md):主要用来配置搜索和文件预览
 
 专业版中还包含以下一个配置文件:
 
@@ -26,12 +27,13 @@
 
 用户管理：
 
-* [用户管理](user_options.md)
+* 用户管理：请查阅 [seahub_settings.py](seahub_settings_py.md)
 
 用户存储容量和上传/下载文件大小限制：
 
-* [存储容量与文件上传/下载大小限制](quota_and_size_options.md)
+* 存储容量与文件上传/下载大小限制:请查阅 [seafile.conf](seafile-conf.md)
 
 ## 自定义 Web
 
 * [自定义 Web](seahub_customization.md)
+* [桌面客户端定制](desktop_customization.md)

@@ -14,6 +14,7 @@ S3/Swift/Ceph
 - [安装 Seafile 专业版服务器并使用亚马逊 S3](setup_with_mazon_S3.md)
 - [安装 Seafile 专业版服务器并使用 Ceph](setup_with_Ceph.md)
 - [安装 Seafile 专业版服务器并使用阿里云 OSS](setup_with_oss.md)
+- [安装 seafile 专业版服务器并使用 NFS](setup_seafile_cluster_with_nfs.md)
 
 配置选项
 
@@ -25,7 +26,7 @@ S3/Swift/Ceph
 
 - [关于文件搜索的一些细节](details_about_file_search.md)
 
+## Office 文件预览和编辑
 
-## FAQ
-
-- [Seafile 专业版服务器的 FAQ](FAQ_for_seafile_pro_server.md)
+- [开启 Office/PDF 文档在线预览](office_documents_preview.md)
+- [与 Office 在线服务器集成](office_web_app.md)
