@@ -2,6 +2,8 @@
 
 6.0 版本开始，管理员可以在用户管理界面为一个用户赋予一个角色，不同角色可以配置不同权限，目前支持 10 种权限。
 
+6.1 版本开始，我们添加了一个新的权限 `relo_quota`(角色配额)，该权限用来给某个用户的角色设置空间配额。例如，我们可以通过添加 `'role_quota': '100g'` 为 employee 角色设置100GB的空间配额，同时其他用户还是使用默认的空间配额。
+
 Seafile 内建两种用户角色：`default` 和 `guest`（访客用户）。
 
 `default` 用户实际就是一个普通 Seafile 用户，对应默认权限列表如下：
@@ -18,6 +20,7 @@ Seafile 内建两种用户角色：`default` 和 `guest`（访客用户）。
     'can_connect_with_android_clients': True,
     'can_connect_with_ios_clients': True,
     'can_connect_with_desktop_clients': True,
+    'role_quota': '',
 },
 ```
 
@@ -35,6 +38,7 @@ Seafile 内建两种用户角色：`default` 和 `guest`（访客用户）。
     'can_connect_with_android_clients': False,
     'can_connect_with_ios_clients': False,
     'can_connect_with_desktop_clients': False,
+    'role_quota': '',
 },
 ```
 
@@ -57,6 +61,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_connect_with_android_clients': True,
         'can_connect_with_ios_clients': True,
         'can_connect_with_desktop_clients': True,
+        'role_quota': '',
     },
     'guest': {
         'can_add_repo': False,
@@ -69,6 +74,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_connect_with_android_clients': False,
         'can_connect_with_ios_clients': False,
         'can_connect_with_desktop_clients': False,
+        'role_quota': '',
     }
 }
 ```
@@ -102,6 +108,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_connect_with_android_clients': True,
         'can_connect_with_ios_clients': True,
         'can_connect_with_desktop_clients': True,
+        'role_quota': '',
     },
     'guest': {
         'can_add_repo': False,
@@ -114,6 +121,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_connect_with_android_clients': False,
         'can_connect_with_ios_clients': False,
         'can_connect_with_desktop_clients': False,
+        'role_quota': '',
     },
     'employee': {
         'can_add_repo': True,
@@ -126,6 +134,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_connect_with_android_clients': True,
         'can_connect_with_ios_clients': True,
         'can_connect_with_desktop_clients': True,
+        'role_quota': '',
     },
 }
 ```

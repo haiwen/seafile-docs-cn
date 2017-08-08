@@ -57,7 +57,9 @@
        * [HAProxy HTTPS 配置](deploy_pro/https_with_haproxy.md)
        * [NFS 下集群安装](deploy_pro/setup_seafile_cluster_with_nfs.md)
        * [升级集群](deploy_pro/upgrade_a_cluster.md)
-   * [用户角色与权限](deploy_pro/roles_permissions.md)
+   * 高级用户管理
+       * [用户角色与权限](deploy_pro/roles_permissions.md)
+       * [多机构支持](deploy_pro/multi_institutions.md)
    * 高级认证
        * [两步认证](deploy_pro/two_factor_authentication.md)
    * 高级维护工具
