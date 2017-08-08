@@ -1,6 +1,6 @@
 # Office Online Server 集成
 
-在Seafile专业版 4.4.0(或更高版本)中，可以使用 Microsoft Office Online Server (以前命名为Office Web Apps)在线预览文档。 Office Online Server 为所有的 Office 文档提供最佳预览。它还支持直接在web浏览器中协作编辑Office文件。对于拥有 Microsoft Office 批量许可证的组织，可以免费使用Office Online Server。有关 Office Online Server 的更多信息以及如何部署Office Online Server，请参阅 [Microsoft's documentation](https://technet.microsoft.com/en-us/library/jj219455(v=office.16).aspx).
+在Seafile专业版 4.4.0(或更高版本)中，可以使用 Microsoft Office Online Server (以前命名为Office Web Apps)在线预览文档。 Office Online Server 为所有的 Office 文档提供最佳预览。它还支持直接在web浏览器中协作编辑Office文件。对于拥有 Microsoft Office 批量许可证的组织，可以免费使用Office Online Server。有关 Office Online Server 的更多信息以及如何部署Office Online Server，请参阅 https://technet.microsoft.com/zh-cn/library/jj219455(v=office.16).aspx.
 
 Seafile自身的Office文件预览仍然是默认的。使用 Office Online Server 进行预览，请添加以下配置项到 `seahub_settings.py` 中。
 
