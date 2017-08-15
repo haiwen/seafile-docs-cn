@@ -23,7 +23,7 @@ mkdir -p /data/seafile-fuse
 
 #### 用脚本来启动seaf-fuse
 
-```注意:``` 在启动seaf-fuse之前, 你应该已经通过执行`./seafile.sh start`启动好Seafile服务器。
+**注意:** 在启动seaf-fuse之前, 你应该已经通过执行`./seafile.sh start`启动好Seafile服务器。
 
 <pre>
 ./seaf-fuse.sh start /data/seafile-fuse
