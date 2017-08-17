@@ -30,7 +30,7 @@ Seafile 也在数据库中存储一些重要的元数据。数据库的命名和
 
 * ccnet-db: 包含用户和群组信息
 * seafile-db: 包含资料库元数据信息
-* seahub.db: 包含网站前端（seahub）所用到的数据库表信息
+* seahub-db: 包含网站前端（seahub）所用到的数据库表信息
 
 ## 备份步骤 ##
 
