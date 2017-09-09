@@ -48,6 +48,7 @@
        * [Amazon S3 下安装](deploy_pro/setup_with_amazon_s3.md)
        * [Ceph 下安装](deploy_pro/setup_with_ceph.md)
        * [使用阿里云OSS存储](deploy_pro/setup_with_oss.md)
+       * [不同后端数据迁移](deploy_pro/migrate.md)
    * 集群部署
        * [3节点高可用集群](deploy_pro/ha_cluster.md)
        * [可扩展高可用集群](deploy_pro/deploy_in_a_cluster.md)
