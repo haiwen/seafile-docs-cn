@@ -15,6 +15,7 @@ S3/Swift/Ceph
 - [安装 Seafile 专业版服务器并使用 Ceph](setup_with_Ceph.md)
 - [安装 Seafile 专业版服务器并使用阿里云 OSS](setup_with_oss.md)
 - [安装 seafile 专业版服务器并使用 NFS](setup_seafile_cluster_with_nfs.md)
+- [不同后端的数据迁移](migrate.md)
 
 配置选项
 
