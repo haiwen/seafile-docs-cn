@@ -134,8 +134,8 @@ script_path=${seafile_dir}/seafile-server-latest
 seafile_init_log=${seafile_dir}/logs/seafile.init.log
 seahub_init_log=${seafile_dir}/logs/seahub.init.log
 
-# Change the value of fastcgi to false if fastcgi is not used
-fastcgi=true
+# Change the value of fastcgi to true if fastcgi is to be used
+fastcgi=false
 # Set the port of fastcgi, default is 8000. Change it if you need different.
 fastcgi_port=8000
 #

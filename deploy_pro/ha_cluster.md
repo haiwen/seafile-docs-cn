@@ -104,7 +104,7 @@ Node1 节点：
 
 ```
 ! Configuration File for keepalived
-				
+
 global_defs {
 	notification_email {
 		root@localhost
@@ -138,7 +138,7 @@ vrrp_instance VI_1 {
 	track_script {
 		chk_mariadb_galera
 	}
-	notify_master "/opt/seafile/seafile-server-latest/seafile.sh start && /opt/seafile/seafile-server-latest/seahub.sh start-fastcgi"
+	notify_master "/opt/seafile/seafile-server-latest/seafile.sh start && /opt/seafile/seafile-server-latest/seahub.sh start"
 	notify_backup "/opt/seafile/seafile-server-latest/seafile.sh stop && /opt/seafile/seafile-server-latest/seahub.sh stop"
 }
 ```
@@ -147,7 +147,7 @@ Node2 节点：
 
 ```
 ! Configuration File for keepalived
-				
+
 global_defs {
 	notification_email {
 		root@localhost
@@ -181,7 +181,7 @@ vrrp_instance VI_1 {
 	track_script {
 		chk_mariadb_galera
 	}
-	notify_master "/opt/seafile/seafile-server-latest/seafile.sh start && /opt/seafile/seafile-server-latest/seahub.sh start-fastcgi"
+	notify_master "/opt/seafile/seafile-server-latest/seafile.sh start && /opt/seafile/seafile-server-latest/seahub.sh start"
 	notify_backup "/opt/seafile/seafile-server-latest/seafile.sh stop && /opt/seafile/seafile-server-latest/seahub.sh stop"
 }
 ```

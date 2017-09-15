@@ -116,5 +116,5 @@ OFFICE_CONVERTOR_ROOT = 'http://<vip of nodes background>'
 
 ```
 ./seafile.sh restart
-./seahub.sh restart-fastcgi
+./seahub.sh restart # 如果你使用 fastcgi 请使用此命令`./seahub.sh restart-fastcgi`
 ```

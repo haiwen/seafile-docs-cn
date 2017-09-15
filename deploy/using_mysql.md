@@ -59,18 +59,28 @@
 - python-urllib3
 - python-memcache (或者 python-memcached)
 
-
 ```
-# 在Debian/Ubuntu系统下
+# on Debian/Ubuntu 14.04 server
 apt-get update
-apt-get install mariadb-server
-apt-get install python2.7 python-setuptools python-imaging python-ldap python-mysqldb python-memcache python-urllib3
+apt-get install python2.7 libpython2.7 python-setuptools python-imaging \
+  python-ldap python-mysqldb python-memcache python-urllib3
 ```
 
 ```
-# 在 CentOS 7 下
-yum install mariadb-server
-yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached python-urllib3
+# on Ubuntu 16.04 server
+# As the default python binary on Ubuntu 16.04 server is python 3, we need to install python (python 2) first.
+apt-get update
+apt-get install python
+apt-get install python2.7 libpython2.7 python-setuptools python-imaging python-ldap python-urllib3 ffmpeg python-pip python-mysqldb python-memcache
+pip install pillow moviepy
+```
+
+```
+# on CentOS 7
+yum -y install epel-release
+rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+yum -y install python-imaging MySQL-python python-memcached python-ldap python-urllib3 ffmpeg ffmpeg-devel
+pip install pillow moviepy
 ```
 
 ### 安装

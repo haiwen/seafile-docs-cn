@@ -10,10 +10,8 @@
 
 ```bash
 sudo a2enmod rewrite
-sudo a2enmod proxy_fcgi
 sudo a2enmod proxy_http
 ```
-
 
 ## Apache 环境下部署 Seahub/FileServer
 
@@ -24,8 +22,7 @@ Seahub 是 Seafile 服务器的网站界面. FileServer 用来处理浏览器端
 修改 Apache 配置文件:
 (`sites-enabled/000-default`) for ubuntu/debian
 (`vhost.conf`) for centos/fedora
-
-```
+```apache
 <VirtualHost *:80>
     ServerName www.myseafile.com
     # Use "DocumentRoot /var/www/html" for Centos/Fedora
@@ -49,9 +46,9 @@ Seahub 是 Seafile 服务器的网站界面. FileServer 用来处理浏览器端
     #
     # seahub
     #
-    SetEnvIf Request_URI . proxy-fcgi-pathinfo=unescape
     SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
-    ProxyPass / fcgi://127.0.0.1:8000/
+    ProxyPass / http://127.0.0.1:8000/
+    ProxyPassReverse / http://127.0.0.1:8000/
 </VirtualHost>
 ```
 
@@ -85,7 +82,7 @@ FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 <pre>
 sudo service Apache2 restart
 ./seafile.sh start
-./seahub.sh start-fastcgi
+./seahub.sh start # 如果你使用 fastcgi 请使用此命令`./seahub.sh start-fastcgi`
 </pre>
 
 

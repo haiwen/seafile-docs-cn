@@ -140,7 +140,7 @@ bash seafile-server-centos-7-amd64-http 6.0.10
 
 至此单机 Seafile 服务已经安装完成，数据库为本地mysql，文件数据存放在本地磁盘目录：/opt/seafile/seafile-data
 
-### 配置为集群服务 
+### 配置为集群服务
 要作为集群部署，还需要对配置文件做一些额外配置。
 
 #### 配置 `seafile.conf`
@@ -362,7 +362,7 @@ OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'
 
 ```
 ./seafile.sh start
-./seahub.sh start-fastcgi
+./seahub.sh start # 如果你使用 fastcgi 请使用此命令`./seahub.sh start-fastcgi`
 ./seafile-background-tasks.sh start
 ```
 
