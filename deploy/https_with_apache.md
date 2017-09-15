@@ -6,21 +6,21 @@
 
 
 免费 Self-Signed SSL 数字认证用户请看. 如果你是 SSL 付费认证用户可跳过此步.
-
-    openssl genrsa -out privkey.pem 2048
-    openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095
+```
+openssl genrsa -out privkey.pem 2048
+openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095
+```
 
 ## 在 Seahub 端启用 https
 
 假设你已经按照[Apache 下配置 Seahub](deploy_with_apache.md)对 Apache 进行了相关设置.请启用  `mod_ssl`
 
 ```
-    [sudo] a2enmod ssl
+[sudo] a2enmod ssl
 ```
 
 接下来修改你的 Apache 配置文件，这是示例:
-
-```
+```apache
 <VirtualHost *:443>
   ServerName www.myseafile.com
   DocumentRoot /var/www
@@ -32,7 +32,6 @@
   Alias /media  /home/user/haiwen/seafile-server-latest/seahub/media
 
   <Location /media>
-    ProxyPass !
     Require all granted
   </Location>
 
@@ -48,9 +47,9 @@
   #
   # seahub
   #
-  SetEnvIf Request_URI . proxy-fcgi-pathinfo=unescape
   SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
-  ProxyPass / fcgi://127.0.0.1:8000/
+  ProxyPass / http://127.0.0.1:8000/
+  ProxyPassReverse / http://127.0.0.1:8000/
 </VirtualHost>
 ```
 
@@ -64,8 +63,8 @@ SERVICE_URL: https://www.myseafile.com
 FILE_SERVER_ROOT: https://www.myseafile.com/seafhttp
 ```
 
-
 ## 启动 Seafile 和 Seahub
-
-    ./seafile.sh start
-    ./seahub.sh start-fastcgi
+```
+./seafile.sh start
+./seahub.sh start # 如果你使用 fastcgi 请使用此命令`./seahub.sh start-fastcgi`
+```
