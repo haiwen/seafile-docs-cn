@@ -16,7 +16,7 @@ Seafile集群方案采用了3层架构：
 
 负载均衡器可以使用硬件负载均衡器或者 HAProxy 这种软件负载均衡器。当使用 HAProxy 作为负载均衡器时，可以采用主从热备的架构。客户端通过一个虚拟IP地址（VIP）来访问 Seafile 服务。该 VIP 平时绑定在 HAProxy 主节点上。主从节点之间通过 [Keepalived](http://www.keepalived.org/) 来进行可用性监控，当从节点检测到主节点不可用时，主动将 VIP 接管过来。对客户端来说，这个切换是不可感知的。
 
-Seafile 服务器集群中的服务器分为两类角色：前端服务器节点和后端服务器节点。前端服务器直接为客户端提供文件访问的服务，包括网页、移动端和文件同步访问。后端服务器节点负责运行一些后台任务，包括文件全文检索、Office文件预览生成器、AD 用户信息同步等。一个集群中可以有任意多个的前端服务器节点，可根据性能需求进行扩展。而后端服务器节点只有一个，不过由于其运行的时候后台任务，不可用并不会影响主要的文件访问功能，所以可以不配置高可用。如果需要为后端节点实现高可用，可以通过主从热备的方式，用 Keepalived 来实现主后端节点不可用时，自动切换到从节点。
+Seafile 服务器集群中的服务器分为两类角色：前端服务器节点和后端服务器节点。前端服务器直接为客户端提供文件访问的服务，包括网页、移动端和文件同步访问。后端服务器节点负责运行一些后台任务，包括文件全文检索、Office文件预览生成器、AD 用户信息同步等。一个集群中可以有任意多个的前端服务器节点，可根据性能需求进行扩展。而后端服务器节点只有一个，不过由于其运行的是后台任务，不可用并不会影响主要的文件访问功能，所以可以不配置高可用。如果需要为后端节点实现高可用，可以通过主从热备的方式，用 Keepalived 来实现主后端节点不可用时，自动切换到从节点。
 
 Seafile 前端服务器节点上有两个主要组件：web 服务(Nginx/Apache)和 Seafile 应用程序服务。web 服务将请求从客户端传递到 seafile 应用程序服务。Seafile 服务器独立工作，它们不知道对方的状态。这意味着集群中某个服务器发生故障不会影响到其他服务器实例。负载均衡服务器负责检测故障和重新分发请求。
 
@@ -153,15 +153,13 @@ enabled = true
 memcached_options = --SERVER=<IP of memcached node> --POOL-MIN=10 --POOL-MAX=100
 ```
 
-如果您部署了一个memcached集群，您需要添加所有的memcached服务器地址到 `seafile.conf`,格式如下:
+如果您部署了一个memcached集群，您需要添加可访问的memcached集群地址到 `seafile.conf`,格式如下:
 
 ```
 [cluster]
 enabled = true
-memcached_options = --SERVER=<IP of memcached node1> --SERVER=<IP of memcached node2> --SERVER=<IP of memcached node3> --POOL-MIN=10 --POOL-MAX=100 --RETRY-TIMEOUT=3600
+memcached_options = --SERVER=<IP of memcached cluster> --POOL-MIN=10 --POOL-MAX=100
 ```
-
-注意，上面的配置中有一个 `--RETRY-TIMEOUT=3600` 选项，此选项对于处理memcached服务器故障非常重要。在集群中的memcached服务器发生故障后，seafile服务器将在`--RETRY-TIMEOUT`定义的时间内（以秒为单位）停止尝试使用它。此超时设置应该较长时间，以防止seafile频繁重试失败的服务器,这可能导致客户端经常请求错误。
 
 （可选）Seafile服务器也可打开一个指定端口作为负载均衡器做健康状况检测时使用。默认情况下，seafile使用端口11001。可以通过向 `seafile.conf` 添加以下配置来更改此配置项：
 
@@ -475,3 +473,78 @@ FILE_SERVER_ROOT = 'http://<ip of haproxy node>/seafhttp'
 ## 高可用seafile后端节点
 
 请参考 [高可用seafile后端节点](setup_keepalived_with_background.md)
+
+
+## 集群配置详解
+当你完成一个集群中所有节点的相关配置后，你可以对比以下集群模式相关的主要配置内容，以便进一步确保你的集群可以正常运行：
+
+### 前端节点
+请确保 **seafile.conf** 的最终配置有如下内容：
+
+```
+[cluster]
+enabled = true
+memcached_options = --SERVER=<IP of memcached node> --POOL-MIN=10 --POOL-MAX=100
+```
+
+`enabled = true`用于控制seafile进程以集群模式启动，这非常重要。因此集群中的每个节点都应该有该项配置。
+
+请确保 **seahub_settings.py** 的最终配置有如下内容：
+
+```
+AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
+COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.LocMemCache'
+
+OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'
+```
+
+`AVATAR_FILE_STORAGE` 和 `COMPRESS_CACHE_BACKEND` 参数指明Seahub将用户头像保存在数据库中并缓存到memcached，还要将css缓存到本地内存中。
+集群模式中，预览进程只在后端节点启动，所以 `OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'` 参数指明前端服务器应该如何发送文档转换的请求到后端节点并且从后端节点接收响应。
+
+请确保 **seafevents.conf** 的最终配置有如下内容：
+
+```
+[INDEX FILES]
+enabled = true
+interval = 10m
+external_es_server = true
+es_host = <IP of background node>
+es_port = 9200
+```
+
+`external_es_server = true` 参数用来禁止本地服务器上的文件索引服务，因为文件索引服务应该在专用后台服务器上启动。
+`es_host` 和 `es_port` 分别指定索引服务器(即后端节点)地址以及索引服务监听的端口，以便前端服务器可以正确访问得到。
+
+### 后端节点
+
+请确保 **seafile.conf** 的最终配置有如下内容：
+
+```
+[cluster]
+enabled = true
+memcached_options = --SERVER=<IP of memcached node> --POOL-MIN=10 --POOL-MAX=100
+```
+
+`enabled = true`用于控制seafile进程以集群模式启动，这非常重要。因此集群中的每个节点都应该有该项配置。如果你的后端服务 `seafile-background-tasks` 无法正常启动，很有可能是因为忘记了这个重要配置。
+
+请确保 **seahub_settings.py** 的最终配置有如下内容：
+
+```
+OFFICE_CONVERTOR_NODE = True
+
+AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
+COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.LocMemCache'
+```
+
+作为后端节点， `OFFICE_CONVERTOR_NODE = True` 参数明确告知seahub要在本节点启动预览进程。如果你的预览功能失效，请第一时间检查此处配置。
+`AVATAR_FILE_STORAGE` 和 `COMPRESS_CACHE_BACKEND` 参数指明Seahub将用户头像保存在数据库中并缓存到memcached，还要将css缓存到本地内存中。
+
+请确保 **seafevents.conf** 的最终配置有如下内容：
+
+```
+[INDEX FILES]
+enabled = true
+interval = 10m
+```
+
+与前端节点不同，后端节点配置中**不能**出现 `external_es_server = true` ，因为该节点本身就是后端节点，已经没有其他服务器做为它的后端节点了。如果你的搜索功能不可用，请检查此处是否做了多余的配置。

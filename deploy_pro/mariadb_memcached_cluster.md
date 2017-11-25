@@ -32,7 +32,7 @@ HAproxy做MariaDB集群负载均衡的配置过程请参考文档 [Setup HAProxy
 
 ## 部署 memcached 集群
 
-与其他一般的集群不同，memcached 的集群机制不是是现在 memcached 服务器内部的，而是由使用 memcached 的客户端（即 Seafile 服务器）来实现 key 的分布。所以，部署 memcached 集群其实只需要在各个服务器节点上安装好 memcached 服务器程序即可。所有 Seafile 服务器，包括前端和后端服务器，都必须共享同一个 memcached 集群。
+与其他一般的集群不同，此处 memcached 集群的实际意义在于服务的高可用，是由 keepalived 对两个独立部署的 memcached 节点做服务的高可用。其意义在于当前使用的 memcached 节点宕机时备用节点可以自动接管服务。所有 Seafile 服务器，包括前端和后端服务器，同时使用的依旧是同一个 memcached 节点。
 
 在每个节点上安装好 memcached 之后，还需要稍微修改其配置文件，以对外提供服务。
 
@@ -68,3 +68,101 @@ systemctl restart memcached
 systemctl enable memcached
 ```
 注意：为了避免重启服务后出现不必要的麻烦，请设置 memcached 服务开机自启。
+
+安装 keepalived，实现高可用 memcached。
+
+```
+# For Ubuntu
+sudo apt-get install keepalived -y
+
+# For CentOS
+sudo yum install keepalived -y
+```
+
+修改keepalived配置文件`/etc/keepalived/keepalived.conf`,配置示例如下：
+
+节点1上
+```
+cat /etc/keepalived/keepalived.conf
+
+! Configuration File for keepalived
+
+global_defs {
+    notification_email {
+        root@localhost
+    }
+    notification_email_from keepalived@localhost
+    smtp_server 127.0.0.1
+    smtp_connect_timeout 30
+    router_id node1
+    vrrp_mcast_group4 224.0.100.19
+}
+vrrp_script chk_memcached {
+    script "killall -0 memcached && exit 0 || exit 1"
+    interval 1
+    weight -5
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface ens33
+    virtual_router_id 51
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass hello123
+    }
+    virtual_ipaddress {
+        192.168.1.113/24 dev ens33
+    }
+    track_script {
+	chk_memcached
+    }
+}
+```
+
+节点2上：
+```
+cat /etc/keepalived/keepalived.conf
+
+! Configuration File for keepalived
+
+global_defs {
+    notification_email {
+        root@localhost
+    }
+    notification_email_from keepalived@localhost
+    smtp_server 127.0.0.1
+    smtp_connect_timeout 30
+    router_id node2
+    vrrp_mcast_group4 224.0.100.19
+}
+vrrp_script chk_memcached {
+    script "killall -0 memcached && exit 0 || exit 1"
+    interval 1
+    weight -5
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface ens33
+    virtual_router_id 51
+    priority 98
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass hello123
+    }
+    virtual_ipaddress {
+        192.168.1.113/24 dev ens33
+    }
+    track_script {
+        chk_memcached
+    }
+}
+```
+
+**注意**：以上配置中interface指定该节点的网卡设备名称，请根据实际情况配置。virtual_ipaddress配置HAproxy集群的虚拟IP地址，也需要根据实际情况配置。
+
+修改配置完成后，重启 keepalived 以生效。
