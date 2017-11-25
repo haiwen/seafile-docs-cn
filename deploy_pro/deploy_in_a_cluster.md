@@ -510,10 +510,20 @@ interval = 10m
 external_es_server = true
 es_host = <IP of background node>
 es_port = 9200
+
+[OFFICE CONVERTER]
+enabled = true
+workers = 1
+## how many pages are allowed to be previewed online. Default is 50 pages
+max-pages = 50
+## the max size of documents allowed to be previewed online, in MB. Default is 10 MB
+## Previewing a large file (for example >30M) online is likely going to freeze the browser.
+max-size = 10
 ```
 
 `external_es_server = true` 参数用来禁止本地服务器上的文件索引服务，因为文件索引服务应该在专用后台服务器上启动。
 `es_host` 和 `es_port` 分别指定索引服务器(即后端节点)地址以及索引服务监听的端口，以便前端服务器可以正确访问得到。
+当然`[OFFICE CONVERTER]` 配置段也是不可忽略的，尤其是 `enabled = true` ，它将决定seafile是否启用预览功能。缺少此配置也会导致预览功能不可用。并且请保持此处的配置在前后端节点是完全一样的，否则将会有不可预知的错误发生。
 
 ### 后端节点
 
@@ -545,6 +555,16 @@ COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.LocMemCache'
 [INDEX FILES]
 enabled = true
 interval = 10m
+
+[OFFICE CONVERTER]
+enabled = true
+workers = 1
+## how many pages are allowed to be previewed online. Default is 50 pages
+max-pages = 50
+## the max size of documents allowed to be previewed online, in MB. Default is 10 MB
+## Previewing a large file (for example >30M) online is likely going to freeze the browser.
+max-size = 10
 ```
 
 与前端节点不同，后端节点配置中**不能**出现 `external_es_server = true` ，因为该节点本身就是后端节点，已经没有其他服务器做为它的后端节点了。如果你的搜索功能不可用，请检查此处是否做了多余的配置。
+当然`[OFFICE CONVERTER]` 配置段也是不可忽略的，尤其是 `enabled = true` ，它将决定seafile是否启用预览功能。缺少此配置也会导致预览功能不可用。并且请保持此处的配置在前后端节点是完全一样的，否则将会有不可预知的错误发生。
