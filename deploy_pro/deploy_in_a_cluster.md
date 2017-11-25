@@ -521,8 +521,8 @@ max-pages = 50
 max-size = 10
 ```
 
-`external_es_server = true` 参数用来禁止本地服务器上的文件索引服务，因为文件索引服务应该在专用后台服务器上启动。
-`es_host` 和 `es_port` 分别指定索引服务器(即后端节点)地址以及索引服务监听的端口，以便前端服务器可以正确访问得到。
+`external_es_server = true` 参数用来禁止在本地服务器上启动文件检索用的 ElasticSearch 进程，因为 ElasticSearch 进程应该在专用后台服务器上启动。
+es_host 和 es_port 分别指定 ElasticSearch 进程的地址以及监听的端口，以便前端服务器可以正确访问得到。
 当然`[OFFICE CONVERTER]` 配置段也是不可忽略的，尤其是 `enabled = true` ，它将决定seafile是否启用预览功能。缺少此配置也会导致预览功能不可用。并且请保持此处的配置在前后端节点是完全一样的，否则将会有不可预知的错误发生。
 
 ### 后端节点
