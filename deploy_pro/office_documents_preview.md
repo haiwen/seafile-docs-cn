@@ -6,22 +6,29 @@ Office 预览依赖于 Libreoffice 4.1+ 和 Python-uno 库。
 
 Ubuntu/Debian:
 ```
-sudo apt-get install libreoffice libreoffice-script-provider-python
+sudo apt-get install libreoffice libreoffice-script-provider-python poppler-utils
 ```
 > For older version of Ubuntu: `sudo apt-get install libreoffice python-uno`
 
 Centos/RHEL:
 ```
-sudo yum install libreoffice libreoffice-headless libreoffice-pyuno
+sudo yum install libreoffice libreoffice-headless libreoffice-pyuno poppler-utils
 ```
 
 其他 Linux 发行版可以参考: [Installation of LibreOffice on Linux](http://www.libreoffice.org/get-help/installation/linux/)
 
 你还需要安装字体文件:
 
+Ubuntu/Debian:
 ```
 # For ubuntu/debian
 sudo apt-get install ttf-wqy-microhei ttf-wqy-zenhei xfonts-wqy
+```
+
+CentOS:
+```
+# For CentOS
+sudo yum install wqy-microhei-fonts wqy-zenhei-fonts wqy-unibit-fonts -y
 ```
 
 ### 开启配置项
