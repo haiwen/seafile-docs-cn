@@ -14,16 +14,16 @@
 
 ## 配置示例
 
-假设你的 ccnet-server 的日志文件是 `/home/haiwen/logs/ccnet.log`, ccnet-server 进程的 pidfile 是 `/home/haiwen/pids/ccnet.pid`.
-seaf-server's 的日志文件是 `/home/haiwen/logs/seaf-server.log`, seaf-server 进程的 pidfile 是 `/home/haiwen/pids/seaf-server.pid`:
+假设你的 ccnet-server 的日志文件是 `/opt/seafile/logs/ccnet.log`, ccnet-server 进程的 pidfile 是 `/opt/seafile/pids/ccnet.pid`.
+seaf-server 的日志文件是 `/opt/seafile/logs/seafile.log`, seaf-server 进程的 pidfile 是 `/opt/seafile/pids/seaf-server.pid`:
 
 则请按如下配置 logroate:
 ```
-/home/haiwen/logs/seaf-server.log
+/opt/seafile/logs/seafile.log
 {
         daily
         missingok
-        rotate 52
+        rotate 15
         compress
         delaycompress
         notifempty
@@ -33,11 +33,11 @@ seaf-server's 的日志文件是 `/home/haiwen/logs/seaf-server.log`, seaf-serve
         endscript
 }
 
-/home/haiwen/logs/ccnet.log
+/opt/seafile/logs/ccnet.log
 {
         daily
         missingok
-        rotate 52
+        rotate 15
         compress
         delaycompress
         notifempty
@@ -45,6 +45,17 @@ seaf-server's 的日志文件是 `/home/haiwen/logs/seaf-server.log`, seaf-serve
         postrotate
                 [ ! -f /home/haiwen/pids/ccnet.pid ] || kill -USR1 `cat /home/haiwen/pids/ccnet.pid`
         endscript
+}
+
+/opt/seafile/logs/index.log
+{
+        daily
+        missingok
+        rotate 15
+        compress
+        delaycompress
+        notifempty
+        sharedscripts
 }
 ```
 
