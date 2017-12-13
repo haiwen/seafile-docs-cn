@@ -23,7 +23,7 @@ server {
 
     location / {
          proxy_pass         http://127.0.0.1:8000;
-         proxy_set_header   Host $host;
+         proxy_set_header   Host $host:$server_port;
          proxy_set_header   X-Real-IP $remote_addr;
          proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
          proxy_set_header   X-Forwarded-Host $server_name;
@@ -118,6 +118,7 @@ FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 
 <pre>
 ./seafile.sh start
+./seahub.sh start
+# 如果你使用 fastcgi 请使用以下命令启动seahub。
 ./seahub.sh start-fastcgi
-./seahub.sh start # 如果你使用 fastcgi 请使用此命令`./seahub.sh start-fastcgi`
 </pre>
