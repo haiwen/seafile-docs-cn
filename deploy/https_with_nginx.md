@@ -32,7 +32,7 @@ server {
     server_tokens off;
     # ......
     proxy_pass         http://127.0.0.1:8000;
-    proxy_set_header   Host $host:$server_port;
+    proxy_set_header   Host $host;
     proxy_set_header   X-Real-IP $remote_addr;
     proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header   X-Forwarded-Host $server_name;
@@ -78,7 +78,7 @@ server {
 
     location / {
         proxy_pass         http://127.0.0.1:8000;
-        proxy_set_header   Host $host:$server_port;
+        proxy_set_header   Host $host;
         proxy_set_header   X-Real-IP $remote_addr;
         proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header   X-Forwarded-Host $server_name;
@@ -149,7 +149,5 @@ FILE_SERVER_ROOT: https://www.myseafile.com/seafhttp
 ## 启动 Seafile 和 Seahub
 ```
 ./seafile.sh start
-./seahub.sh start 
-# 如果你使用 fastcgi 请使用以下命令启动seahub。
-./seahub.sh start-fastcgi
+./seahub.sh start # 如果你使用 fastcgi 请使用此命令`./seahub.sh start-fastcgi`
 ```
