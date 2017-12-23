@@ -22,7 +22,7 @@ FILE_SERVER_ROOT = "http://IP/seafhttp"
 
 * 请检查 logs/seahub_django_request.log 来查看具体的错误信息。
 
-#### 安转完成后怎样修改 seafile-data 的位置?
+#### 安装完成后怎样修改 seafile-data 的位置?
 
 Seafile 中使用 ccnet/seafile.ini 来记录 seafile-data 的位置
 
