@@ -31,6 +31,9 @@ SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER = True
 # 管理员重置用户密码后是否给用户发送邮件. 默认为 `True`.
 SEND_EMAIL_ON_RESETTING_USER_PASSWD = True
 
+# 新用户注册后，给管理员发送通知邮件。默认为 `False`。
+NOTIFY_ADMIN_AFTER_REGISTRATION = True
+
 # 登录记住天数. 默认 7 天
 LOGIN_REMEMBER_DAYS = 7
 
