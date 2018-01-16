@@ -24,12 +24,14 @@ Gmail 邮箱示例:
 QQ 邮箱示例：
 
     EMAIL_USE_SSL = True
-    EMAIL_HOST = 'smtp.exmail.qq.com'
+    EMAIL_HOST = 'smtp.qq.com'
     EMAIL_HOST_USER = 'username@domain.com'
-    EMAIL_HOST_PASSWORD = 'password'
+    EMAIL_HOST_PASSWORD = 'Auth_Code'
     EMAIL_PORT = '465'
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = EMAIL_HOST_USER
+
+**注意**：QQ邮箱的配置示例中，'EMAIL_HOST_PASSWORD'并非是邮箱账号的登陆密码，而是一个16位的授权码，获取此授权码的详细流程请参考：http://service.mail.qq.com/cgi-bin/help?subtype=1&&no=1001256&&id=28
 
 163 邮箱未测试成功 (有些国内公共邮箱做了限制的，是不能配置成功的.)
 
