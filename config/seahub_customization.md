@@ -41,23 +41,21 @@
    BRANDING_CSS = 'custom/custom.css'
    </pre>
 
-## 个性化 Seahub 页面
+## 个性化 help 页面
 
-在 ``<seafile-install-path>/seahub-data/custom`` 目录下，新建 ``templates`` 文件夹。
+首先进入 custom 目录
 
-### 个性化“页脚”页面
+```
+cd <seafile-install-path>/seahub-data/custom
+```
 
-**注意:** 6.0 版本之后，Seafile web 页面使用全屏设计, 不再使用页脚。
+运行以下命令，将 install.html 文件复制到 custom/templates/help 目录下
 
-1. 复制``seahub/seahub/templates/footer.html`` 到 ``seahub-data/custom/templates``。
-2. 自行编写 `footer.html`。
+```
+mkdir templates
+mkdir templates/help
+cp ../../seafile-server-latest/seahub/seahub/help/templates/help/install.html
+templates/help/
+```
 
-### 个性化“下载”页面
-
-1. 复制 ``seahub/seahub/templates/download.html`` 到 ``seahub-data/custom/templates``。
-2. 自行编写 `download.html`。
-
-### 个性化“帮助”页面
-
-1. 复制 ``seahub/seahub/help/templates`` 目录到 ``seahub-data/custom/``。
-2. 自行编写 `seahub-data/custom/templates/help` 目录下的 html 文件。
+编辑 `templates/help/install.html` 文件并保存，就可以看到新的 help 页面了。
