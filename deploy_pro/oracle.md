@@ -11,10 +11,13 @@ Ubuntu 14.04，可用以下命令安装全部依赖。
 
 ```
 sudo apt-get install openjdk-7-jre poppler-utils libpython2.7 python-pip \
-mysql-server python-setuptools python-imaging python-memcache python-dev \
+mysql-server python-setuptools python-memcache python-dev \
 python-ldap python-urllib3
 
 sudo pip install boto
+sudo pip install Pillow==4.3.0
+sudo pip install moviepy  # 视频文件缩略图需要用到
+
 ```
 
 CentOS 7 下:
@@ -23,9 +26,11 @@ CentOS 7 下:
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
 sudo yum install java-1.7.0-openjdk poppler-utils python-setuptools \
-python-imaging python-memcached python-ldap \
+python-memcached python-ldap \
 python-urllib3 python-devel gcc
 sudo pip install boto
+sudo pip install Pillow==4.3.0
+sudo pip install moviepy  # 视频文件缩略图需要用到
 ```
 
 **补充说明： 关于 Java**
