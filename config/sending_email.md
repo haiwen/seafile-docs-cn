@@ -33,7 +33,22 @@ QQ 邮箱示例：
 
 **注意**：QQ邮箱的配置示例中，'EMAIL_HOST_PASSWORD'并非是邮箱账号的登陆密码，而是一个16位的授权码，获取此授权码的详细流程请参考：http://service.mail.qq.com/cgi-bin/help?subtype=1&&no=1001256&&id=28
 
-163 邮箱未测试成功 (有些国内公共邮箱做了限制的，是不能配置成功的.)
+163 邮箱:
+
+```
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST_USER = 'username@163.com'
+EMAIL_HOST_PASSWORD = 'authorization_code'
+EMAIL_PORT = '465'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+```
+**注意**:
+
+- 上述配置适用于阿里云服务器 Ubuntu 16.04, 其他类型服务器尚未测试是否成功
+
+- 163邮箱配置示例中, 'EMAIL_HOST_PASSWORD'并非是邮箱账号的登陆密码，而是一个自定义的授权码，自定义此授权码的详细流程请参考：http://help.mail.163.com/faqDetail.do?code=d7a5dc8471cd0c0e8b4b8f4f8e49998b374173cfe9171305fa1ce630d7f67ac2cda80145a1742516
 
 126 邮箱:
 
