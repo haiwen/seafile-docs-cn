@@ -37,6 +37,8 @@ cd seafile-server-latest
 如果检测到病毒，则可以在管理区域的“病毒扫描”页面上查看扫描记录并删除受感染文件。
 ![virus-scan](../images/virus-scan.png)
 
+**提示**：采用以上模式运行clamav时每次都会重新加载病毒库，所以运行起来会消耗过多时间，如果您无法忍受这个弊端，我们建议您将clamav运行为daemon模式，当然相应的seafile.conf中的`scan_command`就应该配置为`scan_command = clamdscan`；如何运行clamav为daemon模式，请参考[Clamd](deploy_clamav_as_daemon.md)
+
 在专业版 6.0.0 之后，添加更多的选项来提供更细粒度的病毒扫描控制。
 
 ```

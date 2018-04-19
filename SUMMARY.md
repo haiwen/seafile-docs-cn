@@ -40,13 +40,17 @@
    * Office 文件预览和编辑
        * [开启 Office/PDF 文件在线预览](deploy_pro/office_documents_preview.md)
        * [Office Online Server 集成](deploy_pro/office_web_app.md)
+       * [Collabora Online Server 集成](deploy/libreoffice_online.md)
+       * [OnlyOffice 集成](deploy/only_office.md)
    * [文件搜索说明](deploy_pro/details_about_file_search.md)
    * [病毒扫描](deploy_pro/virus_scan.md)
+       * [运行 Clamav-daemon](deploy_pro/deploy_clamav_as_daemon.md)
        * [卡巴斯基病毒扫描配置](deploy_pro/virus_scan_with_kav4fs.md)
    * [Web 文件断点续传](deploy_pro/web_resumable_upload.md)
    * 存储后端
        * [Amazon S3 下安装](deploy_pro/setup_with_amazon_s3.md)
        * [Ceph 下安装](deploy_pro/setup_with_ceph.md)
+       * [Swift 下安装](deploy_pro/setup_with_swift.md)
        * [使用阿里云OSS存储](deploy_pro/setup_with_oss.md)
        * [不同后端数据迁移](deploy_pro/migrate.md)
    * 集群部署
