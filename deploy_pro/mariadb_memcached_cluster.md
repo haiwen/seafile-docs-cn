@@ -163,6 +163,6 @@ vrrp_instance VI_1 {
 }
 ```
 
-**注意**：以上配置中interface指定该节点的网卡设备名称，请根据实际情况配置。virtual_ipaddress配置HAproxy集群的虚拟IP地址，也需要根据实际情况配置。
+**注意**：以上配置中interface指定该节点的网卡设备名称，请根据实际情况配置。virtual_ipaddress配置keepalived集群的虚拟IP地址，也需要根据实际情况配置。
 
 修改配置完成后，重启 keepalived 以生效。
