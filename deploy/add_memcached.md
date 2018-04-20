@@ -34,4 +34,25 @@ CACHES = {
 
 ## 使用memcached集群
 
-请查阅[使用memcached集群](../deploy_pro/mariadb_memcached_cluster.md)
+### 部署memcached集群
+如何部署一个memcached集群，请查阅[部署memcached集群](../deploy_pro/mariadb_memcached_cluster.md)
+
+### 将memcached集群添加到seafile中
+
+按照上述方式配置好一个memcached集群之后，您应该有一个可以访问memcached集群的虚拟IP(MEMCACHED_VIP)地址；将该地址连同以下配置信息添加到`seahub_settings.py`中：
+
+```
+CACHES = {
+    'default': {
+        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+        'LOCATION': '<MEMCACHED_VIP>:11211',
+    }
+}
+
+```
+
+最后重启 Seahub 以使更改生效：
+
+    ./seahub.sh restart
+
+如果更改没有生效，请删除`seahub_setting.pyc`缓存文件.
