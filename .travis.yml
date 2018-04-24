@@ -1,0 +1,10 @@
+sudo: false
+language: python
+install:
+- echo
+script:
+- "./scripts/deploy.sh"
+notifications:
+  slack:
+    rooms:
+      secure: ZZwCfl8VrBRueJlzqipJ6Qo0vgPsmkkloFiRR1lV2agvEGZLHEjbpYmntFuQAZFqthdpBof8SEVM4uggzYFLoM6q8tRnl94HnD0X/Bclv0wmXsYvYSg6XCP7j0a66cXLc3bk1jCE7Cd8fx0HHIPRCpjfTgQZCVwSOrkY8LfEOLk=
