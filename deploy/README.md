@@ -16,6 +16,12 @@
 
 企业环境下我们建议使用 MySQL 数据库，并将 Seafile 部署在 Nginx 或者 Apache 上，如果对于 Nginx 和 Apache 都不是很熟悉的话，我们建议使用 Nginx，相对于 Apache 来说，Nginx 使用起来比较简单。
 
+对于部署Seafile服务，我们提供了三种方式:
+
+* 使用[Docker](deploy_with_docker.md),这是我们主要推荐的部署方式.
+* 使用[安装脚本](https://github.com/haiwen/seafile-server-installer-cn)
+* 手动安装Seafile，建立数据库、memcached、Nginx/Apache,建议阅读下面章节.
+
 基础功能:
 
 * [部署 Seafile 服务器（使用 MySQL）](using_mysql.md)

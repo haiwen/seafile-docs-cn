@@ -2,7 +2,8 @@
 
 ## 安装
 
-- 推荐: [用脚本一键在 Ubuntu 16.04 或 CentOS 7 上安装专业版](https://github.com/haiwen/seafile-server-installer-cn)
+- 推荐: [使用Docker部署 Seafile 服务](deploy_with_docker.md)
+- [用脚本一键在 Ubuntu 16.04 或 CentOS 7 上安装专业版](https://github.com/haiwen/seafile-server-installer-cn)
 - [下载与安装 Seafile 专业版服务器](download_and_setup_seafile_professional_server.md)
 - [从 Seafile 社区版服务器迁移到专业版服务器](migrate_from_seafile_community_server.md)
 - [升级 Seafile 专业版服务器](upgrading_seafile_professional_server.md)
@@ -21,9 +22,7 @@ S3/Swift/Ceph
 
 - [Seafile 专业版服务器可配置的选项](configurable_options.md)
 
-
 ## 搜索功能
-
 
 - [关于文件搜索的一些细节](details_about_file_search.md)
 
