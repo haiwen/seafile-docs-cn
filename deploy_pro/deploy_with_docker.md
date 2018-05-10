@@ -10,13 +10,14 @@
 
 ### 快速开始
 
+企业版镜像是放在我们国内的一个私有仓库中。您可以咨询我们的销售人员来获取私有仓库的信息。
+
 登陆 Seafile 的私有仓库:
 
 ```sh
 docker login {host}
 ```
 
-您可以在[用户中心下载页面](https://customer.seafile.com/downloads/)看到关于私有仓库的信息
 
 运行 Seafile 服务容器:
 
@@ -36,7 +37,7 @@ docker run -d --name seafile \
 
 #### 自定义管理员用户名和密码
 
-默认的管理员账号以及密码分别为`me@example.com`，`asecret`.你可以通过设置容器的环境变量来改变初始化时生成的管理员的账号和密码.
+默认的管理员账号以及密码分别为`me@example.com`，`asecret`. 你可以通过设置容器的环境变量来改变初始化时生成的管理员的账号和密码.
 
 比如:
 
@@ -134,9 +135,9 @@ docker run -d --name seafile \
 
 如果您是使用`launcher`脚本的最先一批用户，您应该参考[从旧的结构升级](https://github.com/haiwen/seafile-docker/blob/master/upgrade_from_old_format.md).
 
-### 直击问题
+### 问题排查方法
 
-您可以运行"docker logs"、"docker exec"等docker命令来寻找更多的错误信息.
+如果您在使用的过程中出现问题，您可以运行"docker logs"、"docker exec"等docker命令来寻找更多的错误信息.
 
 ```sh
 docker logs -f seafile
