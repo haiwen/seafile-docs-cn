@@ -126,9 +126,9 @@ docker run -d --name seafile \
 
 如果您是使用`launcher`脚本的最先一批用户，您应该参考[从旧的结构升级](https://github.com/haiwen/seafile-docker/blob/master/upgrade_from_old_format.md).
 
-### 直击问题
+### 问题排查方法
 
-您可以运行"docker logs"、"docker exec"等docker命令来寻找更多的错误信息.
+如果你运行的过程中碰到问题，可以运行"docker logs"、"docker exec"等docker命令来寻找更多的错误信息.
 
 ```sh
 docker logs -f seafile
