@@ -42,10 +42,10 @@ sudo yum install python-ldap
 以下是 LDAP 组同步相关选项。它们定义在 [ccnet.conf](../config/ccent-conf.md) 的“[LDAP_SYNC]”配置段中。
 
 * **ENABLE_GROUP_SYNC**：如果要启用 LDAP 组同步请设置为 “true”。
-* **IMPORT_BY_OU=true**：是否从OU中导入群组，只支持以组织架构的形式导入；仅支持 6.3.0 及其以上版本。
-* **IMPORT_GROUP_STRUCTURE=true**：从OU中导入的群组是否保持其层级关系(组织架构)；仅支持 6.3.0 及其以上版本。
-* **DEL_GROUP_IF_NOT_FOUND=true**：是否删除seafile中存在但AD中已经不存在的群组；仅支持 6.3.0 及其以上版本。
-* **CREATE_GROUP_REPO=true**：从OU中导入群组时是否自动创建出群组资料库；仅支持 6.3.0 及其以上版本。
+* **IMPORT_BY_OU**：是否从OU中导入群组，只支持以组织架构的形式导入；仅支持 6.3.0 及其以上版本。
+* **IMPORT_GROUP_STRUCTURE**：从OU中导入的群组是否保持其层级关系(组织架构)；仅支持 6.3.0 及其以上版本。
+* **DEL_GROUP_IF_NOT_FOUND**：是否删除seafile中存在但AD中已经不存在的群组；仅支持 6.3.0 及其以上版本。
+* **CREATE_GROUP_REPO**：从OU中导入群组时是否自动创建出群组资料库；仅支持 6.3.0 及其以上版本。
 * **SYNC_INTERVAL**：同步周期，单位是分钟，默认设置为60分钟。
 * **GROUP_OBJECT_CLASS**：这是用于搜索组对象的类的名称。在 Active directory 中，它通常是"group";在OpenLDAP或其他中，可以使用"groupOfNames","groupOfUniqueNames" 或者 "posixGroup",这取决于你使用的LDAP服务器。默认设置为"group"。
 * **GROUP_FILTER**：在搜索组对象时使用的附加筛选器。如果设置了，最终用于搜索的筛选器是"(&(objectClass=GROUP_OBJECT_CLASS)(GROUP_FILTER))"，否则使用的筛选器将是"(objectClass=GROUP_OBJECT_CLASS)"。
@@ -110,10 +110,10 @@ LOGIN_ATTR = mail
 
 [LDAP_SYNC]
 ENABLE_GROUP_SYNC = true
-IMPORT_BY_OU=true
-IMPORT_GROUP_STRUCTURE=true
-DEL_GROUP_IF_NOT_FOUND=true
-CREATE_GROUP_REPO=true
+IMPORT_BY_OU = true
+IMPORT_GROUP_STRUCTURE = true
+DEL_GROUP_IF_NOT_FOUND = true
+CREATE_GROUP_REPO = true
 SYNC_INTERVAL = 60
 ```
 
@@ -129,10 +129,10 @@ LOGIN_ATTR = mail
 
 [LDAP_SYNC]
 ENABLE_GROUP_SYNC = true
-IMPORT_BY_OU=true
-IMPORT_GROUP_STRUCTURE=true
-DEL_GROUP_IF_NOT_FOUND=true
-CREATE_GROUP_REPO=true
+IMPORT_BY_OU = true
+IMPORT_GROUP_STRUCTURE = true
+DEL_GROUP_IF_NOT_FOUND = true
+CREATE_GROUP_REPO = true
 SYNC_INTERVAL = 60
 GROUP_OBJECT_CLASS = groupOfNames
 ```
