@@ -126,6 +126,12 @@ docker run -d --name seafile \
 
 如果您是使用`launcher`脚本的最先一批用户，您应该参考[从旧的结构升级](https://github.com/haiwen/seafile-docker/blob/master/upgrade_from_old_format.md).
 
+### 垃圾回收
+
+在 seafile 中，当文件被删除时，组成这些文件的块数据不会立即删除，因为可能有其他文件也会引用这些块数据(用于去重功能的实现)。为了真正删除无用的块数据，还需要额外运行["GC"](https://manual-cn.seafile.com/maintain/seafile_gc.html)程序。GC 会自动检测到哪些数据块不再被任何文件所引用，并清除它们。
+
+GC 脚本被放在docker容器的 `/scripts` 目录下。执行 GC 的方法很简单：`docker exec seafile /scripts/gc.sh`。对于社区版来说，该程序会暂停 Seafile 服务，但这是一个相对较快的程序，一旦程序运行完成，Seafile 服务也会自动重新启动。而专业版提供了在线运行 GC 的功能，不会暂停 Seafile 服务。
+
 ### 问题排查方法
 
 如果你运行的过程中碰到问题，可以运行"docker logs"、"docker exec"等docker命令来寻找更多的错误信息.
