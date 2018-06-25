@@ -169,7 +169,7 @@ pip install pillow moviepy
 
 - 启动 Seahub
 ```
-    ./seahub.sh start <port> # 启动 Seahub 网站 （默认运行在8000端口上）
+    ./seahub.sh start # 启动 Seahub 网站 （默认运行在8000端口上）
 ```
 
 **小贴士:** 你第一次启动 seahub 时，`seahub.sh` 脚本会提示你创建一个 seafile 管理员帐号。
@@ -186,6 +186,8 @@ pip install pillow moviepy
 
 如果你不想在默认的 8000 端口上运行 Seahub, 而是想自定义端口（比如8001）中运行，请按以下步骤操作:
 
+**6.2.x 及其之前版本** 
+
 - 关闭 Seafile 服务器
 ```
     ./seahub.sh stop # 停止 Seafile 进程
@@ -201,6 +203,33 @@ pip install pillow moviepy
 ```
     ./seafile.sh start # 启动 Seafile 服务
     ./seahub.sh start 8001 # 启动 Seahub 网站 （运行在8001端口上）
+```
+
+**6.3.x 及其以上版本**
+
+6.3.0 及其之后的版本，我们弃用了 `./seahub.sh start <port>` 的方式使seahub进程监听在其他端口。但是，您可以通过修改 `conf/gunicorn.conf` 中的端口设置来指定seahub启动端口。
+
+- 关闭 Seafile 服务器
+```
+    ./seahub.sh stop # 停止 Seafile 进程
+    ./seafile.sh stop # 停止 Seahub
+```
+
+- 更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下 (从 5.0 版本开始，可以直接在管理员界面中设置。注意，如果同时在 Web 界面和配置文件中设置了这个值，以 Web 界面的配置为准。):
+```
+    SERVICE_URL = http://192.168.1.100:8001
+```
+
+- **修改conf/gunicorn.conf**
+```
+# default localhost:8000
+bind = "0.0.0.0:8001"
+```
+
+- 重启 Seafile 服务器
+```
+    ./seafile.sh start # 启动 Seafile 服务
+    ./seahub.sh start # 启动 Seahub 网站 （运行在8001端口上）
 ```
 
 关闭/重启 Seafile 和 Seahub

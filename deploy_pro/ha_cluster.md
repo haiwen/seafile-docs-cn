@@ -63,7 +63,7 @@ cd seafile/seafile-pro-server-6.1.6
 ./setup-seafile-mysql.sh auto -u seafile -w ${SQLSEAFILEPW} -r ${SQLROOTPW}
 ```
 
-*注意：`'${SQLSEAFILEPW}'` 代表的是将要授权seafile用户访问数据库所用的密码，替换成您想要设置的密码即可；`'${SQLROOTPW}'` 代表的是root访问数据库时所用的密码，替换成您自己的数据库root密码即可。
+**注意**：`'${SQLSEAFILEPW}'` 代表的是将要授权seafile用户访问数据库所用的密码，替换成您想要设置的密码即可；`'${SQLROOTPW}'` 代表的是root访问数据库时所用的密码，替换成您自己的数据库root密码即可。
 
 以上过程执行成功后，Node1 上已成功安装 Seafile。接下来将 Node1 上 Seafile 的安装目录（此处为/opt/seafile）下的所有文件打包复制到 Node2 节点。并参照以下文档在 Node1、Node2 上配置好相应的后端存储；
 
@@ -81,10 +81,10 @@ cd seafile/seafile-pro-server-6.1.6
 ```
 cd seafile-server-latest
 ./seafile.sh start # 启动 Seafile 服务
-./seahub.sh start [port] # 启动 Seahub 网站（默认运行在8000端口上）
+./seahub.sh start # 启动 Seahub 网站（默认运行在8000端口上）
 ```
 
-*小贴士: 你第一次启动 seahub 时，seahub.sh 脚本会提示你创建一个 seafile 管理员帐号。
+**小贴士**: 你第一次启动 seahub 时，seahub.sh 脚本会提示你创建一个 seafile 管理员帐号。
 服务启动后, 打开浏览器并输入以下地址
 
 ```
@@ -93,11 +93,61 @@ http://<192.168.1.123>:8000/
 
 你会被重定向到登陆页面. 输入管理员用户名和密码即可。
 
+#### 在另一端口上运行 Seahub
+
+如果你不想在默认的 8000 端口上运行 Seahub, 而是想自定义端口（比如8001）中运行，请按以下步骤操作:
+
+**6.2.x 及其之前版本** 
+
+- 关闭 Seafile 服务器
+```
+    ./seahub.sh stop # 停止 Seafile 进程
+    ./seafile.sh stop # 停止 Seahub
+```
+
+- 更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下 (从 5.0 版本开始，可以直接在管理员界面中设置。注意，如果同时在 Web 界面和配置文件中设置了这个值，以 Web 界面的配置为准。):
+```
+    SERVICE_URL = http://192.168.1.100:8001
+```
+
+- 重启 Seafile 服务器
+```
+    ./seafile.sh start # 启动 Seafile 服务
+    ./seahub.sh start 8001 # 启动 Seahub 网站 （运行在8001端口上）
+```
+
+**6.3.x 及其以上版本**
+
+6.3.0 及其之后的版本，我们弃用了 `./seahub.sh start <port>` 的方式使seahub进程监听在其他端口。但是，您可以通过修改 `conf/gunicorn.conf` 中的端口设置来指定seahub启动端口。
+
+- 关闭 Seafile 服务器
+```
+    ./seahub.sh stop # 停止 Seafile 进程
+    ./seafile.sh stop # 停止 Seahub
+```
+
+- 更改`haiwen/conf/ccnet.conf`文件中`SERVICE_URL` 的值(假设你的 ip 或者域名时`192.168.1.100`), 如下 (从 5.0 版本开始，可以直接在管理员界面中设置。注意，如果同时在 Web 界面和配置文件中设置了这个值，以 Web 界面的配置为准。):
+```
+    SERVICE_URL = http://192.168.1.100:8001
+```
+
+- **修改conf/gunicorn.conf**
+```
+# default localhost:8000
+bind = "0.0.0.0:8001"
+```
+
+- 重启 Seafile 服务器
+```
+    ./seafile.sh start # 启动 Seafile 服务
+    ./seahub.sh start # 启动 Seahub 网站 （运行在8001端口上）
+```
+
 ### Nginx 下配置 Seahub
 
 您可能还需要使用 Nginx 反向代理 Seahub；请参照文档 [Nginx 下配置 Seahub](https://manual-cn.seafile.com/deploy/deploy_with_nginx.html) 在 Node1、Node2 节点上配置 Nginx 反向代理服务；
 
-*提示：请在两个节点都设置 Nginx 开机自启动：`systemctl enable nginx.service`
+**提示**：请在两个节点都设置 Nginx 开机自启动：`systemctl enable nginx.service`
 
 ### Keepalived 高可用
 
