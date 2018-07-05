@@ -8,6 +8,8 @@
 
 如果您并不熟悉 Docker 的命令，请参考[docker文档](https://docs.docker.com/engine/reference/commandline/cli/).
 
+**注意**：本文档仅包含了在 docker 下部署 Seafile 开源版的方法，如果您想要在 docker 下部署 Seafile 专业版，请参考[用 Docker 部署 Seafile-Pro 服务](../deploy_pro/deploy_with_docker.md)
+
 ### 快速开始
 
 运行 Seafile 服务容器:
