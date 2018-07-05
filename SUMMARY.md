@@ -30,7 +30,7 @@
    * [从 Windows 迁移到 Linux](deploy_windows/migrate_from_win_to_linux.md)
    * [垃圾回收](deploy_windows/windows_gc.md)
 * [部署 Seafile 专业版服务器](deploy_pro/README.md)
-   * [用Docker部署 Seafile 服务](deploy_pro/deploy_with_docker.md)
+   * [用 Docker 部署 Seafile-Pro 服务](deploy_pro/deploy_with_docker.md)
    * [下载安装 Seafile 专业版服务器](deploy_pro/download_and_setup_seafile_professional_server.md)
    * [从社区版迁移至专业版](deploy_pro/migrate_from_seafile_community_server.md)
    * [升级](deploy_pro/upgrading_seafile_professional_server.md)
@@ -54,6 +54,7 @@
        * [Ceph 下安装](deploy_pro/setup_with_ceph.md)
        * [Swift 下安装](deploy_pro/setup_with_swift.md)
        * [使用阿里云OSS存储](deploy_pro/setup_with_oss.md)
+       * [使用多存储后端](deploy_pro/multiple_storage_backends.md)
        * [不同后端数据迁移](deploy_pro/migrate.md)
    * 集群部署
        * [3节点高可用集群](deploy_pro/ha_cluster.md)
@@ -69,6 +70,7 @@
        * [多机构支持](deploy_pro/multi_institutions.md)
    * 高级认证
        * [两步认证](deploy_pro/two_factor_authentication.md)
+       * [配置 CAS 认证登陆](deploy_pro/cas.md)
    * 高级维护工具
        * [向seafile中导入目录](deploy_pro/seaf-import.md)
    * [软件许可协议](deploy_pro/license-pro-edition.md)
