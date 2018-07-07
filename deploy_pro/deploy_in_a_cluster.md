@@ -174,7 +174,6 @@ health_check_port = 12345
 ```
 AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
 
-COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.LocMemCache'
 ```
 
 #### 配置 `seafevents.conf`
@@ -493,12 +492,11 @@ memcached_options = --SERVER=<IP of memcached node> --POOL-MIN=10 --POOL-MAX=100
 
 ```
 AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
-COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.LocMemCache'
 
 OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'
 ```
 
-`AVATAR_FILE_STORAGE` 和 `COMPRESS_CACHE_BACKEND` 参数指明Seahub将用户头像保存在数据库中并缓存到memcached，还要将css缓存到本地内存中。
+`AVATAR_FILE_STORAGE` 参数指明Seahub将用户头像保存在数据库中并缓存到memcached，还要将css缓存到本地内存中。
 集群模式中，预览进程只在后端节点启动，所以 `OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'` 参数指明前端服务器应该如何发送文档转换的请求到后端节点并且从后端节点接收响应。
 
 请确保 **seafevents.conf** 的最终配置有如下内容：
@@ -543,11 +541,10 @@ memcached_options = --SERVER=<IP of memcached node> --POOL-MIN=10 --POOL-MAX=100
 OFFICE_CONVERTOR_NODE = True
 
 AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
-COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.LocMemCache'
 ```
 
 作为后端节点， `OFFICE_CONVERTOR_NODE = True` 参数明确告知seahub要在本节点启动预览进程。如果你的预览功能失效，请第一时间检查此处配置。
-`AVATAR_FILE_STORAGE` 和 `COMPRESS_CACHE_BACKEND` 参数指明Seahub将用户头像保存在数据库中并缓存到memcached，还要将css缓存到本地内存中。
+`AVATAR_FILE_STORAGE` 参数指明Seahub将用户头像保存在数据库中并缓存到memcached，还要将css缓存到本地内存中。
 
 请确保 **seafevents.conf** 的最终配置有如下内容：
 
