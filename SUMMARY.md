@@ -73,6 +73,7 @@
        * [配置 CAS 认证登陆](deploy_pro/cas.md)
    * 高级维护工具
        * [向seafile中导入目录](deploy_pro/seaf-import.md)
+       * [Seafile实时备份](deploy_pro/real_time_backup.md)
    * [软件许可协议](deploy_pro/license-pro-edition.md)
 * [服务器个性化配置](config/README.md)
    * [ccnet.conf](config/ccnet-conf.md)
