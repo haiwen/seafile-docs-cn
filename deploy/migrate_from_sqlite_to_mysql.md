@@ -62,7 +62,7 @@
         user=root
         password=root
         db_name=seafile-db
-        CONNECTION_CHARSET=utf8
+        connection_charset=utf8
 
     在 `seahub_settings.py` 中增加以下语句:
 
