@@ -6,7 +6,7 @@
 
 0. 停止 Seafile 和 Seahub
 
-1. 下载 [sqlite2mysql.sh](https://raw.github.com/haiwen/seafile/master/scripts/sqlite2mysql.sh) 和 [sqlite2mysql.py](https://raw.github.com/haiwen/seafile/master/scripts/sqlite2mysql.py) 到 Seafile 的安装根目录（`/data/haiwen`）里.
+1. 下载 [sqlite2mysql.sh](https://raw.githubusercontent.com/haiwen/seafile-server/master/scripts/sqlite2mysql.sh) 和 [sqlite2mysql.py](https://raw.githubusercontent.com/haiwen/seafile-server/master/scripts/sqlite2mysql.py) 到 Seafile 的安装根目录（`/data/haiwen`）里.
 
 2. 运行 sqlite2mysql.sh 脚本
 ```
