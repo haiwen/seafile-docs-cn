@@ -26,7 +26,7 @@ interval=10m
 # 注意： 如果您将此选项从 "false" 设置为 "true"， 那么您需要清空搜索索引然后再次更新索引。更多详情请参考 FAQ。
 index_office_pdf=false
 
-# 从 6.3.0 pro 开始，为了加速搜索结果的显示，您还应该加上
+# 从 6.3.0 pro 开始，为了加快全文检索的速度，您还应该加上
 highlight = fvh
 ```
 
