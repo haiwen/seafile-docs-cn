@@ -192,6 +192,7 @@ external_es_server = true
 enabled = true
 interval = 10m
 index_office_pdf = true
+highlight = fvh     # 该配置项依赖于 Seafile 6.3.0 pro 及其以上版本
 external_es_server = true
 es_host = background.seafile.com
 es_port = 9200
@@ -505,6 +506,7 @@ OFFICE_CONVERTOR_ROOT = 'http://<ip of node background>'
 [INDEX FILES]
 enabled = true
 interval = 10m
+highlight = fvh     # 该配置项依赖于 Seafile 6.3.0 pro 及其以上版本
 external_es_server = true
 es_host = <IP of background node>
 es_port = 9200
@@ -552,6 +554,7 @@ AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
 [INDEX FILES]
 enabled = true
 interval = 10m
+highlight = fvh     # 该配置项依赖于 Seafile 6.3.0 pro 及其以上版本
 
 [OFFICE CONVERTER]
 enabled = true
