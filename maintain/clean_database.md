@@ -7,7 +7,7 @@
 清理 Session 表:
 
     cd <install-path>/seafile-server-latest
-    ./seahub.sh clearsessions
+    ./seahub.sh python-env seahub/manage.py clearsessions
 
 
 ### 文件活动 (Activity)
