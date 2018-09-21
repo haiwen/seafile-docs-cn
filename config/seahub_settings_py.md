@@ -83,6 +83,18 @@ REPO_PASSWORD_MIN_LENGTH = 8
 # 加密外链密码最小长度
 SHARE_LINK_PASSWORD_MIN_LENGTH = 8
 
+# 共享外链的最小过期时长 (since version 6.3.6)
+SHARE_LINK_EXPIRE_DAYS_MIN = 3 # 默认是 0, 没有限制.
+
+# 共享外链的最大过期时长 (since version 6.3.6)
+SHARE_LINK_EXPIRE_DAYS_MAX = 8 # 默认是 0, 没有限制.
+
+# 查看文件或目录的共享外链时是否强制用户登录 (since version 6.3.6)
+SHARE_LINK_LOGIN_REQUIRED = True
+
+# 在线预览文件(非编辑模式下)时，是否开启水印功能 (since version 6.3.6)
+ENABLE_WATERMARK = True
+
 # 关闭与任意目录同步的功能
 DISABLE_SYNC_WITH_ANY_FOLDER = True
 
@@ -142,26 +154,26 @@ THUMBNAIL_SIZE_FOR_ORIGINAL = 1024
 如果您使用的是一个基于未知用户的seafile，那么您应该启用 Cloud 模式。它禁用了seafile网站上的"组织"标签，以确保用户不能访问用户列表。Cloud 模式提供了一些不错的功能，比如与未注册用户共享内容，并向他们发送邀请。因此，您还需要启用用户注册。通过全局通讯录(从4.2.3版本后)，您可以搜索每个用户账户。所以您可能想要禁用它。
 
 ```python
-# Enable cloude mode and hide `Organization` tab.
+# 启用cloude模式并隐藏“组织”选项卡。
 CLOUD_MODE = True
 
-# Disable global address book
+# 禁用全局地址簿
 ENABLE_GLOBAL_ADDRESSBOOK = False
 ```
 
 ## 外部认证
 
 ```python
-# Enable authentication with ADFS
+# 开启 ADFS 认证登录
 # Default is False
 # Since 6.0.9
 ENABLE_ADFS_LOGIN = True
 
-# Enable authentication wit Kerberos
+# 开启 Kerberos 认证登录
 # Default is False
 ENABLE_KRB5_LOGIN = True
 
-# Enable authentication with Shibboleth
+# 开启 Shibboleth 认证登录
 # Default is False
 ENABLE_SHIBBOLETH_LOGIN = True
 ```
@@ -169,7 +181,7 @@ ENABLE_SHIBBOLETH_LOGIN = True
 ## 其他选项
 
 ```python
-# Disable settings via Web interface in system admin->settings
+# 开启Web页面上的 “系统管理 -> 设置” 
 # Default is True
 # Since 5.1.3
 ENABLE_SETTINGS_VIA_WEB = False
@@ -196,11 +208,11 @@ SITE_TITLE = 'Private Seafile'
 # e.g. setting it to '/seahub/' would run seahub on http://example.com/seahub/.
 SITE_ROOT = '/'
 
-# Max number of files when user upload file/folder.
+# 用户上传文件/文件夹时的最大文件数
 # Since version 6.0.4
 MAX_NUMBER_OF_FILES_FOR_FILEUPLOAD = 500
 
-# Control the language that send email. Default to user's current language.
+# 控制发送电子邮件的语言。默认为用户当前的语言。
 # Since version 6.1.1
 SHARE_LINK_EMAIL_LANGUAGE = ''
 
@@ -213,18 +225,18 @@ UNREAD_NOTIFICATIONS_REQUEST_INTERVAL = 3 * 60 # seconds
 ## 专业版选项
 
 ```python
-# Whether to show the used traffic in user's profile popup dialog. Default is True
+# 是否在用户头像的弹出对话框中显示所使用的流量。 Default is True
 SHOW_TRAFFIC = True
 
-# Allow administrator to view user's file in UNENCRYPTED libraries
+# 允许管理员在未加密的资料库中查看用户的文件
 # through Libraries page in System Admin. Default is False.
 ENABLE_SYS_ADMIN_VIEW_REPO = True
 
-# For un-login users, providing an email before downloading or uploading on shared link page.
+# 对于非登录用户，在下载或上传共享链接页面之前提供电子邮件。
 # Since version 5.1.4
 ENABLE_SHARE_LINK_AUDIT = True
 
-# Check virus after upload files to shared upload links. Defaults to `False`.
+# 上传文件到共享连接后执行病毒扫描。 Defaults to `False`.
 # Since version 6.0
 ENABLE_UPLOAD_LINK_VIRUS_CHECK = True
 
@@ -232,20 +244,20 @@ ENABLE_UPLOAD_LINK_VIRUS_CHECK = True
 # Since version 6.0
 ENABLE_TERMS_AND_CONDITIONS = True
 
-# Enable two factor authentication for accounts. Defaults to `False`.
+# 开启“两步认证”功能。 Defaults to `False`.
 # Since version 6.0
 ENABLE_TWO_FACTOR_AUTH = True
 
-# Enable user select a template when he/she creates library.
-# When user select a template, Seafile will create folders releated to the pattern automaticly.
+# 当用户创建库时，允许用户选择一个模板。
+# 当用户选择一个模板时，Seafile将根据模板自动创建文件夹。
 # Since version 6.0
 LIBRARY_TEMPLATES = {
     'Technology': ['/Develop/Python', '/Test'],
     'Finance': ['/Current assets', '/Fixed assets/Computer']
 }
 
-# Send email to these email addresses when a virus is detected.
-# This list can be any valid email address, not necessarily the emails of Seafile user.
+# 当检测到病毒时，将电子邮件发送到这些邮箱地址。
+# 这个列表可以是任何有效的电子邮件地址，不一定是Seafile用户的电子邮箱。
 # Since version 6.0.8
 VIRUS_SCAN_NOTIFY_LIST = ['user_a@seafile.com', 'user_b@seafile.com']
 ```

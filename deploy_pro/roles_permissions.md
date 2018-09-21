@@ -4,6 +4,8 @@
 
 6.1 版本开始，我们添加了一个新的权限 `relo_quota`(角色配额)，该权限用来给某个用户的角色设置空间配额。例如，我们可以通过添加 `'role_quota': '100g'` 为 employee 角色设置100GB的空间配额，同时其他用户还是使用默认的空间配额。
 
+6.3.6 版本开始，我们添加了一个新的权限 `can_add_public_repo`(是否可以创建公共资料库，默认为'False')；如果需要赋予某个角色可以创建公共资料库的权限，需要为该角色添加配置项`'can_add_public_repo': True,`。
+
 Seafile 内建两种用户角色：`default` 和 `guest`（访客用户）。
 
 `default` 用户实际就是一个普通 Seafile 用户，对应默认权限列表如下：
@@ -93,7 +95,7 @@ ENABLE_GUEST_INVITATION = True
 
 ## 自定义用户角色
 
-如果你想增加一个用户角色，比如 `employee` 角色，而此角色 *不具有 “邀请访客”、“生成上传/下载外链”* 权限，在 `seahub_settings.py` 中加入以下配置:
+如果你想增加一个用户角色，比如 `employee` 角色，而此角色 *不具有 “邀请访客”、“生成上传/下载外链”* 权限，并且*允许该角色用户“创建公共资料库”*，在 `seahub_settings.py` 中加入以下配置:
 
 ```
 ENABLED_ROLE_PERMISSIONS = {
@@ -135,8 +137,9 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_connect_with_ios_clients': True,
         'can_connect_with_desktop_clients': True,
         'role_quota': '',
+        'can_add_public_repo': True,
     },
 }
 ```
 
-注意 `employee` 用户的 `can_invite_guest`、`can_generate_share_link`、`can_generate_upload_link` 设置。
+注意 `employee` 用户的 `can_invite_guest`、`can_generate_share_link`、`can_generate_upload_link`、`can_add_public_repo` 设置。
