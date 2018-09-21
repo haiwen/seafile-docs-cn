@@ -1,7 +1,7 @@
 # Seahub 配置
 
 **Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
-**提示**：您还可以通过Web界面修改多说配置项。这些配置项会被保存在数据库表(seahub_db/constance_config)中。他们的优先级高于配置文件中的项目。如果要禁用Web界面设置，可以添加 `ENABLE_SETTINGS_VIA_WEB = False` 到 `seahub_settings.py`。
+**提示**：您还可以通过Web界面修改多数配置项。这些配置项会被保存在数据库表(seahub_db/constance_config)中。他们的优先级高于配置文件中的项目。如果要禁用Web界面设置，可以添加 `ENABLE_SETTINGS_VIA_WEB = False` 到 `seahub_settings.py`。
 
 ### Seahub 下发送邮件提醒
 
@@ -15,7 +15,7 @@ Seahub 默认缓存文件系统上的缓存项(avatars,profiles,等)到(/tmp/sea
 
 ### 用户管理选项
 
-以下选项影响用户注册，密码和会话。
+以下选项影响用户注册，密码和 session。
 
 ```python
 # 是否开启用户注册功能. 默认为 `False`.
@@ -34,10 +34,10 @@ SEND_EMAIL_ON_RESETTING_USER_PASSWD = True
 # 新用户注册后，给管理员发送通知邮件。默认为 `False`。
 NOTIFY_ADMIN_AFTER_REGISTRATION = True
 
-# 登录记住天数. 默认 7 天
+# 记住登录状态的天数. 默认 7 天
 LOGIN_REMEMBER_DAYS = 7
 
-# 用户输入密码错误次数超过改设置后，显示验证码
+# 用户输入密码错误次数超过该设置后，显示验证码
 LOGIN_ATTEMPT_LIMIT = 3
 
 # 如果登录密码输错次数超过 ``LOGIN_ATTEMPT_LIMIT``，冻结账号
@@ -83,6 +83,18 @@ REPO_PASSWORD_MIN_LENGTH = 8
 # 加密外链密码最小长度
 SHARE_LINK_PASSWORD_MIN_LENGTH = 8
 
+# 共享外链的最小过期时长 (since version 6.3.6)
+SHARE_LINK_EXPIRE_DAYS_MIN = 3 # 默认是 0, 没有限制.
+
+# 共享外链的最大过期时长 (since version 6.3.6)
+SHARE_LINK_EXPIRE_DAYS_MAX = 8 # 默认是 0, 没有限制.
+
+# 查看文件或目录的共享外链时是否强制用户登录 (since version 6.3.6)
+SHARE_LINK_LOGIN_REQUIRED = True
+
+# 在线预览文件(非编辑模式下)时，是否开启水印功能 (since version 6.3.6)
+ENABLE_WATERMARK = True
+
 # 关闭与任意目录同步的功能
 DISABLE_SYNC_WITH_ANY_FOLDER = True
 
@@ -101,13 +113,13 @@ ENABLE_USER_CREATE_ORG_REPO = True
 # 是否使用 pdf.js 来在线查看文件. 默认为 `True`
 USE_PDFJS = True
 
-# 在线文件查看最大文件大小，默认为 30M.
+# 在线预览的文件大小上限，默认为 30M.
 # 注意, 在专业版中，seafevents.conf 中有另一个选项
 # `max-size` 也控制 doc/ppt/excel/pdf 文件在线查看的最大文件大小。
 # 您需要同时把这两个选项调大，如果您要允许 30M 以上 doc/ppt/excel/pdf 的查看。
 FILE_PREVIEW_MAX_SIZE = 30 * 1024 * 1024
 
-# 扩展预览文本文件
+# 可预览文件的文件类型扩展名
 # 注意：Since version 6.1.1
 TEXT_PREVIEW_EXT = """ac, am, bat, c, cc, cmake, cpp, cs, css, diff, el, h, html,
 htm, java, js, json, less, make, org, php, pl, properties, py, rb,
@@ -118,7 +130,7 @@ groovy, rst, patch, go"""
 # 注意: since version 4.0.2
 ENABLE_THUMBNAIL = True
 
-# 对于小于以下尺寸的图片，seafile只能生成缩略图
+# Seafile只针对小于以下尺寸的图片生成缩略图
 THUMBNAIL_IMAGE_SIZE_LIMIT = 30 # MB
 
 # 文件缩略图的存储位置
@@ -139,29 +151,29 @@ THUMBNAIL_SIZE_FOR_ORIGINAL = 1024
 
 ## Cloud 模式
 
-如果您使用的是一个基于未知用户的seafile，那么您应该启用 Cloud 模式。它禁用了seafile网站上的"组织"标签，以确保用户不能访问用户列表。Cloud 模式提供了一些不错的功能，比如与未注册用户共享内容，并向他们发送邀请。因此，您还需要启用用户注册。通过全局通讯录(从4.2.3版本后)，您可以搜索每个用户账户。所以您可能想要禁用它。
+如果您打算对外提供公共的云盘服务，您应该启用 Cloud 模式。它禁用了seafile网站上的"组织"标签，以确保用户不能访问用户列表。Cloud 模式提供了一些不错的功能，比如与未注册用户共享内容，并向他们发送邀请。因此，您还需要启用用户注册。通过全局通讯录(从4.2.3版本后)您可以搜索到每个用户账户，所以您可能想要禁用它。
 
 ```python
-# Enable cloude mode and hide `Organization` tab.
+# 启用cloud模式并隐藏“组织”选项卡。
 CLOUD_MODE = True
 
-# Disable global address book
+# 禁用全局通讯录
 ENABLE_GLOBAL_ADDRESSBOOK = False
 ```
 
 ## 外部认证
 
 ```python
-# Enable authentication with ADFS
+# 使用 ADFS 认证登录
 # Default is False
 # Since 6.0.9
 ENABLE_ADFS_LOGIN = True
 
-# Enable authentication wit Kerberos
+# 使用 Kerberos 认证登录
 # Default is False
 ENABLE_KRB5_LOGIN = True
 
-# Enable authentication with Shibboleth
+# 使用 Shibboleth 认证登录
 # Default is False
 ENABLE_SHIBBOLETH_LOGIN = True
 ```
@@ -169,7 +181,7 @@ ENABLE_SHIBBOLETH_LOGIN = True
 ## 其他选项
 
 ```python
-# Disable settings via Web interface in system admin->settings
+# 开启Web页面上的 “系统管理 -> 设置” ，允许管理员在web页面上进行某些设置
 # Default is True
 # Since 5.1.3
 ENABLE_SETTINGS_VIA_WEB = False
@@ -192,15 +204,15 @@ SITE_NAME = 'Seafile'
 # Browser tab's title
 SITE_TITLE = 'Private Seafile'
 
-# If you don't want to run seahub website on your site's root path, set this option to your preferred path.
-# e.g. setting it to '/seahub/' would run seahub on http://example.com/seahub/.
+# 如果您不打算让seahub站点运行在网站的根路径上，可以设置站点路径
+# e.g. 设置为 '/seahub/'，网站将运行在 http://example.com/seahub/.
 SITE_ROOT = '/'
 
-# Max number of files when user upload file/folder.
+# 用户上传文件/文件夹时的最大文件数
 # Since version 6.0.4
 MAX_NUMBER_OF_FILES_FOR_FILEUPLOAD = 500
 
-# Control the language that send email. Default to user's current language.
+# 控制发送电子邮件的语言。默认为Seafile系统用户当前的语言。
 # Since version 6.1.1
 SHARE_LINK_EMAIL_LANGUAGE = ''
 
@@ -213,39 +225,39 @@ UNREAD_NOTIFICATIONS_REQUEST_INTERVAL = 3 * 60 # seconds
 ## 专业版选项
 
 ```python
-# Whether to show the used traffic in user's profile popup dialog. Default is True
+# 是否在用户头像的弹出对话框中显示所使用的流量。 Default is True
 SHOW_TRAFFIC = True
 
-# Allow administrator to view user's file in UNENCRYPTED libraries
-# through Libraries page in System Admin. Default is False.
+# 允许管理员可以查看未加密资料库中的用户文件。
+# 通过访问“系统管理”界面的“资料库”页面。 Default is False.
 ENABLE_SYS_ADMIN_VIEW_REPO = True
 
-# For un-login users, providing an email before downloading or uploading on shared link page.
+# 对于非登录用户，要求在访问下载或上传共享链接页面之前提供电子邮件。
 # Since version 5.1.4
 ENABLE_SHARE_LINK_AUDIT = True
 
-# Check virus after upload files to shared upload links. Defaults to `False`.
+# 上传文件到共享链接后立即执行病毒扫描。 Defaults to `False`.
 # Since version 6.0
 ENABLE_UPLOAD_LINK_VIRUS_CHECK = True
 
-# Enable system admin add T&C, all users need to accept terms before using. Defaults to `False`.
+# 允许管理员设置条款, 所有用户在使用前都需要接受这个条款。 Defaults to `False`.
 # Since version 6.0
 ENABLE_TERMS_AND_CONDITIONS = True
 
-# Enable two factor authentication for accounts. Defaults to `False`.
+# 开启“两步认证”功能。 Defaults to `False`.
 # Since version 6.0
 ENABLE_TWO_FACTOR_AUTH = True
 
-# Enable user select a template when he/she creates library.
-# When user select a template, Seafile will create folders releated to the pattern automaticly.
+# 当用户创建资料库时，允许用户选择一个模板。
+# 当用户选择一个模板时，Seafile将根据模板自动创建文件夹。
 # Since version 6.0
 LIBRARY_TEMPLATES = {
     'Technology': ['/Develop/Python', '/Test'],
     'Finance': ['/Current assets', '/Fixed assets/Computer']
 }
 
-# Send email to these email addresses when a virus is detected.
-# This list can be any valid email address, not necessarily the emails of Seafile user.
+# 当检测到病毒时，将电子邮件发送到这些邮箱地址。
+# 这个列表可以是任何有效的电子邮件地址，不一定是Seafile用户的电子邮箱。
 # Since version 6.0.8
 VIRUS_SCAN_NOTIFY_LIST = ['user_a@seafile.com', 'user_b@seafile.com']
 ```
