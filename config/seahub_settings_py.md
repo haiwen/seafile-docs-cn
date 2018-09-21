@@ -1,7 +1,7 @@
 # Seahub 配置
 
 **Note**: Seafile 服务器 5.0.0 之后，所有配置文件都移动到了统一的 **conf** 目录下。 [了解详情](../deploy/new_directory_layout_5_0_0.md).
-**提示**：您还可以通过Web界面修改多说配置项。这些配置项会被保存在数据库表(seahub_db/constance_config)中。他们的优先级高于配置文件中的项目。如果要禁用Web界面设置，可以添加 `ENABLE_SETTINGS_VIA_WEB = False` 到 `seahub_settings.py`。
+**提示**：您还可以通过Web界面修改多数配置项。这些配置项会被保存在数据库表(seahub_db/constance_config)中。他们的优先级高于配置文件中的项目。如果要禁用Web界面设置，可以添加 `ENABLE_SETTINGS_VIA_WEB = False` 到 `seahub_settings.py`。
 
 ### Seahub 下发送邮件提醒
 
@@ -15,7 +15,7 @@ Seahub 默认缓存文件系统上的缓存项(avatars,profiles,等)到(/tmp/sea
 
 ### 用户管理选项
 
-以下选项影响用户注册，密码和会话。
+以下选项影响用户注册，密码和 session。
 
 ```python
 # 是否开启用户注册功能. 默认为 `False`.
@@ -34,10 +34,10 @@ SEND_EMAIL_ON_RESETTING_USER_PASSWD = True
 # 新用户注册后，给管理员发送通知邮件。默认为 `False`。
 NOTIFY_ADMIN_AFTER_REGISTRATION = True
 
-# 登录记住天数. 默认 7 天
+# 记住登录状态的天数. 默认 7 天
 LOGIN_REMEMBER_DAYS = 7
 
-# 用户输入密码错误次数超过改设置后，显示验证码
+# 用户输入密码错误次数超过该设置后，显示验证码
 LOGIN_ATTEMPT_LIMIT = 3
 
 # 如果登录密码输错次数超过 ``LOGIN_ATTEMPT_LIMIT``，冻结账号
@@ -113,13 +113,13 @@ ENABLE_USER_CREATE_ORG_REPO = True
 # 是否使用 pdf.js 来在线查看文件. 默认为 `True`
 USE_PDFJS = True
 
-# 在线文件查看最大文件大小，默认为 30M.
+# 在线预览的文件大小上限，默认为 30M.
 # 注意, 在专业版中，seafevents.conf 中有另一个选项
 # `max-size` 也控制 doc/ppt/excel/pdf 文件在线查看的最大文件大小。
 # 您需要同时把这两个选项调大，如果您要允许 30M 以上 doc/ppt/excel/pdf 的查看。
 FILE_PREVIEW_MAX_SIZE = 30 * 1024 * 1024
 
-# 扩展预览文本文件
+# 可预览文件的文件类型扩展名
 # 注意：Since version 6.1.1
 TEXT_PREVIEW_EXT = """ac, am, bat, c, cc, cmake, cpp, cs, css, diff, el, h, html,
 htm, java, js, json, less, make, org, php, pl, properties, py, rb,
@@ -130,7 +130,7 @@ groovy, rst, patch, go"""
 # 注意: since version 4.0.2
 ENABLE_THUMBNAIL = True
 
-# 对于小于以下尺寸的图片，seafile只能生成缩略图
+# Seafile只针对小于以下尺寸的图片生成缩略图
 THUMBNAIL_IMAGE_SIZE_LIMIT = 30 # MB
 
 # 文件缩略图的存储位置
@@ -151,29 +151,29 @@ THUMBNAIL_SIZE_FOR_ORIGINAL = 1024
 
 ## Cloud 模式
 
-如果您使用的是一个基于未知用户的seafile，那么您应该启用 Cloud 模式。它禁用了seafile网站上的"组织"标签，以确保用户不能访问用户列表。Cloud 模式提供了一些不错的功能，比如与未注册用户共享内容，并向他们发送邀请。因此，您还需要启用用户注册。通过全局通讯录(从4.2.3版本后)，您可以搜索每个用户账户。所以您可能想要禁用它。
+如果您打算对外提供公共的云盘服务，您应该启用 Cloud 模式。它禁用了seafile网站上的"组织"标签，以确保用户不能访问用户列表。Cloud 模式提供了一些不错的功能，比如与未注册用户共享内容，并向他们发送邀请。因此，您还需要启用用户注册。通过全局通讯录(从4.2.3版本后)您可以搜索到每个用户账户，所以您可能想要禁用它。
 
 ```python
 # 启用cloude模式并隐藏“组织”选项卡。
 CLOUD_MODE = True
 
-# 禁用全局地址簿
+# 禁用全局通讯录
 ENABLE_GLOBAL_ADDRESSBOOK = False
 ```
 
 ## 外部认证
 
 ```python
-# 开启 ADFS 认证登录
+# 使用 ADFS 认证登录
 # Default is False
 # Since 6.0.9
 ENABLE_ADFS_LOGIN = True
 
-# 开启 Kerberos 认证登录
+# 使用 Kerberos 认证登录
 # Default is False
 ENABLE_KRB5_LOGIN = True
 
-# 开启 Shibboleth 认证登录
+# 使用 Shibboleth 认证登录
 # Default is False
 ENABLE_SHIBBOLETH_LOGIN = True
 ```
@@ -181,7 +181,7 @@ ENABLE_SHIBBOLETH_LOGIN = True
 ## 其他选项
 
 ```python
-# 开启Web页面上的 “系统管理 -> 设置” 
+# 开启Web页面上的 “系统管理 -> 设置” ，允许管理员在web页面上进行某些设置
 # Default is True
 # Since 5.1.3
 ENABLE_SETTINGS_VIA_WEB = False
@@ -204,15 +204,15 @@ SITE_NAME = 'Seafile'
 # Browser tab's title
 SITE_TITLE = 'Private Seafile'
 
-# If you don't want to run seahub website on your site's root path, set this option to your preferred path.
-# e.g. setting it to '/seahub/' would run seahub on http://example.com/seahub/.
+# 如果您不打算让seahub站点运行在网站的根路径上，可以设置站点路径
+# e.g. 设置为 '/seahub/'，网站将运行在 http://example.com/seahub/.
 SITE_ROOT = '/'
 
 # 用户上传文件/文件夹时的最大文件数
 # Since version 6.0.4
 MAX_NUMBER_OF_FILES_FOR_FILEUPLOAD = 500
 
-# 控制发送电子邮件的语言。默认为用户当前的语言。
+# 控制发送电子邮件的语言。默认为Seafile系统用户当前的语言。
 # Since version 6.1.1
 SHARE_LINK_EMAIL_LANGUAGE = ''
 
@@ -228,19 +228,19 @@ UNREAD_NOTIFICATIONS_REQUEST_INTERVAL = 3 * 60 # seconds
 # 是否在用户头像的弹出对话框中显示所使用的流量。 Default is True
 SHOW_TRAFFIC = True
 
-# 允许管理员在未加密的资料库中查看用户的文件
-# through Libraries page in System Admin. Default is False.
+# 允许管理员可以查看未加密资料库中的用户文件。
+# 通过访问“系统管理”界面的“资料库”页面。 Default is False.
 ENABLE_SYS_ADMIN_VIEW_REPO = True
 
-# 对于非登录用户，在下载或上传共享链接页面之前提供电子邮件。
+# 对于非登录用户，要求在访问下载或上传共享链接页面之前提供电子邮件。
 # Since version 5.1.4
 ENABLE_SHARE_LINK_AUDIT = True
 
-# 上传文件到共享连接后执行病毒扫描。 Defaults to `False`.
+# 上传文件到共享链接后立即执行病毒扫描。 Defaults to `False`.
 # Since version 6.0
 ENABLE_UPLOAD_LINK_VIRUS_CHECK = True
 
-# Enable system admin add T&C, all users need to accept terms before using. Defaults to `False`.
+# 允许管理员设置条款, 所有用户在使用前都需要接受这个条款。 Defaults to `False`.
 # Since version 6.0
 ENABLE_TERMS_AND_CONDITIONS = True
 
@@ -248,7 +248,7 @@ ENABLE_TERMS_AND_CONDITIONS = True
 # Since version 6.0
 ENABLE_TWO_FACTOR_AUTH = True
 
-# 当用户创建库时，允许用户选择一个模板。
+# 当用户创建资料库时，允许用户选择一个模板。
 # 当用户选择一个模板时，Seafile将根据模板自动创建文件夹。
 # Since version 6.0
 LIBRARY_TEMPLATES = {
