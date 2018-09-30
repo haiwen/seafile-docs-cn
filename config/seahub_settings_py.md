@@ -104,6 +104,10 @@ ENABLE_REPO_HISTORY_SETTING = True
 # 是否允许普通用户创建组织资料库
 # Since version 5.0.5
 ENABLE_USER_CREATE_ORG_REPO = True
+
+# 是否允许用户清空回收站 (default True)
+# Since version 6.3.6
+ENABLE_USER_CLEAN_TRASH = True
 ```
 
 
