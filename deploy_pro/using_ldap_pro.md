@@ -182,7 +182,9 @@ ACTIVATE_USER_WHEN_IMPORT = true
 - **USER_NAME_REVERSE**: 中文的人名里面姓氏和名字与西方的习惯相反，所以对中文名字，需要把这个选项设置为 true。
 - **DEPT_ATTR**: 用户的部门属性。默认使用 "department" 属性。
 - **UID_ATTR**: 用户的 Windows 登录名属性。一般使用 "sAMAccountName" 属性。
-- **ACTIVATE_USER_WHEN_IMPORT**: 导入用户之后是否立即激活，默认是 true，即立即激活该用户。
+- **ACTIVATE_USER_WHEN_IMPORT**: 导入用户之后是否立即激活，默认是 true，即立即激活该用户。设置为 false 可避免因激活所有用户而耗尽 license，但用户开始使用前需要联系管理员激活自己的账号。 
+
+如果您设置了`ACTIVATE_USER_WHEN_IMPORT = false`，为了减轻管理员的工作量，可以配置为用户第一次登陆时自动激活自己的账号，为此您需要在配置文件`seahub_settings.py` 中加入 `ACTIVATE_AFTER_FIRST_LOGIN = True` 配置项。 
 
 如果你选择了 "userPrincipalName" 作为用户的唯一 ID，Seafile 不能使用这个 ID 作为 email 地址来发送通知邮件给用户。如果你的 AD 中也有用户的 email 地址属性，你可以把这个属性同步到 Seafile 的内部数据库中。配置的选项是：
 
@@ -195,17 +197,6 @@ ACTIVATE_USER_WHEN_IMPORT = true
 ```
 cd seafile-server-lastest
 ./pro/pro.py ldapsync
-```
-
-### 让 AD 同步不要自动导入新用户到数据库中
-
-在默认情况下，AD 同步会把 AD 中检测到的新用户自动同步到 Seafile 的数据库中。这些新创建的用户会被自动设置为“已激活”。这些用户会被算入 license 用户数量中。
-
-我们考虑以下场景：你在 AD 中有很多用户。但是你不想一次购买足够多的 license 把所有用户一次全部加入 Seafile。此时自动导入新用户的功能就会很容易把你的 license 消耗完毕，导致系统不可用。解决方案是：新用户只有在第一次登录的时候创建，而 AD 同步不会自动创建新用户。我们提供了一个选项来满足这种需求：
-
-```
-[LDAP_SYNC]
-IMPORT_NEW_USER = false
 ```
 
 ## 【可选】导入 AD 中的群组到 Seafile
