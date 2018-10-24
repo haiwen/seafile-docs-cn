@@ -33,6 +33,9 @@ commit, fs, 和 blocks 能够被存储在不同的存储中。这为定义存储
 [storage]
 enable_storage_classes = true
 storage_classes_file = /opt/seafile_storage_classes.json
+
+[memcached]
+memcached_options = --SERVER=<the IP of Memcached Server> --POOL-MIN=10 --POOL-MAX=100
 ```
 
 - `enable_storage_classes`：设置为 True，开启多存储后端功能；接下来你必须在下一个配置项指定的 JSON 文件中定义出这些存储后端。
