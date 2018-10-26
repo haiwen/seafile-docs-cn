@@ -33,6 +33,22 @@ docker run -d --name seafile \
 
 这条命令会将宿主机上的`/opt/seafile-data`目录挂载到 Seafile 容器中,你可以在这里找到日志或其他的数据文件.
 
+### 安装授权文件(seafile-license.txt)
+
+如果您已经向 Seafile 软件商购买了专业版的授权文件`seafile-license.txt`，您只需要将该授权文件拷贝至`/opt/seafile-data/seafile/`目录下，然后重启docker容器，即可完成授权文件的安装。
+在您的宿主机上执行执行以下操作：
+
+```sh
+mkdir -p /opt/seafile-data/seafile/
+cp /path/to/seafile-license.txt /opt/seafile-data/seafile/
+```
+
+然后重启这个容器：
+
+```sh
+docker restart seafile
+```
+
 ### 更多配置选项
 
 #### 自定义管理员用户名和密码
