@@ -101,6 +101,10 @@ DISABLE_SYNC_WITH_ANY_FOLDER = True
 # 允许用户设置资料库的历史保留天数
 ENABLE_REPO_HISTORY_SETTING = True
 
+# 开启该选项，将允许用户给资料库镜像加标签，默认关闭
+# Since version 6.2.0
+ENABLE_REPO_SNAPSHOT_LABEL = True
+
 # 是否允许普通用户创建组织资料库
 # Since version 5.0.5
 ENABLE_USER_CREATE_ORG_REPO = True
@@ -108,6 +112,7 @@ ENABLE_USER_CREATE_ORG_REPO = True
 # 是否允许用户清空回收站 (default True)
 # Since version 6.3.6
 ENABLE_USER_CLEAN_TRASH = True
+
 ```
 
 
@@ -118,9 +123,6 @@ ENABLE_USER_CLEAN_TRASH = True
 USE_PDFJS = True
 
 # 在线预览的文件大小上限，默认为 30M.
-# 注意, 在专业版中，seafevents.conf 中有另一个选项
-# `max-size` 也控制 doc/ppt/excel/pdf 文件在线查看的最大文件大小。
-# 您需要同时把这两个选项调大，如果您要允许 30M 以上 doc/ppt/excel/pdf 的查看。
 FILE_PREVIEW_MAX_SIZE = 30 * 1024 * 1024
 
 # 可预览文件的文件类型扩展名
@@ -135,6 +137,7 @@ groovy, rst, patch, go"""
 ENABLE_THUMBNAIL = True
 
 # Seafile只针对小于以下尺寸的图片生成缩略图
+# 企业版 6.3.8 之后，也支持在线预览 psd 文件，同样该选项可以限制 psd 文件在线预览的大小
 THUMBNAIL_IMAGE_SIZE_LIMIT = 30 # MB
 
 # 文件缩略图的存储位置
@@ -284,6 +287,78 @@ REST_FRAMEWORK = {
 # 请确保 `REMOTE_ADDR` 头部在 Nginx 配置了，具体参考 https://manual.seafile.com/deploy/deploy_with_nginx.html 
 REST_FRAMEWORK_THROTTING_WHITELIST = []
 ```
+
+## Seahub 定制功能
+
+从 6.2 开始，您可以定义一个自定义函数来修改用户搜索功能的结果。
+
+例如，如果您想限制用户只能搜索到处于同一机构的用户，您可以在 `{seafile install path}/conf/seahub_custom_functions/__init__.py` 中定义 `custom_search_user` 函数：
+
+代码示例：
+
+```python
+import os
+import sys
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+seahub_dir = os.path.join(current_path, \
+        '../../seafile-server-latest/seahub/seahub')
+sys.path.append(seahub_dir)
+
+from seahub.profile.models import Profile
+def custom_search_user(request, emails):
+
+    institution_name = ''
+
+    username = request.user.username
+    profile = Profile.objects.get_profile_by_user(username)
+    if profile:
+        institution_name = profile.institution
+
+    inst_users = [p.user for p in
+            Profile.objects.filter(institution=institution_name)]
+
+    filtered_emails = []
+    for email in emails:
+        if email in inst_users:
+            filtered_emails.append(email)
+
+    return filtered_emails
+
+```
+
+> **注意**，您不应该更改 `custom_search_user` 和 `seahub_custom_functions/__init__.py` 的名字。
+
+企业版 6.2.5 开始，如果您在系统管理的设置页面上开启了`ENABLE_SHARE_TO_ALL`(允许用户将资料库共享给系统中的任何群组)功能，您还可以定义一个自定义函数来返回用户可以共享资料库的组。
+
+例如，您希望用户可以将资料库共享给其所在的群组和`test@test.com`所在的群组，您可以在 `{seafile install path}/conf/seahub_custom_functions/__init__.py` 中定义 `custom_get_groups` 函数：
+
+```python
+import os
+import sys
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+seaserv_dir = os.path.join(current_path, \
+        '../../seafile-server-latest/seafile/lib64/python2.7/site-packages')
+sys.path.append(seaserv_dir)
+
+def custom_get_groups(request):
+
+    from seaserv import ccnet_api
+
+    groups = []
+    username = request.user.username
+
+    # for current user
+    groups += ccnet_api.get_groups(username)
+
+    # for 'test@test.com' user
+    groups += ccnet_api.get_groups('test@test.com')
+
+    return groups
+```
+
+> **注意**，您不应该更改 `custom_get_groups` 和 `seahub_custom_functions/__init__.py` 的名字。
 
 ## 注意
 

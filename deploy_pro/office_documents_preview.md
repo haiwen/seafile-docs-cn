@@ -34,11 +34,12 @@ sudo yum install wqy-microhei-fonts wqy-zenhei-fonts wqy-unibit-fonts -y
 ### 开启配置项
 
 1. 打开 `conf/seafevents.conf`, 添加:
+
 ```conf
 [OFFICE CONVERTER]
 enabled = true
 ```
-2. 保存后 `seafevents.conf` 重启 Seafile 服务 `./seafile.sh restart`
+2. 保存 `seafevents.conf` 后，重启 Seafile 服务 `./seafile.sh restart`
 
 ### 其他配置选项
 
@@ -46,18 +47,11 @@ enabled = true
 ```conf
 [OFFICE CONVERTER]
 
-## How many libreoffice worker processes to run concurrenlty
+## 并发运行 libreoffice 的进程数
 workers = 1
 
-## where to store the converted office/pdf files. Deafult is /tmp/.
+## 转换后的 office/pdf 文件的缓存路径。 默认是 /tmp/.
 outputdir = /tmp/
-
-## how many pages are allowed to be previewed online. Default is 50 pages
-max-pages = 50
-
-## the max size of documents to allow to be previewed online, in MB. Default is 2 MB
-## Preview a large file (for example >30M) online will freeze the browser.
-max-size = 2
 
 ```
 
