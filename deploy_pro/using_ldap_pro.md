@@ -49,7 +49,7 @@ LOGIN_ATTR = userPrincipalName
 各个配置选项的含义如下：
 
 * HOST: LDAP 服务器的地址 URL。如果您的 LDAP 服务器监听在非标准端口上，您也可以在 URL 里面包含端口号，如 ldap://ldap.example.com:389。
-* BASE: 当对directory server运行查询时的专有名称(DN)。如果您想使用根DN作为搜索基础(e.g. dc=example,dc=com)，您需要添加 `FOLLOW_REFERRALS = false` 到配置中。这个选项的含义将在下面的部分中解释。
+* BASE: 在 LDAP 服务器的组织架构中，用于查询用户的根节点的唯一名称（Distingushed Name，简称 DN）。这个节点下面的所有用户都可以访问 Seafile。如果您想使用 LDAP 服务器的根节点（比如 dc=example,dc=com）作为查找用户的根节点，您需要添加 `FOLLOW_REFERRALS = false` 到配置中。这个选项的含义将在下面的部分中解释。
 * USER_DN: 用于查询 LDAP 服务器中信息的用户的 DN。这个用户应该有足够的权限访问 BASE 以下的所有信息。通常建议使用 LDAP/AD 的管理员用户。
 * PASSWORD: USER_DN 对应的用户的密码。
 * LOGIN_ATTR: 用作 Seafile 中用户登录 ID 的 LDAP 属性，可以使用 `mail` 或者 `userPrincipalName`。
@@ -186,9 +186,9 @@ UID_ATTR = uid
 
 ### 在不激活用户的情况下导入用户
 
-默认情况下，使用上述配置导入的用户将被自动激活。对于一些拥有大量用户的组织，它们可能希望导入用户信息(例如：用户全名)，而不自动激活导入的用户。因为激活所有导入的用户将需要AD/LDAP中所有用户的许可证，这可能是负担不起的。
+默认情况下，使用上述配置导入的用户将被自动激活。对于一些拥有大量用户的组织，它们可能希望导入用户信息(例如：用户全名)，而不自动激活导入的用户。因为激活所有导入的用户将需要AD/LDAP中所有用户的许可证。
 
-Seafile为此类用例提供了一组选项。 首先，您必须在`ccnet.conf`的"[LDAP_SYNC]"部分添加以下选项:
+Seafile为这种情况提供了一组选项。 首先，您必须在`ccnet.conf`的"[LDAP_SYNC]"部分添加以下选项:
 
 ```
 ACTIVATE_USER_WHEN_IMPORT = false
@@ -285,19 +285,20 @@ mv libnssutil3.so disabled_libs_use_local_ones_instead/
 此处有一个 `ccnet.conf` 的配置示例如下：
 
 ```
- [LDAP]
- HOST = ldap://192.168.1.123/
- BASE = ou=users,dc=example,dc=com
- USER_DN = cn=admin,dc=example,dc=com
- PASSWORD = secret
- LOGIN_ATTR = mail
- ```
- Then I can configure another ldap server in `ccnet.conf` as follow:
- ```
- [LDAP_MULTI_1]
- HOST = ldap://192.168.1.124/
- BASE = ou=users,dc=example,dc=com
- USER_DN = cn=admin,dc=example,dc=com
+[LDAP]
+HOST = ldap://192.168.1.123/
+BASE = ou=users,dc=example,dc=com
+USER_DN = cn=admin,dc=example,dc=com
+PASSWORD = secret
+LOGIN_ATTR = mail
+```
+接着可以在`ccnet.conf`添加另一个ldap服务器的配置如下：
+
+```
+[LDAP_MULTI_1]
+HOST = ldap://192.168.1.124/
+BASE = ou=users,dc=example,dc=com
+USER_DN = cn=admin,dc=example,dc=com
 PASSWORD = secret
 ```
 

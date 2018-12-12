@@ -49,7 +49,7 @@ sudo yum install python-ldap
 * **USER_ATTR_IN_MEMBERUID**：“memberuid”选项中的用户属性集,用于“posixgroup”。默认值为“uid”。
 * **DEL_GROUP_IF_NOT_FOUND**: 如果设置为 “true”，即便在 AD/LDAP Server 上没有找到，也不会在Seafile中删除该群组；需要 Seafile-pro-6.3.0 及其以上版本。
 
-组的搜索基础是 `ccnet.conf` 的 “[LDAP]” 部分中设置的 “BASE_DN”。
+查找群组的根节点是 `ccnet.conf` 的 “[LDAP]” 部分中设置的 “BASE_DN”。
 
 一些LDAP服务器，例如 Active Directory，允许一个组作为另一个组的成员。这称为“组嵌套”。如果我们在A组中找到一个嵌套的B组，我们应该递归地将B组中的所有成员添加到A组中，并且B组仍然应该导入为一个独立的群组。也就是说，B组的所有成员也是A组的成员。
 
@@ -106,7 +106,7 @@ Seafile 支持从AD/LDAP到“部门”的OU(Organizational Units)同步。同�
 * **CREATE_DEPARTMENT_LIBRARY**: 如果设置为 "true"，当第一次同步OU时，将会在“部门”中自动创建一个带有OU名称的部门资料库。
 * **DEFAULT_DEPARTMENT_QUOTA**: 第一次同步OU时为每个“部门”设置的默认空间配额(以MB为单位)。如果未设置此选项，配额将设置为无限制。
 
-**注意**：在6.3.8 pro之前，使用旧的配置语法将OU作为“部门”同步。这种语法从6.3.8 pro开始将不再支持。旧语法不支持同时从AD/LDAP同步组和OU。然而，这在许多情况下是必要的。使用新的语法，您可以同步这两种情况。
+**注意**：在6.3.8 pro之前，使用旧的配置语法将OU作为“部门”同步。这种语法从6.3.8 pro开始将不再支持。旧语法不支持同时从AD/LDAP同步组和OU。然而，这在许多情况下是必要的。使用新的语法，您可以同时同步群组和部门。
 
 ## 周期性同步和手动同步
 
