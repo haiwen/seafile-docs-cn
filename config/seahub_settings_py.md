@@ -232,6 +232,12 @@ SHARE_LINK_EMAIL_LANGUAGE = ''
 # Since PRO 6.1.4 or CE 6.1.2
 UNREAD_NOTIFICATIONS_REQUEST_INTERVAL = 3 * 60 # seconds
 
+# 是否允许用户通过个人信息页面删除账号、更改登录密码或更新用户基本信息
+# 从专业版 6.3.10 开始
+ENABLE_DELETE_ACCOUNT = False
+ENABLE_UPDATE_USER_INFO = False
+ENABLE_CHANGE_PASSWORD = False
+
 ```
 
 ## 专业版选项
