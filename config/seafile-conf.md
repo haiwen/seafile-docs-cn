@@ -75,6 +75,17 @@ web_token_expire_time=3600
 windows_encoding = iso-8859-1
 ```
 
+在某些特殊的集群环境下，`seafile-data/httptemp/cluster-shared/` 目录下的临时文件权限可能不满足您的要求，Seafile-pro-6.3.10 开始，您可以按需配置该目录下生成的临时文件的权限：
+
+```
+[fileserver]
+# 集群共享下的临时文件权限(用于可断点续传)，临时文件的默认权限是 0600 。
+# 在设置您自己的权限时，请注意系统中的 umask，这将影响最终的权限
+# 例如，umask 为 0022, 并且您设置该选项为 0666，最终生成的文件权限将会是 0644 。
+resumable_upload_temp_file_mode = 0600
+```
+
+
 ## 更改MySQL连接池大小
 
 当您将seafile服务器配置为使用MySQL时，默认连接池大小为100，这对于大多数用例应该是足够的。您可以通过在seafile.conf中添加以下选项来更改此值：
