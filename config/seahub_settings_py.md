@@ -89,7 +89,7 @@ SHARE_LINK_EXPIRE_DAYS_MIN = 3 # 默认是 0, 没有限制.
 # 共享外链的最大过期时长 (since version 6.3.6)
 SHARE_LINK_EXPIRE_DAYS_MAX = 8 # 默认是 0, 没有限制.
 
-# 共享外链的默认过期时常/天 (since version 6.3.8)
+# 共享外链的默认过期时长/天 (since version 6.3.8)
 # 只有在配置了 SHARE_LINK_EXPIRE_DAYS_MIN 和 SHARE_LINK_EXPIRE_DAYS_MAX 时才有效
 # 应该大于或等于最小值并且小于或等于最大值
 SHARE_LINK_EXPIRE_DAYS_DEFAULT = 5
