@@ -30,20 +30,20 @@ PORT=13419
 
 ## 开启 Slow Log
 
-Seafile-pro-6.3.10 开始，Seafile增加了一些配置，用来开启 ccnet-server 的 RPC 慢请求查询日志，便于管理员更好的做性能分析。
+Seafile-pro-6.3.10 开始，Seafile增加了 ccnet-server 的 RPC 慢请求查询日志，便于管理员更好的做性能分析。
 
-在 ccnet.conf 中添加如下配置：
+该功能是默认开启的，如果您想要自主配置相关选项，可以在 ccnet.conf 中添加如下配置：
 
 ```
 [Slow_log]
-# 设置为 true，开启该功能
+# 默认为 true
 ENABLE_SLOW_LOG = true
 # 所有慢请求日志阈值的单位为毫秒。
 # 默认为5000毫秒，这意味着只有处理超过5000毫秒的RPC查询才会被记录。
 RPC_SLOW_THRESHOLD = 5000
 ```
 
-重启服务后，在 `logs/slow_logs` 目录下，会创建 `ccnet_slow_rpc.log`；并且该日志文件支持使用 log rotate 做日志切割，只需要向 ccnet-server 进程发送 `SIGUSR2` 信号，进程就会关闭并重新打开日志文件。
+在 `logs/slow_logs` 目录下，可以找到 `ccnet_slow_rpc.log`；并且该日志文件支持使用 [log-rotate](../deploy/using_logrotate.md) 做日志切割，只需要向 ccnet-server 进程发送 `SIGUSR2` 信号，进程就会关闭并重新打开日志文件。
 
 ## 注意
 
