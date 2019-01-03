@@ -89,6 +89,11 @@ SHARE_LINK_EXPIRE_DAYS_MIN = 3 # 默认是 0, 没有限制.
 # 共享外链的最大过期时长 (since version 6.3.6)
 SHARE_LINK_EXPIRE_DAYS_MAX = 8 # 默认是 0, 没有限制.
 
+# 共享外链的默认过期时长/天 (since version 6.3.8)
+# 只有在配置了 SHARE_LINK_EXPIRE_DAYS_MIN 和 SHARE_LINK_EXPIRE_DAYS_MAX 时才有效
+# 应该大于或等于最小值并且小于或等于最大值
+SHARE_LINK_EXPIRE_DAYS_DEFAULT = 5
+
 # 查看文件或目录的共享外链时是否强制用户登录 (since version 6.3.6)
 SHARE_LINK_LOGIN_REQUIRED = True
 
@@ -226,6 +231,12 @@ SHARE_LINK_EMAIL_LANGUAGE = ''
 # Interval for browser requests unread notifications
 # Since PRO 6.1.4 or CE 6.1.2
 UNREAD_NOTIFICATIONS_REQUEST_INTERVAL = 3 * 60 # seconds
+
+# 是否允许用户通过个人信息页面删除账号、更改登录密码或更新用户基本信息
+# 从专业版 6.3.10 开始
+ENABLE_DELETE_ACCOUNT = False
+ENABLE_UPDATE_USER_INFO = False
+ENABLE_CHANGE_PASSWORD = False
 
 ```
 

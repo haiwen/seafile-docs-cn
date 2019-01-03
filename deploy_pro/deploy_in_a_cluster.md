@@ -514,11 +514,6 @@ es_port = 9200
 [OFFICE CONVERTER]
 enabled = true
 workers = 1
-## how many pages are allowed to be previewed online. Default is 50 pages
-max-pages = 50
-## the max size of documents allowed to be previewed online, in MB. Default is 10 MB
-## Previewing a large file (for example >30M) online is likely going to freeze the browser.
-max-size = 10
 ```
 
 `external_es_server = true` 参数用来禁止在本地服务器上启动文件检索用的 ElasticSearch 进程，因为 ElasticSearch 进程应该在专用后台服务器上启动。
@@ -559,11 +554,6 @@ highlight = fvh     # 该配置项依赖于 Seafile 6.3.0 pro 及其以上版本
 [OFFICE CONVERTER]
 enabled = true
 workers = 1
-## how many pages are allowed to be previewed online. Default is 50 pages
-max-pages = 50
-## the max size of documents allowed to be previewed online, in MB. Default is 10 MB
-## Previewing a large file (for example >30M) online is likely going to freeze the browser.
-max-size = 10
 ```
 
 与前端节点不同，后端节点配置中**不能**出现 `external_es_server = true` ，因为该节点本身就是后端节点，已经没有其他服务器做为它的后端节点了。如果你的搜索功能不可用，请检查此处是否做了多余的配置。
