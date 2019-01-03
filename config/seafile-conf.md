@@ -88,20 +88,20 @@ max_connections = 200
 
 ## 开启 Slow Log
 
-Seafile-pro-6.3.10 开始，Seafile增加了一些配置，用来开启 seaf-server 的 RPC 慢请求查询日志，便于管理员更好的做性能分析。
+Seafile-pro-6.3.10 开始，Seafile增加了 seaf-server 的 RPC 慢请求查询日志，便于管理员更好的做性能分析。
 
-在 seafile.conf 中添加如下配置：
+该功能是默认开启的，如果您想要自主配置相关选项，可以在 seafile.conf 中添加如下配置：
 
 ```
 [slow_log]
-# 设置为 true，开启该功能
+# 默认为 true
 enable_slow_log = true
 # 所有慢请求日志阈值的单位为毫秒。
 # 默认为5000毫秒，这意味着只有处理超过5000毫秒的RPC查询才会被记录。
 rpc_slow_threshold = 5000
 ```
 
-重启服务后，在 `logs/slow_logs` 目录下，会创建 `seafile_slow_rpc.log`；并且该日志文件支持使用 log rotate 做日志切割，只需要向 seaf-server 进程发送 `SIGUSR2` 信号，进程就会关闭并重新打开日志文件。
+在 `logs/slow_logs` 目录下，可以找到 `seafile_slow_rpc.log`；并且该日志文件支持使用 [log-rotate](../deploy/using_logrotate.md) 做日志切割，只需要向 seaf-server 进程发送 `SIGUSR2` 信号，进程就会关闭并重新打开日志文件。
 
 ## 注意
 
