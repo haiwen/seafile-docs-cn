@@ -48,6 +48,7 @@ sudo yum install python-ldap
 * **GROUP_MEMBER_ATTR**：在加载组的成员时使用的属性字段。对于大多数directory服务器，属性是“member”，这也是默认值。对于"posixGroup"，它应该被设置为"memberUid"。
 * **USER_ATTR_IN_MEMBERUID**：“memberuid”选项中的用户属性集,用于“posixgroup”。默认值为“uid”。
 * **DEL_GROUP_IF_NOT_FOUND**: 如果设置为 “true”，即便在 AD/LDAP Server 上没有找到，也不会在Seafile中删除该群组；需要 Seafile-pro-6.3.0 及其以上版本。
+* **SYNC_GROUP_AS_DEPARTMENT**: 如果设置该选项为 "true"，则将AD中的各群组同步为Seafile中的顶级“部门”，了解更多关于“部门”的信息可以参考[这里](https://help.seafile.com/zh/web_client/use_organization.html)。需要 Seafile-pro-6.3.8 及其以上版本。
 
 查找群组的根节点是 `ccnet.conf` 的 “[LDAP]” 部分中设置的 “BASE_DN”。
 
