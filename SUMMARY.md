@@ -68,7 +68,6 @@
    * 高级用户管理
        * [用户角色与权限](deploy_pro/roles_permissions.md)
        * [管理员角色与权限](deploy_pro/admin_roles_permissions.md)
-       * [多机构支持](deploy_pro/multi_institutions.md)
    * 高级认证
        * [两步认证](deploy_pro/two_factor_authentication.md)
        * [配置 CAS 认证登陆](deploy_pro/cas.md)
