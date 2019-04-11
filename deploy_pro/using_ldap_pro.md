@@ -130,7 +130,6 @@ ENABLE_EXTRA_USER_INFO_SYNC = true
 FIRST_NAME_ATTR = givenName
 LAST_NAME_ATTR = sn
 USER_NAME_REVERSE = true
-DEPT_ATTR = department
 UID_ATTR = sAMAccountName
 ```
 
@@ -144,7 +143,6 @@ UID_ATTR = sAMAccountName
 - **FIRST_NAME_ATTR**: 用户名字对应的属性，默认使用 "givenName" 属性。
 - **LAST_NAME_ATTR**: 用户的姓氏属性。默认使用 "sn" 属性。
 - **USER_NAME_REVERSE**: 中文的人名里面姓氏和名字与西方的习惯相反，所以对中文名字，需要把这个选项设置为 true。
-- **DEPT_ATTR**: 用户的部门属性。默认使用 "department" 属性。
 - **UID_ATTR**: 用户的 Windows 登录名属性。一般使用 "sAMAccountName" 属性。 
 
 如果你选择了 "userPrincipalName" 作为用户的唯一 ID，Seafile 不能使用这个 ID 作为 email 地址来发送通知邮件给用户。如果你的 AD 中也有用户的 email 地址属性，你可以把这个属性同步到 Seafile 的内部数据库中。配置的选项是：
@@ -167,7 +165,6 @@ USER_OBJECT_CLASS = userOfNames
 ENABLE_EXTRA_USER_INFO_SYNC = true
 FIRST_NAME_ATTR = givenName
 LAST_NAME_ATTR = sn
-DEPT_ATTR = department
 UID_ATTR = uid
 ```
 
@@ -181,7 +178,6 @@ UID_ATTR = uid
 - **FIRST_NAME_ATTR**: 用户名字对应的属性，默认使用 "givenName" 属性。
 - **LAST_NAME_ATTR**: 用户的姓氏属性。默认使用 "sn" 属性。
 - **USER_NAME_REVERSE**: 中文的人名里面姓氏和名字与西方的习惯相反，所以对中文名字，需要把这个选项设置为 true。
-- **DEPT_ATTR**: 用户的部门属性。默认使用 "department" 属性。
 - **UID_ATTR**: 用户的 Windows/Unix 登录名属性。 如果同步，用户还可以使用Windows/Unix登录名登录。 对于 OpenLDAP, 可以使用 “uid” 或类似的属性。
 
 ### 在不激活用户的情况下导入用户
