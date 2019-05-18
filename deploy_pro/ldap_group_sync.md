@@ -43,12 +43,14 @@ sudo yum install python-ldap
 
 * **ENABLE_GROUP_SYNC**：如果要启用 LDAP 组同步请设置为 “true”。
 * **GROUP_OBJECT_CLASS**: 这是用于搜索组对象的类的名称。在 Active Directory 中，通常是“group”；在 OpenLDAP 或其他服务器中，您可以使用“groupOfNames”、“groupOfUniqueNames”或“posixGroup”，这取决于您的LDAP服务器。默认值是“group”。
-* **SYNC_INTERVAL**：同步周期，单位是分钟，默认设置为60分钟。
+* **SYNC_INTERVAL**：设置自动同步周期，单位是分钟，您可以设置为60，这代表每隔60分钟从 LDAP/AD 服务器同步一次数据。
 * **GROUP_FILTER**：在搜索组对象时使用的附加筛选器。如果设置了，最终用于搜索的筛选器是"(&(objectClass=GROUP_OBJECT_CLASS)(GROUP_FILTER))"，否则使用的筛选器将是"(objectClass=GROUP_OBJECT_CLASS)"。
 * **GROUP_MEMBER_ATTR**：在加载组的成员时使用的属性字段。对于大多数directory服务器，属性是“member”，这也是默认值。对于"posixGroup"，它应该被设置为"memberUid"。
 * **USER_ATTR_IN_MEMBERUID**：“memberuid”选项中的用户属性集,用于“posixgroup”。默认值为“uid”。
 * **DEL_GROUP_IF_NOT_FOUND**: 如果设置为 “true”，即便在 AD/LDAP Server 上没有找到，也不会在Seafile中删除该群组；需要 Seafile-pro-6.3.0 及其以上版本。
 * **SYNC_GROUP_AS_DEPARTMENT**: 如果设置该选项为 "true"，则将AD中的各群组同步为Seafile中的顶级“部门”，了解更多关于“部门”的信息可以参考[这里](https://help.seafile.com/zh/web_client/use_organization.html)。需要 Seafile-pro-6.3.8 及其以上版本。
+* **CREATE_DEPARTMENT_LIBRARY**: 如果选择将普通群组同步为一个顶级“部门”，您还可以设置该选项为 "true"，当第一次同步群组时，会在“部门”中自动创建一个带有群组名称的部门资料库。
+* **DEFAULT_DEPARTMENT_QUOTA**: 如果选择将普通群组同步为一个顶级“部门”，第一次同步群组时可以为每个“部门”设置默认的空间配额(以MB为单位)。如果未设置此选项，配额将设置为无限制。
 
 查找群组的根节点是 `ccnet.conf` 的 “[LDAP]” 部分中设置的 “BASE_DN”。
 
@@ -101,8 +103,8 @@ Seafile 中的“部门”是一个特殊的组。除了可以作为群组进行
 Seafile 支持从AD/LDAP到“部门”的OU(Organizational Units)同步。同步过程保持了OU的层次结构。
 
 从OU中导入“部门”的同步选项:
-
 * **SYNC_DEPARTMENT_FROM_OU**: 设置为 "true"，开启从OU中同步“部门”的功能。
+* **SYNC_INTERVAL**：设置自动同步周期，单位是分钟，您可以设置为60，这代表每隔60分钟从 LDAP/AD 服务器同步一次数据。
 * **DEL_DEPARTMENT_IF_NOT_FOUND**: 如果设置为 "true"，一旦在AD/LDAP服务器中没有找到相应的OU，同步进程将删除这个“部门”。
 * **CREATE_DEPARTMENT_LIBRARY**: 如果设置为 "true"，当第一次同步OU时，将会在“部门”中自动创建一个带有OU名称的部门资料库。
 * **DEFAULT_DEPARTMENT_QUOTA**: 第一次同步OU时为每个“部门”设置的默认空间配额(以MB为单位)。如果未设置此选项，配额将设置为无限制。
