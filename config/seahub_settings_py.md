@@ -80,6 +80,11 @@ ENABLE_WIKI = True
 # 加密资料库密码最小长度
 REPO_PASSWORD_MIN_LENGTH = 8
 
+# 重置加密资料库密码
+# 说明1：此功能需要为 Seafile 配置邮件服务。
+# 说明2：此功能开启后，只对用户输入过密码的加密资料库有效。
+ENABLE_RESET_ENCRYPTED_REPO_PASSWORD = True
+
 # 加密外链密码最小长度
 SHARE_LINK_PASSWORD_MIN_LENGTH = 8
 
