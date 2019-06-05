@@ -312,7 +312,7 @@ PASSWORD = secret
 
 这些选项用于控制同步行为，因此它们被所有LDAP服务器共享。
 
-注意：对于每个"[LDAP_SYNC_x]"部分，建议使用与之相对应的"[LDAP_SYNC_MULTI_x]"。否则，LDAP同步过程将使用"[LDAP_SYNC]"部分中的选项作为默认选项。
+注意：对于每个"[LDAP_MULTI_x]"部分，建议使用与之相对应的"[LDAP_SYNC_MULTI_x]"。否则，LDAP同步过程将使用"[LDAP_SYNC]"部分中的选项作为与改 LDAP 服务器同步的选项。
 
 ## 【可选】导入 AD 中的群组到 Seafile
 
