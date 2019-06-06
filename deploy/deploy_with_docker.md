@@ -148,10 +148,8 @@ GC 脚本被放在docker容器的 `/scripts` 目录下。执行 GC 的方法很�
 
 ### 问题排查方法
 
-如果你运行的过程中碰到问题，可以运行"docker logs"、"docker exec"等docker命令来寻找更多的错误信息.
+如果你运行的过程中碰到问题，可以运行"docker exec"等docker命令来寻找更多的错误信息.
 
 ```sh
-docker logs -f seafile
-# or
-docker exec -it seafile bash
+docker exec -it seafile /bin/bash
 ```
