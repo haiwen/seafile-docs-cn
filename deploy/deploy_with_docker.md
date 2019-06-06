@@ -1,4 +1,4 @@
-### 关于
+## 关于
 
 - [Docker](https://docker.com/) 是一个可以打包应用以及依赖包到一个可移植的容器中，以更轻量的方式运行Linux应用程序, 这比传统的虚拟机要更快.
 
@@ -9,6 +9,16 @@
 如果您并不熟悉 Docker 的命令，请参考[docker文档](https://docs.docker.com/engine/reference/commandline/cli/).
 
 **注意**：本文档仅包含了在 docker 下部署 Seafile 开源版的方法，如果您想要在 docker 下部署 Seafile 专业版，请参考[用 Docker 部署 Seafile-Pro 服务](../deploy_pro/deploy_with_docker.md)
+
+## 部署 Seafile 7.x.x
+
+从7.0开始，我们调整了seafile-docker 镜像的架构，使用多个容器来运行 Seafile 服务。旧版本的镜像中，除了运行 Seafile 服务本身之外，还负责运行 MariaDB-Server 和 Memcached。现在，我们从 Seafile 镜像中剥离出 MariaDB-Server 和 Memcached 服务，并在各自的容器中运行它们。
+
+如果您计划使用 docker 全新部署 Seafile 7.0，请参考[部署文档](https://docs.seafile.com/lib/ed374143-9a33-4f27-9d89-d467cc3c0c98/file/docker/%E7%94%A8Docker%E9%83%A8%E7%BD%B2Seafile.md)。
+
+如果您计划从 6.3 升级到 7.0，则可以参考[升级文档](https://docs.seafile.com/lib/ed374143-9a33-4f27-9d89-d467cc3c0c98/file/docker/6.3%20%E5%8D%87%E7%BA%A7%E5%88%B0%207.0.md)。
+
+## 部署 Seafile 6.x.x
 
 ### 快速开始
 
@@ -110,7 +120,9 @@ docker exec -it seafile /opt/seafile/seafile-server-latest/reset-admin.sh
 
 ### 升级 Seafile 服务
 
-升级到 Seafile 服务的最新版本:
+如果您计划从 6.3 升级到 7.0，请参考[升级文档](https://docs.seafile.com/lib/ed374143-9a33-4f27-9d89-d467cc3c0c98/file/docker/6.3%20%E5%8D%87%E7%BA%A7%E5%88%B0%207.0.md)。
+
+如果您计划升级到 Seafile 6.3 系列的最新版本:
 
 ```sh
 docker pull seafileltd/seafile:latest
