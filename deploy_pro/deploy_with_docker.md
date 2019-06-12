@@ -1,4 +1,4 @@
-### 关于
+## 关于
 
 - [Docker](https://docker.com/) 是一个可以打包应用以及依赖包到一个可移植的容器中，以更轻量的方式运行 Linux 应用程序, 这比传统的虚拟机要更快.
 
@@ -8,16 +8,17 @@
 
 如果您并不熟悉 Docker 的命令，请参考[docker文档](https://docs.docker.com/engine/reference/commandline/cli/).
 
+## 部署 Seafile 7.x.x
+
+从7.0开始，我们调整了seafile-docker 镜像的架构，使用多个容器来运行 Seafile 服务。旧版本的镜像中，除了运行 Seafile 服务本身之外，还负责运行 MariaDB-Server、Memcached 以及 Elasticsearch。现在，我们从 Seafile 镜像中剥离出 MariaDB-Server、Memcached 和 Elasticsearch 服务，并在各自的容器中运行它们。
+
+如果您计划使用 docker 全新部署 Seafile 7.0，请参[考部署文档](https://docs.seafile.com/published/seafile-manual-cn/docker/pro-edition/%E7%94%A8Docker%E9%83%A8%E7%BD%B2Seafile.md)。
+
+如果您计划从 6.3 升级到 7.0，则可以参考[升级文档](https://docs.seafile.com/published/seafile-manual-cn/docker/pro-edition/6.3.x%20%E5%8D%87%E7%BA%A7%E4%B8%BA%207.0.x.md)。
+
+## 部署 Seafile 6.x.x
+
 ### 快速开始
-
-企业版镜像是放在我们国内的一个私有仓库中。您可以咨询我们的销售人员来获取私有仓库的信息。
-
-登陆 Seafile 的私有仓库:
-
-```sh
-docker login {host}
-```
-
 
 运行 Seafile 服务容器:
 
@@ -26,7 +27,7 @@ docker run -d --name seafile \
   -e SEAFILE_SERVER_HOSTNAME=seafile.example.com \
   -v /opt/seafile-data:/shared \
   -p 80:80 \
-  {host}/seafileltd/seafile-pro:latest
+  docker.seafile.top/seafileltd/seafile-pro:latest
 ```
 
 第一次运行会进行初始化，等待几分钟然后通过访问`http://seafile.example.com`查看 Seafile 的Web界面.
@@ -64,7 +65,7 @@ docker run -d --name seafile \
   -e SEAFILE_ADMIN_PASSWORD=a_very_secret_password \
   -v /opt/seafile-data:/shared \
   -p 80:80 \
-  {host}/seafileltd/seafile-pro:latest
+  docker.seafile.top/seafileltd/seafile-pro:latest
 ```
 
 如果您忘记了管理员密码，你可以添加一个新的管理员账号，然后通过这个新的管理员账号重置之前的管理员密码.
@@ -84,7 +85,7 @@ docker run -d --name seafile \
   -v /opt/seafile-data:/shared \
   -p 80:80 \
   -p 443:443 \
-  {host}/seafileltd/seafile-pro:latest
+  docker.seafile.top/seafileltd/seafile-pro:latest
 ```
 
 如果你想使用已经拥有的SSL证书:
@@ -133,10 +134,12 @@ docker exec -it seafile /opt/seafile/seafile-server-latest/reset-admin.sh
 
 ### 升级 Seafile 服务
 
-升级到 Seafile 服务的最新版本:
+如果您计划从 6.3 升级到 7.0，则可以参考[升级文档](https://docs.seafile.com/published/seafile-manual-cn/docker/pro-edition/6.3.x%20%E5%8D%87%E7%BA%A7%E4%B8%BA%207.0.x.md)。
+
+如果您计划升级到 Seafile 6.3 系列的最新版本:
 
 ```sh
-docker pull {host}/seafileltd/seafile-pro:latest
+docker pull docker.seafile.top/seafileltd/seafile-pro:latest
 docker rm -f seafile
 docker run -d --name seafile \
   -e SEAFILE_SERVER_LETSENCRYPT=true \
@@ -146,17 +149,15 @@ docker run -d --name seafile \
   -v /opt/seafile-data:/shared \
   -p 80:80 \
   -p 443:443 \
-  {host}/seafileltd/seafile-pro:latest
+  docker.seafile.top/seafileltd/seafile-pro:latest
 ```
 
 如果您是使用`launcher`脚本的最先一批用户，您应该参考[从旧的结构升级](https://github.com/haiwen/seafile-docker/blob/master/upgrade_from_old_format.md).
 
 ### 问题排查方法
 
-如果您在使用的过程中出现问题，您可以运行"docker logs"、"docker exec"等docker命令来寻找更多的错误信息.
+如果您在使用的过程中出现问题，您可以运行"docker exec"等docker命令来寻找更多的错误信息.
 
 ```sh
-docker logs -f seafile
-# or
-docker exec -it seafile bash
+docker exec -it seafile /bin/bash
 ```
