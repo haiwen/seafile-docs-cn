@@ -20,7 +20,7 @@ Seahub 是 Seafile 服务器的网站界面. FileServer 用来处理浏览器端
 这里我们通过 fastcgi 部署 Seahub, 通过反向代理（Reverse Proxy）部署 FileServer. 我们假设你已经将 Seahub 绑定了域名"www.myseafile.com".
 
 修改 Apache 配置文件:
-(`sites-enabled/000-default`) for ubuntu/debian
+(`sites-enabled/000-default.conf`) for ubuntu/debian
 (`vhost.conf`) for centos/fedora
 ```apache
 <VirtualHost *:80>
@@ -82,7 +82,9 @@ FILE_SERVER_ROOT = 'http://www.myseafile.com/seafhttp'
 <pre>
 sudo service Apache2 restart
 ./seafile.sh start
-./seahub.sh start # 如果你使用 fastcgi 请使用此命令`./seahub.sh start-fastcgi`
+./seahub.sh start 
+# 如果你使用 fastcgi 请使用此命令
+#./seahub.sh start-fastcgi
 </pre>
 
 
