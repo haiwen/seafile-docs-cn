@@ -46,6 +46,8 @@ Description=Seafile hub
 After=network.target seafile.service
 
 [Service]
+#add enviornment setting 
+Environment="LC_ALL=en_US.UTF-8"    
 # change start to start-fastcgi if you want to run fastcgi
 ExecStart=${seafile_dir}/seafile-server-latest/seahub.sh start
 ExecStop=${seafile_dir}/seafile-server-latest/seahub.sh stop
