@@ -10,7 +10,7 @@ Seahub 是 Seafile 服务器的网站界面. SeafServer 用来处理浏览器端
 
 Ubuntu 下你可以
 
-1. 创建文件 /etc/nginx/site-available/seafile.conf，并拷贝以下内容
+1. 创建文件 /etc/nginx/sites-available/seafile.conf，并拷贝以下内容
 2. 删除 /etc/nginx/site-enabled/default: `rm /etc/nginx/site-enabled/default`
 3. 创建符号链接: `ln -s /etc/nginx/sites-available/seafile.conf /etc/nginx/sites-enabled/seafile.conf`
 
