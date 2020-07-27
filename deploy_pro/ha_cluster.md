@@ -49,8 +49,10 @@ GRANT PROCESS ON *.* TO 'clustercheckuser'@'localhost' IDENTIFIED BY 'clusterche
 首先在Node1、Node2上安装Seafile运行所需的依赖库，在两个节点上执行以下命令：
 
 ```
-yum install python-setuptools python-imaging python-ldap MySQL-python python-memcached python-urllib3 -y
+yum install python-setuptools python-ldap MySQL-python python-memcached python-urllib3 -y
 yum install jre -y
+pip install Pillow==4.3.0
+pip install moviepy  # 视频文件缩略图需要用到
 ```
 
 仅在 Node1 上使用 ./setup-seafile-mysql.sh 方式安装 Seafile。假设您已将Seafile专业版6.1.6的安装包下载到 `/opt/` 目录下了。参考以下命令完成安装：
